@@ -9,6 +9,8 @@ public class PrendaTest {
     private Material material;
     private Color color;
 
+    // Hay que agregar mas Test y retocar los que estan
+
     @Rule
     public ExpectedException exception = ExpectedException.none();
 
@@ -41,5 +43,4 @@ public class PrendaTest {
         material = Material.ALGODON;
         prenda = new Prenda(tipoDePrenda, material, color);
     }
-    // Pero pero peeero, mira a la izq
 }

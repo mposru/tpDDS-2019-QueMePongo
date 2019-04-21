@@ -12,9 +12,9 @@ public class Prenda {
 
     public Prenda(TipoDePrenda tipoDePrenda, Material material, Color colorPrimario, Color colorSecundario, Trama trama) {
         tipoDePrenda.validarMaterial(material);
-        this.tipoDePrenda = requireNonNull(tipoDePrenda, "el tipo de prenda es obligatorio");
-        this.material = requireNonNull(material, "el material es obligatorio");
-        this.colorPrimario = requireNonNull(colorPrimario, "el color primario es obligatorio");
+        this.tipoDePrenda = tipoDePrenda;
+        this.material = material;
+        this.colorPrimario = colorPrimario;
         this.colorSecundario = colorSecundario;
         this.trama = trama;
     }
