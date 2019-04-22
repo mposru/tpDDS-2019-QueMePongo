@@ -1,15 +1,15 @@
-import java.util.ArrayList;
-import java.util.List;
-
 public class Atuendo {
 
-    private List<Prenda> prendas = new ArrayList();
+    private Prenda accesorio;
+    private Prenda prendaSuperior;
+    private Prenda prendaInferior;
+    private Prenda calzado;
 
-    public Atuendo(Prenda prendaSuperior, Prenda prendaInferior, Prenda calzado, Prenda accesorios) {
-        prendas.add(prendaSuperior);
-        prendas.add(prendaInferior);
-        prendas.add(calzado);
-        prendas.add(accesorios);
+    public Atuendo(Prenda accesorio, Prenda prendaSuperior, Prenda prendaInferior, Prenda calzado) {
+        this.accesorio = accesorio;
+        this.prendaSuperior = prendaSuperior;
+        this.prendaInferior = prendaInferior;
+        this.calzado = calzado;
     }
 
 }
