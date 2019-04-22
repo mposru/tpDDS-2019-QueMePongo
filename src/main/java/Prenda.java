@@ -1,5 +1,3 @@
-import static java.util.Objects.requireNonNull;
-
 public class Prenda {
 
     private TipoDePrenda tipoDePrenda;
@@ -43,3 +41,8 @@ public class Prenda {
 
     public Categoria obtenerCategoria() { return tipoDePrenda.obtenerCategoria(); }
 }
+
+/**
+ falta creacion de usuarios
+ faltan tests
+ */
