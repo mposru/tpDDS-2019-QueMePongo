@@ -11,7 +11,7 @@ public class Prenda {
 
     //falta esSuperior, etc para el filter o map o eso
 
-    public Prenda(TipoDePrenda tipoDePrenda, Material material, Color colorPrimario, Color colorSecundario, Trama trama, Guardarropa guardarropa) {
+    public Prenda(TipoDePrenda tipoDePrenda, Material material, Color colorPrimario, Color colorSecundario, Trama trama, Guardarropa guardarropa) throws Exception {
         tipoDePrenda.validarMaterial(material);
         this.tipoDePrenda = tipoDePrenda;
         this.material = material;

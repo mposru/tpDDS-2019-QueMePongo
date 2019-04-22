@@ -53,7 +53,7 @@ public class Borrador  {
         this.guardarropa = requireNonNull(guardarropa, "Debe asignarle un guardarropa a la prenda");;
     }
 
-    public Prenda crearPrenda() {
+    public Prenda crearPrenda() throws Exception {
         requireNonNull(tipoDePrenda, "El tipo de prenda es obligatorio");
         requireNonNull(material, "El material es obligatorio");
         requireNonNull(colorPrimario, "El color es obligatorio");
