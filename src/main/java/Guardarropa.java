@@ -12,6 +12,19 @@ public class Guardarropa {
     private Set<Prenda> calzados;
     private Set<Prenda> accesorios;
 
+    public void guardarPrenda(Prenda prenda) {
+        switch (prenda.obtenerCategoria()) {
+            case CALZADO:
+                calzados.add(prenda);
+            case PARTE_SUPERIOR:
+                prendasSuperiores.add(prenda);
+            case PARTE_INFERIOR:
+                prendasInferiores.add(prenda);
+            case ACCESORIO:
+                accesorios.add(prenda);
+        }
+    }
+
     public List<Atuendo> generarSugerencia() {
         return Sets.cartesianProduct(prendasSuperiores, prendasInferiores, calzados, accesorios)
                 .stream()
