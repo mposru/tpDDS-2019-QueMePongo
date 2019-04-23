@@ -1,3 +1,5 @@
+package domain;
+
 public class Prenda {
 
     private TipoDePrenda tipoDePrenda;
@@ -20,26 +22,27 @@ public class Prenda {
     }
 
     public Trama obtenerTrama() {
-        return trama;
+        return this.trama;
     }
 
     public Color obtenerColorPrimario() {
-        return colorPrimario;
+        return this.colorPrimario;
     }
 
     public Color obtenerColorSecundario() {
-        return colorSecundario;
+        return this.colorSecundario;
     }
 
     public Material obtenerMaterial() {
-        return material;
+        return this.material;
     }
 
     public TipoDePrenda obtenerTipoDePrenda() {
-        return tipoDePrenda;
+        return this.tipoDePrenda;
     }
 
-    public Categoria obtenerCategoria() { return tipoDePrenda.obtenerCategoria(); }
+    public Categoria obtenerCategoria() { return this.tipoDePrenda.obtenerCategoria(); }
+
 }
 
 /**

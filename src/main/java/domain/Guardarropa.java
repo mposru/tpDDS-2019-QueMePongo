@@ -1,5 +1,6 @@
-import com.google.common.collect.Sets;
+package domain;
 
+import com.google.common.collect.Sets;
 import java.util.List;
 import java.util.Set;
 

@@ -1,3 +1,5 @@
+package domain;
+
 public class Atuendo {
 
     private Prenda accesorio;

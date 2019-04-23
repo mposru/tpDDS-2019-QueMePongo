@@ -1,7 +1,10 @@
+package domain;
+
+import exceptions.MaterialInvalidoException;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-
 import static java.util.Objects.requireNonNull;
 
 public class TipoDePrenda {
@@ -21,7 +24,7 @@ public class TipoDePrenda {
     public static final TipoDePrenda MUSCULOSA = new TipoDePrenda(Categoria.PARTE_SUPERIOR, Arrays.asList(Material.ALGODON));
     public static final TipoDePrenda REMERA_MANGA_LARGA = new TipoDePrenda(Categoria.PARTE_SUPERIOR, Arrays.asList(Material.SEDA, Material.ALGODON));
     public static final TipoDePrenda ANTEOJOS = new TipoDePrenda(Categoria.ACCESORIO, Arrays.asList(Material.PLASTICO));
-    public static final TipoDePrenda PAÑUELO = new TipoDePrenda(Categoria.ACCESORIO, Arrays.asList(Material.ALGODON));
+    public static final TipoDePrenda PANUELO = new TipoDePrenda(Categoria.ACCESORIO, Arrays.asList(Material.ALGODON));
 
 
     public TipoDePrenda(Categoria categoria, List<Material> materialesValidos) {
@@ -33,9 +36,9 @@ public class TipoDePrenda {
         return categoria;
     }
 
-    public void validarMaterial(Material material) throws Exception {
+    public void validarMaterial(Material material)  {
         if (!materialesValidos.contains(material)) {
-            throw new Exception("El material no es permitido en el tipo de prenda");
+            throw new MaterialInvalidoException("El material no es permitido en el tipo de prenda");
         }
     }
 

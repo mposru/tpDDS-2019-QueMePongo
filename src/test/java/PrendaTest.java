@@ -1,5 +1,8 @@
-import org.junit.Rule;
-import org.junit.Test;
+package domain;
+
+
+import org.junit.*;
+import exceptions.*;
 import org.junit.rules.ExpectedException;
 
 public class PrendaTest {
@@ -7,8 +10,40 @@ public class PrendaTest {
     private Prenda prenda;
     private TipoDePrenda tipoDePrenda;
     private Material material;
-    private Color color;
+    private Color colorPrimario;
+    private Color colorSecundario;
+    private Color colorSecundarioIgualPrimario
+    private Color otroColorSecundario
     private Guardarropa guardarropa = new Guardarropa();
+    private Borrador borradorZapatillas
+
+    @Before
+    this.tipoDePrenda = tipoDePrenda.ZAPATO;
+    this.colorPrimario = new Color(20,20,30);
+    this.colorSecundarioIgualPrimario = new Color(20,20,30);
+    this.otroColorSecundario = new Color(25,40,88);
+
+    public void iniciar() {
+        borradorZapatillas = new Borrador();
+        borradorZapatillas.definirTipo(TipoDePrenda.ZAPATO);
+        borradorZapatillas.definirColorPrimario(colorPrimario);
+    }
+    @Test
+    public void setearColorSecundarioIgualAlPrimario(){
+        try {
+            this.borradorZapatillas.definirColorSecundario(colorSecundarioIgualPrimario);
+        }
+        catch (ColorSecundarioException exception){
+            System.out.print(exception.getMessage());
+        }
+    }
+    @Test
+    public void setearPrendaBorradorSinTipo() {
+            borradorZapatillas.definirTipo(null);
+        }
+
+    }
+
 
     // Hay que agregar mas Test y retocar los que estan
 
