@@ -12,8 +12,8 @@ public class PrendaTest {
     private Material material;
     private Color colorPrimario;
     private Color colorSecundario;
-    private Color colorSecundarioIgualPrimario
-    private Color otroColorSecundario
+    private Color colorSecundarioIgualPrimario;
+    private Color otroColorSecundario;
     private Guardarropa guardarropa = new Guardarropa();
     private Borrador borradorZapatillas
 
@@ -25,7 +25,6 @@ public class PrendaTest {
 
     public void iniciar() {
         borradorZapatillas = new Borrador();
-        borradorZapatillas.definirTipo(TipoDePrenda.ZAPATO);
         borradorZapatillas.definirColorPrimario(colorPrimario);
     }
     @Test
@@ -37,11 +36,15 @@ public class PrendaTest {
             System.out.print(exception.getMessage());
         }
     }
-    @Test
-    public void setearPrendaBorradorSinTipo() {
-            borradorZapatillas.definirTipo(null);
-        }
 
+    @Test
+    public void deberiaHaberTipoDePrendaAlCrearPrenda() {
+        exception.expect(NullPointerException.class);
+        exception.expectMessage("el tipo de prenda es obligatorio");
+
+        material = Material.ALGODON;
+        color = new Color(100,100,100);
+        prenda = new Prenda(tipoDePrenda, material, color);
     }
 
 
