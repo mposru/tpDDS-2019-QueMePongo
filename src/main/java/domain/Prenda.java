@@ -43,9 +43,7 @@ public class Prenda {
 
     public Categoria obtenerCategoria() { return this.tipoDePrenda.obtenerCategoria(); }
 
+    public Guardarropa obtenerGuardarropa() {return this.guardarropa; }
+
 }
 
-/**
- falta creacion de usuarios
- faltan tests
- */

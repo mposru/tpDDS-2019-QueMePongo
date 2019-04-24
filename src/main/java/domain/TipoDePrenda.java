@@ -33,7 +33,7 @@ public class TipoDePrenda {
     }
 
     public Categoria obtenerCategoria() {
-        return categoria;
+        return this.categoria;
     }
 
     public void validarMaterial(Material material)  {

@@ -12,6 +12,7 @@ public class Guardarropa {
     private Set<Prenda> prendasInferiores;
     private Set<Prenda> calzados;
     private Set<Prenda> accesorios;
+    private Usuario usuario;
 
     public void guardarPrenda(Prenda prenda) {
         switch (prenda.obtenerCategoria()) {
@@ -31,6 +32,9 @@ public class Guardarropa {
                 .stream()
                 .map((list) -> new Atuendo(list.get(0), list.get(1), list.get(2), list.get(3)))
                 .collect(toList());
+    }
+    public void asignarUsuario(Usuario usuario) {
+        this.usuario = usuario;
     }
 
 }
