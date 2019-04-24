@@ -12,7 +12,7 @@ public class TipoDePrenda {
     private Categoria categoria;
     private List<Material> materialesValidos;
 
-    static final TipoDePrenda ZAPATO = new TipoDePrenda(Categoria.CALZADO, Arrays.asList(Material.CUERO));
+    public static final TipoDePrenda ZAPATO = new TipoDePrenda(Categoria.CALZADO, Arrays.asList(Material.CUERO));
     static final TipoDePrenda REMERA = new TipoDePrenda(Categoria.PARTE_SUPERIOR, Arrays.asList(Material.SEDA, Material.ALGODON));
     static final TipoDePrenda PANTALON = new TipoDePrenda(Categoria.PARTE_INFERIOR, Arrays.asList(Material.JEAN, Material.ALGODON));
     static final TipoDePrenda COLLAR = new TipoDePrenda(Categoria.ACCESORIO, Arrays.asList(Material.ACERO));

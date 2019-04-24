@@ -6,6 +6,7 @@ import exceptions.*;
 import org.junit.rules.ExpectedException;
 
 public class BorradorTest {
+
     private Prenda prenda;
     private TipoDePrenda tipoDePrenda;
     private Material material;
@@ -13,18 +14,25 @@ public class BorradorTest {
     private Color colorSecundario;
     private Color colorSecundarioIgualPrimario;
     private Color otroColorSecundario;
-    private Borrador borradorZapatillas
+    private Borrador borradorZapatillas;
+    private Trama trama;
+    private Guardarropa guardarropa;
 
-    this.tipoDePrenda = tipoDePrenda.ZAPATO;
-    this.colorPrimario = new Color(20,20,30);
-    this.colorSecundarioIgualPrimario = new Color(20,20,30);
-    this.otroColorSecundario = new Color(25,40,88);
-
+    @Before
     public void iniciar() {
-        borradorZapatillas = new Borrador();
-        borradorZapatillas.definirColorPrimario(colorPrimario);
-
+        this.tipoDePrenda = TipoDePrenda.ZAPATO;
+        this.colorPrimario = new Color(20,20,30);
+        this.colorSecundario = new Color(20,20,30);
+        this.otroColorSecundario = new Color(25,40,88);
+        this.trama = Trama.CUADROS;
+        this.guardarropa = new Guardarropa();
+        this.borradorZapatillas = new Borrador();
+        this.borradorZapatillas.definirColorPrimario(colorPrimario);
     }
+
+    @Rule
+    public ExpectedException exception = ExpectedException.none();
+
     @Test
     public void setearColorSecundarioIgualAlPrimario(){
         try {
@@ -36,13 +44,10 @@ public class BorradorTest {
     }
 
     @Test
-    public void deberiaHaberTipoDePrendaAlCrearPrenda() {
+    public void deberiaHaberTipoDePrendaAlCrearPrenda() throws Exception {
         exception.expect(NullPointerException.class);
-        exception.expectMessage("el tipo de prenda es obligatorio");
-
-        material = Material.ALGODON;
-        color = new Color(100,100,100);
-        prenda = new Prenda(tipoDePrenda, material, color);
+        exception.expectMessage("El tipo de prenda es obligatorio");
+        this.borradorZapatillas.crearPrenda();
     }
 
 }
