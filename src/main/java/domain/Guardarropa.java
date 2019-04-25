@@ -3,6 +3,8 @@ package domain;
 import com.google.common.collect.Sets;
 import java.util.List;
 import java.util.Set;
+import exceptions.*;
+import exceptions.*;
 
 import static java.util.stream.Collectors.toList;
 
@@ -13,6 +15,10 @@ public class Guardarropa {
     private Set<Prenda> calzados;
     private Set<Prenda> accesorios;
     private Usuario usuario;
+
+    public Guardarropa(Usuario usuario) {
+        this.usuario = usuario;
+    }
 
     public void guardarPrenda(Prenda prenda) {
         switch (prenda.obtenerCategoria()) {
@@ -33,8 +39,7 @@ public class Guardarropa {
                 .map((list) -> new Atuendo(list.get(0), list.get(1), list.get(2), list.get(3)))
                 .collect(toList());
     }
-    public void asignarUsuario(Usuario usuario) {
-        this.usuario = usuario;
-    }
+
+
 
 }
