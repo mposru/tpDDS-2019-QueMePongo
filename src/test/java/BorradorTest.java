@@ -103,4 +103,3 @@ public class BorradorTest {
         this.borradorZapatillas.crearPrenda();
     }
 
-}
