@@ -9,7 +9,7 @@ import java.util.*;
 public class TipoDePrendaTest {
 
     private Categoria categoria;
-    private ArrayList<Material> materiales = new ArrayList<Material>();
+    private List<Material> materiales = new ArrayList<Material>();
     private TipoDePrenda tipoDePrenda;
 
     @Before
