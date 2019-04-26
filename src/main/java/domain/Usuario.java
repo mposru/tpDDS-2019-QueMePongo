@@ -6,7 +6,8 @@ import java.util.Set;
 public class Usuario {
     private Set<Guardarropa> guardarropas = new HashSet<>();
 
-    public void agregarGuardarropa(Guardarropa guardarropa) {
+    public void agregarGuardarropa(Guardarropa guardarropa) throws Exception {
+        guardarropa.definirUsuario(this);
         this.guardarropas.add(guardarropa);
     }
 
