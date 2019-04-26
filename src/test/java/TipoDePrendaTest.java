@@ -11,6 +11,8 @@ public class TipoDePrendaTest {
     private Categoria categoria;
     private List<Material> materiales = new ArrayList<Material>();
     private TipoDePrenda tipoDePrenda;
+    public ExpectedException exception = ExpectedException.none();
+
 
     @Before
     public void iniciarParaCategoria() {
@@ -18,7 +20,6 @@ public class TipoDePrendaTest {
         this.categoria = null;
     }
 
-    public ExpectedException exception = ExpectedException.none();
 
     @Test
     public void deberiaHaberCategoriaAlCrearTipoDePrenda() {
@@ -48,15 +49,18 @@ public class TipoDePrendaTest {
 
     @Before
     public void iniciarParaVerSiMaterialEsValido() {
-        this.tipoDePrenda = new TipoDePrenda(categoria, materiales);
+        this.materiales.add(Material.ORO);
+        this.categoria = Categoria.CALZADO;
+        this.tipoDePrenda = new TipoDePrenda(this.categoria, this.materiales);
     }
 
     @Test
     public void deberiaSerMaterialValidoParaTipo() {
         try {
             this.tipoDePrenda.validarMaterial(Material.ALGODON);
-        } catch (MaterialInvalidoException exception) {
-            System.out.println(exception.getMessage());
+        } catch (MaterialInvalidoException e) {
+            exception.expect(RuntimeException.class);
+            exception.expectMessage("El material no es permitido en el tipo de prenda");
         }
     }
 }
