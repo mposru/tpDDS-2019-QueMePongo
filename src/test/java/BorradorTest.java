@@ -6,14 +6,12 @@ import org.junit.rules.ExpectedException;
 
 public class BorradorTest {
 
-    private Prenda prenda;
     private TipoDePrenda tipoDePrenda;
     private Material material;
     private Color colorPrimario;
     private Borrador borradorZapatillas;
     private Trama trama;
     private Guardarropa guardarropa;
-    private Usuario lioMessi;
     private Material materialInvalido;
 
     @Before
@@ -22,8 +20,7 @@ public class BorradorTest {
         this.material = Material.CUERO;
         this.colorPrimario = new Color(20, 20, 30);
         this.trama = Trama.CUADROS;
-        this.lioMessi = new Usuario("Lionel", "Messi", "lio.messi@est.utn.frba.edu.ar");
-        this.guardarropa = new Guardarropa(lioMessi);
+        this.guardarropa = new Guardarropa();
         //creamos un borrador sin definirle el tipoDePrenda, material, trama y guardarropa
         this.borradorZapatillas = new Borrador();
         this.materialInvalido = Material.JEAN;
@@ -87,14 +84,14 @@ public class BorradorTest {
     }
 
     @Test
-    public void crearPrendaSinTipoDePrenda() throws Exception {
+    public void crearPrendaSinTipoDePrenda() {
         exception.expect(NullPointerException.class);
         exception.expectMessage("El tipo de prenda es obligatorio");
         this.borradorZapatillas.crearPrenda();
     }
 
     @Test
-    public void crearPrendaSinColorPrimario() throws Exception {
+    public void crearPrendaSinColorPrimario() {
         this.borradorZapatillas.definirTipo(this.tipoDePrenda);
         this.borradorZapatillas.definirMaterial(this.material);
         this.exception.expect(NullPointerException.class);
@@ -103,7 +100,7 @@ public class BorradorTest {
     }
 
     @Test
-    public void crearPrendaSinMaterial() throws Exception {
+    public void crearPrendaSinMaterial() {
         this.borradorZapatillas.definirTipo(this.tipoDePrenda);
         this.borradorZapatillas.definirColorPrimario(this.colorPrimario);
         this.borradorZapatillas.definirGuardarropa(this.guardarropa);
@@ -113,7 +110,7 @@ public class BorradorTest {
     }
 
     @Test
-    public void crearPrendaSinGuardarropa() throws Exception {
+    public void crearPrendaSinGuardarropa() {
         this.borradorZapatillas.definirTipo(this.tipoDePrenda);
         this.borradorZapatillas.definirMaterial(this.material);
         this.borradorZapatillas.definirColorPrimario(this.colorPrimario);
@@ -128,6 +125,8 @@ public class BorradorTest {
         this.borradorZapatillas.definirMaterial(this.material);
         this.borradorZapatillas.definirColorPrimario(this.colorPrimario);
         this.borradorZapatillas.definirGuardarropa(this.guardarropa);
+        Prenda prendaEsperada = new Prenda(this.tipoDePrenda, this.material, this.colorPrimario, null, Trama.LISA, this.guardarropa);
+        Assert.assertEquals(prendaEsperada, this.borradorZapatillas.crearPrenda());
     }
 }
 

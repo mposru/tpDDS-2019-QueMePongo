@@ -7,7 +7,7 @@ public class Atuendo {
     private Prenda prendaInferior;
     private Prenda calzado;
 
-    public Atuendo(Prenda accesorio, Prenda prendaSuperior, Prenda prendaInferior, Prenda calzado) {
+    public Atuendo(Prenda prendaSuperior, Prenda prendaInferior, Prenda calzado, Prenda accesorio) {
         this.accesorio = accesorio;
         this.prendaSuperior = prendaSuperior;
         this.prendaInferior = prendaInferior;

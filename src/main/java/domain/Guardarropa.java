@@ -1,6 +1,8 @@
 package domain;
 
 import com.google.common.collect.Sets;
+
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
@@ -9,10 +11,10 @@ import static java.util.stream.Collectors.toList;
 
 public class Guardarropa {
 
-    private Set<Prenda> prendasSuperiores;
-    private Set<Prenda> prendasInferiores;
-    private Set<Prenda> calzados;
-    private Set<Prenda> accesorios;
+    private Set<Prenda> prendasSuperiores = new HashSet<Prenda>();
+    private Set<Prenda> prendasInferiores = new HashSet<Prenda>();
+    private Set<Prenda> calzados = new HashSet<Prenda>();
+    private Set<Prenda> accesorios = new HashSet<Prenda>();
     private Usuario usuario;
 
     public void definirUsuario(Usuario usuario) {
@@ -33,6 +35,7 @@ public class Guardarropa {
     }
 
     public List<Atuendo> generarSugerencia() {
+        //validar que haya prenda superior, inferior y calzado
         return Sets.cartesianProduct(prendasSuperiores, prendasInferiores, calzados, accesorios)
                 .stream()
                 .map((list) -> new Atuendo(list.get(0), list.get(1), list.get(2), list.get(3)))
