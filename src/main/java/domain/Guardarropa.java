@@ -3,7 +3,6 @@ package domain;
 import com.google.common.collect.Sets;
 import java.util.List;
 import java.util.Set;
-import exceptions.*;
 
 import static java.util.Objects.requireNonNull;
 import static java.util.stream.Collectors.toList;
@@ -16,9 +15,8 @@ public class Guardarropa {
     private Set<Prenda> accesorios;
     private Usuario usuario;
 
-    public Guardarropa(Usuario usuario) {
-        requireNonNull(usuario, "El guardarropa debe tener un usuario");
-        this.usuario = usuario;
+    public void definirUsuario(Usuario usuario) {
+        this.usuario = requireNonNull(usuario, "El usuario no puede ser vacio");
     }
 
     public void guardarPrenda(Prenda prenda) {
@@ -40,7 +38,4 @@ public class Guardarropa {
                 .map((list) -> new Atuendo(list.get(0), list.get(1), list.get(2), list.get(3)))
                 .collect(toList());
     }
-
-
-
 }

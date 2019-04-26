@@ -13,21 +13,21 @@ public class GuardarropaTest {
     private Set<Prenda> calzados;
     private Set<Prenda> accesorios;
     private Usuario usuario;
-    private Guardarropa armarioDeVerano;
+    private Guardarropa guardarropa;
 
     @Before
     public void iniciarTest() {
-
+        this.guardarropa = new Guardarropa();
     }
 
     @Rule
     public ExpectedException exception = ExpectedException.none();
 
     @Test
-    public void crearGuardarropaSinUsuario() {
+    public void definirUsuarioVacio() {
         exception.expect(NullPointerException.class);
-        exception.expectMessage("El guardarropa debe tener un usuario");
-        armarioDeVerano = new Guardarropa(null) ;
+        exception.expectMessage("El usuario no puede ser vacio");
+        this.guardarropa.definirUsuario(null);
     }
 
     @Test
