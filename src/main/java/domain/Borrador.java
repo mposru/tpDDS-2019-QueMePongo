@@ -26,7 +26,7 @@ public class Borrador  {
         this.tipoDePrenda = requireNonNull(tipoDePrenda, "Debe ingresar un tipo de prenda");
     }
 
-    public void definirMaterial(Material material) /* throws Exception */ {
+    public void definirMaterial(Material material) {
         requireNonNull(material, "Debe ingresar un material");
         requireNonNull(tipoDePrenda, "Debe definir el tipo de prenda antes de definir el material");
         tipoDePrenda.validarMaterial(material);
@@ -37,7 +37,7 @@ public class Borrador  {
         this.colorPrimario = requireNonNull(colorPrimario, "Debe ingresar un color primario");
     }
 
-    public void definirColorSecundario(Color colorSecundario) /* throws Exception */ {
+    public void definirColorSecundario(Color colorSecundario) {
         if (colorPrimario.equals(colorSecundario)) {
             throw new ColorSecundarioException("El color secundario debe ser distinto al color primario");
         }
@@ -61,46 +61,4 @@ public class Borrador  {
         guardarropa.guardarPrenda(prenda);
         return prenda;
     }
-
-    /* Comentario Alexis
-    Acá va cómo lo hice yo.
-
-     public void validarTipoPrenda() {
-        if(this.tipoPrenda == null) {
-            throw new FaltaTipoPrendaException("La prenda debe tener un tipo de prenda asociado");
-        }
-
-    }
-    public void validarColorPrenda() {
-        if (this.color == null) {
-            throw new FaltaColorException("La prenda debe tener un color");
-        }
-
-    }
-    public void validacionMaterial() {
-        if(!this.materialesValidos.contains(this.material)) {
-            throw new FaltaMaterialException("El material elegido no es válido");
-        }
-    }
-
-    public void validacionesPreCarga(){
-        this.validarTipoPrenda();
-        this.validarColorPrenda();
-        this.validacionMaterial();
-
-    }
-
-    public Prenda crearPrenda(tipoPrenda,color,material,trama) {
-        this.validacionesPreCarga();
-        Prenda prenda = new Prenda(tipoPrenda,color,material);
-        if (colorSecundario!=null) {
-            prenda.setColorSecundario(colorSecundario);
-
-        }
-        return prenda;
-
-    }
-
-
-     */
 }
