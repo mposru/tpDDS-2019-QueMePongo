@@ -14,8 +14,8 @@ public class TipoDePrendaTest {
 
     @Before
     public void iniciarParaCategoria() {
-        materiales.add(Material.ORO);
-        categoria = null;
+        this.materiales.add(Material.ORO);
+        this.categoria = null;
     }
 
     public ExpectedException exception = ExpectedException.none();
@@ -23,7 +23,7 @@ public class TipoDePrendaTest {
     @Test
     public void deberiaHaberCategoriaAlCrearTipoDePrenda() {
         try {
-            tipoDePrenda = new TipoDePrenda(categoria, materiales);
+            this.tipoDePrenda = new TipoDePrenda(categoria, materiales);
         } catch (Exception e) {
             exception.expect(NullPointerException.class);
             exception.expectMessage("La categoría es obligatoria");
@@ -32,14 +32,14 @@ public class TipoDePrendaTest {
 
     @Before
     public void iniciarParaMaterialesAsociados() {
-        materiales.remove(Material.ORO);
-        categoria = Categoria.CALZADO;
+        this.materiales.remove(Material.ORO);
+        this.categoria = Categoria.CALZADO;
     }
 
     @Test
     public void deberiaHaberMaterialesAsociadosAlCrearTipoDePrenda() {
         try {
-            tipoDePrenda = new TipoDePrenda(categoria, materiales);
+            this.tipoDePrenda = new TipoDePrenda(categoria, materiales);
         } catch (Exception e) {
             exception.expect(NullPointerException.class);
             exception.expectMessage("Los materiales son obligatorios");
@@ -48,15 +48,15 @@ public class TipoDePrendaTest {
 
     @Before
     public void iniciarParaVerSiMaterialEsValido() {
-        tipoDePrenda = new TipoDePrenda(categoria, materiales);
+        this.tipoDePrenda = new TipoDePrenda(categoria, materiales);
     }
 
     @Test
     public void deberiaSerMaterialValidoParaTipo() {
         try {
-            tipoDePrenda.validarMaterial(Material.ALGODON);
-        } catch (MaterialInvalidoException excepcion) {
-            System.out.println(excepcion.getMessage());
+            this.tipoDePrenda.validarMaterial(Material.ALGODON);
+        } catch (MaterialInvalidoException exception) {
+            System.out.println(exception.getMessage());
         }
     }
 }

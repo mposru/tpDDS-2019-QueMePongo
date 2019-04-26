@@ -27,8 +27,8 @@ public class Borrador  {
     }
 
     public void definirMaterial(Material material) /* throws Exception */ {
-        requireNonNull(tipoDePrenda, "Debe definir el tipo de prenda antes de definir el material");
         requireNonNull(material, "Debe ingresar un material");
+        requireNonNull(tipoDePrenda, "Debe definir el tipo de prenda antes de definir el material");
         tipoDePrenda.validarMaterial(material);
         this.material = material;
     }
