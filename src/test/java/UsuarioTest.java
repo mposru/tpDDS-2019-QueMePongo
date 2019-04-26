@@ -16,9 +16,10 @@ public class UsuarioTest {
     }
 
     @Test
-    public void agregarleUnGuardarropaAMerlin() {
-        this.merlin.agregarGuardarropa(guardarropa);
+    public void agregarleUnGuardarropaAMerlin() throws Exception {
+        this.merlin.agregarGuardarropa(this.guardarropa);
         Assert.assertTrue(this.merlin.obtenerGuardarropas().contains(this.guardarropa));
+        Assert.assertEquals(this.guardarropa.obtenerUsuario(), this.merlin);
     }
 
 }

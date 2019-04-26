@@ -3,16 +3,9 @@ package domain;
 import org.junit.*;
 import org.junit.rules.ExpectedException;
 
-import java.util.Arrays;
 import java.util.List;
-import java.util.Set;
 
 public class GuardarropaTest {
-    private Set<Prenda> prendasSuperiores;
-    private Set<Prenda> prendasInferiores;
-    private Set<Prenda> calzados;
-    private Set<Prenda> accesorios;
-    private Usuario usuario;
     private Guardarropa guardarropa;
     private Prenda musculosa;
     private Prenda blusa;
@@ -23,6 +16,8 @@ public class GuardarropaTest {
     private Prenda pañuelo;
     private Prenda anteojos;
     private Color color;
+    private Usuario marta;
+    private Usuario flor;
 
     @Before
     public void iniciarTest() {
@@ -36,16 +31,26 @@ public class GuardarropaTest {
         this.pollera = new Prenda(TipoDePrenda.POLLERA, Material.JEAN, color, null, Trama.LISA, guardarropa);
         this.pañuelo = new Prenda(TipoDePrenda.PANUELO, Material.ALGODON, color, null, Trama.LISA, guardarropa);
         this.anteojos = new Prenda(TipoDePrenda.ANTEOJOS, Material.PLASTICO, color, null, Trama.LISA, guardarropa);
+        this.marta = new Usuario();
+        this.flor = new Usuario();
     }
 
     @Rule
     public ExpectedException exception = ExpectedException.none();
 
     @Test
-    public void definirUsuarioVacio() {
+    public void definirUsuarioVacio() throws Exception {
         exception.expect(NullPointerException.class);
         exception.expectMessage("El usuario no puede ser vacio");
         this.guardarropa.definirUsuario(null);
+    }
+
+    @Test
+    public void definirMasDeUnUsuario() throws Exception {
+        this.guardarropa.definirUsuario(this.flor);
+        exception.expect(Exception.class);
+        exception.expectMessage("Ya tengo dueño/a, no me podes asignar a otra/o");
+        this.guardarropa.definirUsuario(this.marta);
     }
 
     @Test

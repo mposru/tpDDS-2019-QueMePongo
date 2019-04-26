@@ -6,6 +6,8 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 import exceptions.*
+
+import static java.util.Objects.isNull;
 import static java.util.Objects.requireNonNull;
 import static java.util.stream.Collectors.toList;
 
@@ -33,7 +35,14 @@ public class Guardarropa {
         return accesorios;
     }
 
-    public void definirUsuario(Usuario usuario) {
+    public Usuario obtenerUsuario() {
+        return usuario;
+    }
+
+    public void definirUsuario(Usuario usuario) throws Exception {
+        if(!isNull(this.usuario)) {
+            throw new Exception("Ya tengo dueño/a, no me podes asignar a otra/o");
+        }
         this.usuario = requireNonNull(usuario, "El usuario no puede ser vacio");
     }
 

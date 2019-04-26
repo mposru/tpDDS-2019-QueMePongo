@@ -125,12 +125,13 @@ public class BorradorTest {
         this.borradorZapatillas.definirMaterial(this.material);
         this.borradorZapatillas.definirColorPrimario(this.colorPrimario);
         this.borradorZapatillas.definirGuardarropa(this.guardarropa);
-        Prenda prendaEsperada = new Prenda(this.tipoDePrenda, this.material, this.colorPrimario, null, Trama.LISA, this.guardarropa);
+        Prenda prendaEsperada = new Prenda(this.tipoDePrenda, this.material, this.colorPrimario, null, this.trama, this.guardarropa);
         Assert.assertEquals(prendaEsperada.obtenerTipoDePrenda(),this.tipoDePrenda);
         Assert.assertEquals(prendaEsperada.obtenerColorPrimario(),this.colorPrimario);
         Assert.assertEquals(prendaEsperada.obtenerColorSecundario(),null);
         Assert.assertEquals(prendaEsperada.obtenerTrama(),this.trama);
         Assert.assertEquals(prendaEsperada.obtenerGuardarropa(),this.guardarropa);
+        Assert.assertEquals(prendaEsperada.obtenerMaterial(), this.material);
     }
 }
 
