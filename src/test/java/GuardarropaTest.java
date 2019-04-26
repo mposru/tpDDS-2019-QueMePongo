@@ -67,7 +67,7 @@ public class GuardarropaTest {
         Atuendo septimoAtuendo = new Atuendo(musculosa, pollera, zapatos, pañuelo);
         Atuendo octavoAtuendo = new Atuendo(musculosa, pollera, zapatos, anteojos);
         //List <Atuendo> sugerenciasEsperadas = Arrays.asList(primerAtuendo, segundoAtuendo, tercerAtuendo, cuartoAtuendo, quintoAtuendo,
-            sextoAtuendo, septimoAtuendo, octavoAtuendo);
+        //    sextoAtuendo, septimoAtuendo, octavoAtuendo);
         Assert.assertTrue(sugerencias.contains(primerAtuendo));
     }
 
