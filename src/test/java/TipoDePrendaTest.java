@@ -39,7 +39,6 @@ public class TipoDePrendaTest {
     }
 
 
-
     @Test
     public void deberiaSerMaterialValidoParaTipo() {
         this.materiales.add(Material.ORO);
@@ -49,5 +48,12 @@ public class TipoDePrendaTest {
         exception.expectMessage("El material no es permitido en el tipo de prenda");
         this.tipoDePrenda.validarMaterial(Material.ALGODON);
     }
-    
+
+    @Test
+    public void tipoDePrendaConExito() {
+        this.materiales.add(Material.ORO);
+        this.categoria = Categoria.ACCESORIO;
+        this.tipoDePrenda = new TipoDePrenda(this.categoria, this.materiales);
+    }
+
 }
