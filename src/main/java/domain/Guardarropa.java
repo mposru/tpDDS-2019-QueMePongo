@@ -5,7 +5,7 @@ import com.google.common.collect.Sets;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
-
+import exceptions.*
 import static java.util.Objects.requireNonNull;
 import static java.util.stream.Collectors.toList;
 
@@ -16,7 +16,6 @@ public class Guardarropa {
     private Set<Prenda> calzados = new HashSet<>();
     private Set<Prenda> accesorios = new HashSet<>();
     private Usuario usuario;
-    private List<Atuendo> atuendoSugerido = new List<Atuendo>();
 
     public Set<Prenda> obtenerPrendasSuperiores() {
         return prendasSuperiores;
@@ -55,15 +54,28 @@ public class Guardarropa {
         }
     }
 
-    public List<Atuendo> generarSugerencia() {
-        //validar que haya prenda superior, inferior y calzado
-        this.atuendoSugerido = Sets.cartesianProduct(prendasSuperiores, prendasInferiores, calzados, accesorios)
+
+    private void validarPrendas() throws Exception {
+        if(prendasInferiores.size() <= 0) {
+            throw new FaltanPrendasInferioresException("Faltan prendas inferiores");
+        }
+        if(prendasSuperiores.size() <= 0) {
+            throw new FaltanPrendasSuperioresException("Faltan prendas superiores");
+        }
+        if(calzados.size() <= 0) {
+            throw new FaltanCalzadosException("Faltan zapatos");
+        }
+        if(accesorios.size() <= 0) {
+            throw new FaltanAccesoriosException("Faltan accesorios");
+        }
+    }
+
+    public List<Atuendo> generarSugerencia() throws Exception {
+        this.validarPrendas();
+        return Sets.cartesianProduct(prendasSuperiores, prendasInferiores, calzados, accesorios)
                 .stream()
                 .map((list) -> new Atuendo(list.get(0), list.get(1), list.get(2), list.get(3)))
                 .collect(toList());
-        if (this.atuendoSugerido.size()>0) {
-            return this.atuendoSugerido;
-        }
     }
 
 }
