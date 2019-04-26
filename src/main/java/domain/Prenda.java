@@ -9,8 +9,6 @@ public class Prenda {
     private Trama trama;
     private Guardarropa guardarropa;
 
-    //falta esSuperior, etc para el filter o map o eso
-
     public Prenda(TipoDePrenda tipoDePrenda, Material material, Color colorPrimario, Color colorSecundario, Trama trama, Guardarropa guardarropa) {
         this.tipoDePrenda = tipoDePrenda;
         this.material = material;

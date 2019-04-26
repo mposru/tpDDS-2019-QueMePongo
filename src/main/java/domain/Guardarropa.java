@@ -55,7 +55,6 @@ public class Guardarropa {
     }
 
     public List<Atuendo> generarSugerencia() {
-        //validar que haya prenda superior, inferior y calzado
         return Sets.cartesianProduct(prendasSuperiores, prendasInferiores, calzados, accesorios)
                 .stream()
                 .map((list) -> new Atuendo(list.get(0), list.get(1), list.get(2), list.get(3)))
