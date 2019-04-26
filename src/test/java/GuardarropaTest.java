@@ -83,6 +83,7 @@ public class GuardarropaTest {
         this.guardarropa.guardarPrenda(this.blusa);
         Assert.assertTrue(this.guardarropa.obtenerPrendasSuperiores().contains(this.musculosa));
         Assert.assertTrue(this.guardarropa.obtenerPrendasSuperiores().contains(this.blusa));
+        Assert.assertEquals(2, this.guardarropa.obtenerPrendasSuperiores().size());
     }
 
     @Test
@@ -91,6 +92,7 @@ public class GuardarropaTest {
         this.guardarropa.guardarPrenda(this.pollera);
         Assert.assertTrue(this.guardarropa.obtenerPrendasInferiores().contains(this.shortDeJean));
         Assert.assertTrue(this.guardarropa.obtenerPrendasInferiores().contains(this.pollera));
+        Assert.assertEquals(2, this.guardarropa.obtenerPrendasInferiores().size());
     }
 
     @Test
@@ -99,6 +101,7 @@ public class GuardarropaTest {
         this.guardarropa.guardarPrenda(this.zapatos);
         Assert.assertTrue(this.guardarropa.obtenerCalzados().contains(this.crocs));
         Assert.assertTrue(this.guardarropa.obtenerCalzados().contains(this.zapatos));
+        Assert.assertEquals(2, this.guardarropa.obtenerCalzados().size());
     }
 
 
@@ -108,5 +111,6 @@ public class GuardarropaTest {
         this.guardarropa.guardarPrenda(this.anteojos);
         Assert.assertTrue(this.guardarropa.obtenerAccesorios().contains(this.pañuelo));
         Assert.assertTrue(this.guardarropa.obtenerAccesorios().contains(this.anteojos));
+        Assert.assertEquals(2, this.guardarropa.obtenerAccesorios().size());
     }
 }
