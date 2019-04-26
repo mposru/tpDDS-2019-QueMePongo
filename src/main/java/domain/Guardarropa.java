@@ -11,10 +11,10 @@ import static java.util.stream.Collectors.toList;
 
 public class Guardarropa {
 
-    private Set<Prenda> prendasSuperiores = new HashSet<Prenda>();
-    private Set<Prenda> prendasInferiores = new HashSet<Prenda>();
-    private Set<Prenda> calzados = new HashSet<Prenda>();
-    private Set<Prenda> accesorios = new HashSet<Prenda>();
+    private Set<Prenda> prendasSuperiores = new HashSet<>();
+    private Set<Prenda> prendasInferiores = new HashSet<>();
+    private Set<Prenda> calzados = new HashSet<>();
+    private Set<Prenda> accesorios = new HashSet<>();
     private Usuario usuario;
 
     public void definirUsuario(Usuario usuario) {
@@ -25,12 +25,16 @@ public class Guardarropa {
         switch (prenda.obtenerCategoria()) {
             case CALZADO:
                 calzados.add(prenda);
+                break;
             case PARTE_SUPERIOR:
                 prendasSuperiores.add(prenda);
+                break;
             case PARTE_INFERIOR:
                 prendasInferiores.add(prenda);
+                break;
             case ACCESORIO:
                 accesorios.add(prenda);
+                break;
         }
     }
 
