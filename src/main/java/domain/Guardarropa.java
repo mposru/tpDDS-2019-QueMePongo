@@ -39,9 +39,9 @@ public class Guardarropa {
         return usuario;
     }
 
-    public void definirUsuario(Usuario usuario) throws Exception {
+    public void definirUsuario(Usuario usuario)  {
         if(!isNull(this.usuario)) {
-            throw new Exception("Ya tengo dueño/a, no me podes asignar a otra/o");
+            throw new GuardarropaOcupadoException("Ya tengo dueño/a, no me podes asignar a otra/o");
         }
         this.usuario = requireNonNull(usuario, "El usuario no puede ser vacio");
     }
@@ -64,7 +64,7 @@ public class Guardarropa {
     }
 
 
-    private void validarPrendas() throws Exception {
+    private void validarPrendas()  {
         if(prendasInferiores.size() <= 0) {
             throw new FaltanPrendasInferioresException("Faltan prendas inferiores");
         }
@@ -79,7 +79,7 @@ public class Guardarropa {
         }
     }
 
-    public List<Atuendo> generarSugerencia() throws Exception {
+    public List<Atuendo> generarSugerencia() {
         this.validarPrendas();
         return Sets.cartesianProduct(prendasSuperiores, prendasInferiores, calzados, accesorios)
                 .stream()

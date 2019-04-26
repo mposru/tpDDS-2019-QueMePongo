@@ -118,5 +118,4 @@ public class GuardarropaTest {
         Assert.assertTrue(this.guardarropa.obtenerAccesorios().contains(this.anteojos));
         Assert.assertEquals(2, this.guardarropa.obtenerAccesorios().size());
     }
-
 }
