@@ -63,25 +63,37 @@ public class GuardarropaTest {
         List <Atuendo> sugerenciasEsperadas = Arrays.asList(primerAtuendo);
         Assert.assertEquals(sugerenciasEsperadas, sugerencias);
     }
-/*
+
     @Test
     public void guardarPartesSuperiores() {
-
+        this.guardarropa.guardarPrenda(this.musculosa);
+        this.guardarropa.guardarPrenda(this.blusa);
+        Assert.assertTrue(this.guardarropa.obtenerPrendasSuperiores().contains(this.musculosa));
+        Assert.assertTrue(this.guardarropa.obtenerPrendasSuperiores().contains(this.blusa));
     }
 
     @Test
     public void guardarPartesInferiores() {
-
+        this.guardarropa.guardarPrenda(this.shortDeJean);
+        this.guardarropa.guardarPrenda(this.pollera);
+        Assert.assertTrue(this.guardarropa.obtenerPrendasInferiores().contains(this.shortDeJean));
+        Assert.assertTrue(this.guardarropa.obtenerPrendasInferiores().contains(this.pollera));
     }
 
     @Test
     public void guardarCalzados() {
-
+        this.guardarropa.guardarPrenda(this.crocs);
+        this.guardarropa.guardarPrenda(this.zapatos);
+        Assert.assertTrue(this.guardarropa.obtenerCalzados().contains(this.crocs));
+        Assert.assertTrue(this.guardarropa.obtenerCalzados().contains(this.zapatos));
     }
 
 
     @Test
     public void guardarAccesorios() {
-
-    }*/
+        this.guardarropa.guardarPrenda(this.pañuelo);
+        this.guardarropa.guardarPrenda(this.anteojos);
+        Assert.assertTrue(this.guardarropa.obtenerAccesorios().contains(this.pañuelo));
+        Assert.assertTrue(this.guardarropa.obtenerAccesorios().contains(this.anteojos));
+    }
 }

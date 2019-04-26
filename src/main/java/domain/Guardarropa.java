@@ -17,6 +17,22 @@ public class Guardarropa {
     private Set<Prenda> accesorios = new HashSet<>();
     private Usuario usuario;
 
+    public Set<Prenda> obtenerPrendasSuperiores() {
+        return prendasSuperiores;
+    }
+
+    public Set<Prenda> obtenerPrendasInferiores() {
+        return prendasInferiores;
+    }
+
+    public Set<Prenda> obtenerCalzados() {
+        return calzados;
+    }
+
+    public Set<Prenda> obtenerAccesorios() {
+        return accesorios;
+    }
+
     public void definirUsuario(Usuario usuario) {
         this.usuario = requireNonNull(usuario, "El usuario no puede ser vacio");
     }
