@@ -1,5 +1,6 @@
 package domain;
 
+import exceptions.*;
 import org.junit.*;
 import org.junit.rules.ExpectedException;
 
@@ -39,7 +40,7 @@ public class GuardarropaTest {
     public ExpectedException exception = ExpectedException.none();
 
     @Test
-    public void definirUsuarioVacio() throws Exception {
+    public void definirUsuarioVacio() {
         exception.expect(NullPointerException.class);
         exception.expectMessage("El usuario no puede ser vacio");
         this.guardarropa.definirUsuario(null);
@@ -48,7 +49,7 @@ public class GuardarropaTest {
     @Test
     public void definirMasDeUnUsuario() throws Exception {
         this.guardarropa.definirUsuario(this.flor);
-        exception.expect(Exception.class);
+        exception.expect(GuardarropaOcupadoException.class);
         exception.expectMessage("Ya tengo dueño/a, no me podes asignar a otra/o");
         this.guardarropa.definirUsuario(this.marta);
     }
@@ -117,5 +118,40 @@ public class GuardarropaTest {
         Assert.assertTrue(this.guardarropa.obtenerAccesorios().contains(this.pañuelo));
         Assert.assertTrue(this.guardarropa.obtenerAccesorios().contains(this.anteojos));
         Assert.assertEquals(2, this.guardarropa.obtenerAccesorios().size());
+    }
+
+    @Test
+    public void noSePuedeSugerirSinParteSuperior() {
+        this.guardarropa.guardarPrenda(this.pollera);
+        exception.expect(FaltanPrendasSuperioresException.class);
+        exception.expectMessage("Faltan prendas superiores");
+        this.guardarropa.generarSugerencia();
+    }
+
+    @Test
+    public void noSePuedeSugerirSinCalzado() {
+        this.guardarropa.guardarPrenda(this.pollera);
+        this.guardarropa.guardarPrenda(this.blusa);
+        this.guardarropa.guardarPrenda(this.pañuelo);
+        exception.expect(FaltanCalzadosException.class);
+        exception.expectMessage("Faltan zapatos");
+        this.guardarropa.generarSugerencia();
+    }
+
+    @Test
+    public void noSePuedeSugerirSinAccesorio() {
+        this.guardarropa.guardarPrenda(this.pollera);
+        this.guardarropa.guardarPrenda(this.blusa);
+        this.guardarropa.guardarPrenda(this.crocs);
+        exception.expect(FaltanAccesoriosException.class);
+        exception.expectMessage("Faltan accesorios");
+        this.guardarropa.generarSugerencia();
+    }
+
+    @Test
+    public void noSePuedeSugerirSinParteInferior() {
+        exception.expect(FaltanPrendasInferioresException.class);
+        exception.expectMessage("Faltan prendas inferiores");
+        this.guardarropa.generarSugerencia();
     }
 }
