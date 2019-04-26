@@ -58,17 +58,23 @@ public class GuardarropaTest {
         this.guardarropa.guardarPrenda(this.pañuelo);
         this.guardarropa.guardarPrenda(this.anteojos);
         List<Atuendo> sugerencias = this.guardarropa.generarSugerencia();
-        Atuendo primerAtuendo = new Atuendo(musculosa, shortDeJean, crocs, pañuelo);
-        Atuendo segundoAtuendo = new Atuendo(musculosa, shortDeJean, crocs, anteojos);
-        Atuendo tercerAtuendo = new Atuendo(musculosa, shortDeJean, zapatos, pañuelo);
-        Atuendo cuartoAtuendo = new Atuendo(musculosa, shortDeJean, zapatos, anteojos);
-        Atuendo quintoAtuendo = new Atuendo(musculosa, pollera, crocs, pañuelo);
-        Atuendo sextoAtuendo = new Atuendo(musculosa, pollera, crocs, anteojos);
-        Atuendo septimoAtuendo = new Atuendo(musculosa, pollera, zapatos, pañuelo);
-        Atuendo octavoAtuendo = new Atuendo(musculosa, pollera, zapatos, anteojos);
+        //Atuendo primerAtuendo = new Atuendo(musculosa, shortDeJean, crocs, pañuelo);
+        //Atuendo segundoAtuendo = new Atuendo(musculosa, shortDeJean, crocs, anteojos);
+        //Atuendo tercerAtuendo = new Atuendo(musculosa, shortDeJean, zapatos, pañuelo);
+        //Atuendo cuartoAtuendo = new Atuendo(musculosa, shortDeJean, zapatos, anteojos);
+        //Atuendo quintoAtuendo = new Atuendo(musculosa, pollera, crocs, pañuelo);
+        //Atuendo sextoAtuendo = new Atuendo(musculosa, pollera, crocs, anteojos);
+        //Atuendo septimoAtuendo = new Atuendo(musculosa, pollera, zapatos, pañuelo);
+        //Atuendo octavoAtuendo = new Atuendo(musculosa, pollera, zapatos, anteojos);
         //List <Atuendo> sugerenciasEsperadas = Arrays.asList(primerAtuendo, segundoAtuendo, tercerAtuendo, cuartoAtuendo, quintoAtuendo,
         //    sextoAtuendo, septimoAtuendo, octavoAtuendo);
-        Assert.assertTrue(sugerencias.contains(primerAtuendo));
+        Assert.assertEquals(8, sugerencias.size());
+        sugerencias.forEach(atuendo -> {
+            Assert.assertEquals(Categoria.PARTE_SUPERIOR, atuendo.obtenerPrendaSuperior().obtenerCategoria());
+            Assert.assertEquals(Categoria.PARTE_INFERIOR, atuendo.obtenerPrendaInferior().obtenerCategoria());
+            Assert.assertEquals(Categoria.CALZADO, atuendo.obtenerCalzado().obtenerCategoria());
+            Assert.assertEquals(Categoria.ACCESORIO, atuendo.obtenerAccesorio().obtenerCategoria());
+        });
     }
 
     @Test
