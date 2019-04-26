@@ -2,7 +2,6 @@ package domain;
 
 import com.google.common.collect.Sets;
 
-import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -17,7 +16,22 @@ public class Guardarropa {
     private Set<Prenda> calzados = new HashSet<>();
     private Set<Prenda> accesorios = new HashSet<>();
     private Usuario usuario;
-    private List<Atuendo> prueba = new ArrayList<>();
+
+    public Set<Prenda> obtenerPrendasSuperiores() {
+        return prendasSuperiores;
+    }
+
+    public Set<Prenda> obtenerPrendasInferiores() {
+        return prendasInferiores;
+    }
+
+    public Set<Prenda> obtenerCalzados() {
+        return calzados;
+    }
+
+    public Set<Prenda> obtenerAccesorios() {
+        return accesorios;
+    }
 
     public void definirUsuario(Usuario usuario) {
         this.usuario = requireNonNull(usuario, "El usuario no puede ser vacio");
@@ -42,10 +56,9 @@ public class Guardarropa {
 
     public List<Atuendo> generarSugerencia() {
         //validar que haya prenda superior, inferior y calzado
-        prueba = Sets.cartesianProduct(prendasSuperiores, prendasInferiores, calzados, accesorios)
+        return Sets.cartesianProduct(prendasSuperiores, prendasInferiores, calzados, accesorios)
                 .stream()
                 .map((list) -> new Atuendo(list.get(0), list.get(1), list.get(2), list.get(3)))
                 .collect(toList());
-        return prueba;
     }
 }

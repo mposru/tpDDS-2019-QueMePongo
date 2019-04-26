@@ -13,15 +13,6 @@ public class Borrador  {
     private Material material;
     private Guardarropa guardarropa;
 
-    // definirTipo(TipoPrenda)
-    // definirColorPrimario(Color)
-    // definirColorSecundario diferente del colorPrimario
-    // definirTrama(Trama)
-    // definirMaterial(Material) que tire la excepcion
-    // crearPrenda() valido los requireNonNull aca
-    // trama = liso
-
-
     public void definirTipo(TipoDePrenda tipoDePrenda) {
         this.tipoDePrenda = requireNonNull(tipoDePrenda, "Debe ingresar un tipo de prenda");
     }
