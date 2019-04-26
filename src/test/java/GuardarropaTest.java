@@ -103,4 +103,16 @@ public class GuardarropaTest {
         Assert.assertTrue(this.guardarropa.obtenerAccesorios().contains(this.pañuelo));
         Assert.assertTrue(this.guardarropa.obtenerAccesorios().contains(this.anteojos));
     }
+    @Test
+    public void probarQueDevuelve4() {
+        this.guardarropa.guardarPrenda(this.musculosa);
+        this.guardarropa.guardarPrenda(this.crocs);
+        this.guardarropa.guardarPrenda(this.zapatos);
+        this.guardarropa.guardarPrenda(this.shortDeJean);
+        this.guardarropa.guardarPrenda(this.pollera);
+        this.guardarropa.guardarPrenda(this.pañuelo);
+        this.guardarropa.guardarPrenda(this.anteojos);
+        List<Atuendo> sugerencias = this.guardarropa.generarSugerencia();
+        Assert.assertEquals(4,sugerencias.size());
+    }
 }
