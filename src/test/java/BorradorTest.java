@@ -17,7 +17,7 @@ public class BorradorTest {
     private Material materialInvalido;
 
     @Before
-    public void iniciar() {
+    public void iniciarTest() {
         this.tipoDePrenda = TipoDePrenda.ZAPATO;
         this.material = Material.CUERO;
         this.colorPrimario = new Color(20, 20, 30);

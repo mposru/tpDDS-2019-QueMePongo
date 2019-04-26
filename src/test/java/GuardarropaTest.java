@@ -2,10 +2,8 @@ package domain;
 
 
 import org.junit.*;
-import exceptions.*;
 import org.junit.rules.ExpectedException;
 
-import java.util.Arrays;
 import java.util.Set;
 
 
@@ -16,18 +14,44 @@ public class GuardarropaTest {
     private Set<Prenda> accesorios;
     private Usuario usuario;
     private Guardarropa armarioDeVerano;
+
+    @Before
+    public void iniciarTest() {
+
+    }
+
     @Rule
     public ExpectedException exception = ExpectedException.none();
 
     @Test
-    public void crearGuardarropaSinUsuario() throws Exception {
+    public void crearGuardarropaSinUsuario() {
         exception.expect(NullPointerException.class);
         exception.expectMessage("El guardarropa debe tener un usuario");
         armarioDeVerano = new Guardarropa(null) ;
     }
 
     @Test
-    public void sugerirGuardarropaValido() throws Exception {
+    public void sugerirAtuendos() throws Exception {
+    }
+
+    @Test
+    public void guardarPartesSuperiores() {
+
+    }
+
+    @Test
+    public void guardarPartesInferiores() {
+
+    }
+
+    @Test
+    public void guardarCalzados() {
+
+    }
+
+
+    @Test
+    public void guardarAccesorios() {
 
     }
 }
