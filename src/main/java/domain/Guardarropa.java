@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Set;
 import exceptions.*;
 
+import static java.util.Objects.requireNonNull;
 import static java.util.stream.Collectors.toList;
 
 public class Guardarropa {
@@ -16,6 +17,7 @@ public class Guardarropa {
     private Usuario usuario;
 
     public Guardarropa(Usuario usuario) {
+        requireNonNull(usuario, "El guardarropa debe tener un usuario");
         this.usuario = usuario;
     }
 
