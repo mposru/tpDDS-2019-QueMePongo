@@ -49,7 +49,7 @@ public class GuardarropaTest {
     }
 
     @Test
-    public void sugerirAtuendos() {
+    public void sugerirAtuendos() throws Exception {
         this.guardarropa.guardarPrenda(this.musculosa);
         this.guardarropa.guardarPrenda(this.crocs);
         this.guardarropa.guardarPrenda(this.zapatos);

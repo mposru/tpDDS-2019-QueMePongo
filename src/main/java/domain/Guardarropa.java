@@ -54,8 +54,23 @@ public class Guardarropa {
         }
     }
 
-    public List<Atuendo> generarSugerencia() {
-        //validar que haya prenda superior, inferior y calzado
+    private void validarPrendas() throws Exception {
+        if(prendasInferiores.size() <= 0) {
+            throw new Exception("Faltan prendas inferiores");
+        }
+        if(prendasSuperiores.size() <= 0) {
+            throw new Exception("Faltan prendas superiores");
+        }
+        if(calzados.size() <= 0) {
+            throw new Exception("Faltan zapatos");
+        }
+        if(accesorios.size() <= 0) {
+            throw new Exception("Faltan accesorios");
+        }
+    }
+
+    public List<Atuendo> generarSugerencia() throws Exception {
+        this.validarPrendas();
         return Sets.cartesianProduct(prendasSuperiores, prendasInferiores, calzados, accesorios)
                 .stream()
                 .map((list) -> new Atuendo(list.get(0), list.get(1), list.get(2), list.get(3)))
