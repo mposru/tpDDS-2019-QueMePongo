@@ -13,8 +13,9 @@ public class Borrador  {
     private Material material;
     private Guardarropa guardarropa;
 
-    public void definirTipo(TipoDePrenda tipoDePrenda) {
+    public Borrador definirTipo(TipoDePrenda tipoDePrenda) {
         this.tipoDePrenda = requireNonNull(tipoDePrenda, "Debe ingresar un tipo de prenda");
+        return this;
     }
 
     public void definirMaterial(Material material) {
