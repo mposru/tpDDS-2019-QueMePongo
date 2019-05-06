@@ -8,6 +8,9 @@ public class Prenda {
     private Color colorSecundario;
     private Trama trama;
     private Guardarropa guardarropa;
+    private int temperaturaMin;
+    private int temperaturaMax;
+    private boolean esParaLluvia;
 
     public Prenda(TipoDePrenda tipoDePrenda, Material material, Color colorPrimario, Color colorSecundario, Trama trama, Guardarropa guardarropa) {
         this.tipoDePrenda = tipoDePrenda;
@@ -44,3 +47,4 @@ public class Prenda {
 
 }
 
+// Hacer el requerimiento de limpieza de la prenda (patron state)
