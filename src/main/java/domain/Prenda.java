@@ -1,5 +1,7 @@
 package domain;
 
+import java.util.Objects;
+
 public class Prenda {
 
     private TipoDePrenda tipoDePrenda;
@@ -41,6 +43,19 @@ public class Prenda {
     public Categoria obtenerCategoria() { return this.tipoDePrenda.obtenerCategoria(); }
 
     public Guardarropa obtenerGuardarropa() {return this.guardarropa; }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Prenda prenda = (Prenda) o;
+        return Objects.equals(tipoDePrenda, prenda.obtenerTipoDePrenda()) &&
+                Objects.equals(material, prenda.obtenerMaterial()) &&
+                Objects.equals(colorPrimario, prenda.obtenerColorPrimario()) &&
+                Objects.equals(colorSecundario, prenda.obtenerColorSecundario()) &&
+                Objects.equals(trama, prenda.obtenerTrama()) &&
+                Objects.equals(guardarropa, prenda.obtenerGuardarropa());
+    }
 
 }
 

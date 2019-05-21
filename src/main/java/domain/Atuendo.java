@@ -1,5 +1,7 @@
 package domain;
 
+import java.util.Objects;
+
 public class Atuendo {
 
     private Prenda accesorio;
@@ -28,6 +30,17 @@ public class Atuendo {
 
     public Prenda obtenerCalzado() {
         return calzado;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Atuendo atuendo = (Atuendo) o;
+        return Objects.equals(accesorio, atuendo.obtenerAccesorio()) &&
+                Objects.equals(prendaSuperior, atuendo.obtenerPrendaSuperior()) &&
+                Objects.equals(prendaInferior, atuendo.obtenerPrendaInferior()) &&
+                Objects.equals(calzado, atuendo.obtenerCalzado());
     }
 
 }

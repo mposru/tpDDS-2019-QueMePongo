@@ -4,6 +4,7 @@ import com.google.common.collect.Sets;
 
 import java.util.HashSet;
 import java.util.List;
+import java.util.Objects;
 import java.util.Set;
 import exceptions.*;
 
@@ -87,4 +88,15 @@ public class Guardarropa {
                 .collect(toList());
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Guardarropa guardarropa = (Guardarropa) o;
+        return Objects.equals(prendasInferiores, guardarropa.obtenerPrendasInferiores()) &&
+                Objects.equals(prendasSuperiores, guardarropa.obtenerPrendasSuperiores()) &&
+                Objects.equals(calzados, guardarropa.obtenerCalzados()) &&
+                Objects.equals(accesorios, guardarropa.obtenerAccesorios()) &&
+                Objects.equals(usuario, guardarropa.obtenerUsuario());
+    }
 }

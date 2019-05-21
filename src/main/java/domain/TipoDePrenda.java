@@ -5,6 +5,8 @@ import exceptions.MaterialInvalidoException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Objects;
+
 import static java.util.Objects.requireNonNull;
 
 public class TipoDePrenda {
@@ -40,6 +42,19 @@ public class TipoDePrenda {
         if (!materialesValidos.contains(material)) {
             throw new MaterialInvalidoException("El material no es permitido en el tipo de prenda");
         }
+    }
+
+    public List<Material> obtenerMaterialesValidos() {
+        return materialesValidos;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        TipoDePrenda tipoDePrenda = (TipoDePrenda) o;
+        return categoria == tipoDePrenda.obtenerCategoria() &&
+                materialesValidos.equals(tipoDePrenda.obtenerMaterialesValidos());
     }
 
 }
