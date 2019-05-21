@@ -1,11 +1,11 @@
 package domain;
 
 import com.google.common.collect.Sets;
+import exceptions.*;
 
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
-import exceptions.*;
 
 import static java.util.Objects.isNull;
 import static java.util.Objects.requireNonNull;
@@ -87,5 +87,7 @@ public class Guardarropa {
                 .map((list) -> new Atuendo(list.get(0), list.get(1), list.get(2), list.get(3)))
                 .collect(toList());
     }
+
+    //setMeteorologo()
 
 }

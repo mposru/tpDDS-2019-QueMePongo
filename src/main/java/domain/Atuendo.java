@@ -1,6 +1,6 @@
 package domain;
 
-public class Atuendo {
+public class Atuendo extends Guardarropa {
 
     private Prenda accesorio;
     private Prenda prendaSuperior;
