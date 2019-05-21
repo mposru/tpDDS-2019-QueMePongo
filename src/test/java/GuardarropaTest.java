@@ -48,7 +48,7 @@ public class GuardarropaTest {
     }
 
     @Test
-    public void definirMasDeUnUsuario() throws Exception {
+    public void definirMasDeUnUsuario() {
         this.guardarropa.definirUsuario(this.flor);
         exception.expect(GuardarropaOcupadoException.class);
         exception.expectMessage("Ya tengo dueño/a, no me podes asignar a otra/o");
@@ -56,7 +56,7 @@ public class GuardarropaTest {
     }
 
     @Test
-    public void sugerirAtuendos() throws Exception {
+    public void sugerirAtuendos() {
         this.guardarropa.guardarPrenda(this.musculosa);
         this.guardarropa.guardarPrenda(this.crocs);
         this.guardarropa.guardarPrenda(this.zapatos);
@@ -75,7 +75,8 @@ public class GuardarropaTest {
         Atuendo octavoAtuendo = new Atuendo(musculosa, pollera, zapatos, anteojos);
         List <Atuendo> sugerenciasEsperadas = Arrays.asList(primerAtuendo, segundoAtuendo, tercerAtuendo, cuartoAtuendo, quintoAtuendo,
             sextoAtuendo, septimoAtuendo, octavoAtuendo);
-        Assert.assertEquals(sugerenciasEsperadas, sugerencias);
+        sugerenciasEsperadas.forEach(sugerencia -> Assert.assertTrue(sugerencias.contains(sugerencia)));
+        Assert.assertEquals(sugerenciasEsperadas.size(), sugerencias.size());
     }
 
     @Test
