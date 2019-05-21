@@ -14,6 +14,7 @@ import static java.util.stream.Collectors.toList;
 
 public class Guardarropa {
 
+   // private Map<Categoria, Set<Prenda>> prendasSuperiores = new HashSet<>();
     private Set<Prenda> prendasSuperiores = new HashSet<>();
     private Set<Prenda> prendasInferiores = new HashSet<>();
     private Set<Prenda> calzados = new HashSet<>();
