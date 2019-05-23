@@ -33,9 +33,16 @@ public class Atuendo {
         return calzado;
     }
 
+
     public void calificar(Integer calificacion) {
        // hay que agregar la lógica para que se pueda calificar si está en estado aceptado solamento, sino tiramos excepción
         this.calificacion = calificacion;
+        this.estado = new Calificado();
     }
-
+    public void aceptar() {
+        this.estado = new Aceptado();
+    }
+    public void rechazar() {
+        this.estado = new Rechazado();
+    }
 }
