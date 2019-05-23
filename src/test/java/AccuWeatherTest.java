@@ -1,6 +1,6 @@
 
 import com.sun.jersey.api.client.ClientResponse;
-import domain.AccuWeather;
+import domain.clima.AccuWeather;
 import org.junit.Before;
 import org.junit.Test;
 import static org.junit.Assert.*;

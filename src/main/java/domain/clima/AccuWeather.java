@@ -1,4 +1,4 @@
-package domain;
+package domain.clima;
 
 import com.sun.jersey.api.client.Client;
 import com.sun.jersey.api.client.ClientResponse;

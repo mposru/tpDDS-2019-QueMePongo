@@ -1,4 +1,4 @@
-package domain;
+package domain.clima;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
