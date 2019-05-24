@@ -1,13 +1,16 @@
 package domain.clima;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
+import java.util.List;
+
 
 public class Clima {
+    private List<DailyForecasts> dailyForecasts;
 
-    private Integer maxima;
-    private Integer minima;
+    public List<DailyForecasts> getDailyForecasts() {
+        return dailyForecasts;
+    }
 
-    @JsonProperty("id_card")
-    private long idCard;
-
+    public void setDailyForecasts(List<DailyForecasts> dailyForecasts) {
+        this.dailyForecasts = dailyForecasts;
+    }
 }
