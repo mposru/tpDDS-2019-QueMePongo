@@ -1,5 +1,7 @@
 package domain;
 
+import java.io.IOException;
+
 public class Prenda {
 
     private TipoDePrenda tipoDePrenda;
@@ -8,6 +10,7 @@ public class Prenda {
     private Color colorSecundario;
     private Trama trama;
     private Guardarropa guardarropa;
+    private Imagen imagen;
 
     public Prenda(TipoDePrenda tipoDePrenda, Material material, Color colorPrimario, Color colorSecundario, Trama trama, Guardarropa guardarropa) {
         this.tipoDePrenda = tipoDePrenda;
@@ -16,6 +19,10 @@ public class Prenda {
         this.colorSecundario = colorSecundario;
         this.trama = trama;
         this.guardarropa = guardarropa;
+    }
+
+    public void cargarImagen(String path) throws IOException {
+        this.imagen = imagen.leerDeFileSystem(path);
     }
 
     public Trama obtenerTrama() {
