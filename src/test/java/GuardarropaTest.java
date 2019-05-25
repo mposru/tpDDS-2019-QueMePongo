@@ -122,7 +122,7 @@ public class GuardarropaTest {
         this.guardarropa.guardarPrenda(this.crocs);
         this.guardarropa.guardarPrenda(this.pañuelo);
         this.guardarropa.guardarPrenda(this.pollera);
-        exception.expect(PrendaInvalidaException.class);
+        exception.expect(FaltaPrendaException.class);
         exception.expectMessage("Faltan prendas superiores. ");
         this.guardarropa.generarSugerencia();
     }
@@ -132,7 +132,7 @@ public class GuardarropaTest {
         this.guardarropa.guardarPrenda(this.pollera);
         this.guardarropa.guardarPrenda(this.blusa);
         this.guardarropa.guardarPrenda(this.pañuelo);
-        exception.expect(PrendaInvalidaException.class);
+        exception.expect(FaltaPrendaException.class);
         exception.expectMessage("Faltan zapatos. ");
         this.guardarropa.generarSugerencia();
     }
@@ -142,7 +142,7 @@ public class GuardarropaTest {
         this.guardarropa.guardarPrenda(this.pollera);
         this.guardarropa.guardarPrenda(this.blusa);
         this.guardarropa.guardarPrenda(this.crocs);
-        exception.expect(PrendaInvalidaException.class);
+        exception.expect(FaltaPrendaException.class);
         exception.expectMessage("Faltan accesorios. ");
         this.guardarropa.generarSugerencia();
     }
@@ -152,7 +152,7 @@ public class GuardarropaTest {
         this.guardarropa.guardarPrenda(this.blusa);
         this.guardarropa.guardarPrenda(this.crocs);
         this.guardarropa.guardarPrenda(this.pañuelo);
-        exception.expect(PrendaInvalidaException.class);
+        exception.expect(FaltaPrendaException.class);
         exception.expectMessage("Faltan prendas inferiores. ");
         this.guardarropa.generarSugerencia();
     }
