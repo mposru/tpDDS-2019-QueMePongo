@@ -67,17 +67,21 @@ public class Guardarropa {
 
 
     private void validarPrendas()  {
+        String mensajeDeError = "";
         if(prendasInferiores.size() <= 0) {
-            throw new FaltanPrendasInferioresException("Faltan prendas inferiores");
+            mensajeDeError = mensajeDeError.concat("Faltan prendas inferiores. ");
         }
         if(prendasSuperiores.size() <= 0) {
-            throw new FaltanPrendasSuperioresException("Faltan prendas superiores");
+            mensajeDeError = mensajeDeError.concat("Faltan prendas superiores. ");
         }
         if(calzados.size() <= 0) {
-            throw new FaltanCalzadosException("Faltan zapatos");
+            mensajeDeError = mensajeDeError.concat("Faltan zapatos. ");
         }
         if(accesorios.size() <= 0) {
-            throw new FaltanAccesoriosException("Faltan accesorios");
+            mensajeDeError = mensajeDeError.concat("Faltan accesorios. ");
+        }
+        if (mensajeDeError != "") {
+            throw new FaltaPrendaException(mensajeDeError);
         }
     }
 

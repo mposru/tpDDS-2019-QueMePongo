@@ -57,6 +57,7 @@ public class GuardarropaTest {
 
     @Test
     public void sugerirAtuendos() {
+        //todo: fixear test, creo que se esta guardando la data que se setea en los otros tests
         this.guardarropa.guardarPrenda(this.musculosa);
         this.guardarropa.guardarPrenda(this.crocs);
         this.guardarropa.guardarPrenda(this.zapatos);
@@ -118,9 +119,11 @@ public class GuardarropaTest {
 
     @Test
     public void noSePuedeSugerirSinParteSuperior() {
+        this.guardarropa.guardarPrenda(this.crocs);
+        this.guardarropa.guardarPrenda(this.pañuelo);
         this.guardarropa.guardarPrenda(this.pollera);
-        exception.expect(FaltanPrendasSuperioresException.class);
-        exception.expectMessage("Faltan prendas superiores");
+        exception.expect(PrendaInvalidaException.class);
+        exception.expectMessage("Faltan prendas superiores. ");
         this.guardarropa.generarSugerencia();
     }
 
@@ -129,8 +132,8 @@ public class GuardarropaTest {
         this.guardarropa.guardarPrenda(this.pollera);
         this.guardarropa.guardarPrenda(this.blusa);
         this.guardarropa.guardarPrenda(this.pañuelo);
-        exception.expect(FaltanCalzadosException.class);
-        exception.expectMessage("Faltan zapatos");
+        exception.expect(PrendaInvalidaException.class);
+        exception.expectMessage("Faltan zapatos. ");
         this.guardarropa.generarSugerencia();
     }
 
@@ -139,15 +142,18 @@ public class GuardarropaTest {
         this.guardarropa.guardarPrenda(this.pollera);
         this.guardarropa.guardarPrenda(this.blusa);
         this.guardarropa.guardarPrenda(this.crocs);
-        exception.expect(FaltanAccesoriosException.class);
-        exception.expectMessage("Faltan accesorios");
+        exception.expect(PrendaInvalidaException.class);
+        exception.expectMessage("Faltan accesorios. ");
         this.guardarropa.generarSugerencia();
     }
 
     @Test
     public void noSePuedeSugerirSinParteInferior() {
-        exception.expect(FaltanPrendasInferioresException.class);
-        exception.expectMessage("Faltan prendas inferiores");
+        this.guardarropa.guardarPrenda(this.blusa);
+        this.guardarropa.guardarPrenda(this.crocs);
+        this.guardarropa.guardarPrenda(this.pañuelo);
+        exception.expect(PrendaInvalidaException.class);
+        exception.expectMessage("Faltan prendas inferiores. ");
         this.guardarropa.generarSugerencia();
     }
 }

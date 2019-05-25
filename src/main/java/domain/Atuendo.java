@@ -1,5 +1,7 @@
 package domain;
 
+import exceptions.PrendaInvalidaException;
+
 import java.util.Objects;
 
 public class Atuendo {
@@ -10,10 +12,30 @@ public class Atuendo {
     private Prenda calzado;
 
     public Atuendo(Prenda prendaSuperior, Prenda prendaInferior, Prenda calzado, Prenda accesorio) {
+        this.validarPrendas(prendaSuperior, prendaInferior, calzado, accesorio);
         this.accesorio = accesorio;
         this.prendaSuperior = prendaSuperior;
         this.prendaInferior = prendaInferior;
         this.calzado = calzado;
+    }
+
+    private void validarPrendas(Prenda prendaSuperior, Prenda prendaInferior, Prenda calzado, Prenda accesorio) {
+        String mensajeDeError = "";
+        if (prendaSuperior.obtenerCategoria() != Categoria.PARTE_SUPERIOR) {
+            mensajeDeError = mensajeDeError.concat("La prenda superior no es válida. ");
+        }
+        if (prendaInferior.obtenerCategoria() != Categoria.PARTE_INFERIOR) {
+            mensajeDeError = mensajeDeError.concat("La prenda inferior no es válida. ");
+        }
+        if (calzado.obtenerCategoria() != Categoria.CALZADO) {
+            mensajeDeError = mensajeDeError.concat("El calzado no es válido. ");
+        }
+        if (accesorio.obtenerCategoria() != Categoria.ACCESORIO) {
+            mensajeDeError = mensajeDeError.concat("El accesorio no es válido. ");
+        }
+        if (mensajeDeError != "") {
+            throw new PrendaInvalidaException(mensajeDeError);
+        }
     }
 
     public Prenda obtenerPrendaSuperior() {

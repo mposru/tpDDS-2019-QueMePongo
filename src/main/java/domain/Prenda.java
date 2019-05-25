@@ -17,6 +17,7 @@ public class Prenda {
         this.colorPrimario = colorPrimario;
         this.colorSecundario = colorSecundario;
         this.trama = trama;
+        // esta bien esto?
         this.guardarropa = guardarropa;
     }
 
