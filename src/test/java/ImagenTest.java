@@ -1,5 +1,4 @@
 import domain.*;
-import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
@@ -15,6 +14,6 @@ public class ImagenTest {
     @Test
     public void leerArchivoDeFileSystem() throws IOException {
         //exception.expect(IOException.class);
-        imagen = imagen.leerDeFileSystem("/src/imagenes/ojotas.jpg/");
+        imagen.leerDeFileSystem("/src/imagenes/ojotas.jpg/");
     }
 }
