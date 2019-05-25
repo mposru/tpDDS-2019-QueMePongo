@@ -3,13 +3,11 @@ package domain;
 import com.sun.jersey.api.client.Client;
 import com.sun.jersey.api.client.ClientResponse;
 import com.sun.jersey.api.client.WebResource;
-import com.sun.jersey.core.spi.scanning.JarFileScanner;
 import org.json.JSONObject;
 
 import javax.ws.rs.core.MediaType;
 
-
-public class AccuWeather {
+public class AccuWeather extends Meteorologo {
     private Client client;
     private static final String API_ACCUWEATHER = "http://dataservice.accuweather.com/forecasts/v1/daily/1day/7894?apikey=QZYTHbRTv93BEQmByL07F0ssLgYyNhYH&language=es-ar&details=true&metric=true";
 

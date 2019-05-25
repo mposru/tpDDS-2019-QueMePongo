@@ -1,5 +1,7 @@
 package domain;
 
-public class Meteorologo {
-    //meteorologo.getInstance().getClima()
+public abstract class Meteorologo {
+
+    public abstract Clima obtenerClima();
+
 }

@@ -19,6 +19,7 @@ public class Guardarropa {
     private Set<Prenda> calzados = new HashSet<>();
     private Set<Prenda> accesorios = new HashSet<>();
     private Usuario usuario;
+    private Meteorologo meteorologo;
 
     public Set<Prenda> obtenerPrendasSuperiores() {
         return prendasSuperiores;
@@ -64,7 +65,6 @@ public class Guardarropa {
         }
     }
 
-
     private void validarPrendas()  {
         if(prendasInferiores.size() <= 0) {
             throw new FaltanPrendasInferioresException("Faltan prendas inferiores");
@@ -88,6 +88,7 @@ public class Guardarropa {
                 .collect(toList());
     }
 
-    //setMeteorologo()
-
+    public void setMeteorologo(Meteorologo meteorologo) {
+        this.meteorologo = meteorologo;
+    }
 }
