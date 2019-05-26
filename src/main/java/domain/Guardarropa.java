@@ -91,8 +91,6 @@ public class Guardarropa {
         }
         if(calzados.size() <= 0) {
             mensajeDeError = mensajeDeError.concat("Faltan zapatos. ");
-            throw new FaltanCalzadosException("Faltan calzados");
-
         }
         if(accesorios.size() <= 0) {
             mensajeDeError = mensajeDeError.concat("Faltan accesorios. ");
