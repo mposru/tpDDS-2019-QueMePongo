@@ -1,9 +1,9 @@
 package domain;
 
 import javax.imageio.ImageIO;
+import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.File;
-import java.io.FileInputStream;
 import java.io.IOException;
 
 public class Imagen {
@@ -15,9 +15,12 @@ public class Imagen {
 
     public void leerDeFileSystem(String path) throws IOException {
         this.archivo = new File(path);
-        this.imagen = new BufferedImage(ancho, alto, BufferedImage.TYPE_INT_ARGB);
-        FileInputStream fis = new FileInputStream(archivo);
-        this.imagen = ImageIO.read(fis);
+        this.imagen = ImageIO.read(archivo);
+        BufferedImage resizedImage = new BufferedImage(ancho,alto,BufferedImage.TYPE_INT_ARGB);
+        Graphics2D g = resizedImage.createGraphics();
+        g.drawImage(imagen, 0, 0, ancho,alto, null);
+        g.dispose();
+        this.imagen = resizedImage;
     }
 
     public BufferedImage getImagen() {
