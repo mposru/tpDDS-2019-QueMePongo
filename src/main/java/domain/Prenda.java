@@ -22,7 +22,7 @@ public class Prenda {
     }
 
     public void cargarImagen(String path) throws IOException {
-        this.imagen = imagen.leerDeFileSystem(path);
+        this.imagen.leerDeFileSystem(path);
     }
 
     public Trama obtenerTrama() {

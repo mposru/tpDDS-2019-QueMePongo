@@ -12,18 +12,10 @@ public class Imagen {
     private BufferedImage imagen = null;
     private File archivo = null;
 
-    public Imagen(int ancho, int alto, BufferedImage imagen, File archivo) {
-        this.ancho = ancho;
-        this.alto = alto;
-        this.imagen = imagen;
-        this.archivo = archivo;
-    }
-
-    public Imagen leerDeFileSystem(String path) throws IOException {
-        archivo = new File(path);
-        imagen = new BufferedImage(ancho, alto, BufferedImage.TYPE_INT_ARGB);
-        imagen = ImageIO.read(archivo);
-        return new Imagen(this.ancho, this.alto, imagen, archivo);
+    public void leerDeFileSystem(String path) throws IOException {
+        this.archivo = new File(path);
+        this.imagen = new BufferedImage(ancho, alto, BufferedImage.TYPE_INT_ARGB);
+        this.imagen = ImageIO.read(archivo);
     }
 
     public BufferedImage getImagen() {

@@ -6,7 +6,7 @@ import java.io.IOException;
 
 public class ImagenTest {
 
-    private Imagen imagen;
+    private Imagen imagen = new Imagen();
 
     @Rule
     public ExpectedException exception = ExpectedException.none();
@@ -14,6 +14,7 @@ public class ImagenTest {
     @Test
     public void leerArchivoDeFileSystem() throws IOException {
         //exception.expect(IOException.class);
-        imagen.leerDeFileSystem("/src/imagenes/ojotas.jpg/");
+        imagen.leerDeFileSystem("C:\\Users\\Marina\\Desktop\\tpDDS\\2019-vi-no-group-08\\src\\imagenes\\ojotas.jpg");
+
     }
 }
