@@ -1,4 +1,6 @@
 package domain;
+import exceptions.*;
+
 
 public class Atuendo {
 
@@ -7,7 +9,8 @@ public class Atuendo {
     private Prenda prendaInferior;
     private Prenda calzado;
     private EstadoAtuendo estado;
-    private Integer calificacion;
+    private int calificacion = 0;
+    private int calificacionAnterior = 0;
 
     public Atuendo(Prenda prendaSuperior, Prenda prendaInferior, Prenda calzado, Prenda accesorio) {
         this.accesorio = accesorio;
@@ -33,16 +36,43 @@ public class Atuendo {
         return calzado;
     }
 
+    public String obtenerEstadoAtuendo() { return estado.nombre(); }
 
-    public void calificar(Integer calificacion) {
-       // hay que agregar la lógica para que se pueda calificar si está en estado aceptado solamento, sino tiramos excepción
-        this.calificacion = calificacion;
+    public int obtenerCalificacionActual() { return this.calificacion;}
+    public int obtenerCalificacionAnterior() { return this.calificacionAnterior;}
+
+    public void aceptar() {
+        if(!this.obtenerEstadoAtuendo().equals("Nuevo")) {
+            throw new NoSePuedeAceptarException("Sólo se puede aceptar un atuendo con estado = Nuevo");
+        }
+        this.estado = new Aceptado(); //quedaría mejor usar singleton. Hay que cambiarlo
+    }
+
+    public void calificar(int nuevaCalificacion) {
+        if (nuevaCalificacion < 1 && nuevaCalificacion > 5) {
+            throw new RangoDeCalificacionException("La calificación del atuendo debe estar entre 1 y 5");
+        }
+        if (this.obtenerEstadoAtuendo().equals("Calificado")) {
+            this.calificacionAnterior = this.calificacion;
+        }
+        if (!this.obtenerEstadoAtuendo().equals("Aceptado")) {
+            throw new NoSePuedeCalificarException("Sólo se puede calificar un atuendo aceptado");
+        }
+        this.calificacion = nuevaCalificacion;
         this.estado = new Calificado();
     }
-    public void aceptar() {
-        this.estado = new Aceptado();
-    }
+
     public void rechazar() {
+        if(!this.obtenerEstadoAtuendo().equals("Nuevo")) {
+            throw new NoSePuedeRechazarException("Solo se puede rechazar un atuendo con estado = Nuevo");
+        }
         this.estado = new Rechazado();
     }
+
+
+    public void cambiarEstado(EstadoAtuendo estado) {
+        this.estado = estado;
+    }
+
+
 }
