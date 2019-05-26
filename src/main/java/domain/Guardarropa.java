@@ -14,15 +14,22 @@ import static java.util.stream.Collectors.toList;
 
 public class Guardarropa {
 
-   // private Map<Categoria, Set<Prenda>> prendasSuperiores = new HashSet<>();
     private Set<Prenda> prendasSuperiores = new HashSet<>();
     private Set<Prenda> prendasInferiores = new HashSet<>();
     private Set<Prenda> calzados = new HashSet<>();
     private Set<Prenda> accesorios = new HashSet<>();
     private Usuario usuario;
-
+    private int limiteDePrendas = usuario.limiteDePrendas(); // el guardarropas queda seteado con el limite que tenga el usuario dueño del mismo
+    private int cantidadDePrendas;
     public Set<Prenda> obtenerPrendasSuperiores() {
         return prendasSuperiores;
+    }
+
+    //Agregamos el usuario en el constructor porque necesitamos saber
+    // el tipo de usuario que tiene asociado para saber el límite de prendas que se pueden agregar
+
+    public Guardarropa(Usuario usuario) {
+        this.usuario = requireNonNull(usuario, "Debe ingresar un usuario");
     }
 
     public Set<Prenda> obtenerPrendasInferiores() {
@@ -49,6 +56,12 @@ public class Guardarropa {
     }
 
     public void guardarPrenda(Prenda prenda) {
+
+        if(this.usuario.tieneLimiteDePrendas()) {
+            if (this.cantidadDePrendas>=this.usuario.limiteDePrendas()) {
+                throw new SuperaLimiteDePrendasException ("Se supera el límite de "+this.usuario.limiteDePrendas() + " prendas definido para el tipo de usuario del guardarropa");
+            }
+        }
         switch (prenda.obtenerCategoria()) {
             case CALZADO:
                 calzados.add(prenda);
@@ -63,6 +76,8 @@ public class Guardarropa {
                 accesorios.add(prenda);
                 break;
         }
+        this.cantidadDePrendas++;
+
     }
 
 
@@ -76,6 +91,8 @@ public class Guardarropa {
         }
         if(calzados.size() <= 0) {
             mensajeDeError = mensajeDeError.concat("Faltan zapatos. ");
+            throw new FaltanCalzadosException("Faltan calzados");
+
         }
         if(accesorios.size() <= 0) {
             mensajeDeError = mensajeDeError.concat("Faltan accesorios. ");
