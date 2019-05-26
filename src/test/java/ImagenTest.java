@@ -14,7 +14,7 @@ public class ImagenTest {
     @Test
     public void leerArchivoDeFileSystem() throws IOException {
         //exception.expect(IOException.class);
-        imagen.leerDeFileSystem("C:\\Users\\Marina\\Desktop\\tpDDS\\2019-vi-no-group-08\\src\\imagenes\\ojotas.jpg");
+        imagen.leerDeFileSystem("C:\\Users\\Diego\\Desktop\\Diseño de Sistemas\\2019-vi-no-group-08\\src\\imagenes\\ojotas.png");
 
     }
 }
