@@ -1,4 +1,4 @@
-import domain.Clima;
+import domain.clima.Clima;
 import domain.clima.DarkSky;
 import org.junit.Before;
 import org.junit.Test;

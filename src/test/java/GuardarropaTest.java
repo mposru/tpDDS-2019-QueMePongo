@@ -4,6 +4,7 @@ import exceptions.*;
 import org.junit.*;
 import org.junit.rules.ExpectedException;
 
+import java.util.Arrays;
 import java.util.List;
 
 public class GuardarropaTest {
@@ -23,7 +24,6 @@ public class GuardarropaTest {
     @Before
     public void iniciarTest() {
         this.color = new Color(1, 2, 3);
-        this.guardarropa = new Guardarropa();
         this.musculosa = new Prenda(TipoDePrenda.MUSCULOSA, Material.ALGODON, color, null, Trama.CUADROS, guardarropa);
         this.blusa = new Prenda(TipoDePrenda.BLUSA, Material.ALGODON, color, null, Trama.CUADROS, guardarropa);
         this.crocs = new Prenda(TipoDePrenda.CROCS, Material.GOMA, color, null, Trama.CUADROS, guardarropa);
@@ -34,6 +34,7 @@ public class GuardarropaTest {
         this.anteojos = new Prenda(TipoDePrenda.ANTEOJOS, Material.PLASTICO, color, null, Trama.LISA, guardarropa);
         this.marta = new Usuario();
         this.flor = new Usuario();
+        this.guardarropa = new Guardarropa(marta);
     }
 
     @Rule
@@ -47,7 +48,7 @@ public class GuardarropaTest {
     }
 
     @Test
-    public void definirMasDeUnUsuario() throws Exception {
+    public void definirMasDeUnUsuario() {
         this.guardarropa.definirUsuario(this.flor);
         exception.expect(GuardarropaOcupadoException.class);
         exception.expectMessage("Ya tengo dueño/a, no me podes asignar a otra/o");
@@ -55,7 +56,8 @@ public class GuardarropaTest {
     }
 
     @Test
-    public void sugerirAtuendos() throws Exception {
+    public void sugerirAtuendos() {
+        //todo: fixear test, creo que se esta guardando la data que se setea en los otros tests
         this.guardarropa.guardarPrenda(this.musculosa);
         this.guardarropa.guardarPrenda(this.crocs);
         this.guardarropa.guardarPrenda(this.zapatos);
@@ -64,23 +66,18 @@ public class GuardarropaTest {
         this.guardarropa.guardarPrenda(this.pañuelo);
         this.guardarropa.guardarPrenda(this.anteojos);
         List<Atuendo> sugerencias = this.guardarropa.generarSugerencia();
-        //Atuendo primerAtuendo = new Atuendo(musculosa, shortDeJean, crocs, pañuelo);
-        //Atuendo segundoAtuendo = new Atuendo(musculosa, shortDeJean, crocs, anteojos);
-        //Atuendo tercerAtuendo = new Atuendo(musculosa, shortDeJean, zapatos, pañuelo);
-        //Atuendo cuartoAtuendo = new Atuendo(musculosa, shortDeJean, zapatos, anteojos);
-        //Atuendo quintoAtuendo = new Atuendo(musculosa, pollera, crocs, pañuelo);
-        //Atuendo sextoAtuendo = new Atuendo(musculosa, pollera, crocs, anteojos);
-        //Atuendo septimoAtuendo = new Atuendo(musculosa, pollera, zapatos, pañuelo);
-        //Atuendo octavoAtuendo = new Atuendo(musculosa, pollera, zapatos, anteojos);
-        //List <Atuendo> sugerenciasEsperadas = Arrays.asList(primerAtuendo, segundoAtuendo, tercerAtuendo, cuartoAtuendo, quintoAtuendo,
-        //    sextoAtuendo, septimoAtuendo, octavoAtuendo);
-        Assert.assertEquals(8, sugerencias.size());
-        sugerencias.forEach(atuendo -> {
-            Assert.assertEquals(Categoria.PARTE_SUPERIOR, atuendo.obtenerPrendaSuperior().obtenerCategoria());
-            Assert.assertEquals(Categoria.PARTE_INFERIOR, atuendo.obtenerPrendaInferior().obtenerCategoria());
-            Assert.assertEquals(Categoria.CALZADO, atuendo.obtenerCalzado().obtenerCategoria());
-            Assert.assertEquals(Categoria.ACCESORIO, atuendo.obtenerAccesorio().obtenerCategoria());
-        });
+        Atuendo primerAtuendo = new Atuendo(musculosa, shortDeJean, crocs, pañuelo);
+        Atuendo segundoAtuendo = new Atuendo(musculosa, shortDeJean, crocs, anteojos);
+        Atuendo tercerAtuendo = new Atuendo(musculosa, shortDeJean, zapatos, pañuelo);
+        Atuendo cuartoAtuendo = new Atuendo(musculosa, shortDeJean, zapatos, anteojos);
+        Atuendo quintoAtuendo = new Atuendo(musculosa, pollera, crocs, pañuelo);
+        Atuendo sextoAtuendo = new Atuendo(musculosa, pollera, crocs, anteojos);
+        Atuendo septimoAtuendo = new Atuendo(musculosa, pollera, zapatos, pañuelo);
+        Atuendo octavoAtuendo = new Atuendo(musculosa, pollera, zapatos, anteojos);
+        List <Atuendo> sugerenciasEsperadas = Arrays.asList(primerAtuendo, segundoAtuendo, tercerAtuendo, cuartoAtuendo, quintoAtuendo,
+            sextoAtuendo, septimoAtuendo, octavoAtuendo);
+        sugerenciasEsperadas.forEach(sugerencia -> Assert.assertTrue(sugerencias.contains(sugerencia)));
+        Assert.assertEquals(sugerenciasEsperadas.size(), sugerencias.size());
     }
 
     @Test
@@ -122,9 +119,11 @@ public class GuardarropaTest {
 
     @Test
     public void noSePuedeSugerirSinParteSuperior() {
+        this.guardarropa.guardarPrenda(this.crocs);
+        this.guardarropa.guardarPrenda(this.pañuelo);
         this.guardarropa.guardarPrenda(this.pollera);
-        exception.expect(FaltanPrendasSuperioresException.class);
-        exception.expectMessage("Faltan prendas superiores");
+        exception.expect(FaltaPrendaException.class);
+        exception.expectMessage("Faltan prendas superiores. ");
         this.guardarropa.generarSugerencia();
     }
 
@@ -133,8 +132,8 @@ public class GuardarropaTest {
         this.guardarropa.guardarPrenda(this.pollera);
         this.guardarropa.guardarPrenda(this.blusa);
         this.guardarropa.guardarPrenda(this.pañuelo);
-        exception.expect(FaltanCalzadosException.class);
-        exception.expectMessage("Faltan zapatos");
+        exception.expect(FaltaPrendaException.class);
+        exception.expectMessage("Faltan zapatos. ");
         this.guardarropa.generarSugerencia();
     }
 
@@ -143,15 +142,18 @@ public class GuardarropaTest {
         this.guardarropa.guardarPrenda(this.pollera);
         this.guardarropa.guardarPrenda(this.blusa);
         this.guardarropa.guardarPrenda(this.crocs);
-        exception.expect(FaltanAccesoriosException.class);
-        exception.expectMessage("Faltan accesorios");
+        exception.expect(FaltaPrendaException.class);
+        exception.expectMessage("Faltan accesorios. ");
         this.guardarropa.generarSugerencia();
     }
 
     @Test
     public void noSePuedeSugerirSinParteInferior() {
-        exception.expect(FaltanPrendasInferioresException.class);
-        exception.expectMessage("Faltan prendas inferiores");
+        this.guardarropa.guardarPrenda(this.blusa);
+        this.guardarropa.guardarPrenda(this.crocs);
+        this.guardarropa.guardarPrenda(this.pañuelo);
+        exception.expect(FaltaPrendaException.class);
+        exception.expectMessage("Faltan prendas inferiores. ");
         this.guardarropa.generarSugerencia();
     }
 }

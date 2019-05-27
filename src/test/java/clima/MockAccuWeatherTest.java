@@ -1,5 +1,6 @@
+import domain.Usuario;
 import domain.clima.AccuWeather;
-import domain.Clima;
+import domain.clima.Clima;
 import domain.Guardarropa;
 import org.junit.Before;
 import org.junit.Test;
@@ -13,12 +14,14 @@ public class MockAccuWeatherTest {
     private AccuWeather accuWeather;
     private Guardarropa guardarropa;
     private Clima clima;
+    private Usuario marta;
 
     @Before
     public void iniciarTest() {
         accuWeather = mock(AccuWeather.class);
-        guardarropa = new Guardarropa();
-        guardarropa.setMeteorologo(accuWeather);
+        marta = new Usuario();
+        guardarropa = new Guardarropa(marta);
+        guardarropa.definirMeteorologo(accuWeather);
         clima = new Clima(1558917066, 30, 20, 0.5, 1.0);
     }
 

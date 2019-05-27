@@ -13,6 +13,7 @@ public class BorradorTest {
     private Trama trama;
     private Guardarropa guardarropa;
     private Material materialInvalido;
+    private Usuario magdalena = new Usuario();
 
     @Before
     public void iniciarTest() {
@@ -20,7 +21,7 @@ public class BorradorTest {
         this.material = Material.CUERO;
         this.colorPrimario = new Color(20, 20, 30);
         this.trama = Trama.LISA;
-        this.guardarropa = new Guardarropa();
+        this.guardarropa = new Guardarropa(magdalena);
         //creamos un borrador sin definirle el tipoDePrenda, material, trama y guardarropa
         this.borradorZapatillas = new Borrador();
         this.materialInvalido = Material.JEAN;
@@ -60,9 +61,7 @@ public class BorradorTest {
 
     @Test
     public void definirTramaVacia() {
-        borradorZapatillas.definirTipo(this.tipoDePrenda);
-        borradorZapatillas.definirMaterial(this.material);
-        borradorZapatillas.definirColorPrimario(this.colorPrimario);
+        borradorZapatillas.definirTipo(this.tipoDePrenda).definirMaterial(this.material).definirColorPrimario(this.colorPrimario);
         exception.expect(NullPointerException.class);
         exception.expectMessage("Debe ingresar una trama");
         borradorZapatillas.definirTrama(null);
@@ -92,8 +91,7 @@ public class BorradorTest {
 
     @Test
     public void crearPrendaSinColorPrimario() {
-        this.borradorZapatillas.definirTipo(this.tipoDePrenda);
-        this.borradorZapatillas.definirMaterial(this.material);
+        this.borradorZapatillas.definirTipo(this.tipoDePrenda).definirMaterial(this.material);
         this.exception.expect(NullPointerException.class);
         this.exception.expectMessage("El color es obligatorio");
         this.borradorZapatillas.crearPrenda();
@@ -101,9 +99,7 @@ public class BorradorTest {
 
     @Test
     public void crearPrendaSinMaterial() {
-        this.borradorZapatillas.definirTipo(this.tipoDePrenda);
-        this.borradorZapatillas.definirColorPrimario(this.colorPrimario);
-        this.borradorZapatillas.definirGuardarropa(this.guardarropa);
+        this.borradorZapatillas.definirTipo(this.tipoDePrenda).definirColorPrimario(this.colorPrimario).definirGuardarropa(this.guardarropa);
         exception.expect(NullPointerException.class);
         exception.expectMessage("El material es obligatorio");
         this.borradorZapatillas.crearPrenda();
@@ -111,9 +107,7 @@ public class BorradorTest {
 
     @Test
     public void crearPrendaSinGuardarropa() {
-        this.borradorZapatillas.definirTipo(this.tipoDePrenda);
-        this.borradorZapatillas.definirMaterial(this.material);
-        this.borradorZapatillas.definirColorPrimario(this.colorPrimario);
+        this.borradorZapatillas.definirTipo(this.tipoDePrenda).definirMaterial(this.material).definirColorPrimario(this.colorPrimario);
         exception.expect(NullPointerException.class);
         exception.expectMessage("El guardarropa es obligatorio");
         this.borradorZapatillas.crearPrenda();
@@ -121,11 +115,7 @@ public class BorradorTest {
 
     @Test
     public void crearPrendaConExito() {
-        this.borradorZapatillas.definirTipo(this.tipoDePrenda);
-        this.borradorZapatillas.definirMaterial(this.material);
-        this.borradorZapatillas.definirColorPrimario(this.colorPrimario);
-        this.borradorZapatillas.definirColorPrimario(this.colorPrimario);
-        this.borradorZapatillas.definirGuardarropa(this.guardarropa);
+        this.borradorZapatillas.definirTipo(this.tipoDePrenda).definirMaterial(this.material).definirColorPrimario(this.colorPrimario).definirColorPrimario(this.colorPrimario).definirGuardarropa(this.guardarropa);
         Prenda prendaEsperada = new Prenda(this.tipoDePrenda, this.material, this.colorPrimario, null, this.trama, this.guardarropa);
         Assert.assertEquals(prendaEsperada.obtenerTipoDePrenda(),this.tipoDePrenda);
         Assert.assertEquals(prendaEsperada.obtenerColorPrimario(),this.colorPrimario);

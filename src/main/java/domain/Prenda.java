@@ -1,6 +1,7 @@
 package domain;
-
 import java.io.IOException;
+import java.util.Objects;
+
 
 public class Prenda {
 
@@ -11,6 +12,9 @@ public class Prenda {
     private Trama trama;
     private Guardarropa guardarropa;
     private Imagen imagen;
+    private int temperaturaMin;
+    private int temperaturaMax;
+    private boolean esParaLluvia;
 
     public Prenda(TipoDePrenda tipoDePrenda, Material material, Color colorPrimario, Color colorSecundario, Trama trama, Guardarropa guardarropa) {
         this.tipoDePrenda = tipoDePrenda;
@@ -18,6 +22,7 @@ public class Prenda {
         this.colorPrimario = colorPrimario;
         this.colorSecundario = colorSecundario;
         this.trama = trama;
+        // esta bien esto?
         this.guardarropa = guardarropa;
     }
 
@@ -49,5 +54,19 @@ public class Prenda {
 
     public Guardarropa obtenerGuardarropa() {return this.guardarropa; }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Prenda prenda = (Prenda) o;
+        return Objects.equals(tipoDePrenda, prenda.obtenerTipoDePrenda()) &&
+                Objects.equals(material, prenda.obtenerMaterial()) &&
+                Objects.equals(colorPrimario, prenda.obtenerColorPrimario()) &&
+                Objects.equals(colorSecundario, prenda.obtenerColorSecundario()) &&
+                Objects.equals(trama, prenda.obtenerTrama()) &&
+                Objects.equals(guardarropa, prenda.obtenerGuardarropa());
+    }
+
 }
 
+// Hacer el requerimiento de limpieza de la prenda (patron state)

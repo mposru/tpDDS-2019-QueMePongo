@@ -18,30 +18,35 @@ public class Borrador  {
         return this;
     }
 
-    public void definirMaterial(Material material) {
+    public Borrador definirMaterial(Material material) {
         requireNonNull(material, "Debe ingresar un material");
         requireNonNull(tipoDePrenda, "Debe definir el tipo de prenda antes de definir el material");
         tipoDePrenda.validarMaterial(material);
         this.material = material;
+        return this;
     }
 
-    public void definirColorPrimario(Color colorPrimario) {
+    public Borrador definirColorPrimario(Color colorPrimario) {
         this.colorPrimario = requireNonNull(colorPrimario, "Debe ingresar un color primario");
+        return this;
     }
 
-    public void definirColorSecundario(Color colorSecundario) {
+    public Borrador definirColorSecundario(Color colorSecundario) {
         if (colorPrimario.equals(colorSecundario)) {
             throw new ColorSecundarioException("El color secundario debe ser distinto al color primario");
         }
         this.colorSecundario = colorSecundario;
+        return this;
     }
 
-    public void definirTrama(Trama trama) {
+    public Borrador definirTrama(Trama trama) {
         this.trama = requireNonNull(trama, "Debe ingresar una trama");
+        return this;
     }
 
-    public void definirGuardarropa(Guardarropa guardarropa) {
-        this.guardarropa = requireNonNull(guardarropa, "Debe asignarle un guardarropa a la prenda");;
+    public Borrador definirGuardarropa(Guardarropa guardarropa) {
+        this.guardarropa = requireNonNull(guardarropa, "Debe asignarle un guardarropa a la prenda");
+        return this;
     }
 
     public Prenda crearPrenda() {
@@ -50,7 +55,6 @@ public class Borrador  {
         requireNonNull(colorPrimario, "El color es obligatorio");
         requireNonNull(guardarropa, "El guardarropa es obligatorio");
         Prenda prenda = new Prenda(tipoDePrenda, material, colorPrimario, colorSecundario, trama, guardarropa);
-        guardarropa.guardarPrenda(prenda);
         return prenda;
     }
 }

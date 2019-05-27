@@ -1,5 +1,5 @@
 import domain.clima.AccuWeather;
-import domain.Clima;
+import domain.clima.Clima;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mockito;

@@ -1,5 +1,7 @@
 package domain;
 
+import java.util.Objects;
+
 public class Color {
 
     private int rojo, verde, azul;
@@ -10,4 +12,24 @@ public class Color {
         this.azul = azul;
     }
 
+    public int obtenerRojo() {
+        return rojo;
+    }
+
+    public int obtenerAzul() {
+        return azul;
+    }
+
+    public int obtenerVerde() {
+        return verde;
+    }
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Color color = (Color) o;
+        return Objects.equals(rojo, color.obtenerRojo()) &&
+                Objects.equals(azul, color.obtenerAzul()) &&
+                Objects.equals(verde, color.obtenerVerde());
+    }
 }
