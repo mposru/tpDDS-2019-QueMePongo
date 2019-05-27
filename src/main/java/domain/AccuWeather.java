@@ -30,9 +30,9 @@ public class AccuWeather extends Meteorologo {
 
         JSONObject category = accuWeather.getJSONObject("Headline").getJSONObject("Category");
         JSONObject maximum = temperature.getJSONObject("Maximum");
-        int valorMaximoTemperatura = maximum.getInt("Value");
+        double valorMaximoTemperatura = maximum.getInt("Value");
         JSONObject minimum = temperature.getJSONObject("Minimum");
-        int valorMinimoTemperatura = minimum.getInt("Value");
+        double valorMinimoTemperatura = minimum.getInt("Value");
 
         return new Clima(epochDate, valorMaximoTemperatura, valorMinimoTemperatura, precipitationProbabilityDay, precipitationProbabilityNight);
     }

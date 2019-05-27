@@ -2,12 +2,12 @@ package domain;
 
 public class Clima {
     private long fecha;
-    private int temperaturaMaxima;
-    private int temperaturaMinima;
+    private double temperaturaMaxima;
+    private double temperaturaMinima;
     private double precipitacionDia;
     private double precipitacionNoche;
 
-    public Clima(long fecha, int maxima, int minima, double precipitacionDia, double precipitacionNoche){
+    public Clima(long fecha, double maxima, double minima, double precipitacionDia, double precipitacionNoche){
         this.fecha = fecha;
         this.temperaturaMaxima = maxima;
         this.temperaturaMinima = minima;
@@ -19,11 +19,11 @@ public class Clima {
         return fecha;
     }
 
-    public int getTemperaturaMaxima() {
+    public double getTemperaturaMaxima() {
         return temperaturaMaxima;
     }
 
-    public int getTemperaturaMinima() {
+    public double getTemperaturaMinima() {
         return temperaturaMinima;
     }
 
@@ -39,11 +39,11 @@ public class Clima {
         this.fecha = fecha;
     }
 
-    public void setTemperaturaMaxima(int temperaturaMaxima) {
+    public void setTemperaturaMaxima(double temperaturaMaxima) {
         this.temperaturaMaxima = temperaturaMaxima;
     }
 
-    public void setTemperaturaMinima(int temperaturaMinima) {
+    public void setTemperaturaMinima(double temperaturaMinima) {
         this.temperaturaMinima = temperaturaMinima;
     }
 
