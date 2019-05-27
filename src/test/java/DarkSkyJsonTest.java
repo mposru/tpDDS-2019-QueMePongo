@@ -1,5 +1,5 @@
 import domain.Clima;
-import domain.DarkSky;
+import domain.clima.DarkSky;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mockito;
@@ -362,36 +362,32 @@ public class DarkSkyJsonTest {
     @Before
     public void iniciarTest(){
         darkSky = Mockito.spy(new DarkSky());
+        when(darkSky.getJsonClima()).thenReturn(jsonClima);
         clima = new Clima(1558839600,17.9,13.96,0.26,0.26);
     }
 
     @Test
     public void obtenerFechaDelJson() {
-        when(darkSky.getJsonClima()).thenReturn(jsonClima);
         assertEquals(clima.getFecha(), darkSky.obtenerClima().getFecha());
     }
 
     @Test
     public void obtenerMaximaDelJson() {
-        when(darkSky.getJsonClima()).thenReturn(jsonClima);
         assertEquals(clima.getTemperaturaMaxima(), darkSky.obtenerClima().getTemperaturaMaxima(),0);
     }
 
     @Test
     public void obtenerMinimaDelJson() {
-        when(darkSky.getJsonClima()).thenReturn(jsonClima);
         assertEquals(clima.getTemperaturaMinima(), darkSky.obtenerClima().getTemperaturaMinima(),0);
     }
 
     @Test
     public void obtenerProbaPecipitacionDiaDelJson() {
-        when(darkSky.getJsonClima()).thenReturn(jsonClima);
         assertEquals(clima.getPrecipitacionDia(), darkSky.obtenerClima().getPrecipitacionDia(),0);
     }
 
     @Test
     public void obtenerProbaPecipitacionNocheDelJson() {
-        when(darkSky.getJsonClima()).thenReturn(jsonClima);
         assertEquals(clima.getPrecipitacionNoche(), darkSky.obtenerClima().getPrecipitacionNoche(),0);
     }
 }

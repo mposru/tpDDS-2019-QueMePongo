@@ -1,4 +1,4 @@
-import domain.AccuWeather;
+import domain.clima.AccuWeather;
 import domain.Clima;
 import domain.Guardarropa;
 import org.junit.Before;

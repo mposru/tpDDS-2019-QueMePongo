@@ -1,4 +1,4 @@
-import domain.AccuWeather;
+import domain.clima.AccuWeather;
 import domain.Clima;
 import org.junit.Before;
 import org.junit.Test;
@@ -261,36 +261,32 @@ public class AccuWeatherJsonTest {
     @Before
     public void iniciarTest(){
         accuWeather = Mockito.spy(new AccuWeather());
+        when(accuWeather.getJsonClima()).thenReturn(jsonClima);
         clima = new Clima(1558864800,17.8,14.4,25,25);
     }
 
     @Test
     public void obtenerFechaDelJson() {
-        when(accuWeather.getJsonClima()).thenReturn(jsonClima);
         assertEquals(clima.getFecha(), accuWeather.obtenerClima().getFecha());
     }
 
     @Test
     public void obtenerMaximaDelJson() {
-        when(accuWeather.getJsonClima()).thenReturn(jsonClima);
         assertEquals(clima.getTemperaturaMaxima(), accuWeather.obtenerClima().getTemperaturaMaxima(),0);
     }
 
     @Test
     public void obtenerMinimaDelJson() {
-        when(accuWeather.getJsonClima()).thenReturn(jsonClima);
         assertEquals(clima.getTemperaturaMinima(), accuWeather.obtenerClima().getTemperaturaMinima(),0);
     }
 
     @Test
     public void obtenerProbaPecipitacionDiaDelJson() {
-        when(accuWeather.getJsonClima()).thenReturn(jsonClima);
         assertEquals(clima.getPrecipitacionDia(), accuWeather.obtenerClima().getPrecipitacionDia(),0);
     }
 
     @Test
     public void obtenerProbaPecipitacionNocheDelJson() {
-        when(accuWeather.getJsonClima()).thenReturn(jsonClima);
         assertEquals(clima.getPrecipitacionNoche(), accuWeather.obtenerClima().getPrecipitacionNoche(),0);
     }
 }

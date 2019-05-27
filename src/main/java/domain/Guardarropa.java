@@ -1,6 +1,7 @@
 package domain;
 
 import com.google.common.collect.Sets;
+import domain.clima.Meteorologo;
 import exceptions.*;
 
 import java.util.HashSet;
