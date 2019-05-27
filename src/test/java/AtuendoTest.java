@@ -50,7 +50,6 @@ public class AtuendoTest {
         exception.expectMessage("Sólo se puede calificar un atuendo aceptado");
         this.atuendoVerano.calificar(4);
     }
-    @Test
 
 
 }

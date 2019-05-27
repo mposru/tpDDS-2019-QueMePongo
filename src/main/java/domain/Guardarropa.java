@@ -1,12 +1,13 @@
 package domain;
 
 import com.google.common.collect.Sets;
+import domain.clima.Meteorologo;
+import exceptions.*;
 
 import java.util.HashSet;
 import java.util.List;
 import java.util.Objects;
 import java.util.Set;
-import exceptions.*;
 
 import static java.util.Objects.isNull;
 import static java.util.Objects.requireNonNull;
@@ -19,9 +20,13 @@ public class Guardarropa {
     private Set<Prenda> calzados = new HashSet<>();
     private Set<Prenda> accesorios = new HashSet<>();
     private Usuario usuario;
+    private Meteorologo meteorologo;
+
+
     //harcodeo para test, después lo cambiamos
     private int limiteDePrendas = 20; //usuario.limiteDePrendas(); // el guardarropas queda seteado con el limite que tenga el usuario dueño del mismo
     private int cantidadDePrendas;
+
     public Set<Prenda> obtenerPrendasSuperiores() {
         return prendasSuperiores;
     }
@@ -81,7 +86,6 @@ public class Guardarropa {
 
     }
 
-
     private void validarPrendas()  {
         String mensajeDeError = "";
         if(prendasInferiores.size() <= 0) {
@@ -107,6 +111,10 @@ public class Guardarropa {
                 .stream()
                 .map((list) -> new Atuendo(list.get(0), list.get(1), list.get(2), list.get(3)))
                 .collect(toList());
+    }
+
+    public void definirMeteorologo(Meteorologo meteorologo) {
+        this.meteorologo = meteorologo;
     }
 
     @Override

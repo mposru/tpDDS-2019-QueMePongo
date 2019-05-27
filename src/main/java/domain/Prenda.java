@@ -1,6 +1,7 @@
 package domain;
-
+import java.io.IOException;
 import java.util.Objects;
+
 
 public class Prenda {
 
@@ -10,6 +11,7 @@ public class Prenda {
     private Color colorSecundario;
     private Trama trama;
     private Guardarropa guardarropa;
+    private Imagen imagen;
     private int temperaturaMin;
     private int temperaturaMax;
     private boolean esParaLluvia;
@@ -22,6 +24,10 @@ public class Prenda {
         this.trama = trama;
         // esta bien esto?
         this.guardarropa = guardarropa;
+    }
+
+    public void cargarImagen(String path) throws IOException {
+        this.imagen.leerDeFileSystem(path);
     }
 
     public Trama obtenerTrama() {
