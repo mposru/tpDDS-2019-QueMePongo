@@ -1,3 +1,5 @@
+package clima;
+
 import domain.clima.Clima;
 import domain.clima.DarkSky;
 import org.junit.Before;

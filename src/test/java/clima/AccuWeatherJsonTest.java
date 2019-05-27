@@ -1,3 +1,5 @@
+package clima;
+
 import domain.clima.AccuWeather;
 import domain.clima.Clima;
 import org.junit.Before;

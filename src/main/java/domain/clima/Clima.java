@@ -1,4 +1,4 @@
-package domain;
+package domain.clima;
 
 public class Clima {
     private long fecha;

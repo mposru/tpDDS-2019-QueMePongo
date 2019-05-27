@@ -1,3 +1,5 @@
+package clima;
+
 import domain.Usuario;
 import domain.clima.AccuWeather;
 import domain.clima.Clima;
