@@ -17,7 +17,7 @@ public class AccuWeather extends Meteorologo {
     }
 
     public Clima obtenerClima() {
-        String jsonClima = this.getJsonClima().toString();
+        String jsonClima = this.getJsonClima();
         JSONObject accuWeather = new JSONObject(jsonClima);
 
         JSONObject dailyForecasts = accuWeather.getJSONArray("DailyForecasts").getJSONObject(0);
@@ -28,19 +28,20 @@ public class AccuWeather extends Meteorologo {
         JSONObject night = dailyForecasts.getJSONObject("Night");
         double precipitationProbabilityNight = day.getDouble("PrecipitationProbability");
 
-        JSONObject category = accuWeather.getJSONObject("Headline").getJSONObject("Category");
         JSONObject maximum = temperature.getJSONObject("Maximum");
-        double valorMaximoTemperatura = maximum.getInt("Value");
+        double valorMaximoTemperatura = maximum.getDouble("Value");
         JSONObject minimum = temperature.getJSONObject("Minimum");
-        double valorMinimoTemperatura = minimum.getInt("Value");
+        double valorMinimoTemperatura = minimum.getDouble("Value");
+
 
         return new Clima(epochDate, valorMaximoTemperatura, valorMinimoTemperatura, precipitationProbabilityDay, precipitationProbabilityNight);
     }
 
-    public ClientResponse getJsonClima(){
+    public String getJsonClima(){
         WebResource recurso = this.client.resource(API_ACCUWEATHER);
         WebResource.Builder builder = recurso.accept(MediaType.APPLICATION_JSON);
         ClientResponse response = builder.get(ClientResponse.class);
-        return response;
+        String json = response.toString();
+        return json;
     }
 }
