@@ -1,6 +1,6 @@
 package domain;
 
 public interface Decision {
-    Atuendo atuendo;
+    Atuendo atuendo = null;
     void deshacer();
 }

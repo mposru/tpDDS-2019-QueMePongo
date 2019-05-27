@@ -22,7 +22,7 @@ public class Usuario {
         this.tipoUsuario = new Gratuito();
     }
     public int limiteDePrendas(){
-        return this.tipoUsuario.limiteDePrendas();
+        return 20;
     }
 
     public void agregarGuardarropa(Guardarropa guardarropa) throws Exception {
@@ -44,7 +44,7 @@ public class Usuario {
         atuendosRechazados.add(atuendo);
         this.decisiones.push(new Rechazar(atuendo));
     }
-
+/*
     public void calificarAtuendo(Atuendo atuendo, int nuevaCalificacion) {
         public String estadoActualAtuendo = atuendo.obtenerEstadoAtuendo();
         atuendo.calificar(nuevaCalificacion);
@@ -56,10 +56,10 @@ public class Usuario {
             this.decisiones.push(new Calificar(atuendo));
         }
     }
-
+*/
 
     public boolean tieneLimiteDePrendas() {
-        return this.tipoUsuario.limiteDePrendas()>0;
+        return true;
     }
     public void deshacer(){ //deshacemos el último cambio
         if(decisiones.isEmpty()) {

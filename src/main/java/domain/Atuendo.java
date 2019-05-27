@@ -22,7 +22,7 @@ public class Atuendo {
         this.prendaSuperior = prendaSuperior;
         this.prendaInferior = prendaInferior;
         this.calzado = calzado;
-        this.estado = new Nuevo(); //toda prenda nace en estado nuevo.
+        this.estado = new Nuevo(); //todo atuendo nace en estado nuevo.
     }
 
     private void validarPrendas(Prenda prendaSuperior, Prenda prendaInferior, Prenda calzado, Prenda accesorio) {
@@ -73,26 +73,28 @@ public class Atuendo {
     }
 
 
-    public String obtenerEstadoAtuendo() { return estado.nombre(); }
+    public EstadoAtuendo obtenerEstadoAtuendo() { return this.estado; }
 
     public int obtenerCalificacionActual() { return this.calificacion;}
     public int obtenerCalificacionAnterior() { return this.calificacionAnterior;}
 
     public void aceptar() {
-        if(!this.obtenerEstadoAtuendo().equals("Nuevo")) {
+        if(!(this.estado instanceof Nuevo)) {
             throw new NoSePuedeAceptarException("Sólo se puede aceptar un atuendo con estado = Nuevo");
         }
         this.estado = new Aceptado(); //quedaría mejor usar singleton. Hay que cambiarlo
     }
 
     public void calificar(int nuevaCalificacion) {
-        if (nuevaCalificacion < 1 && nuevaCalificacion > 5) {
+     /*   if (nuevaCalificacion < 1 && nuevaCalificacion > 5) {
             throw new RangoDeCalificacionException("La calificación del atuendo debe estar entre 1 y 5");
         }
         if (this.obtenerEstadoAtuendo().equals("Calificado")) {
             this.calificacionAnterior = this.calificacion;
         }
-        if (!this.obtenerEstadoAtuendo().equals("Aceptado")) {
+
+      */
+        if (!(this.estado instanceof Aceptado)) {
             throw new NoSePuedeCalificarException("Sólo se puede calificar un atuendo aceptado");
         }
         this.calificacion = nuevaCalificacion;

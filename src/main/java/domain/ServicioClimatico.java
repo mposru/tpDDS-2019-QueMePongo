@@ -11,7 +11,10 @@ public class ServicioClimatico {
     private String urlClima;
     private Client client = ClientBuilder.newClient();
 
-    public Map<LocalDate,Integer> obtenerPronostico() {
+   public Map<LocalDate,Integer> obtenerPronostico() {
         WebTarget webTarget = client.target(urlClima);
+
     }
+
+
 }

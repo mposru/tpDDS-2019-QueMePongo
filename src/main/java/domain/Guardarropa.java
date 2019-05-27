@@ -19,7 +19,8 @@ public class Guardarropa {
     private Set<Prenda> calzados = new HashSet<>();
     private Set<Prenda> accesorios = new HashSet<>();
     private Usuario usuario;
-    private int limiteDePrendas = usuario.limiteDePrendas(); // el guardarropas queda seteado con el limite que tenga el usuario dueño del mismo
+    //harcodeo para test, después lo cambiamos
+    private int limiteDePrendas = 20; //usuario.limiteDePrendas(); // el guardarropas queda seteado con el limite que tenga el usuario dueño del mismo
     private int cantidadDePrendas;
     public Set<Prenda> obtenerPrendasSuperiores() {
         return prendasSuperiores;

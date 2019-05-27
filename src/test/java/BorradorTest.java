@@ -13,6 +13,7 @@ public class BorradorTest {
     private Trama trama;
     private Guardarropa guardarropa;
     private Material materialInvalido;
+    private Usuario magdalena = new Usuario();
 
     @Before
     public void iniciarTest() {
@@ -20,7 +21,7 @@ public class BorradorTest {
         this.material = Material.CUERO;
         this.colorPrimario = new Color(20, 20, 30);
         this.trama = Trama.LISA;
-        this.guardarropa = new Guardarropa();
+        this.guardarropa = new Guardarropa(magdalena);
         //creamos un borrador sin definirle el tipoDePrenda, material, trama y guardarropa
         this.borradorZapatillas = new Borrador();
         this.materialInvalido = Material.JEAN;

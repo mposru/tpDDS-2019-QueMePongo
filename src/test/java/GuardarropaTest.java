@@ -24,7 +24,6 @@ public class GuardarropaTest {
     @Before
     public void iniciarTest() {
         this.color = new Color(1, 2, 3);
-        this.guardarropa = new Guardarropa();
         this.musculosa = new Prenda(TipoDePrenda.MUSCULOSA, Material.ALGODON, color, null, Trama.CUADROS, guardarropa);
         this.blusa = new Prenda(TipoDePrenda.BLUSA, Material.ALGODON, color, null, Trama.CUADROS, guardarropa);
         this.crocs = new Prenda(TipoDePrenda.CROCS, Material.GOMA, color, null, Trama.CUADROS, guardarropa);
@@ -35,6 +34,7 @@ public class GuardarropaTest {
         this.anteojos = new Prenda(TipoDePrenda.ANTEOJOS, Material.PLASTICO, color, null, Trama.LISA, guardarropa);
         this.marta = new Usuario();
         this.flor = new Usuario();
+        this.guardarropa = new Guardarropa(marta);
     }
 
     @Rule

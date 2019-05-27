@@ -1,17 +1,20 @@
 package domain;
 
 public class Recalificar implements Decision {
+    private Atuendo atuendo;
     private Integer calificacionAnterior;
-    public Recalificar(Atuendo atuendo) {
-        this.atuendo = atuendo;
+
+    public  Recalificar(Atuendo atuendoRecalificado) {
+
+        this.atuendo = atuendoRecalificado;
     }
     public void deshacer() {
-        if (atuendo.obtenerCalificacionAnterior()== 0) {
+        if (this.atuendo.obtenerCalificacionAnterior()== 0) {
             this.atuendo.cambiarEstado(new Aceptado());
 
         }
         else {
-            this.atuendo.calificar(atuendo.obtenerCalificacionAnterior());
+            this.atuendo.calificar(this.atuendo.obtenerCalificacionAnterior());
         }
     }
 }

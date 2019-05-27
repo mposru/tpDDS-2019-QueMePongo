@@ -1,11 +1,12 @@
 package domain;
 
 public class Rechazar implements Decision {
-    public Rechazar (Atuendo atuendo) {
-        this.atuendo = atuendo;
+    private Atuendo atuendo;
+
+    public Rechazar(Atuendo atuendoRechazado) {
+        this.atuendo = atuendoRechazado;
     }
     public void deshacer() {
-
         this.atuendo.cambiarEstado(new Nuevo());
     }
 }

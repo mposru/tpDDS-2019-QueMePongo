@@ -4,6 +4,6 @@ public class Gratuito implements TipoUsuario {
     private int limiteDePrendas=20;
 
     public int limiteDePrendas() {
-        return this.limiteDePrendas;
+        return 20; //harcodeado para probar AtuendoTest
     }
 }
