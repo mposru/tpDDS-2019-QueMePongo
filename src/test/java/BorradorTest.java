@@ -16,7 +16,7 @@ public class BorradorTest {
     private double temperaturaMax;
     private boolean esParaLluvia;
     private Material materialInvalido;
-    private Usuario magdalena = new Usuario();
+    private Usuario magdalena ;//= new Usuario();
 
     @Before
     public void iniciarTest() {

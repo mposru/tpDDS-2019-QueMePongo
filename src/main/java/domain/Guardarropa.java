@@ -23,12 +23,6 @@ public class Guardarropa {
     private Set<Prenda> accesorios = new HashSet<>();
     private Usuario usuario;
     private Meteorologo meteorologo;
-    private Clima climaActual;
-
-    private Set<Prenda> prendasSuperioresAdecuadas = new HashSet<>();
-    private Set<Prenda> prendasInferioresAdecuadas = new HashSet<>();
-    private Set<Prenda> calzadosAdecuados = new HashSet<>();
-    private Set<Prenda> accesoriosAdecuados = new HashSet<>();
 
     //harcodeo para test, después lo cambiamos
     private int limiteDePrendas = 20; //usuario.limiteDePrendas(); // el guardarropas queda seteado con el limite que tenga el usuario dueño del mismo
@@ -93,12 +87,12 @@ public class Guardarropa {
 
     }
 
-    private void validarPrendas()  {
+    private void validarPrendas(Set<Prenda> prendasSuperioresValidas)  {
         String mensajeDeError = "";
         if(prendasInferiores.size() <= 0) {
             mensajeDeError = mensajeDeError.concat("Faltan prendas inferiores. ");
         }
-        if(prendasSuperiores.size() <= 0) {
+        if(prendasSuperioresValidas.size() <= 0) {
             mensajeDeError = mensajeDeError.concat("Faltan prendas superiores. ");
         }
         if(calzados.size() <= 0) {
@@ -113,18 +107,30 @@ public class Guardarropa {
     }
 
     public List<Atuendo> generarSugerencia() {
-        this.validarPrendas();
-        climaActual = meteorologo.obtenerClima();
+        Set<Prenda> prendasSuperioresAdecuadas = new HashSet<>();
+        Set<Prenda> prendasInferioresAdecuadas = new HashSet<>();
+        Set<Prenda> calzadosAdecuados = new HashSet<>();
+        Set<Prenda> accesoriosAdecuados = new HashSet<>();
 
-        prendasSuperioresAdecuadas = prendasSuperiores.stream().filter((prenda) -> prenda.aptaParaTemperatura(climaActual) && prenda.noMeMojo(climaActual)).collect(Collectors.toSet());
-        prendasInferioresAdecuadas = prendasInferiores.stream().filter((prenda) -> prenda.aptaParaTemperatura(climaActual) && prenda.noMeMojo(climaActual)).collect(Collectors.toSet());
-        calzadosAdecuados = calzados.stream().filter((prenda) -> prenda.aptaParaTemperatura(climaActual) && prenda.noMeMojo(climaActual)).collect(Collectors.toSet());
-        accesoriosAdecuados = accesorios.stream().filter((prenda) -> prenda.aptaParaTemperatura(climaActual) && prenda.noMeMojo(climaActual)).collect(Collectors.toSet());
+        Clima climaEvento = meteorologo.obtenerClima();
+        prendasSuperioresAdecuadas = this.obtenerPrendaSegunClima(prendasSuperiores, climaEvento);
+        prendasInferioresAdecuadas = this.obtenerPrendaSegunClima(prendasInferiores, climaEvento);
+        calzadosAdecuados = this.obtenerPrendaSegunClima(calzados, climaEvento);
+        accesoriosAdecuados = this.obtenerPrendaSegunClima(accesorios, climaEvento);
+        this.validarPrendas(prendasSuperioresAdecuadas);
+        // mandar evento por parametro? o asumimos que es el del dia?
+
+        // las prendas superiores es otro producto cartesiano
+        //en base al frio, se hace producto cartesiano con los abrigos, n veces
 
         return Sets.cartesianProduct(prendasSuperioresAdecuadas, prendasInferioresAdecuadas, calzadosAdecuados, accesoriosAdecuados)
                 .stream()
                 .map((list) -> new Atuendo(list.get(0), list.get(1), list.get(2), list.get(3)))
                 .collect(toList());
+    }
+
+    private Set<Prenda> obtenerPrendaSegunClima(Set<Prenda> prendas, Clima climaEvento) {
+        return prendas.stream().filter((prenda) -> prenda.aptaParaTemperatura(climaEvento) && prenda.noMeMojo(climaEvento)).collect(Collectors.toSet());
     }
 
     public void definirMeteorologo(Meteorologo meteorologo) {

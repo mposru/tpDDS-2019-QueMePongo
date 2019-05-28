@@ -4,6 +4,9 @@ import org.junit.*;
 import exceptions.*;
 import org.junit.rules.ExpectedException;
 
+import java.util.HashSet;
+import java.util.Set;
+
 public class AtuendoTest {
     private Guardarropa guardarropa;
     private Prenda accesorio;
@@ -27,7 +30,7 @@ public class AtuendoTest {
 
     @Before
     public void iniciarTest() {
-        this.carlos = new Usuario();
+      //  this.carlos = new Usuario();
         this.guardarropa = new Guardarropa(carlos);
         this.color = new Color(1, 2, 3);
         this.musculosa = new Prenda(TipoDePrenda.MUSCULOSA, Material.ALGODON, color, null, Trama.CUADROS, guardarropa,28,40,false);
@@ -38,7 +41,9 @@ public class AtuendoTest {
         this.pollera = new Prenda(TipoDePrenda.POLLERA, Material.JEAN, color, null, Trama.LISA, guardarropa,25,40,false);
         this.pañuelo = new Prenda(TipoDePrenda.PANUELO, Material.ALGODON, color, null, Trama.LISA, guardarropa,10,25,false);
         this.anteojos = new Prenda(TipoDePrenda.ANTEOJOS, Material.PLASTICO, color, null, Trama.LISA, guardarropa,0,100,false);
-        this.atuendoVerano = new Atuendo(musculosa,shortDeJean,crocs,anteojos);
+        Set<Prenda> superiores = new HashSet<>();
+        superiores.add(musculosa);
+        this.atuendoVerano = new Atuendo(superiores,shortDeJean,crocs,anteojos);
     }
 
     @Rule

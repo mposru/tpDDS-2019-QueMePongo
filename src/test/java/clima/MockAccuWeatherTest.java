@@ -21,7 +21,7 @@ public class MockAccuWeatherTest {
     @Before
     public void iniciarTest() {
         accuWeather = mock(AccuWeather.class);
-        marta = new Usuario();
+        //marta = new Usuario();
         guardarropa = new Guardarropa(marta);
         guardarropa.definirMeteorologo(accuWeather);
         clima = new Clima(1558917066, 30, 20, 0.5, 1.0);

@@ -4,31 +4,40 @@ import exceptions.*;
 
 import exceptions.PrendaInvalidaException;
 
+import java.util.HashSet;
 import java.util.Objects;
+import java.util.Set;
+
+import static java.util.stream.Collectors.toList;
 
 public class Atuendo {
 
     private Prenda accesorio;
-    private Prenda prendaSuperior;
+    private Set<Prenda> prendasSuperiores = new HashSet<>();
     private Prenda prendaInferior;
     private Prenda calzado;
     private EstadoAtuendo estado;
     private int calificacion = 0;
     private int calificacionAnterior = 0;
 
-    public Atuendo(Prenda prendaSuperior, Prenda prendaInferior, Prenda calzado, Prenda accesorio) {
-        this.validarPrendas(prendaSuperior, prendaInferior, calzado, accesorio);
+    public Atuendo(Set<Prenda> prendasSuperiores, Prenda prendaInferior, Prenda calzado, Prenda accesorio) {
+        this.validarPrendas(prendasSuperiores, prendaInferior, calzado, accesorio);
         this.accesorio = accesorio;
-        this.prendaSuperior = prendaSuperior;
+        this.prendasSuperiores = prendasSuperiores;
         this.prendaInferior = prendaInferior;
         this.calzado = calzado;
         this.estado = new Nuevo(); //todo atuendo nace en estado nuevo.
     }
 
-    private void validarPrendas(Prenda prendaSuperior, Prenda prendaInferior, Prenda calzado, Prenda accesorio) {
+    private void validarPrendas(Set<Prenda> prendasSuperiores, Prenda prendaInferior, Prenda calzado, Prenda accesorio) {
         String mensajeDeError = "";
-        if (prendaSuperior.obtenerCategoria() != Categoria.PARTE_SUPERIOR) {
-            mensajeDeError = mensajeDeError.concat("La prenda superior no es válida. ");
+        int prendasSuperioresInvalidas;
+        prendasSuperioresInvalidas = prendasSuperiores.stream().
+                filter(prendaSuperior -> prendaSuperior.obtenerCategoria() != Categoria.PARTE_SUPERIOR)
+                .collect(toList())
+                .size();
+        if (prendasSuperioresInvalidas > 0) {
+            mensajeDeError = mensajeDeError.concat("Una de las prendas superiores no es válida. ");
         }
         if (prendaInferior.obtenerCategoria() != Categoria.PARTE_INFERIOR) {
             mensajeDeError = mensajeDeError.concat("La prenda inferior no es válida. ");
@@ -44,8 +53,8 @@ public class Atuendo {
         }
     }
 
-    public Prenda obtenerPrendaSuperior() {
-        return prendaSuperior;
+    public Set<Prenda> obtenerPrendasSuperiores() {
+        return prendasSuperiores;
     }
 
     public Prenda obtenerPrendaInferior() {
@@ -67,7 +76,7 @@ public class Atuendo {
         if (o == null || getClass() != o.getClass()) return false;
         Atuendo atuendo = (Atuendo) o;
         return Objects.equals(accesorio, atuendo.obtenerAccesorio()) &&
-                Objects.equals(prendaSuperior, atuendo.obtenerPrendaSuperior()) &&
+                Objects.equals(prendasSuperiores, atuendo.obtenerPrendasSuperiores()) &&
                 Objects.equals(prendaInferior, atuendo.obtenerPrendaInferior()) &&
                 Objects.equals(calzado, atuendo.obtenerCalzado());
     }

@@ -1,11 +1,14 @@
 package domain;
 
+import domain.TipoDeUsuario.Premium;
 import exceptions.*;
 import org.junit.*;
 import org.junit.rules.ExpectedException;
 
 import java.util.Arrays;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 public class GuardarropaTest {
     private Guardarropa guardarropa;
@@ -32,8 +35,8 @@ public class GuardarropaTest {
         this.pollera = new Prenda(TipoDePrenda.POLLERA, Material.JEAN, color, null, Trama.LISA, guardarropa,25,40,false);
         this.pañuelo = new Prenda(TipoDePrenda.PANUELO, Material.ALGODON, color, null, Trama.LISA, guardarropa,10,25,false);
         this.anteojos = new Prenda(TipoDePrenda.ANTEOJOS, Material.PLASTICO, color, null, Trama.LISA, guardarropa,0,100,false);
-        this.marta = new Usuario();
-        this.flor = new Usuario();
+        this.marta = new Usuario(new Premium());
+        this.flor = new Usuario(new Premium());
         this.guardarropa = new Guardarropa(marta);
     }
 
@@ -66,14 +69,17 @@ public class GuardarropaTest {
         this.guardarropa.guardarPrenda(this.pañuelo);
         this.guardarropa.guardarPrenda(this.anteojos);
         List<Atuendo> sugerencias = this.guardarropa.generarSugerencia();
-        Atuendo primerAtuendo = new Atuendo(musculosa, shortDeJean, crocs, pañuelo);
-        Atuendo segundoAtuendo = new Atuendo(musculosa, shortDeJean, crocs, anteojos);
-        Atuendo tercerAtuendo = new Atuendo(musculosa, shortDeJean, zapatos, pañuelo);
-        Atuendo cuartoAtuendo = new Atuendo(musculosa, shortDeJean, zapatos, anteojos);
-        Atuendo quintoAtuendo = new Atuendo(musculosa, pollera, crocs, pañuelo);
-        Atuendo sextoAtuendo = new Atuendo(musculosa, pollera, crocs, anteojos);
-        Atuendo septimoAtuendo = new Atuendo(musculosa, pollera, zapatos, pañuelo);
-        Atuendo octavoAtuendo = new Atuendo(musculosa, pollera, zapatos, anteojos);
+
+        Set<Prenda> prendasSuperiores = new HashSet<>();
+        prendasSuperiores.add(musculosa);
+        Atuendo primerAtuendo = new Atuendo(prendasSuperiores, shortDeJean, crocs, pañuelo);
+        Atuendo segundoAtuendo = new Atuendo(prendasSuperiores, shortDeJean, crocs, anteojos);
+        Atuendo tercerAtuendo = new Atuendo(prendasSuperiores, shortDeJean, zapatos, pañuelo);
+        Atuendo cuartoAtuendo = new Atuendo(prendasSuperiores, shortDeJean, zapatos, anteojos);
+        Atuendo quintoAtuendo = new Atuendo(prendasSuperiores, pollera, crocs, pañuelo);
+        Atuendo sextoAtuendo = new Atuendo(prendasSuperiores, pollera, crocs, anteojos);
+        Atuendo septimoAtuendo = new Atuendo(prendasSuperiores, pollera, zapatos, pañuelo);
+        Atuendo octavoAtuendo = new Atuendo(prendasSuperiores, pollera, zapatos, anteojos);
         List <Atuendo> sugerenciasEsperadas = Arrays.asList(primerAtuendo, segundoAtuendo, tercerAtuendo, cuartoAtuendo, quintoAtuendo,
             sextoAtuendo, septimoAtuendo, octavoAtuendo);
         sugerenciasEsperadas.forEach(sugerencia -> Assert.assertTrue(sugerencias.contains(sugerencia)));

@@ -9,8 +9,8 @@ public class UsuarioTest {
 
     @Before
     public void iniciarTest() {
-        this.merlin = new Usuario();
-        this.guardarropa = new Guardarropa(merlin);
+    //    this.merlin = new Usuario();
+     //   this.guardarropa = new Guardarropa(merlin);
     }
 
 

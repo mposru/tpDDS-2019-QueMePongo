@@ -35,6 +35,11 @@ public class Prenda {
         this.imagen.leerDeFileSystem(path);
     }
 
+    public boolean esAdecuadaParaClima() {
+        //recibe clima
+
+    }
+
     public Trama obtenerTrama() {
         return this.trama;
     }
