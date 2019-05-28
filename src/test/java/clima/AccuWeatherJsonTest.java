@@ -261,7 +261,7 @@ public class AccuWeatherJsonTest {
             "}";
 
     @Before
-    public void iniciarTest(){
+    public void iniciarTest() {
         accuWeather = Mockito.spy(new AccuWeather());
         when(accuWeather.getJsonClima()).thenReturn(jsonClima);
         clima = new Clima(1558864800,17.8,14.4,25,25);

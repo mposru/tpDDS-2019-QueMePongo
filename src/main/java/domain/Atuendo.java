@@ -1,7 +1,8 @@
 package domain;
-import exceptions.*;
+import domain.EstadoAtuendo.EstadoAtuendo;
 
 
+import domain.EstadoAtuendo.Nuevo;
 import exceptions.PrendaInvalidaException;
 
 import java.util.HashSet;
@@ -17,8 +18,7 @@ public class Atuendo {
     private Prenda prendaInferior;
     private Prenda calzado;
     private EstadoAtuendo estado;
-    private int calificacion = 0;
-    private int calificacionAnterior = 0;
+
 
     public Atuendo(Set<Prenda> prendasSuperiores, Prenda prendaInferior, Prenda calzado, Prenda accesorio) {
         this.validarPrendas(prendasSuperiores, prendaInferior, calzado, accesorio);
@@ -26,7 +26,7 @@ public class Atuendo {
         this.prendasSuperiores = prendasSuperiores;
         this.prendaInferior = prendaInferior;
         this.calzado = calzado;
-        this.estado = new Nuevo(); //todo atuendo nace en estado nuevo.
+        this.estado = new Nuevo(this); //todo atuendo nace en estado nuevo.
     }
 
     private void validarPrendas(Set<Prenda> prendasSuperiores, Prenda prendaInferior, Prenda calzado, Prenda accesorio) {
@@ -84,40 +84,22 @@ public class Atuendo {
 
     public EstadoAtuendo obtenerEstadoAtuendo() { return this.estado; }
 
-    public int obtenerCalificacionActual() { return this.calificacion;}
-    public int obtenerCalificacionAnterior() { return this.calificacionAnterior;}
+    public int obtenerCalificacionAnterior() {return this.estado.obtenerCalificacionAnterior();}
+    public int obtenerCalificacionActual() {return this.estado.obtenerCalificacionActual();}
+
 
     public void aceptar() {
-        if(!(this.estado instanceof Nuevo)) {
-            throw new NoSePuedeAceptarException("Sólo se puede aceptar un atuendo con estado = Nuevo");
-        }
-        this.estado = new Aceptado(); //quedaría mejor usar singleton. Hay que cambiarlo
+        this.estado.aceptar();
     }
 
     public void calificar(int nuevaCalificacion) {
-     /*   if (nuevaCalificacion < 1 && nuevaCalificacion > 5) {
-            throw new RangoDeCalificacionException("La calificación del atuendo debe estar entre 1 y 5");
-        }
-        if (this.obtenerEstadoAtuendo().equals("Calificado")) {
-            this.calificacionAnterior = this.calificacion;
-        }
-
-      */
-        if (!(this.estado instanceof Aceptado)) {
-            throw new NoSePuedeCalificarException("Sólo se puede calificar un atuendo aceptado");
-        }
-        this.calificacion = nuevaCalificacion;
-        this.estado = new Calificado();
+        this.estado.calificar(nuevaCalificacion);
     }
 
     public void rechazar() {
-        if(!this.obtenerEstadoAtuendo().equals("Nuevo")) {
-            throw new NoSePuedeRechazarException("Solo se puede rechazar un atuendo con estado = Nuevo");
-        }
-        this.estado = new Rechazado();
+        this.estado.rechazar();
+
     }
-
-
     public void cambiarEstado(EstadoAtuendo estado) {
         this.estado = estado;
     }

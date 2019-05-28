@@ -63,11 +63,8 @@ public class Guardarropa {
     }
 
     public void guardarPrenda(Prenda prenda) {
-
-        if(this.usuario.tieneLimiteDePrendas()) {
-            if (this.cantidadDePrendas>=this.usuario.limiteDePrendas()) {
-                throw new SuperaLimiteDePrendasException ("Se supera el límite de " + this.usuario.limiteDePrendas() + " prendas definido para el tipo de usuario del guardarropa");
-            }
+        if(this.usuario.tieneLimiteDePrendas() && this.cantidadDePrendas>=this.usuario.limiteDePrendas()) {
+            throw new SuperaLimiteDePrendasException ("Se supera el límite de " + this.usuario.limiteDePrendas() + " prendas definido para el tipo de usuario del guardarropa");
         }
         switch (prenda.obtenerCategoria()) {
             case CALZADO:
@@ -125,7 +122,7 @@ public class Guardarropa {
 
         return Sets.cartesianProduct(prendasSuperioresAdecuadas, prendasInferioresAdecuadas, calzadosAdecuados, accesoriosAdecuados)
                 .stream()
-                .map((list) -> new Atuendo(list.get(0), list.get(1), list.get(2), list.get(3)))
+                .map((list) -> new Atuendo(new HashSet<Prenda>()/*(list.get(0))*/, list.get(1), list.get(2), list.get(3)))
                 .collect(toList());
     }
 

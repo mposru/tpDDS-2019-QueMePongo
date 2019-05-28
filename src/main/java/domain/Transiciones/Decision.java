@@ -1,6 +1,5 @@
-package domain;
+package domain.Transiciones;
 
 public interface Decision {
-    Atuendo atuendo = null;
     void deshacer();
 }

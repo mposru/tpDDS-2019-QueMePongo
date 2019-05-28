@@ -3,6 +3,14 @@ package domain;
 //import java.util.HashSet;
 //import java.util.Set;
 import java.util.*;
+
+import domain.TipoDeUsuario.Gratuito;
+import domain.TipoDeUsuario.Premium;
+import domain.TipoDeUsuario.TipoUsuario;
+import domain.Transiciones.Aceptar;
+import domain.Transiciones.Calificar;
+import domain.Transiciones.Decision;
+import domain.Transiciones.Rechazar;
 import exceptions.*;
 
 public class Usuario {
@@ -12,8 +20,8 @@ public class Usuario {
     private ArrayList<Atuendo> atuendosAceptados = new ArrayList<>();
     private ArrayList<Atuendo> atuendosRechazados = new ArrayList<>();
 
-    public Usuario () {
-        this.tipoUsuario = new Gratuito(); // por defecto instanciamos siempre usuarios gratuitos y despu
+    public Usuario (TipoUsuario tipoUsuario) {
+        this.tipoUsuario = tipoUsuario;
     }
     public void cambiarAPremium() {
         this.tipoUsuario = new Premium();
@@ -22,8 +30,9 @@ public class Usuario {
         this.tipoUsuario = new Gratuito();
     }
     public int limiteDePrendas(){
-        return 20;
+        return this.tipoUsuario.limiteDePrendas();
     }
+    public boolean tieneLimiteDePrendas() { return this.tipoUsuario.tieneLimiteDePrendas();}
 
     public void agregarGuardarropa(Guardarropa guardarropa) throws Exception {
         guardarropa.definirUsuario(this);
@@ -44,23 +53,13 @@ public class Usuario {
         atuendosRechazados.add(atuendo);
         this.decisiones.push(new Rechazar(atuendo));
     }
-/*
-    public void calificarAtuendo(Atuendo atuendo, int nuevaCalificacion) {
-        public String estadoActualAtuendo = atuendo.obtenerEstadoAtuendo();
-        atuendo.calificar(nuevaCalificacion);
-        if (estadoActualAtuendo.equals("Calificado")){
-            this.decisiones.push(new Recalificar(atuendo));
-        }
-        else
-        {
-            this.decisiones.push(new Calificar(atuendo));
-        }
-    }
-*/
 
-    public boolean tieneLimiteDePrendas() {
-        return true;
+    public void calificarAtuendo(Atuendo atuendo, int nuevaCalificacion) {
+        atuendo.calificar(nuevaCalificacion);
+        this.decisiones.push(new Calificar(atuendo)); //falta si es recalificado.
     }
+
+
     public void deshacer(){ //deshacemos el último cambio
         if(decisiones.isEmpty()) {
             throw new PilaVaciaException("No hay decisiones por deshacer");
