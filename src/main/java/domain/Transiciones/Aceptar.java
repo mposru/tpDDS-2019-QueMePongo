@@ -1,4 +1,7 @@
-package domain;
+package domain.Transiciones;
+
+import domain.Atuendo;
+import domain.EstadoAtuendo.Nuevo;
 
 public class Aceptar implements Decision {
     private Atuendo atuendo;
@@ -7,7 +10,7 @@ public class Aceptar implements Decision {
         this.atuendo = atuendoAceptado;
     }
     public void deshacer() {
-        this.atuendo.cambiarEstado(new Nuevo());
+        this.atuendo.cambiarEstado(new Nuevo(this.atuendo));
     }
 }
 

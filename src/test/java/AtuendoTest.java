@@ -1,5 +1,6 @@
 package domain;
 
+import domain.EstadoAtuendo.EstadoAtuendo;
 import org.junit.*;
 import exceptions.*;
 import org.junit.rules.ExpectedException;
