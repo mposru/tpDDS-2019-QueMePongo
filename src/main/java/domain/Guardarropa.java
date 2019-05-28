@@ -1,6 +1,7 @@
 package domain;
 
 import com.google.common.collect.Sets;
+import domain.clima.Clima;
 import domain.clima.Meteorologo;
 import exceptions.*;
 
@@ -8,6 +9,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Objects;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 import static java.util.Objects.isNull;
 import static java.util.Objects.requireNonNull;
@@ -21,7 +23,12 @@ public class Guardarropa {
     private Set<Prenda> accesorios = new HashSet<>();
     private Usuario usuario;
     private Meteorologo meteorologo;
+    private Clima climaActual;
 
+    private Set<Prenda> prendasSuperioresAdecuadas = new HashSet<>();
+    private Set<Prenda> prendasInferioresAdecuadas = new HashSet<>();
+    private Set<Prenda> calzadosAdecuados = new HashSet<>();
+    private Set<Prenda> accesoriosAdecuados = new HashSet<>();
 
     //harcodeo para test, después lo cambiamos
     private int limiteDePrendas = 20; //usuario.limiteDePrendas(); // el guardarropas queda seteado con el limite que tenga el usuario dueño del mismo
@@ -65,7 +72,7 @@ public class Guardarropa {
 
         if(this.usuario.tieneLimiteDePrendas()) {
             if (this.cantidadDePrendas>=this.usuario.limiteDePrendas()) {
-                throw new SuperaLimiteDePrendasException ("Se supera el límite de "+this.usuario.limiteDePrendas() + " prendas definido para el tipo de usuario del guardarropa");
+                throw new SuperaLimiteDePrendasException ("Se supera el límite de " + this.usuario.limiteDePrendas() + " prendas definido para el tipo de usuario del guardarropa");
             }
         }
         switch (prenda.obtenerCategoria()) {
@@ -107,7 +114,14 @@ public class Guardarropa {
 
     public List<Atuendo> generarSugerencia() {
         this.validarPrendas();
-        return Sets.cartesianProduct(prendasSuperiores, prendasInferiores, calzados, accesorios)
+        climaActual = meteorologo.obtenerClima();
+
+        prendasSuperioresAdecuadas = prendasSuperiores.stream().filter((prenda) -> prenda.aptaParaTemperatura(climaActual) && prenda.noMeMojo(climaActual)).collect(Collectors.toSet());
+        prendasInferioresAdecuadas = prendasInferiores.stream().filter((prenda) -> prenda.aptaParaTemperatura(climaActual) && prenda.noMeMojo(climaActual)).collect(Collectors.toSet());
+        calzadosAdecuados = calzados.stream().filter((prenda) -> prenda.aptaParaTemperatura(climaActual) && prenda.noMeMojo(climaActual)).collect(Collectors.toSet());
+        accesoriosAdecuados = accesorios.stream().filter((prenda) -> prenda.aptaParaTemperatura(climaActual) && prenda.noMeMojo(climaActual)).collect(Collectors.toSet());
+
+        return Sets.cartesianProduct(prendasSuperioresAdecuadas, prendasInferioresAdecuadas, calzadosAdecuados, accesoriosAdecuados)
                 .stream()
                 .map((list) -> new Atuendo(list.get(0), list.get(1), list.get(2), list.get(3)))
                 .collect(toList());

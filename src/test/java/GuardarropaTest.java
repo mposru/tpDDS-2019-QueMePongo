@@ -156,4 +156,5 @@ public class GuardarropaTest {
         exception.expectMessage("Faltan prendas inferiores. ");
         this.guardarropa.generarSugerencia();
     }
+    
 }

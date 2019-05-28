@@ -1,4 +1,6 @@
 package domain;
+import domain.clima.Clima;
+
 import java.io.IOException;
 import java.util.Objects;
 
@@ -56,6 +58,38 @@ public class Prenda {
     public Categoria obtenerCategoria() { return this.tipoDePrenda.obtenerCategoria(); }
 
     public Guardarropa obtenerGuardarropa() {return this.guardarropa; }
+
+    public double obtenerTemperaturaMax() {
+        return temperaturaMax;
+    }
+
+    public double obtenerTemperaturaMin() {
+        return temperaturaMin;
+    }
+
+    public boolean obtenerSiEsParaLluvia() {
+        return esParaLluvia;
+    }
+
+    public boolean aptaParaTemperatura(Clima climaActual) {
+        if(this.temperaturaMax <= climaActual.getTemperaturaMaxima() && this.temperaturaMax >= climaActual.getTemperaturaMinima()) {
+            if(this.temperaturaMin <= climaActual.getTemperaturaMaxima() && this.temperaturaMin >= climaActual.getTemperaturaMinima()) {
+                return true;
+            }
+            return false;
+        }
+        return false;
+    }
+
+    public boolean noMeMojo(Clima climaActual) {
+        if(climaActual.getPrecipitacionDia() != 0 && climaActual.getPrecipitacionNoche() != 0 && this.esParaLluvia) {
+            return true;
+        }
+        if(climaActual.getPrecipitacionDia() == 0 && climaActual.getPrecipitacionNoche() == 0 && !this.esParaLluvia) {
+            return true;
+        }
+        return false;
+    }
 
     @Override
     public boolean equals(Object o) {
