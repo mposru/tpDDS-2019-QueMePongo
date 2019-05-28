@@ -12,11 +12,11 @@ public class Prenda {
     private Trama trama;
     private Guardarropa guardarropa;
     private Imagen imagen;
-    private int temperaturaMin;
-    private int temperaturaMax;
+    private double temperaturaMin;
+    private double temperaturaMax;
     private boolean esParaLluvia;
 
-    public Prenda(TipoDePrenda tipoDePrenda, Material material, Color colorPrimario, Color colorSecundario, Trama trama, Guardarropa guardarropa) {
+    public Prenda(TipoDePrenda tipoDePrenda, Material material, Color colorPrimario, Color colorSecundario, Trama trama, Guardarropa guardarropa, double temperaturaMin, double temperaturaMax, boolean impermeable ) {
         this.tipoDePrenda = tipoDePrenda;
         this.material = material;
         this.colorPrimario = colorPrimario;
@@ -24,6 +24,9 @@ public class Prenda {
         this.trama = trama;
         // esta bien esto?
         this.guardarropa = guardarropa;
+        this.temperaturaMax = temperaturaMax;
+        this.temperaturaMin = temperaturaMin;
+        this.esParaLluvia = impermeable;
     }
 
     public void cargarImagen(String path) throws IOException {
