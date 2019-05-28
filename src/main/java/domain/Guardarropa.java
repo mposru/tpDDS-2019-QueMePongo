@@ -63,10 +63,8 @@ public class Guardarropa {
 
     public void guardarPrenda(Prenda prenda) {
 
-        if(this.usuario.tieneLimiteDePrendas()) {
-            if (this.cantidadDePrendas>=this.usuario.limiteDePrendas()) {
-                throw new SuperaLimiteDePrendasException ("Se supera el límite de "+this.usuario.limiteDePrendas() + " prendas definido para el tipo de usuario del guardarropa");
-            }
+        if(this.usuario.tieneLimiteDePrendas() && this.cantidadDePrendas>=this.usuario.limiteDePrendas()) {
+            throw new SuperaLimiteDePrendasException ("Se supera el límite de "+this.usuario.limiteDePrendas() + " prendas definido para el tipo de usuario del guardarropa");
         }
         switch (prenda.obtenerCategoria()) {
             case CALZADO:
@@ -107,9 +105,12 @@ public class Guardarropa {
 
     public List<Atuendo> generarSugerencia() {
         this.validarPrendas();
+        // obtener prendas de cada clima adecuado y pasar esas por param
+        // si hace menos de x cantidad de grados, el producto cartesiano cambia
+        // porque atuendo puede tener mas de una prenda superior
         return Sets.cartesianProduct(prendasSuperiores, prendasInferiores, calzados, accesorios)
                 .stream()
-                .map((list) -> new Atuendo(list.get(0), list.get(1), list.get(2), list.get(3)))
+                .map((list) -> new Atuendo(new HashSet<Prenda>()/*(list.get(0))*/, list.get(1), list.get(2), list.get(3)))
                 .collect(toList());
     }
 
