@@ -35,11 +35,6 @@ public class Prenda {
         this.imagen.leerDeFileSystem(path);
     }
 
-    public boolean esAdecuadaParaClima() {
-        //recibe clima
-
-    }
-
     public Trama obtenerTrama() {
         return this.trama;
     }
@@ -87,13 +82,8 @@ public class Prenda {
     }
 
     public boolean noMeMojo(Clima climaActual) {
-        if(climaActual.getPrecipitacionDia() != 0 && climaActual.getPrecipitacionNoche() != 0 && this.esParaLluvia) {
-            return true;
-        }
-        if(climaActual.getPrecipitacionDia() == 0 && climaActual.getPrecipitacionNoche() == 0 && !this.esParaLluvia) {
-            return true;
-        }
-        return false;
+        return ((climaActual.getPrecipitacionDia() != 0 || climaActual.getPrecipitacionNoche() != 0) && this.esParaLluvia) ||
+                (climaActual.getPrecipitacionDia() == 0 && climaActual.getPrecipitacionNoche() == 0);
     }
 
     @Override
