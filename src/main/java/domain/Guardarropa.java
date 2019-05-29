@@ -110,7 +110,7 @@ public class Guardarropa {
         // porque atuendo puede tener mas de una prenda superior
         return Sets.cartesianProduct(prendasSuperiores, prendasInferiores, calzados, accesorios)
                 .stream()
-                .map((list) -> new Atuendo(new HashSet<Prenda>()/*(list.get(0))*/, list.get(1), list.get(2), list.get(3)))
+                .map((list) -> new Atuendo((list.get(0)), list.get(1), list.get(2), list.get(3)))
                 .collect(toList());
     }
 
