@@ -14,10 +14,11 @@ public class BorradorTest {
     private Trama trama;
     private Guardarropa guardarropa;
     private Material materialInvalido;
-    private Usuario magdalena = new Usuario(new Gratuito());
+    private Usuario magdalena;
 
     @Before
     public void iniciarTest() {
+        this.magdalena = new Usuario(Premium.getInstance());
         this.tipoDePrenda = TipoDePrenda.ZAPATO;
         this.material = Material.CUERO;
         this.colorPrimario = new Color(20, 20, 30);

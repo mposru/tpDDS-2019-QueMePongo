@@ -30,7 +30,7 @@ public class AtuendoTest {
 
     @Before
     public void iniciarTest() {
-        this.carlos = new Usuario(new Premium());
+        this.carlos = new Usuario(Premium.getInstance());
         this.guardarropa = new Guardarropa(carlos);
         this.color = new Color(1, 2, 3);
         this.musculosa = new Prenda(TipoDePrenda.MUSCULOSA, Material.ALGODON, color, null, Trama.CUADROS, guardarropa);

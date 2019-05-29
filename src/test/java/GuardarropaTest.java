@@ -33,8 +33,8 @@ public class GuardarropaTest {
         this.pollera = new Prenda(TipoDePrenda.POLLERA, Material.JEAN, color, null, Trama.LISA, guardarropa);
         this.pañuelo = new Prenda(TipoDePrenda.PANUELO, Material.ALGODON, color, null, Trama.LISA, guardarropa);
         this.anteojos = new Prenda(TipoDePrenda.ANTEOJOS, Material.PLASTICO, color, null, Trama.LISA, guardarropa);
-        this.marta = new Usuario(new Gratuito());
-        this.flor = new Usuario(new Premium());
+        this.marta = new Usuario(Gratuito.getInstance());
+        this.flor = new Usuario(Premium.getInstance());
         this.guardarropa = new Guardarropa(marta);
     }
 

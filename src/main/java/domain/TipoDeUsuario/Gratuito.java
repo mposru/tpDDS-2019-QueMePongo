@@ -4,6 +4,17 @@ import domain.TipoDeUsuario.TipoUsuario;
 
 public class Gratuito implements TipoUsuario {
     private int limiteDePrendas=20;
+    private static Gratuito instanceOfGratuito;
+
+    private Gratuito ()  {}
+
+    public static Gratuito getInstance() {
+        if(instanceOfGratuito==null) {
+            instanceOfGratuito = new Gratuito();
+        }
+        return instanceOfGratuito;
+
+    }
 
     public int limiteDePrendas() {
         return this.limiteDePrendas;

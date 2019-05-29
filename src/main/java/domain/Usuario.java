@@ -21,10 +21,10 @@ public class Usuario {
         this.tipoUsuario = tipoUsuario;
     }
     public void cambiarAPremium() {
-        this.tipoUsuario = new Premium();
+        this.tipoUsuario = Premium.getInstance();
     }
     public void cambiarAGratuito() {
-        this.tipoUsuario = new Gratuito();
+        this.tipoUsuario = Gratuito.getInstance();
     }
     public int limiteDePrendas(){
         return this.tipoUsuario.limiteDePrendas();
