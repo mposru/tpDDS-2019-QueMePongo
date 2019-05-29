@@ -34,11 +34,6 @@ public class Usuario {
     }
     public boolean tieneLimiteDePrendas() { return this.tipoUsuario.tieneLimiteDePrendas();}
 
-    public void agregarGuardarropa(Guardarropa guardarropa) throws Exception {
-        guardarropa.definirUsuario(this);
-        this.guardarropas.add(guardarropa);
-    }
-
     public Set<Guardarropa> obtenerGuardarropas() {
         return this.guardarropas;
     }

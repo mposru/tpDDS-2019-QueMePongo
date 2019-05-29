@@ -23,10 +23,13 @@ public class Guardarropa {
     private Meteorologo meteorologo;
 
 
-    //harcodeo para test, después lo cambiamos
-    private int limiteDePrendas = 20; //usuario.limiteDePrendas(); // el guardarropas queda seteado con el limite que tenga el usuario dueño del mismo
+    private int limiteDePrendas = this.usuario.limiteDePrendas(); //usuario.limiteDePrendas(); // el guardarropas queda seteado con el limite que tenga el usuario dueño del mismo
     private int cantidadDePrendas;
 
+    public int obtenerCantidadDePrendas() { return this.cantidadDePrendas;}
+    public void setCantidadDePrendas() {
+        this.cantidadDePrendas+=1;
+    }
     public Set<Prenda> obtenerPrendasSuperiores() {
         return prendasSuperiores;
     }
@@ -54,13 +57,6 @@ public class Guardarropa {
         return usuario;
     }
 
-    public void definirUsuario(Usuario usuario)  {
-        if(!isNull(this.usuario)) {
-            throw new GuardarropaOcupadoException("Ya tengo dueño/a, no me podes asignar a otra/o");
-        }
-        this.usuario = requireNonNull(usuario, "El usuario no puede ser vacio");
-    }
-
     public void guardarPrenda(Prenda prenda) {
 
         if(this.usuario.tieneLimiteDePrendas() && this.cantidadDePrendas>=this.usuario.limiteDePrendas()) {
@@ -80,7 +76,7 @@ public class Guardarropa {
                 accesorios.add(prenda);
                 break;
         }
-        this.cantidadDePrendas++;
+        this.setCantidadDePrendas();
 
     }
 
