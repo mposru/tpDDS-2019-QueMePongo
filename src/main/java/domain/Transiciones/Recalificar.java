@@ -6,14 +6,14 @@ import domain.Transiciones.Decision;
 
 public class Recalificar implements Decision {
     private Atuendo atuendo;
-    private Integer calificacionAnterior;
+    private int calificacionAnterior;
 
     public Recalificar(Atuendo atuendoRecalificado) {
 
         this.atuendo = atuendoRecalificado;
     }
     public void deshacer() {
-        if (this.atuendo.obtenerCalificacionAnterior()== 0) {
+        if (this.atuendo.obtenerCalificacionAnterior()==0) {
             this.atuendo.cambiarEstado(new Aceptado(this.atuendo));
 
         }

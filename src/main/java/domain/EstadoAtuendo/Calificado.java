@@ -1,10 +1,8 @@
 package domain.EstadoAtuendo;
 
 import domain.Atuendo;
-import domain.EstadoAtuendo.EstadoAtuendo;
-import exceptions.NoSePuedeAceptarException;
-import exceptions.NoSePuedeRechazarException;
-import exceptions.RangoDeCalificacionException;
+import exceptions.*;
+
 
 public class Calificado implements EstadoAtuendo {
     private Atuendo atuendo;

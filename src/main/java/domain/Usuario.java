@@ -7,10 +7,7 @@ import java.util.*;
 import domain.TipoDeUsuario.Gratuito;
 import domain.TipoDeUsuario.Premium;
 import domain.TipoDeUsuario.TipoUsuario;
-import domain.Transiciones.Aceptar;
-import domain.Transiciones.Calificar;
-import domain.Transiciones.Decision;
-import domain.Transiciones.Rechazar;
+import domain.Transiciones.*;
 import exceptions.*;
 
 public class Usuario {
@@ -51,7 +48,13 @@ public class Usuario {
 
     public void calificarAtuendo(Atuendo atuendo, int nuevaCalificacion) {
         atuendo.calificar(nuevaCalificacion);
-        this.decisiones.push(new Calificar(atuendo)); //falta si es recalificado.
+        if (atuendo.estaCalificado()) {
+            this.decisiones.push(new Recalificar(atuendo));
+        }
+        else
+        {
+            this.decisiones.push(new Calificar(atuendo));
+        }
     }
 
 
