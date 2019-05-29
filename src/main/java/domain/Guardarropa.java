@@ -63,7 +63,7 @@ public class Guardarropa {
     }
 
     public void guardarPrenda(Prenda prenda) {
-        if(this.usuario.tieneLimiteDePrendas() && this.cantidadDePrendas>=this.usuario.limiteDePrendas()) {
+        if(this.usuario.tieneLimiteDePrendas() && this.cantidadDePrendas >= this.usuario.limiteDePrendas()) {
             throw new SuperaLimiteDePrendasException ("Se supera el límite de " + this.usuario.limiteDePrendas() + " prendas definido para el tipo de usuario del guardarropa");
         }
         switch (prenda.obtenerCategoria()) {
@@ -84,19 +84,20 @@ public class Guardarropa {
 
     }
 
-    private void validarPrendas(Set<Prenda> prendasSuperioresValidas)  {
+    private void validarPrendas(Set<Prenda> prendasSuperioresValidas, Set<Prenda> prendasInferioresValidas,
+                                Set<Prenda> calzadosValidos, Set<Prenda> accesoriosValidos)  {
         String mensajeDeError = "";
-        if(prendasInferiores.size() <= 0) {
-            mensajeDeError = mensajeDeError.concat("Faltan prendas inferiores. ");
-        }
         if(prendasSuperioresValidas.size() <= 0) {
-            mensajeDeError = mensajeDeError.concat("Faltan prendas superiores. ");
+            mensajeDeError = mensajeDeError.concat("Faltan prendas inferiores adecuadas para el clima del evento. ");
         }
-        if(calzados.size() <= 0) {
-            mensajeDeError = mensajeDeError.concat("Faltan zapatos. ");
+        if(prendasInferioresValidas.size() <= 0) {
+            mensajeDeError = mensajeDeError.concat("Faltan prendas superiores adecuadas para el clima del evento. ");
         }
-        if(accesorios.size() <= 0) {
-            mensajeDeError = mensajeDeError.concat("Faltan accesorios. ");
+        if(calzadosValidos.size() <= 0) {
+            mensajeDeError = mensajeDeError.concat("Faltan zapatos adecuados para el clima del evento. ");
+        }
+        if(accesoriosValidos.size() <= 0) {
+            mensajeDeError = mensajeDeError.concat("Faltan accesorios adecuados para el clima del evento. ");
         }
         if (mensajeDeError != "") {
             throw new FaltaPrendaException(mensajeDeError);
@@ -104,17 +105,17 @@ public class Guardarropa {
     }
 
     public List<Atuendo> generarSugerencia() {
-        Set<Prenda> prendasSuperioresAdecuadas = new HashSet<>();
-        Set<Prenda> prendasInferioresAdecuadas = new HashSet<>();
-        Set<Prenda> calzadosAdecuados = new HashSet<>();
-        Set<Prenda> accesoriosAdecuados = new HashSet<>();
+        Set<Prenda> prendasSuperioresAdecuadas;
+        Set<Prenda> prendasInferioresAdecuadas;
+        Set<Prenda> calzadosAdecuados;
+        Set<Prenda> accesoriosAdecuados;
 
         Clima climaEvento = meteorologo.obtenerClima();
         prendasSuperioresAdecuadas = this.obtenerPrendaSegunClima(prendasSuperiores, climaEvento);
         prendasInferioresAdecuadas = this.obtenerPrendaSegunClima(prendasInferiores, climaEvento);
         calzadosAdecuados = this.obtenerPrendaSegunClima(calzados, climaEvento);
         accesoriosAdecuados = this.obtenerPrendaSegunClima(accesorios, climaEvento);
-        this.validarPrendas(prendasSuperioresAdecuadas);
+        this.validarPrendas(prendasSuperioresAdecuadas, prendasInferioresAdecuadas, calzadosAdecuados, accesoriosAdecuados);
         // mandar evento por parametro? o asumimos que es el del dia?
 
         // las prendas superiores es otro producto cartesiano

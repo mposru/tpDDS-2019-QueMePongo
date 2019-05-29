@@ -69,8 +69,6 @@ public class Atuendo {
         return calzado;
     }
 
-
-
     public EstadoAtuendo obtenerEstadoAtuendo() { return this.estado; }
 
     public int obtenerCalificacionAnterior() {return this.estado.obtenerCalificacionAnterior();}
