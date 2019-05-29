@@ -32,7 +32,7 @@ public class Prenda {
     }
 
     public void cargarImagen(String path) throws IOException {
-        this.imagen.leerDeFileSystem(path);
+        this.imagen = this.imagen.leerDeFileSystem(path);
     }
 
     public Trama obtenerTrama() {
@@ -72,13 +72,8 @@ public class Prenda {
     }
 
     public boolean aptaParaTemperatura(Clima climaActual) {
-        if(this.temperaturaMax <= climaActual.getTemperaturaMaxima() && this.temperaturaMax >= climaActual.getTemperaturaMinima()) {
-            if(this.temperaturaMin <= climaActual.getTemperaturaMaxima() && this.temperaturaMin >= climaActual.getTemperaturaMinima()) {
-                return true;
-            }
-            return false;
-        }
-        return false;
+        return this.temperaturaMax <= climaActual.getTemperaturaMaxima() && this.temperaturaMax >= climaActual.getTemperaturaMinima() &&
+                this.temperaturaMin <= climaActual.getTemperaturaMaxima() && this.temperaturaMin >= climaActual.getTemperaturaMinima();
     }
 
     public boolean noMeMojo(Clima climaActual) {
