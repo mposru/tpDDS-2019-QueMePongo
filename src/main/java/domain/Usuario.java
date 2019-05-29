@@ -23,15 +23,19 @@ public class Usuario {
     public Usuario (TipoUsuario tipoUsuario) {
         this.tipoUsuario = tipoUsuario;
     }
+
     public void cambiarAPremium() {
         this.tipoUsuario = new Premium();
     }
+
     public void cambiarAGratuito() {
         this.tipoUsuario = new Gratuito();
     }
+
     public int limiteDePrendas(){
         return this.tipoUsuario.limiteDePrendas();
     }
+
     public boolean tieneLimiteDePrendas() { return this.tipoUsuario.tieneLimiteDePrendas();}
 
     public void agregarGuardarropa(Guardarropa guardarropa) throws Exception {

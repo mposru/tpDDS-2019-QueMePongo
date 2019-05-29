@@ -70,23 +70,12 @@ public class Atuendo {
     }
 
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        Atuendo atuendo = (Atuendo) o;
-        return Objects.equals(accesorio, atuendo.obtenerAccesorio()) &&
-                Objects.equals(prendasSuperiores, atuendo.obtenerPrendasSuperiores()) &&
-                Objects.equals(prendaInferior, atuendo.obtenerPrendaInferior()) &&
-                Objects.equals(calzado, atuendo.obtenerCalzado());
-    }
-
 
     public EstadoAtuendo obtenerEstadoAtuendo() { return this.estado; }
 
     public int obtenerCalificacionAnterior() {return this.estado.obtenerCalificacionAnterior();}
-    public int obtenerCalificacionActual() {return this.estado.obtenerCalificacionActual();}
 
+    public int obtenerCalificacionActual() {return this.estado.obtenerCalificacionActual();}
 
     public void aceptar() {
         this.estado.aceptar();
@@ -100,10 +89,19 @@ public class Atuendo {
         this.estado.rechazar();
 
     }
+
     public void cambiarEstado(EstadoAtuendo estado) {
         this.estado = estado;
     }
 
-
-
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Atuendo atuendo = (Atuendo) o;
+        return Objects.equals(accesorio, atuendo.obtenerAccesorio()) &&
+                Objects.equals(prendasSuperiores, atuendo.obtenerPrendasSuperiores()) &&
+                Objects.equals(prendaInferior, atuendo.obtenerPrendaInferior()) &&
+                Objects.equals(calzado, atuendo.obtenerCalzado());
+    }
 }

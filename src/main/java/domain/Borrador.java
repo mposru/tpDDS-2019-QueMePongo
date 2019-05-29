@@ -66,8 +66,6 @@ public class Borrador  {
         return this;
     }
 
-
-
     public Prenda crearPrenda() {
         requireNonNull(tipoDePrenda, "El tipo de prenda es obligatorio");
         requireNonNull(material, "El material es obligatorio");
