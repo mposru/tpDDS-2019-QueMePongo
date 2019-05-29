@@ -28,15 +28,15 @@ public class Guardarropa {
     private int limiteDePrendas = 20; //usuario.limiteDePrendas(); // el guardarropas queda seteado con el limite que tenga el usuario dueño del mismo
     private int cantidadDePrendas;
 
-    public Set<Prenda> obtenerPrendasSuperiores() {
-        return prendasSuperiores;
-    }
-
     //Agregamos el usuario en el constructor porque necesitamos saber
     // el tipo de usuario que tiene asociado para saber el límite de prendas que se pueden agregar
 
     public Guardarropa(Usuario usuario) {
         this.usuario = requireNonNull(usuario, "Debe ingresar un usuario");
+    }
+
+    public Set<Prenda> obtenerPrendasSuperiores() {
+        return prendasSuperiores;
     }
 
     public Set<Prenda> obtenerPrendasInferiores() {
