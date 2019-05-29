@@ -20,6 +20,14 @@ public class Usuario {
     public Usuario (TipoUsuario tipoUsuario) {
         this.tipoUsuario = tipoUsuario;
     }
+
+    public Deque<Decision> obtenerDecisiones() {return this.decisiones;}
+    public ArrayList<Atuendo> obtenerAtuendosAceptados() {
+        return this.atuendosAceptados;
+    }
+    public ArrayList<Atuendo> obtenerAtuendosRechazados() {
+        return this.atuendosRechazados;
+    }
     public void cambiarAPremium() {
         this.tipoUsuario = Premium.getInstance();
     }
@@ -37,12 +45,12 @@ public class Usuario {
 
     public void aceptarAtuendo(Atuendo atuendo){
         atuendo.aceptar();
-        this.atuendosAceptados.add(atuendo);
+        this.atuendosAceptados.add(atuendo); //validar que el atuendo no se pueda aceptar dos veces.
         this.decisiones.push(new Aceptar(atuendo));
     }
     public void rechazarAtuendo(Atuendo atuendo) {
         atuendo.rechazar();
-        atuendosRechazados.add(atuendo);
+        atuendosRechazados.add(atuendo); //validar que el atuendo no se pueda rechazar dos veces.
         this.decisiones.push(new Rechazar(atuendo));
     }
 
