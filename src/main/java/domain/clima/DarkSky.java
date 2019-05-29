@@ -1,11 +1,7 @@
 package domain.clima;
 
 import com.sun.jersey.api.client.Client;
-import com.sun.jersey.api.client.ClientResponse;
-import com.sun.jersey.api.client.WebResource;
 import org.json.JSONObject;
-
-import javax.ws.rs.core.MediaType;
 
 public class DarkSky extends Meteorologo {
     private Client client;
