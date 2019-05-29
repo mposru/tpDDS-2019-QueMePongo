@@ -283,12 +283,12 @@ public class AccuWeatherJsonTest {
     }
 
     @Test
-    public void obtenerProbaPecipitacionDiaDelJson() {
+    public void obtenerProbaPrecipitacionDiaDelJson() {
         assertEquals(clima.getPrecipitacionDia(), accuWeather.obtenerClima().getPrecipitacionDia(),0);
     }
 
     @Test
-    public void obtenerProbaPecipitacionNocheDelJson() {
+    public void obtenerProbaPrecipitacionNocheDelJson() {
         assertEquals(clima.getPrecipitacionNoche(), accuWeather.obtenerClima().getPrecipitacionNoche(),0);
     }
 }

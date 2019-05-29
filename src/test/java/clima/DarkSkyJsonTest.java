@@ -384,12 +384,12 @@ public class DarkSkyJsonTest {
     }
 
     @Test
-    public void obtenerProbaPecipitacionDiaDelJson() {
+    public void obtenerProbaPrecipitacionDiaDelJson() {
         assertEquals(clima.getPrecipitacionDia(), darkSky.obtenerClima().getPrecipitacionDia(),0);
     }
 
     @Test
-    public void obtenerProbaPecipitacionNocheDelJson() {
+    public void obtenerProbaPrecipitacionNocheDelJson() {
         assertEquals(clima.getPrecipitacionNoche(), darkSky.obtenerClima().getPrecipitacionNoche(),0);
     }
 }
