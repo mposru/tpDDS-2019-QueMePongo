@@ -33,11 +33,7 @@ public class DarkSky extends Meteorologo {
     }
 
     public String getJsonClima(){
-        WebResource recurso = this.client.resource(API_DARKSKY);
-        WebResource.Builder builder = recurso.accept(MediaType.APPLICATION_JSON);
-        ClientResponse response = builder.get(ClientResponse.class);
-        String json = response.toString();
-        return json;
+        return super.getJsonClima(this.client, API_DARKSKY);
     }
 
 }
