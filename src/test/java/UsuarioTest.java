@@ -8,6 +8,7 @@ public class UsuarioTest {
     private Guardarropa guardarropa;
     private Usuario merlin;
 
+
     @Before
     public void iniciarTest() {
         this.merlin = new Usuario(new Gratuito());

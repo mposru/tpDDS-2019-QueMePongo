@@ -16,7 +16,7 @@ public class Nuevo implements EstadoAtuendo {
 
     }
     public void calificar(int nuevaCalificacion) {
-        throw new NoSePuedeCalificarException("No se puede calificar un atuendo con estado nuevo.");
+        throw new NoSePuedeCalificarException("No se puede calificar un atuendo con estado Nuevo.");
     }
 
     public int obtenerCalificacionAnterior() {return 0;}

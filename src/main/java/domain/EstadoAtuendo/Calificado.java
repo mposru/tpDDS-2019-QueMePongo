@@ -28,7 +28,7 @@ public class Calificado implements EstadoAtuendo {
 
         }
     public void validarRangoCalificacion(int calificacion)  {
-        if (calificacion < 1 && calificacion > 5) {
+        if (calificacion < 1 || calificacion > 5) {
             throw new RangoDeCalificacionException("La calificación debe estar entre 1 y 5.");
         }
     }

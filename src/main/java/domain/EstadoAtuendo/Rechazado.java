@@ -2,9 +2,7 @@ package domain.EstadoAtuendo;
 
 import domain.Atuendo;
 import domain.EstadoAtuendo.EstadoAtuendo;
-import exceptions.NoSePuedeAceptarException;
-import exceptions.NoSePuedeCalificarException;
-import exceptions.NoSePuedeRechazarException;
+import exceptions.*;
 
 public class Rechazado implements EstadoAtuendo {
     private Atuendo atuendo;
@@ -21,7 +19,7 @@ public class Rechazado implements EstadoAtuendo {
 
     }
     public void calificar(int calificacion) {
-        throw new NoSePuedeCalificarException("No se puede calificar un atuendo con estado rechazado.");
+        throw new NoSePuedeCalificarException("No se puede calificar un atuendo con estado Rechazado.");
     }
     public int obtenerCalificacionAnterior() {return 0;}
     public int obtenerCalificacionActual() {return 0;}

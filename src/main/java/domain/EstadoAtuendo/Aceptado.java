@@ -15,12 +15,16 @@ public class Aceptado implements EstadoAtuendo {
         throw new NoSePuedeRechazarException("No se puede rechazar un atuendo con estado Aceptado");
     }
     public void calificar(int nuevaCalificacion) {
-        if (nuevaCalificacion < 1 && nuevaCalificacion > 5) {
-            throw new RangoDeCalificacionException("La calificación debe estar entre 1 y 5.");
-        }
+        this.validarRangoCalificacion(nuevaCalificacion);
         this.atuendo.cambiarEstado(new Calificado(this.atuendo,nuevaCalificacion));
     }
     public int obtenerCalificacionAnterior() {return 0;}
     public int obtenerCalificacionActual() {return 0;}
+
+    public void validarRangoCalificacion(int calificacion) {
+        if (calificacion < 1 || calificacion > 5) {
+            throw new RangoDeCalificacionException("La calificación debe estar entre 1 y 5.");
+        }
+    }
 
 }
