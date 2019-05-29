@@ -1,5 +1,6 @@
 package domain;
 
+import domain.TipoDeUsuario.*;
 import exceptions.*;
 import org.junit.*;
 import org.junit.rules.ExpectedException;
@@ -32,28 +33,13 @@ public class GuardarropaTest {
         this.pollera = new Prenda(TipoDePrenda.POLLERA, Material.JEAN, color, null, Trama.LISA, guardarropa);
         this.pañuelo = new Prenda(TipoDePrenda.PANUELO, Material.ALGODON, color, null, Trama.LISA, guardarropa);
         this.anteojos = new Prenda(TipoDePrenda.ANTEOJOS, Material.PLASTICO, color, null, Trama.LISA, guardarropa);
-        this.marta = new Usuario();
-        this.flor = new Usuario();
+        this.marta = new Usuario(new Gratuito());
+        this.flor = new Usuario(new Premium());
         this.guardarropa = new Guardarropa(marta);
     }
 
     @Rule
     public ExpectedException exception = ExpectedException.none();
-
-    @Test
-    public void definirUsuarioVacio() {
-        exception.expect(NullPointerException.class);
-        exception.expectMessage("El usuario no puede ser vacio");
-        this.guardarropa.definirUsuario(null);
-    }
-
-    @Test
-    public void definirMasDeUnUsuario() {
-        this.guardarropa.definirUsuario(this.flor);
-        exception.expect(GuardarropaOcupadoException.class);
-        exception.expectMessage("Ya tengo dueño/a, no me podes asignar a otra/o");
-        this.guardarropa.definirUsuario(this.marta);
-    }
 
     @Test
     public void sugerirAtuendos() {

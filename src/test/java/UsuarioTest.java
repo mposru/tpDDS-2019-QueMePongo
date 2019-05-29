@@ -1,4 +1,5 @@
 import domain.Guardarropa;
+import domain.TipoDeUsuario.*;
 import domain.Usuario;
 import org.junit.Before;
 
@@ -9,7 +10,7 @@ public class UsuarioTest {
 
     @Before
     public void iniciarTest() {
-        this.merlin = new Usuario();
+        this.merlin = new Usuario(new Gratuito());
         this.guardarropa = new Guardarropa(merlin);
     }
 

@@ -1,6 +1,7 @@
 package domain;
 
-import domain.EstadoAtuendo.EstadoAtuendo;
+import domain.EstadoAtuendo.*;
+import domain.TipoDeUsuario.*;
 import org.junit.*;
 import exceptions.*;
 import org.junit.rules.ExpectedException;
@@ -28,7 +29,7 @@ public class AtuendoTest {
 
     @Before
     public void iniciarTest() {
-        this.carlos = new Usuario();
+        this.carlos = new Usuario(new Premium());
         this.guardarropa = new Guardarropa(carlos);
         this.color = new Color(1, 2, 3);
         this.musculosa = new Prenda(TipoDePrenda.MUSCULOSA, Material.ALGODON, color, null, Trama.CUADROS, guardarropa);

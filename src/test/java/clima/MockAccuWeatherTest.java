@@ -1,5 +1,6 @@
 package clima;
 
+import domain.TipoDeUsuario.*;
 import domain.Usuario;
 import domain.clima.AccuWeather;
 import domain.clima.Clima;
@@ -21,7 +22,7 @@ public class MockAccuWeatherTest {
     @Before
     public void iniciarTest() {
         accuWeather = mock(AccuWeather.class);
-        marta = new Usuario();
+        marta = new Usuario(new Premium());
         guardarropa = new Guardarropa(marta);
         guardarropa.definirMeteorologo(accuWeather);
         clima = new Clima(1558917066, 30, 20, 0.5, 1.0);

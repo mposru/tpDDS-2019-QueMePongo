@@ -1,5 +1,6 @@
 package domain;
 
+import domain.TipoDeUsuario.*;
 import org.junit.*;
 import exceptions.*;
 import org.junit.rules.ExpectedException;
@@ -13,7 +14,7 @@ public class BorradorTest {
     private Trama trama;
     private Guardarropa guardarropa;
     private Material materialInvalido;
-    private Usuario magdalena = new Usuario();
+    private Usuario magdalena = new Usuario(new Gratuito());
 
     @Before
     public void iniciarTest() {

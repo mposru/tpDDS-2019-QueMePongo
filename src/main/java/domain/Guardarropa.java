@@ -9,7 +9,6 @@ import java.util.List;
 import java.util.Objects;
 import java.util.Set;
 
-import static java.util.Objects.isNull;
 import static java.util.Objects.requireNonNull;
 import static java.util.stream.Collectors.toList;
 
@@ -21,24 +20,22 @@ public class Guardarropa {
     private Set<Prenda> accesorios = new HashSet<>();
     private Usuario usuario;
     private Meteorologo meteorologo;
-
-
-    private int limiteDePrendas = this.usuario.limiteDePrendas(); //usuario.limiteDePrendas(); // el guardarropas queda seteado con el limite que tenga el usuario dueño del mismo
     private int cantidadDePrendas;
 
+    public Guardarropa(Usuario usuario) {
+        this.usuario = requireNonNull(usuario, "Debe ingresar un usuario");
+    }
+
+
+    public int limiteDePrendas() {return this.usuario.limiteDePrendas();} //usuario.limiteDePrendas(); // el guardarropas queda seteado con el limite que tenga el usuario dueño del mismo
+
+
     public int obtenerCantidadDePrendas() { return this.cantidadDePrendas;}
-    public void setCantidadDePrendas() {
+    public void aumentarCantidadDePrendas() {
         this.cantidadDePrendas+=1;
     }
     public Set<Prenda> obtenerPrendasSuperiores() {
         return prendasSuperiores;
-    }
-
-    //Agregamos el usuario en el constructor porque necesitamos saber
-    // el tipo de usuario que tiene asociado para saber el límite de prendas que se pueden agregar
-
-    public Guardarropa(Usuario usuario) {
-        this.usuario = requireNonNull(usuario, "Debe ingresar un usuario");
     }
 
     public Set<Prenda> obtenerPrendasInferiores() {
@@ -76,7 +73,7 @@ public class Guardarropa {
                 accesorios.add(prenda);
                 break;
         }
-        this.setCantidadDePrendas();
+        this.aumentarCantidadDePrendas();
 
     }
 
