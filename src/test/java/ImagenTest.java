@@ -13,8 +13,14 @@ public class ImagenTest {
     public ExpectedException exception = ExpectedException.none();
 
     @Test
-    public void leerArchivoDeFileSystem() throws IOException {
+    public void seGuardaConAltoIndicado() throws IOException {
         imagen.leerDeFileSystem("src/imagenes/ojotas.png");
-        //Assert.assertEquals();
+        Assert.assertEquals(imagen.getAlto(), imagen.getImagen().getHeight());
+    }
+
+    @Test
+    public void seGuardaConAnchoIndicado() throws IOException {
+        imagen.leerDeFileSystem("src/imagenes/ojotas.png");
+        Assert.assertEquals(imagen.getAncho(), imagen.getImagen().getWidth());
     }
 }
