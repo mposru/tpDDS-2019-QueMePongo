@@ -2,6 +2,8 @@ package domain;
 
 //import java.util.HashSet;
 //import java.util.Set;
+
+import java.time.LocalDateTime;
 import java.util.*;
 
 import domain.TipoDeUsuario.Gratuito;
@@ -16,12 +18,15 @@ public class Usuario {
     private TipoUsuario tipoUsuario;
     private ArrayList<Atuendo> atuendosAceptados = new ArrayList<>();
     private ArrayList<Atuendo> atuendosRechazados = new ArrayList<>();
+    private Set<Evento> eventos = new HashSet<>();
 
-    public Usuario (TipoUsuario tipoUsuario) {
+    public Usuario(TipoUsuario tipoUsuario) {
         this.tipoUsuario = tipoUsuario;
     }
 
-    public Deque<Decision> obtenerDecisiones() {return this.decisiones;}
+    public Deque<Decision> obtenerDecisiones() {
+        return this.decisiones;
+    }
 
     public ArrayList<Atuendo> obtenerAtuendosAceptados() {
         return this.atuendosAceptados;
@@ -39,21 +44,24 @@ public class Usuario {
         this.tipoUsuario = Gratuito.getInstance();
     }
 
-    public int limiteDePrendas(){
+    public int limiteDePrendas() {
         return this.tipoUsuario.limiteDePrendas();
     }
 
-    public boolean tieneLimiteDePrendas() { return this.tipoUsuario.tieneLimiteDePrendas();}
+    public boolean tieneLimiteDePrendas() {
+        return this.tipoUsuario.tieneLimiteDePrendas();
+    }
 
     public Set<Guardarropa> obtenerGuardarropas() {
         return this.guardarropas;
     }
 
-    public void aceptarAtuendo(Atuendo atuendo){
+    public void aceptarAtuendo(Atuendo atuendo) {
         atuendo.aceptar();
         this.atuendosAceptados.add(atuendo); //validar que el atuendo no se pueda aceptar dos veces.
         this.decisiones.push(new Aceptar(atuendo));
     }
+
     public void rechazarAtuendo(Atuendo atuendo) {
         atuendo.rechazar();
         atuendosRechazados.add(atuendo); //validar que el atuendo no se pueda rechazar dos veces.
@@ -69,11 +77,22 @@ public class Usuario {
         }
     }
 
-    public void deshacer(){ //deshacemos el último cambio
-        if(decisiones.isEmpty()) {
+    public void deshacer() { //deshacemos el último cambio
+        if (decisiones.isEmpty()) {
             throw new PilaVaciaException("No hay decisiones por deshacer");
         }
         this.decisiones.pop().deshacer(this);
+    }
+
+    public void agregarEventos(Set<Evento> eventosACargar, LocalDateTime fecha) {
+        eventosACargar.forEach(evento -> evento.indicarFecha(fecha));
+        this.eventos.addAll(eventosACargar);
+    }
+
+    public boolean tieneEventoProximo(LocalDateTime fecha) {
+        Set<Evento> eventosProximos = eventos;
+        eventosProximos.removeIf(evento -> !evento.verSiEsProximo(fecha));
+        return eventosProximos.size() > 0;
     }
 
 }
