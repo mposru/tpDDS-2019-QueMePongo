@@ -135,13 +135,10 @@ public class Guardarropa {
                 .map( conjuntoSuperior -> new HashSet<Prenda>(conjuntoSuperior))
                 .collect(Collectors.toSet());
 
-        prendasSuperioresArmadas.forEach( conjuntoSuperior -> {
-            Sets.cartesianProduct(prendasInferioresAdecuadas, calzadosAdecuados, accesoriosAdecuados)
-                    .stream()
-                    .forEach( conjunto -> atuendosSugeridos.add(new Atuendo(conjuntoSuperior, conjunto.get(0), conjunto.get(1), conjunto.get(2))));
-        });
-
-        return atuendosSugeridos;
+        return Sets.cartesianProduct(prendasSuperioresArmadas, prendasInferioresAdecuadas, calzadosAdecuados, accesoriosAdecuados)
+                .stream()
+                .map( atuendo -> new Atuendo((Set<Prenda>)atuendo.get(0), (Prenda) atuendo.get(1), (Prenda) atuendo.get(2), (Prenda) atuendo.get(3) ))
+                .collect(Collectors.toList());
     }
 
     private Set<Prenda> filtrarPrendaPorAbrigo(Set<Prenda> prendasSinFiltrar, TipoAbrigo tipoAbrigo, Clima clima) {
