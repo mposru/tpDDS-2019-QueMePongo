@@ -50,11 +50,13 @@ public class Guardarropa {
     public Usuario obtenerUsuario() {
         return usuario;
     }
-
-    public void guardarPrenda(Prenda prenda) {
+    public void verificarLimiteDePrendas() {
         if(this.usuario.tieneLimiteDePrendas() && this.obtenerCantidadDePrendas() >= this.usuario.limiteDePrendas()) {
             throw new SuperaLimiteDePrendasException ("Se supera el límite de " + this.usuario.limiteDePrendas() + " prendas definido para el tipo de usuario del guardarropa");
         }
+    }
+    public void guardarPrenda(Prenda prenda) {
+       this.verificarLimiteDePrendas();
         switch (prenda.obtenerCategoria()) {
             case CALZADO:
                 calzados.add(prenda);
