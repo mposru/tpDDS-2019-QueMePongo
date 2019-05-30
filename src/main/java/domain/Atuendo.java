@@ -85,7 +85,6 @@ public class Atuendo {
 
     public void rechazar() {
         this.estado.rechazar();
-
     }
 
     public void cambiarEstado(EstadoAtuendo estado) {

@@ -135,7 +135,7 @@ public class AtuendoTest {
     @Test
     public void validarAtuendo() {
         exception.expect(PrendaInvalidaException.class);
-        exception.expectMessage("La prenda superior no es válida. La prenda inferior no es válida. El calzado no es válido. El accesorio no es válido. ");
+        exception.expectMessage("Una de las prendas superiores no es válida. La prenda inferior no es válida. El calzado no es válido. El accesorio no es válido. ");
         Set<Prenda> partesInferiores = new HashSet<>();
         partesInferiores.add(pollera);
         this.atuendoInvalido = new Atuendo(partesInferiores,zapatos,anteojos,blusa); //con sus partes fuera de orden.
@@ -148,7 +148,7 @@ public class AtuendoTest {
 
     @Test
     public void validarPrendaSuperiorAtuendo() {
-        Assert.assertEquals(musculosa, this.atuendoVerano.obtenerPrendasSuperiores());
+        Assert.assertEquals(musculosa, this.atuendoVerano.);
     }
 
     @Test
