@@ -1,11 +1,7 @@
 package domain.clima;
 
 import com.sun.jersey.api.client.Client;
-import com.sun.jersey.api.client.ClientResponse;
-import com.sun.jersey.api.client.WebResource;
 import org.json.JSONObject;
-
-import javax.ws.rs.core.MediaType;
 
 public class DarkSky extends Meteorologo {
     private Client client;
@@ -33,11 +29,7 @@ public class DarkSky extends Meteorologo {
     }
 
     public String getJsonClima(){
-        WebResource recurso = this.client.resource(API_DARKSKY);
-        WebResource.Builder builder = recurso.accept(MediaType.APPLICATION_JSON);
-        ClientResponse response = builder.get(ClientResponse.class);
-        String json = response.toString();
-        return json;
+        return super.getJsonClima(this.client, API_DARKSKY);
     }
 
 }

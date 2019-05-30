@@ -13,6 +13,9 @@ public class BorradorTest {
     private Borrador borradorZapatillas;
     private Trama trama;
     private Guardarropa guardarropa;
+    private double temperaturaMin;
+    private double temperaturaMax;
+    private boolean esParaLluvia;
     private Material materialInvalido;
     private Usuario magdalena;
 
@@ -23,6 +26,9 @@ public class BorradorTest {
         this.material = Material.CUERO;
         this.colorPrimario = new Color(20, 20, 30);
         this.trama = Trama.LISA;
+        this.temperaturaMin = 0;
+        this.temperaturaMax = 20;
+        this.esParaLluvia = true;
         this.guardarropa = new Guardarropa(magdalena);
         //creamos un borrador sin definirle el tipoDePrenda, material, trama y guardarropa
         this.borradorZapatillas = new Borrador();
@@ -118,10 +124,10 @@ public class BorradorTest {
     @Test
     public void crearPrendaConExito() {
         this.borradorZapatillas.definirTipo(this.tipoDePrenda).definirMaterial(this.material).definirColorPrimario(this.colorPrimario).definirColorPrimario(this.colorPrimario).definirGuardarropa(this.guardarropa);
-        Prenda prendaEsperada = new Prenda(this.tipoDePrenda, this.material, this.colorPrimario, null, this.trama, this.guardarropa);
+        Prenda prendaEsperada = new Prenda(this.tipoDePrenda, this.material, this.colorPrimario, null, this.trama, this.guardarropa, this.temperaturaMin, this.temperaturaMax, this.esParaLluvia);
         Assert.assertEquals(prendaEsperada.obtenerTipoDePrenda(),this.tipoDePrenda);
         Assert.assertEquals(prendaEsperada.obtenerColorPrimario(),this.colorPrimario);
-        Assert.assertEquals(prendaEsperada.obtenerColorSecundario(),null);
+        Assert.assertNull(prendaEsperada.obtenerColorSecundario());
         Assert.assertEquals(prendaEsperada.obtenerTrama(),this.trama);
         Assert.assertEquals(prendaEsperada.obtenerGuardarropa(),this.guardarropa);
         Assert.assertEquals(prendaEsperada.obtenerMaterial(), this.material);

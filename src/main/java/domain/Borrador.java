@@ -2,7 +2,6 @@ package domain;
 
 import exceptions.ColorSecundarioException;
 
-import static java.util.Objects.isNull;
 import static java.util.Objects.requireNonNull;
 
 public class Borrador  {
@@ -12,6 +11,9 @@ public class Borrador  {
     private Color colorSecundario;
     private Material material;
     private Guardarropa guardarropa;
+    private double temperaturaMin;
+    private double temperaturaMax;
+    private boolean esParaLluvia;
 
     public Borrador definirTipo(TipoDePrenda tipoDePrenda) {
         this.tipoDePrenda = requireNonNull(tipoDePrenda, "Debe ingresar un tipo de prenda");
@@ -49,12 +51,30 @@ public class Borrador  {
         return this;
     }
 
+    public Borrador definirTemperaturaMaxima(double temperaturaMax) {
+        this.temperaturaMax = requireNonNull(temperaturaMax, "Debe asignarle una temperatura maxima a la prenda");
+        return this;
+    }
+
+    public Borrador definirTemperaturaMinima(double temperaturaMin) {
+        this.temperaturaMin = requireNonNull(temperaturaMin, "Debe asignarle una temperatura minima a la prenda");
+        return this;
+    }
+
+    public Borrador definirEsParaLLuvia(boolean esParaLluvia) {
+        this.esParaLluvia = requireNonNull(esParaLluvia, "Debe asignarle si es impermeable a la prenda");
+        return this;
+    }
+
     public Prenda crearPrenda() {
         requireNonNull(tipoDePrenda, "El tipo de prenda es obligatorio");
         requireNonNull(material, "El material es obligatorio");
         requireNonNull(colorPrimario, "El color es obligatorio");
         requireNonNull(guardarropa, "El guardarropa es obligatorio");
-        Prenda prenda = new Prenda(tipoDePrenda, material, colorPrimario, colorSecundario, trama, guardarropa);
+        requireNonNull(temperaturaMax, "Debe asignarle una temperatura maxima a la prenda");
+        requireNonNull(temperaturaMin, "Debe asignarle una temperatura minima a la prenda");
+        requireNonNull(esParaLluvia, "Debe asignarle si es impermeable a la prenda");
+        Prenda prenda = new Prenda(tipoDePrenda, material, colorPrimario, colorSecundario, trama, guardarropa, temperaturaMin, temperaturaMax, esParaLluvia);
         return prenda;
     }
 }

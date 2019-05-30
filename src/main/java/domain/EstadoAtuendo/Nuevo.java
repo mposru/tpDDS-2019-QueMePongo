@@ -3,6 +3,8 @@ package domain.EstadoAtuendo;
 import domain.Atuendo;
 import exceptions.NoSePuedeCalificarException;
 
+import java.util.Objects;
+
 public class Nuevo implements EstadoAtuendo {
     private Atuendo atuendo;
     public Nuevo (Atuendo atuendo) {
@@ -22,4 +24,11 @@ public class Nuevo implements EstadoAtuendo {
     public int obtenerCalificacionAnterior() {return 0;}
     public int obtenerCalificacionActual() {return 0;}
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Nuevo estado = (Nuevo) o;
+        return Objects.equals(Nuevo.class, estado.getClass());
+    }
 }

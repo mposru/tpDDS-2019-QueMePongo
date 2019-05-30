@@ -1,16 +1,15 @@
 package domain;
 
 import com.google.common.collect.Sets;
+import domain.clima.AccuWeather;
+import domain.clima.Clima;
 import domain.clima.Meteorologo;
 import exceptions.*;
 
-import java.util.HashSet;
-import java.util.List;
-import java.util.Objects;
-import java.util.Set;
+import java.util.*;
+import java.util.stream.Collectors;
 
 import static java.util.Objects.requireNonNull;
-import static java.util.stream.Collectors.toList;
 
 public class Guardarropa {
 
@@ -19,20 +18,18 @@ public class Guardarropa {
     private Set<Prenda> calzados = new HashSet<>();
     private Set<Prenda> accesorios = new HashSet<>();
     private Usuario usuario;
-    private Meteorologo meteorologo;
-
+    private Meteorologo meteorologo = new AccuWeather();
 
     public Guardarropa(Usuario usuario) {
         this.usuario = requireNonNull(usuario, "Debe ingresar un usuario");
     }
-
 
     public int limiteDePrendas() {return this.usuario.limiteDePrendas();} //usuario.limiteDePrendas(); // el guardarropas queda seteado con el limite que tenga el usuario dueño del mismo
 
 
     public int obtenerCantidadDePrendas() {
         return (this.prendasSuperiores.size()+this.prendasInferiores.size()+this.accesorios.size()+this.calzados.size());
-        }
+    }
 
     public Set<Prenda> obtenerPrendasSuperiores() {
         return prendasSuperiores;
@@ -55,9 +52,8 @@ public class Guardarropa {
     }
 
     public void guardarPrenda(Prenda prenda) {
-
-        if(this.usuario.tieneLimiteDePrendas() && this.obtenerCantidadDePrendas()>=this.limiteDePrendas()) {
-            throw new SuperaLimiteDePrendasException ("Se supera el límite de "+this.limiteDePrendas() + " prendas definido para el tipo de usuario del guardarropa");
+        if(this.usuario.tieneLimiteDePrendas() && this.obtenerCantidadDePrendas() >= this.usuario.limiteDePrendas()) {
+            throw new SuperaLimiteDePrendasException ("Se supera el límite de " + this.usuario.limiteDePrendas() + " prendas definido para el tipo de usuario del guardarropa");
         }
         switch (prenda.obtenerCategoria()) {
             case CALZADO:
@@ -77,19 +73,32 @@ public class Guardarropa {
 
     }
 
-    private void validarPrendas()  {
+    private void validarPrendas(Set<Prenda> prendasSuperioresValidas, Set<Prenda> prendasInferioresValidas,
+                                Set<Prenda> calzadosValidos, Set<Prenda> accesoriosValidos, Set<Prenda> abrigosAlto,
+                                Set<Prenda> abrigosMediano, Set<Prenda> abrigosBasico)  {
+        //todo: mandar en el mensaje de error el clima. se concatena en la misma linea que se tira error
         String mensajeDeError = "";
-        if(prendasInferiores.size() <= 0) {
-            mensajeDeError = mensajeDeError.concat("Faltan prendas inferiores. ");
+        if(prendasSuperioresValidas.size() <= 0) {
+            mensajeDeError = mensajeDeError.concat("Faltan prendas inferiores adecuadas para el clima del evento. ");
+        } else {
+            if(abrigosAlto.size() <= 0) {
+                mensajeDeError = mensajeDeError.concat("Faltan prendas superiores abrigadas de tipo alto para el clima del evento. ");
+            }
+            if(abrigosMediano.size() <= 0) {
+                mensajeDeError = mensajeDeError.concat("Faltan prendas superiores abrigadas de tipo mediano para el clima del evento. ");
+            }
+            if(abrigosBasico.size() <= 0) {
+                mensajeDeError = mensajeDeError.concat("Faltan prendas superiores abrigadas de tipo basico para el clima del evento. ");
+            }
         }
-        if(prendasSuperiores.size() <= 0) {
-            mensajeDeError = mensajeDeError.concat("Faltan prendas superiores. ");
+        if(prendasInferioresValidas.size() <= 0) {
+            mensajeDeError = mensajeDeError.concat("Faltan prendas superiores adecuadas para el clima del evento. ");
         }
-        if(calzados.size() <= 0) {
-            mensajeDeError = mensajeDeError.concat("Faltan zapatos. ");
+        if(calzadosValidos.size() <= 0) {
+            mensajeDeError = mensajeDeError.concat("Faltan zapatos adecuados para el clima del evento. ");
         }
-        if(accesorios.size() <= 0) {
-            mensajeDeError = mensajeDeError.concat("Faltan accesorios. ");
+        if(accesoriosValidos.size() <= 0) {
+            mensajeDeError = mensajeDeError.concat("Faltan accesorios adecuados para el clima del evento. ");
         }
         if (mensajeDeError != "") {
             throw new FaltaPrendaException(mensajeDeError);
@@ -97,14 +106,59 @@ public class Guardarropa {
     }
 
     public List<Atuendo> generarSugerencia() {
-        this.validarPrendas();
-        // obtener prendas de cada clima adecuado y pasar esas por param
-        // si hace menos de x cantidad de grados, el producto cartesiano cambia
-        // porque atuendo puede tener mas de una prenda superior
-        return Sets.cartesianProduct(prendasSuperiores, prendasInferiores, calzados, accesorios)
+        Set<Prenda> prendasSuperioresAdecuadas;
+        Set<Prenda> prendasInferioresAdecuadas;
+        Set<Prenda> calzadosAdecuados;
+        Set<Prenda> accesoriosAdecuados;
+        Set<Prenda> abrigosBasico;
+        Set<Prenda> abrigosMediano;
+        Set<Prenda> abrigosAlto;
+        List<Atuendo> atuendosSugeridos = new ArrayList<>();
+        Clima climaEvento = meteorologo.obtenerClima();
+
+        // mandar evento como parametro y hacer evento.obtenerclima
+        // clima.consultarClima(evento.fecha, evento.ubicacion)
+
+        prendasSuperioresAdecuadas = this.obtenerPrendaSegunClima(prendasSuperiores, climaEvento);
+        prendasInferioresAdecuadas = this.obtenerPrendaSegunClima(prendasInferiores, climaEvento);
+        calzadosAdecuados = this.obtenerPrendaSegunClima(calzados, climaEvento);
+        accesoriosAdecuados = this.obtenerPrendaSegunClima(accesorios, climaEvento);
+        abrigosBasico = filtrarPrendaPorAbrigo(prendasSuperioresAdecuadas, TipoAbrigo.BASICO, climaEvento);
+        abrigosMediano = filtrarPrendaPorAbrigo(prendasSuperioresAdecuadas, TipoAbrigo.MEDIANO, climaEvento);
+        abrigosAlto = filtrarPrendaPorAbrigo(prendasSuperioresAdecuadas, TipoAbrigo.ALTO, climaEvento);
+
+        this.validarPrendas(prendasSuperioresAdecuadas, prendasInferioresAdecuadas, calzadosAdecuados,
+                accesoriosAdecuados, abrigosAlto, abrigosMediano, abrigosBasico);
+
+        Set<Set<Prenda>> prendasSuperioresArmadas = Sets.cartesianProduct(abrigosBasico, abrigosMediano, abrigosAlto)
                 .stream()
-                .map((list) -> new Atuendo((list.get(0)), list.get(1), list.get(2), list.get(3)))
-                .collect(toList());
+                .map( conjuntoSuperior -> new HashSet<Prenda>(conjuntoSuperior))
+                .collect(Collectors.toSet());
+
+        prendasSuperioresArmadas.forEach( conjuntoSuperior -> {
+            Sets.cartesianProduct(prendasInferioresAdecuadas, calzadosAdecuados, accesoriosAdecuados)
+                    .stream()
+                    .forEach( conjunto -> atuendosSugeridos.add(new Atuendo(conjuntoSuperior, conjunto.get(0), conjunto.get(1), conjunto.get(2))));
+        });
+
+        return atuendosSugeridos;
+    }
+
+    private Set<Prenda> filtrarPrendaPorAbrigo(Set<Prenda> prendasSinFiltrar, TipoAbrigo tipoAbrigo, Clima clima) {
+        if(clima.getTemperaturaMaxima() > tipoAbrigo.obtenerTemperaturaMaxima()) {
+            // clima no matchea con tipo de abrigo
+            Prenda prendaVacia = new Prenda(TipoDePrenda.NINGUNO_SUPERIOR, Material.NINGUNO, new Color(0,0, 0),
+                    null, Trama.NINGUNO, this, 0, 0, false);
+            Set<Prenda> prendasVacias = new HashSet<>();
+            prendasVacias.add(prendaVacia);
+            return prendasVacias;
+        }
+        return prendasSinFiltrar.stream().filter( prenda -> prenda.obtenerTipoDeAbrigo() == tipoAbrigo).collect(Collectors.toSet());
+    }
+
+
+    private Set<Prenda> obtenerPrendaSegunClima(Set<Prenda> prendas, Clima climaEvento) {
+        return prendas.stream().filter((prenda) -> prenda.aptaParaTemperatura(climaEvento) && prenda.noMeMojo(climaEvento)).collect(Collectors.toSet());
     }
 
     public void definirMeteorologo(Meteorologo meteorologo) {

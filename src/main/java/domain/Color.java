@@ -23,6 +23,7 @@ public class Color {
     public int obtenerVerde() {
         return verde;
     }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;

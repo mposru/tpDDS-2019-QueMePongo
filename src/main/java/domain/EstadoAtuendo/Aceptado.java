@@ -3,6 +3,8 @@ package domain.EstadoAtuendo;
 import domain.Atuendo;
 import exceptions.*;
 
+import java.util.Objects;
+
 public class Aceptado implements EstadoAtuendo {
     private Atuendo atuendo;
     public Aceptado(Atuendo atuendo) {
@@ -27,4 +29,11 @@ public class Aceptado implements EstadoAtuendo {
         }
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Aceptado estado = (Aceptado) o;
+        return Objects.equals(Aceptado.class, estado.getClass());
+    }
 }

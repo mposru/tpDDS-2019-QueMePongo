@@ -6,6 +6,9 @@ import org.junit.*;
 import exceptions.*;
 import org.junit.rules.ExpectedException;
 
+import java.util.HashSet;
+import java.util.Set;
+
 public class AtuendoTest {
     private Guardarropa guardarropa;
     private Prenda accesorio;
@@ -26,23 +29,22 @@ public class AtuendoTest {
     private Usuario carlos;
     private Atuendo atuendoInvalido;
 
-
-
     @Before
     public void iniciarTest() {
         this.carlos = new Usuario(Premium.getInstance());
         this.guardarropa = new Guardarropa(carlos);
         this.color = new Color(1, 2, 3);
-        this.musculosa = new Prenda(TipoDePrenda.MUSCULOSA, Material.ALGODON, color, null, Trama.CUADROS, guardarropa);
-        this.blusa = new Prenda(TipoDePrenda.BLUSA, Material.ALGODON, color, null, Trama.CUADROS, guardarropa);
-        this.crocs = new Prenda(TipoDePrenda.CROCS, Material.GOMA, color, null, Trama.CUADROS, guardarropa);
-        this.zapatos = new Prenda(TipoDePrenda.ZAPATO, Material.CUERO, color, null, Trama.LISA, guardarropa);
-        this.shortDeJean = new Prenda(TipoDePrenda.SHORT, Material.JEAN, color, null, Trama.LISA, guardarropa);
-        this.pollera = new Prenda(TipoDePrenda.POLLERA, Material.JEAN, color, null, Trama.LISA, guardarropa);
-        this.pañuelo = new Prenda(TipoDePrenda.PANUELO, Material.ALGODON, color, null, Trama.LISA, guardarropa);
-        this.anteojos = new Prenda(TipoDePrenda.ANTEOJOS, Material.PLASTICO, color, null, Trama.LISA, guardarropa);
-        this.atuendoVerano = new Atuendo(musculosa,shortDeJean,crocs,anteojos);
-
+        this.musculosa = new Prenda(TipoDePrenda.MUSCULOSA, Material.ALGODON, color, null, Trama.CUADROS, guardarropa,28,40,false);
+        this.blusa = new Prenda(TipoDePrenda.BLUSA, Material.ALGODON, color, null, Trama.CUADROS, guardarropa,25,30,false);
+        this.crocs = new Prenda(TipoDePrenda.CROCS, Material.GOMA, color, null, Trama.CUADROS, guardarropa,0,40,true);
+        this.zapatos = new Prenda(TipoDePrenda.ZAPATO, Material.CUERO, color, null, Trama.LISA, guardarropa,0,20,true);
+        this.shortDeJean = new Prenda(TipoDePrenda.SHORT, Material.JEAN, color, null, Trama.LISA, guardarropa,25,40,false);
+        this.pollera = new Prenda(TipoDePrenda.POLLERA, Material.JEAN, color, null, Trama.LISA, guardarropa,25,40,false);
+        this.pañuelo = new Prenda(TipoDePrenda.PANUELO, Material.ALGODON, color, null, Trama.LISA, guardarropa,10,25,false);
+        this.anteojos = new Prenda(TipoDePrenda.ANTEOJOS, Material.PLASTICO, color, null, Trama.LISA, guardarropa,0,100,false);
+        Set<Prenda> superiores = new HashSet<>();
+        superiores.add(musculosa);
+        this.atuendoVerano = new Atuendo(superiores,shortDeJean,crocs,anteojos);
     }
 
     @Rule
@@ -134,29 +136,35 @@ public class AtuendoTest {
     public void validarAtuendo() {
         exception.expect(PrendaInvalidaException.class);
         exception.expectMessage("La prenda superior no es válida. La prenda inferior no es válida. El calzado no es válido. El accesorio no es válido. ");
-        this.atuendoInvalido = new Atuendo(pollera,zapatos,anteojos,blusa); //con sus partes fuera de orden.
+        Set<Prenda> partesInferiores = new HashSet<>();
+        partesInferiores.add(pollera);
+        this.atuendoInvalido = new Atuendo(partesInferiores,zapatos,anteojos,blusa); //con sus partes fuera de orden.
     }
+
     @Test
     public void validarAccesorioAtuendo() {
         Assert.assertEquals(anteojos, this.atuendoVerano.obtenerAccesorio());
     }
+
     @Test
     public void validarPrendaSuperiorAtuendo() {
-        Assert.assertEquals(musculosa, this.atuendoVerano.obtenerPrendaSuperior());
+        Assert.assertEquals(musculosa, this.atuendoVerano.obtenerPrendasSuperiores());
     }
+
     @Test
     public void validarPrendaInferiorAtuendo() {
         Assert.assertEquals(shortDeJean, this.atuendoVerano.obtenerPrendaInferior());
     }
+
     @Test
     public void validarCalzadoAtuendo() {
         Assert.assertEquals(crocs, this.atuendoVerano.obtenerCalzado());
     }
+
     @Test
     public void validaEstadoAtuendo() {
         Assert.assertEquals("domain.EstadoAtuendo.Nuevo", this.atuendoVerano.obtenerEstadoAtuendo().getClass().getName());
     }
-
 
 }
 

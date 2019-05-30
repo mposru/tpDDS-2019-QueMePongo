@@ -13,7 +13,7 @@ public class Imagen {
     private BufferedImage imagen;
     private File archivo;
 
-    public void leerDeFileSystem(String path) throws IOException {
+    public Imagen leerDeFileSystem(String path) throws IOException {
         this.archivo = new File(path);
         this.imagen = ImageIO.read(archivo);
         BufferedImage resizedImage = new BufferedImage(ancho,alto,BufferedImage.TYPE_INT_ARGB);
@@ -21,6 +21,7 @@ public class Imagen {
         g.drawImage(imagen, 0, 0, ancho,alto, null);
         g.dispose();
         this.imagen = resizedImage;
+        return this;
     }
 
     public BufferedImage getImagen() {

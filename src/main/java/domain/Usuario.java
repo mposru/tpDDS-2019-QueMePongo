@@ -22,21 +22,27 @@ public class Usuario {
     }
 
     public Deque<Decision> obtenerDecisiones() {return this.decisiones;}
+
     public ArrayList<Atuendo> obtenerAtuendosAceptados() {
         return this.atuendosAceptados;
     }
+
     public ArrayList<Atuendo> obtenerAtuendosRechazados() {
         return this.atuendosRechazados;
     }
+
     public void cambiarAPremium() {
         this.tipoUsuario = Premium.getInstance();
     }
+
     public void cambiarAGratuito() {
         this.tipoUsuario = Gratuito.getInstance();
     }
+
     public int limiteDePrendas(){
         return this.tipoUsuario.limiteDePrendas();
     }
+
     public boolean tieneLimiteDePrendas() { return this.tipoUsuario.tieneLimiteDePrendas();}
 
     public Set<Guardarropa> obtenerGuardarropas() {
@@ -58,13 +64,10 @@ public class Usuario {
         atuendo.calificar(nuevaCalificacion);
         if (atuendo.estaCalificado()) {
             this.decisiones.push(new Recalificar(atuendo));
-        }
-        else
-        {
+        } else {
             this.decisiones.push(new Calificar(atuendo));
         }
     }
-
 
     public void deshacer(){ //deshacemos el último cambio
         if(decisiones.isEmpty()) {
