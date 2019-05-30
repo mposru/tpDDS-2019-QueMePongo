@@ -7,6 +7,7 @@ import org.junit.Test;
 import org.mockito.Mockito;
 
 import static org.junit.Assert.assertEquals;
+import static org.mockito.Mockito.doReturn;
 import static org.mockito.Mockito.when;
 
 
@@ -364,7 +365,7 @@ public class DarkSkyJsonTest {
     @Before
     public void iniciarTest(){
         darkSky = Mockito.spy(new DarkSky());
-        when(darkSky.getJsonClima()).thenReturn(jsonClima);
+        doReturn(jsonClima).when(darkSky).getJsonClima();
         clima = new Clima(1558839600,17.9,13.96,0.26,0.26);
     }
 

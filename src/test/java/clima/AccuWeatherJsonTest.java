@@ -7,6 +7,7 @@ import org.junit.Test;
 import org.mockito.Mockito;
 
 import static org.junit.Assert.assertEquals;
+import static org.mockito.Mockito.doReturn;
 import static org.mockito.Mockito.when;
 
 
@@ -263,7 +264,7 @@ public class AccuWeatherJsonTest {
     @Before
     public void iniciarTest() {
         accuWeather = Mockito.spy(new AccuWeather());
-        when(accuWeather.getJsonClima()).thenReturn(jsonClima);
+        doReturn(jsonClima).when(accuWeather).getJsonClima();
         clima = new Clima(1558864800,17.8,14.4,25,25);
     }
 
