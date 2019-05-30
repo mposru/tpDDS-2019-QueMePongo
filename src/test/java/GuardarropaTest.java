@@ -74,7 +74,6 @@ public class GuardarropaTest {
 
     @Test
     public void sugerirAtuendos() {
-        //todo: fixear test, creo que se esta guardando la data que se setea en los otros tests
         this.guardarropa.guardarPrenda(this.musculosa);
         this.guardarropa.guardarPrenda(this.crocs);
         this.guardarropa.guardarPrenda(this.zapatos);
