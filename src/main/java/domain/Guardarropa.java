@@ -20,7 +20,7 @@ public class Guardarropa {
     private Set<Prenda> accesorios = new HashSet<>();
     private Usuario usuario;
     private Meteorologo meteorologo;
-    private int cantidadDePrendas;
+
 
     public Guardarropa(Usuario usuario) {
         this.usuario = requireNonNull(usuario, "Debe ingresar un usuario");
@@ -30,10 +30,10 @@ public class Guardarropa {
     public int limiteDePrendas() {return this.usuario.limiteDePrendas();} //usuario.limiteDePrendas(); // el guardarropas queda seteado con el limite que tenga el usuario dueño del mismo
 
 
-    public int obtenerCantidadDePrendas() { return this.cantidadDePrendas;}
-    public void aumentarCantidadDePrendas() {
-        this.cantidadDePrendas+=1;
-    }
+    public int obtenerCantidadDePrendas() {
+        return (this.prendasSuperiores.size()+this.prendasInferiores.size()+this.accesorios.size()+this.calzados.size());
+        }
+
     public Set<Prenda> obtenerPrendasSuperiores() {
         return prendasSuperiores;
     }
@@ -56,8 +56,8 @@ public class Guardarropa {
 
     public void guardarPrenda(Prenda prenda) {
 
-        if(this.usuario.tieneLimiteDePrendas() && this.cantidadDePrendas>=this.usuario.limiteDePrendas()) {
-            throw new SuperaLimiteDePrendasException ("Se supera el límite de "+this.usuario.limiteDePrendas() + " prendas definido para el tipo de usuario del guardarropa");
+        if(this.usuario.tieneLimiteDePrendas() && this.obtenerCantidadDePrendas()>=this.limiteDePrendas()) {
+            throw new SuperaLimiteDePrendasException ("Se supera el límite de "+this.limiteDePrendas() + " prendas definido para el tipo de usuario del guardarropa");
         }
         switch (prenda.obtenerCategoria()) {
             case CALZADO:
@@ -73,7 +73,7 @@ public class Guardarropa {
                 accesorios.add(prenda);
                 break;
         }
-        this.aumentarCantidadDePrendas();
+
 
     }
 

@@ -3,10 +3,10 @@ package domain.TipoDeUsuario;
 import domain.TipoDeUsuario.TipoUsuario;
 
 public class Gratuito implements TipoUsuario {
-    private int limiteDePrendas=20;
+    private int limiteDePrendas=5;
     private static Gratuito instanceOfGratuito;
 
-    private Gratuito ()  {}
+    private Gratuito ()  { }
 
     public static Gratuito getInstance() {
         if(instanceOfGratuito==null) {

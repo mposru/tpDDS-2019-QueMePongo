@@ -21,6 +21,15 @@ public class GuardarropaTest {
     private Color color;
     private Usuario marta;
     private Usuario flor;
+    private Guardarropa guardarropaLimitado;
+    //prendas de mi guardarropa limitado
+    private Prenda remeraFutbol;
+    private Prenda camperaDeportiva;
+    private Prenda botines;
+    private Prenda zapatillas;
+    private Prenda shortDeFutbol;
+    private Prenda mediasDeFutbol;
+    private Prenda canillera;
 
     @Before
     public void iniciarTest() {
@@ -35,7 +44,15 @@ public class GuardarropaTest {
         this.anteojos = new Prenda(TipoDePrenda.ANTEOJOS, Material.PLASTICO, color, null, Trama.LISA, guardarropa);
         this.marta = new Usuario(Gratuito.getInstance());
         this.flor = new Usuario(Premium.getInstance());
-        this.guardarropa = new Guardarropa(marta);
+        this.guardarropa = new Guardarropa(flor);
+        this.guardarropaLimitado = new Guardarropa(marta);
+        //De guardarropa limitado
+        this.remeraFutbol= new Prenda(TipoDePrenda.REMERA, Material.ALGODON, color, null, Trama.ESTAMPADO, guardarropaLimitado);;
+        this.camperaDeportiva= new Prenda(TipoDePrenda.CAMPERA,Material.ALGODON,color,null,Trama.LISA,guardarropaLimitado);
+        this.botines= new Prenda(TipoDePrenda.ZAPATO,Material.CUERO,color,null,Trama.LISA,guardarropaLimitado);
+        this.shortDeFutbol=new Prenda(TipoDePrenda.SHORT,Material.POLYESTER,color,null,Trama.RAYADA,guardarropaLimitado);
+        this.mediasDeFutbol=new Prenda(TipoDePrenda.MEDIAS,Material.POLYESTER,color,null,Trama.CUADROS,guardarropaLimitado);
+        this.canillera=new Prenda(TipoDePrenda.CANILLERA,Material.PLASTICO,color,null,Trama.LISA,guardarropaLimitado);
     }
 
     @Rule
@@ -61,7 +78,7 @@ public class GuardarropaTest {
         Atuendo septimoAtuendo = new Atuendo(musculosa, pollera, zapatos, pañuelo);
         Atuendo octavoAtuendo = new Atuendo(musculosa, pollera, zapatos, anteojos);
         List <Atuendo> sugerenciasEsperadas = Arrays.asList(primerAtuendo, segundoAtuendo, tercerAtuendo, cuartoAtuendo, quintoAtuendo,
-            sextoAtuendo, septimoAtuendo, octavoAtuendo);
+                sextoAtuendo, septimoAtuendo, octavoAtuendo);
         sugerenciasEsperadas.forEach(sugerencia -> Assert.assertTrue(sugerencias.contains(sugerencia)));
         Assert.assertEquals(sugerenciasEsperadas.size(), sugerencias.size());
     }
@@ -142,4 +159,16 @@ public class GuardarropaTest {
         exception.expectMessage("Faltan prendas inferiores. ");
         this.guardarropa.generarSugerencia();
     }
+    @Test
+    public void superarLimiteDePrendas() {
+        exception.expect(SuperaLimiteDePrendasException.class);
+        exception.expectMessage("Se supera el límite de "+guardarropaLimitado.limiteDePrendas() + " prendas definido para el tipo de usuario del guardarropa");
+        this.guardarropaLimitado.guardarPrenda(this.remeraFutbol);
+        this.guardarropaLimitado.guardarPrenda(this.camperaDeportiva);
+        this.guardarropaLimitado.guardarPrenda(this.botines);
+        this.guardarropaLimitado.guardarPrenda(this.shortDeFutbol);
+        this.guardarropaLimitado.guardarPrenda(this.mediasDeFutbol);
+        this.guardarropaLimitado.guardarPrenda(this.canillera);
+    }
+
 }
