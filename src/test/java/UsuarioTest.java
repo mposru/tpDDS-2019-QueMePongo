@@ -89,8 +89,6 @@ public class UsuarioTest {
         merlin.calificarAtuendo(atuendoVerano,5);
         merlin.deshacer();
         Assert.assertEquals("domain.EstadoAtuendo.Aceptado", this.atuendoVerano.obtenerEstadoAtuendo().getClass().getName());
-
-
     }
     @Test
     public void cantidadDeOperaciones(){
@@ -100,5 +98,17 @@ public class UsuarioTest {
         merlin.calificarAtuendo(atuendoVerano,3);
         Assert.assertEquals(4, merlin.obtenerDecisiones().size());
     }
+    @Test
+    public void usuarioDeshaceUltimaDesicionAceptada(){
+        merlin.aceptarAtuendo(atuendoVerano);
+        merlin.deshacer();
+        Assert.assertEquals(0, merlin.obtenerAtuendosAceptados().size());
+    }
 
+    @Test
+    public void usuarioDeshaceUltimaDesicionRechazada(){
+        merlin.rechazarAtuendo(atuendoVerano);
+        merlin.deshacer();
+        Assert.assertEquals(0, merlin.obtenerAtuendosRechazados().size());
+    }
 }
