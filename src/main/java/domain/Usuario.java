@@ -73,7 +73,7 @@ public class Usuario {
         if(decisiones.isEmpty()) {
             throw new PilaVaciaException("No hay decisiones por deshacer");
         }
-        this.decisiones.pop().deshacer();
+        this.decisiones.pop().deshacer(this);
     }
 
 }
