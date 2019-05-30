@@ -100,6 +100,7 @@ public class Atuendo {
         return Objects.equals(accesorio, atuendo.obtenerAccesorio()) &&
                 Objects.equals(prendasSuperiores, atuendo.obtenerPrendasSuperiores()) &&
                 Objects.equals(prendaInferior, atuendo.obtenerPrendaInferior()) &&
-                Objects.equals(calzado, atuendo.obtenerCalzado());
+                Objects.equals(calzado, atuendo.obtenerCalzado()) &&
+                Objects.equals(estado, atuendo.obtenerEstadoAtuendo());
     }
 }

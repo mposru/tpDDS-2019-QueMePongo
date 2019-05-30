@@ -1,6 +1,8 @@
 package domain;
 
 import domain.TipoDeUsuario.Premium;
+import domain.clima.AccuWeather;
+import domain.clima.Clima;
 import exceptions.*;
 import org.junit.*;
 import org.junit.rules.ExpectedException;
@@ -9,6 +11,9 @@ import java.util.Arrays;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
 
 public class GuardarropaTest {
     private Guardarropa guardarropa;
@@ -20,6 +25,8 @@ public class GuardarropaTest {
     private Prenda pollera;
     private Prenda pañuelo;
     private Prenda anteojos;
+    private Prenda prendaVacia;
+    private Prenda otraPrendaVacia;
     private Color color;
     private Usuario marta;
     private Usuario flor;
@@ -27,17 +34,24 @@ public class GuardarropaTest {
     @Before
     public void iniciarTest() {
         this.color = new Color(1, 2, 3);
-        this.musculosa = new Prenda(TipoDePrenda.MUSCULOSA, Material.ALGODON, color, null, Trama.CUADROS, guardarropa,28,40,false);
-        this.blusa = new Prenda(TipoDePrenda.BLUSA, Material.ALGODON, color, null, Trama.CUADROS, guardarropa,25,30,false);
-        this.crocs = new Prenda(TipoDePrenda.CROCS, Material.GOMA, color, null, Trama.CUADROS, guardarropa,0,40,true);
-        this.zapatos = new Prenda(TipoDePrenda.ZAPATO, Material.CUERO, color, null, Trama.LISA, guardarropa,0,20,true);
-        this.shortDeJean = new Prenda(TipoDePrenda.SHORT, Material.JEAN, color, null, Trama.LISA, guardarropa,25,40,false);
-        this.pollera = new Prenda(TipoDePrenda.POLLERA, Material.JEAN, color, null, Trama.LISA, guardarropa,25,40,false);
-        this.pañuelo = new Prenda(TipoDePrenda.PANUELO, Material.ALGODON, color, null, Trama.LISA, guardarropa,10,25,false);
-        this.anteojos = new Prenda(TipoDePrenda.ANTEOJOS, Material.PLASTICO, color, null, Trama.LISA, guardarropa,0,100,false);
+        this.musculosa = new Prenda(TipoDePrenda.MUSCULOSA, Material.ALGODON, color, null, Trama.CUADROS, guardarropa,21,30,false);
+        this.blusa = new Prenda(TipoDePrenda.BLUSA, Material.ALGODON, color, null, Trama.CUADROS, guardarropa,21,30,false);
+        this.crocs = new Prenda(TipoDePrenda.CROCS, Material.GOMA, color, null, Trama.CUADROS, guardarropa,21,30,true);
+        this.zapatos = new Prenda(TipoDePrenda.ZAPATO, Material.CUERO, color, null, Trama.LISA, guardarropa,21,30,true);
+        this.shortDeJean = new Prenda(TipoDePrenda.SHORT, Material.JEAN, color, null, Trama.LISA, guardarropa,21,30,false);
+        this.pollera = new Prenda(TipoDePrenda.POLLERA, Material.JEAN, color, null, Trama.LISA, guardarropa,21,30,false);
+        this.pañuelo = new Prenda(TipoDePrenda.PANUELO, Material.ALGODON, color, null, Trama.LISA, guardarropa,21,30,false);
+        this.anteojos = new Prenda(TipoDePrenda.ANTEOJOS, Material.PLASTICO, color, null, Trama.LISA, guardarropa,21, 30,false);
+        this.prendaVacia = new Prenda(TipoDePrenda.NINGUNO_SUPERIOR, Material.NINGUNO, new Color(0,0, 0), null, Trama.NINGUNO, guardarropa, 0, 0, false);
+        this.otraPrendaVacia = new Prenda(TipoDePrenda.NINGUNO_SUPERIOR, Material.NINGUNO, new Color(0,0, 0), null, Trama.NINGUNO, guardarropa, 0, 0, false);
         this.marta = new Usuario(new Premium());
         this.flor = new Usuario(new Premium());
         this.guardarropa = new Guardarropa(marta);
+        // mockeo clima
+        AccuWeather accuWeather = mock(AccuWeather.class);
+        this.guardarropa.definirMeteorologo(accuWeather);
+        Clima clima = new Clima(1558917066, 30, 21, 0, 0);
+        when(accuWeather.obtenerClima()).thenReturn(clima);
     }
 
     @Rule
@@ -71,7 +85,9 @@ public class GuardarropaTest {
         List<Atuendo> sugerencias = this.guardarropa.generarSugerencia();
 
         Set<Prenda> prendasSuperiores = new HashSet<>();
-        prendasSuperiores.add(musculosa);
+        prendasSuperiores.add(this.musculosa);
+        prendasSuperiores.add(this.prendaVacia);
+        prendasSuperiores.add(this.otraPrendaVacia);
         Atuendo primerAtuendo = new Atuendo(prendasSuperiores, shortDeJean, crocs, pañuelo);
         Atuendo segundoAtuendo = new Atuendo(prendasSuperiores, shortDeJean, crocs, anteojos);
         Atuendo tercerAtuendo = new Atuendo(prendasSuperiores, shortDeJean, zapatos, pañuelo);

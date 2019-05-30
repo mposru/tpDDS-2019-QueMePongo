@@ -28,7 +28,7 @@ public class TipoDePrenda {
     public static final TipoDePrenda ANTEOJOS = new TipoDePrenda(Categoria.ACCESORIO, Arrays.asList(Material.PLASTICO));
     public static final TipoDePrenda PANUELO = new TipoDePrenda(Categoria.ACCESORIO, Arrays.asList(Material.ALGODON));
     public static final TipoDePrenda SIN_ACCESORIO = new TipoDePrenda(Categoria.ACCESORIO, Arrays.asList(Material.NINGUNO));
-
+    public static final TipoDePrenda NINGUNO_SUPERIOR = new TipoDePrenda(Categoria.PARTE_SUPERIOR, Arrays.asList(Material.NINGUNO));
 
     public TipoDePrenda(Categoria categoria, List<Material> materialesValidos) {
         this.categoria = requireNonNull(categoria, "La categoría es obligatoria");

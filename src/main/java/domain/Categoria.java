@@ -5,4 +5,5 @@ public enum Categoria {
     CALZADO,
     PARTE_INFERIOR,
     ACCESORIO,
+    NINGUNO,
 }

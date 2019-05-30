@@ -18,7 +18,8 @@ public class Prenda {
     private double temperaturaMax;
     private boolean esParaLluvia;
 
-    public Prenda(TipoDePrenda tipoDePrenda, Material material, Color colorPrimario, Color colorSecundario, Trama trama, Guardarropa guardarropa, double temperaturaMin, double temperaturaMax, boolean impermeable ) {
+    public Prenda(TipoDePrenda tipoDePrenda, Material material, Color colorPrimario, Color colorSecundario, Trama trama,
+                  Guardarropa guardarropa, double temperaturaMin, double temperaturaMax, boolean impermeable) {
         this.tipoDePrenda = tipoDePrenda;
         this.material = material;
         this.colorPrimario = colorPrimario;
@@ -37,6 +38,23 @@ public class Prenda {
 
     public Trama obtenerTrama() {
         return this.trama;
+    }
+
+    public TipoAbrigo obtenerTipoDeAbrigo() {
+        if (this.esTipoDeAbrigo(TipoAbrigo.BASICO)) {
+            return TipoAbrigo.BASICO;
+        }
+        if (this.esTipoDeAbrigo(TipoAbrigo.MEDIANO)) {
+            return TipoAbrigo.MEDIANO;
+        }
+        if (this.esTipoDeAbrigo(TipoAbrigo.ALTO)) {
+            return TipoAbrigo.ALTO;
+        }
+        return TipoAbrigo.NINGUNO;
+    }
+
+    private boolean esTipoDeAbrigo(TipoAbrigo tipoAbrigo) {
+        return temperaturaMax <= tipoAbrigo.obtenerTemperaturaMaxima() && temperaturaMin >= tipoAbrigo.obtenerTemperaturaMinima();
     }
 
     public Color obtenerColorPrimario() {

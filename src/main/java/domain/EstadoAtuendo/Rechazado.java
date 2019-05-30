@@ -6,6 +6,8 @@ import exceptions.NoSePuedeAceptarException;
 import exceptions.NoSePuedeCalificarException;
 import exceptions.NoSePuedeRechazarException;
 
+import java.util.Objects;
+
 public class Rechazado implements EstadoAtuendo {
     private Atuendo atuendo;
     public Rechazado (Atuendo atuendo) {
@@ -26,4 +28,11 @@ public class Rechazado implements EstadoAtuendo {
     public int obtenerCalificacionAnterior() {return 0;}
     public int obtenerCalificacionActual() {return 0;}
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Rechazado estado = (Rechazado) o;
+        return Objects.equals(Rechazado.class, estado.getClass());
+    }
 }
