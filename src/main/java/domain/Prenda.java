@@ -109,7 +109,10 @@ public class Prenda {
                 Objects.equals(colorPrimario, prenda.obtenerColorPrimario()) &&
                 Objects.equals(colorSecundario, prenda.obtenerColorSecundario()) &&
                 Objects.equals(trama, prenda.obtenerTrama()) &&
-                Objects.equals(guardarropa, prenda.obtenerGuardarropa());
+                Objects.equals(guardarropa, prenda.obtenerGuardarropa()) &&
+                Objects.equals(temperaturaMax, prenda.obtenerTemperaturaMax()) &&
+                Objects.equals(temperaturaMin, prenda.obtenerTemperaturaMin()) &&
+                Objects.equals(esParaLluvia, prenda.obtenerSiEsParaLluvia());
     }
 
 }

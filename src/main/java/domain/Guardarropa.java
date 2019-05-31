@@ -81,7 +81,7 @@ public class Guardarropa {
         //todo: mandar en el mensaje de error el clima. se concatena en la misma linea que se tira error
         String mensajeDeError = "";
         if(prendasSuperioresValidas.size() <= 0) {
-            mensajeDeError = mensajeDeError.concat("Faltan prendas inferiores adecuadas para el clima del evento. ");
+            mensajeDeError = mensajeDeError.concat("Faltan prendas superiores adecuadas para el clima del evento. ");
         } else {
             if(abrigosAlto.size() <= 0) {
                 mensajeDeError = mensajeDeError.concat("Faltan prendas superiores abrigadas de tipo alto para el clima del evento. ");
@@ -94,7 +94,7 @@ public class Guardarropa {
             }
         }
         if(prendasInferioresValidas.size() <= 0) {
-            mensajeDeError = mensajeDeError.concat("Faltan prendas superiores adecuadas para el clima del evento. ");
+            mensajeDeError = mensajeDeError.concat("Faltan prendas inferiores adecuadas para el clima del evento. ");
         }
         if(calzadosValidos.size() <= 0) {
             mensajeDeError = mensajeDeError.concat("Faltan zapatos adecuados para el clima del evento. ");
@@ -108,7 +108,6 @@ public class Guardarropa {
     }
 
     public List<Atuendo> generarSugerencia() {
-        Set<Prenda> prendasSuperioresAdecuadas;
         Set<Prenda> prendasInferioresAdecuadas;
         Set<Prenda> calzadosAdecuados;
         Set<Prenda> accesoriosAdecuados;
@@ -121,15 +120,14 @@ public class Guardarropa {
         // mandar evento como parametro y hacer evento.obtenerclima
         // clima.consultarClima(evento.fecha, evento.ubicacion)
 
-        prendasSuperioresAdecuadas = this.obtenerPrendaSegunClima(prendasSuperiores, climaEvento);
         prendasInferioresAdecuadas = this.obtenerPrendaSegunClima(prendasInferiores, climaEvento);
         calzadosAdecuados = this.obtenerPrendaSegunClima(calzados, climaEvento);
         accesoriosAdecuados = this.obtenerPrendaSegunClima(accesorios, climaEvento);
-        abrigosBasico = filtrarPrendaPorAbrigo(prendasSuperioresAdecuadas, TipoAbrigo.BASICO, climaEvento);
-        abrigosMediano = filtrarPrendaPorAbrigo(prendasSuperioresAdecuadas, TipoAbrigo.MEDIANO, climaEvento);
-        abrigosAlto = filtrarPrendaPorAbrigo(prendasSuperioresAdecuadas, TipoAbrigo.ALTO, climaEvento);
+        abrigosBasico = filtrarPrendaPorAbrigo(prendasSuperiores, TipoAbrigo.BASICO, climaEvento);
+        abrigosMediano = filtrarPrendaPorAbrigo(prendasSuperiores, TipoAbrigo.MEDIANO, climaEvento);
+        abrigosAlto = filtrarPrendaPorAbrigo(prendasSuperiores, TipoAbrigo.ALTO, climaEvento);
 
-        this.validarPrendas(prendasSuperioresAdecuadas, prendasInferioresAdecuadas, calzadosAdecuados,
+        this.validarPrendas(prendasSuperiores, prendasInferioresAdecuadas, calzadosAdecuados,
                 accesoriosAdecuados, abrigosAlto, abrigosMediano, abrigosBasico);
 
         Set<Set<Prenda>> prendasSuperioresArmadas = Sets.cartesianProduct(abrigosBasico, abrigosMediano, abrigosAlto)
