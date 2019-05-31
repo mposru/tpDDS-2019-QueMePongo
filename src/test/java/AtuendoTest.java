@@ -11,11 +11,6 @@ import java.util.Set;
 
 public class AtuendoTest {
     private Guardarropa guardarropa;
-    private Prenda accesorio;
-    private Prenda prendaSuperior;
-    private Prenda prendaInferior;
-    private Prenda calzado;
-    private EstadoAtuendo estado;
     private Atuendo atuendoVerano;
     private Prenda musculosa;
     private Prenda blusa;

@@ -33,8 +33,6 @@ public class UsuarioTest {
     private Prenda anteojos;
     private Color color;
 
-
-
     @Before
     public void iniciarTest() {
         this.merlin = new Usuario(Gratuito.getInstance());
@@ -77,14 +75,14 @@ public class UsuarioTest {
         Assert.assertTrue(merlin.obtenerAtuendosRechazados().contains(atuendoVerano));
     }
     @Test
-    public void usuarioDeshaceUltimaDesicionVacia(){
+    public void usuarioDeshaceUltimaDecisionVacia(){
         exception.expect(PilaVaciaException.class);
         exception.expectMessage("No hay decisiones por deshacer");
         merlin.deshacer();
 
     }
     @Test
-    public void usuarioDeshaceUltimaDesicion(){
+    public void usuarioDeshaceUltimaDecision(){
         merlin.aceptarAtuendo(atuendoVerano);
         merlin.calificarAtuendo(atuendoVerano,5);
         merlin.deshacer();
@@ -99,14 +97,14 @@ public class UsuarioTest {
         Assert.assertEquals(4, merlin.obtenerDecisiones().size());
     }
     @Test
-    public void usuarioDeshaceUltimaDesicionAceptada(){
+    public void usuarioDeshaceUltimaDecisionAceptada(){
         merlin.aceptarAtuendo(atuendoVerano);
         merlin.deshacer();
         Assert.assertEquals(0, merlin.obtenerAtuendosAceptados().size());
     }
 
     @Test
-    public void usuarioDeshaceUltimaDesicionRechazada(){
+    public void usuarioDeshaceUltimaDecisionRechazada(){
         merlin.rechazarAtuendo(atuendoVerano);
         merlin.deshacer();
         Assert.assertEquals(0, merlin.obtenerAtuendosRechazados().size());

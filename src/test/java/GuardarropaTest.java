@@ -967,40 +967,40 @@ public class GuardarropaTest {
     @Test
     public void noSePuedeSugerirSinParteSuperior() {
         this.guardarropa.guardarPrenda(this.crocs);
-        this.guardarropa.guardarPrenda(this.pañuelo);
+        this.guardarropa.guardarPrenda(this.anteojos);
         this.guardarropa.guardarPrenda(this.pollera);
         exception.expect(FaltaPrendaException.class);
-        exception.expectMessage("Faltan prendas superiores. ");
+        exception.expectMessage("Faltan prendas superiores adecuadas para el clima del evento. ");
         this.guardarropa.generarSugerencia();
     }
 
     @Test
     public void noSePuedeSugerirSinCalzado() {
         this.guardarropa.guardarPrenda(this.pollera);
-        this.guardarropa.guardarPrenda(this.blusa);
-        this.guardarropa.guardarPrenda(this.pañuelo);
+        this.guardarropa.guardarPrenda(this.musculosa);
+        this.guardarropa.guardarPrenda(this.anteojos);
         exception.expect(FaltaPrendaException.class);
-        exception.expectMessage("Faltan zapatos. ");
+        exception.expectMessage("Faltan zapatos adecuados para el clima del evento. ");
         this.guardarropa.generarSugerencia();
     }
 
     @Test
     public void noSePuedeSugerirSinAccesorio() {
         this.guardarropa.guardarPrenda(this.pollera);
-        this.guardarropa.guardarPrenda(this.blusa);
+        this.guardarropa.guardarPrenda(this.musculosa);
         this.guardarropa.guardarPrenda(this.crocs);
         exception.expect(FaltaPrendaException.class);
-        exception.expectMessage("Faltan accesorios. ");
+        exception.expectMessage("Faltan accesorios adecuados para el clima del evento. ");
         this.guardarropa.generarSugerencia();
     }
 
     @Test
     public void noSePuedeSugerirSinParteInferior() {
-        this.guardarropa.guardarPrenda(this.blusa);
+        this.guardarropa.guardarPrenda(this.musculosa);
         this.guardarropa.guardarPrenda(this.crocs);
-        this.guardarropa.guardarPrenda(this.pañuelo);
+        this.guardarropa.guardarPrenda(this.anteojos);
         exception.expect(FaltaPrendaException.class);
-        exception.expectMessage("Faltan prendas inferiores. ");
+        exception.expectMessage("Faltan prendas inferiores adecuadas para el clima del evento. ");
         this.guardarropa.generarSugerencia();
     }
 

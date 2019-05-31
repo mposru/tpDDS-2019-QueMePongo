@@ -17,8 +17,6 @@ public class TipoDePrendaTest {
     @Rule
     public ExpectedException exception = ExpectedException.none();
 
-
-
     @Test
     public void deberiaHaberCategoriaAlCrearTipoDePrenda() {
         this.materiales.add(Material.ORO);
@@ -28,7 +26,6 @@ public class TipoDePrendaTest {
         this.tipoDePrenda = new TipoDePrenda(this.categoria, this.materiales);
     }
 
-
     @Test
     public void deberiaHaberMaterialesAsociadosAlCrearTipoDePrenda() {
         this.materiales = null;
@@ -37,7 +34,6 @@ public class TipoDePrendaTest {
         exception.expectMessage("Los materiales son obligatorios");
         this.tipoDePrenda = new TipoDePrenda(this.categoria, this.materiales);
     }
-
 
     @Test
     public void deberiaSerMaterialValidoParaTipo() {
