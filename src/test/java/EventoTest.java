@@ -5,71 +5,55 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 public class EventoTest {
     private LocalDateTime fecha;
-    private LocalDate dia;
-    private LocalDate diaDistinto;
-    private LocalDateTime fechaDistinta;
-    private LocalDateTime fechaParaComparar;
     private String nombre;
+    private String ubicacion;
     private Evento evento;
 
     @Before
     public void iniciarTest() {
         this.fecha = LocalDateTime.of(2019, 5, 29, 17, 50, 30);
-        this.dia = LocalDate.of(2019, 5, 29);
-        this.diaDistinto = this.dia.plusDays(1);
-        this.fechaDistinta = this.fecha.plusDays(1);
         this.nombre = "Ir a caminar";
+        this.ubicacion = "UTN";
     }
 
     @Rule
     public ExpectedException exception = ExpectedException.none();
 
     @Test
-    public void deberiHaberNombreAlDefinirEvento() {
-        this.nombre = null;
+    public void deberiaHaberNombreAlDefinirEvento() {
         exception.expect(NullPointerException.class);
         exception.expectMessage("Usted no ingreso un nombre");
-        this.evento = new Evento(nombre);
-    }
-
-    @Before
-    public void definoEvento() {
-        this.evento = new Evento(this.nombre);
+        this.evento = new Evento(null, this.ubicacion, this.fecha);
     }
 
     @Test
-    public void indicarFechaSinDecirCualEsLaFecha() {
-        this.fecha = null;
+    public void deberiaHaberUbicacionAlDefinirEvento() {
+        exception.expect(NullPointerException.class);
+        exception.expectMessage("Debe ingresar una ubicación para el evento");
+        this.evento = new Evento(this.nombre, null, this.fecha);
+    }
+
+    @Test
+    public void crearEventoSinFecha() {
         exception.expect(NullPointerException.class);
         exception.expectMessage("Usted no ingreso una fecha para evento");
-        this.evento.indicarFecha(fecha);
-    }
-
-    @Before
-    public void indicarFechaAlEvento() {
-        this.evento.indicarFecha(fecha);
+        Evento evento = new Evento("a", "b", null);
     }
 
     @Test
-    public void verSiEsProximoSinIndicarQueFecha() {
-        this.fechaParaComparar = null;
-        exception.expect(NullPointerException.class);
-        exception.expectMessage("Usted no ingreso una fecha para comparar");
-        this.evento.verSiEsProximo(fechaParaComparar);
+    public void noOcurreHoy() {
+        this.evento = new Evento(this.nombre, this.ubicacion, this.fecha);
+        Assert.assertFalse(this.evento.esHoy());
     }
 
     @Test
-    public void verSiEsProximoConUnaFechaDistinta() {
-        Assert.assertFalse(this.evento.verSiEsProximo(this.fechaDistinta));
+    public void ocurreHoy() {
+        this.evento = new Evento(this.nombre, this.ubicacion, LocalDateTime.now());
+        Assert.assertTrue(this.evento.esHoy());
     }
 
-    @Test
-    public void verSiEsProximoConLaFechaEstipulada() {
-        Assert.assertTrue(this.evento.verSiEsProximo(this.fecha));
-    }
 }

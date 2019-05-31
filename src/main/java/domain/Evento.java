@@ -5,21 +5,17 @@ import java.time.LocalDateTime;
 import static java.util.Objects.requireNonNull;
 
 public class Evento {
-    private LocalDateTime fecha=null;
+    private LocalDateTime fecha;
     private String nombre;
-    private String ubicacion = "CABA";
+    private String ubicacion;
 
-    public Evento(String nombre) {
+    public Evento(String nombre, String ubicacion, LocalDateTime fecha) {
+        this.fecha = requireNonNull(fecha, "Usted no ingreso una fecha para evento");
         this.nombre = requireNonNull(nombre, "Usted no ingreso un nombre para evento");
+        this.ubicacion = requireNonNull(ubicacion, "Debe ingresar una ubicación para el evento");
     }
 
-    public void indicarFecha(LocalDateTime fecha) {
-        requireNonNull(fecha, "Usted no ingreso una fecha para evento");
-        this.fecha = fecha;
-    }
-
-    public boolean verSiEsProximo(LocalDateTime fecha) {
-        requireNonNull(fecha, "Usted no ingreso una fecha para comparar");
-        return this.fecha.equals(fecha);
+    public boolean esHoy() {
+        return this.fecha.toLocalDate().equals(LocalDateTime.now().toLocalDate());
     }
 }

@@ -120,11 +120,10 @@ public class Guardarropa {
         Set<Prenda> abrigosMediano;
         Set<Prenda> abrigosAlto;
         List<Atuendo> atuendosSugeridos = new ArrayList<>();
-        Clima climaEvento = meteorologo.obtenerClima();
 
-        // mandar evento como parametro y hacer evento.obtenerclima
-        // clima.consultarClima(evento.fecha, evento.ubicacion)
-        validarEventoDelDia();//Ante la falencia de que no hay evento del dia tira excepcion
+        usuario.validarEventoDia(); //Ante la falencia de que no hay evento del dia tira excepcion
+
+        Clima climaEvento = meteorologo.obtenerClima();
 
         prendasInferioresAdecuadas = this.obtenerPrendaSegunClima(prendasInferiores, climaEvento);
         calzadosAdecuados = this.obtenerPrendaSegunClima(calzados, climaEvento);
@@ -166,12 +165,6 @@ public class Guardarropa {
 
     public void definirMeteorologo(Meteorologo meteorologo) {
         this.meteorologo = meteorologo;
-    }
-
-    private void validarEventoDelDia() {
-        if (!this.usuario.tieneEventoProximo(LocalDateTime.now())) {
-            throw new NoHayEventoCercanoException("Lamentablemente no hay evento cercano");
-        }
     }
 
     @Override

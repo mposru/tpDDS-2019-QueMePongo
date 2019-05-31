@@ -8,12 +8,12 @@ import org.junit.*;
 import org.junit.rules.ExpectedException;
 import org.mockito.Mockito;
 
+import java.time.LocalDateTime;
 import java.util.Arrays;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.doReturn;
 
 public class GuardarropaTest {
@@ -793,6 +793,7 @@ public class GuardarropaTest {
     public void iniciarTest() {
         this.marta = new Usuario(Gratuito.getInstance());
         this.flor = new Usuario(Premium.getInstance());
+        flor.agregarEvento("Prueba", "UTN", LocalDateTime.now());
         this.guardarropa = new Guardarropa(flor);
         this.guardarropaLimitado = new Guardarropa(marta);
 

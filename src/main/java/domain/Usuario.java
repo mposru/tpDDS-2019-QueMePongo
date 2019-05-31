@@ -5,6 +5,7 @@ package domain;
 
 import java.time.LocalDateTime;
 import java.util.*;
+import java.util.stream.Collectors;
 
 import domain.TipoDeUsuario.Gratuito;
 import domain.TipoDeUsuario.Premium;
@@ -84,15 +85,16 @@ public class Usuario {
         this.decisiones.pop().deshacer(this);
     }
 
-    public void agregarEventos(Set<Evento> eventosACargar, LocalDateTime fecha) {
-        eventosACargar.forEach(evento -> evento.indicarFecha(fecha));
-        this.eventos.addAll(eventosACargar);
+    public void agregarEvento(String nombre, String ubicacion, LocalDateTime fecha) {
+        Evento nuevoEvento = new Evento(nombre, ubicacion, fecha);
+        this.eventos.add(nuevoEvento);
     }
 
-    public boolean tieneEventoProximo(LocalDateTime fecha) {
-        Set<Evento> eventosProximos = eventos;
-        eventosProximos.removeIf(evento -> !evento.verSiEsProximo(fecha));
-        return eventosProximos.size() > 0;
+    public void validarEventoDia() {
+        Set<Evento> eventosDeHoy = eventos.stream().filter( evento -> evento.esHoy()).collect(Collectors.toSet());
+        if (eventosDeHoy.isEmpty()) {
+            throw new NoHayEventoCercanoException("No hay ningún evento para hoy");
+        }
     }
 
 }
