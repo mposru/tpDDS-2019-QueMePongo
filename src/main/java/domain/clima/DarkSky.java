@@ -5,7 +5,7 @@ import org.json.JSONObject;
 
 public class DarkSky extends Meteorologo {
     private Client client;
-    private static final String API_DARKSKY = "http://dataservice.accuweather.com/forecasts/v1/daily/1day/7894?apikey=QZYTHbRTv93BEQmByL07F0ssLgYyNhYH&language=es-ar&details=true&metric=true";
+    private static final String API_DARKSKY = "https://api.darksky.net/forecast/d443d875fed330c9e41fe374130c3e1e/-34.36,-58.22?units=si&lang=es&exclude=currently,hourly";
 
     //Inicializacion del cliente
     public DarkSky() {
