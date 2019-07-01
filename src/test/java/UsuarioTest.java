@@ -35,8 +35,8 @@ public class UsuarioTest {
 
     @Before
     public void iniciarTest() {
-        this.merlin = new Usuario(Gratuito.getInstance());
-        this.maria = new Usuario(Premium.getInstance());
+        this.merlin = new Usuario(Gratuito.getInstance(),"");
+        this.maria = new Usuario(Premium.getInstance(),"");
         this.guardarropaDeMerlin = new Guardarropa(merlin);
         this.guardarropaDeMaria = new Guardarropa(maria);
         this.color = new Color(1, 2, 3);

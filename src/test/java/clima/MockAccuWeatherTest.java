@@ -22,7 +22,7 @@ public class MockAccuWeatherTest {
     @Before
     public void iniciarTest() {
         accuWeather = mock(AccuWeather.class);
-        marta = new Usuario(Premium.getInstance());
+        marta = new Usuario(Premium.getInstance(), "");
         guardarropa = new Guardarropa(marta);
         guardarropa.definirMeteorologo(accuWeather);
         clima = new Clima(1558917066, 30, 20, 0.5, 1.0);

@@ -791,8 +791,8 @@ public class GuardarropaTest {
 
     @Before
     public void iniciarTest() {
-        this.marta = new Usuario(Gratuito.getInstance());
-        this.flor = new Usuario(Premium.getInstance());
+        this.marta = new Usuario(Gratuito.getInstance(),"");
+        this.flor = new Usuario(Premium.getInstance(),"");
         flor.agregarEvento("Prueba", "UTN", LocalDateTime.now());
         this.guardarropa = new Guardarropa(flor);
         this.guardarropaLimitado = new Guardarropa(marta);

@@ -17,12 +17,14 @@ public class Usuario {
     private Set<Guardarropa> guardarropas = new HashSet<>();
     private Deque<Decision> decisiones = new LinkedList<>();
     private TipoUsuario tipoUsuario;
+    private String numeroDeCelular;
     private ArrayList<Atuendo> atuendosAceptados = new ArrayList<>();
     private ArrayList<Atuendo> atuendosRechazados = new ArrayList<>();
     private Set<Evento> eventos = new HashSet<>();
 
-    public Usuario(TipoUsuario tipoUsuario) {
+    public Usuario(TipoUsuario tipoUsuario, String numeroDeCelular) {
         this.tipoUsuario = tipoUsuario;
+        this.numeroDeCelular = numeroDeCelular;
     }
 
     public Deque<Decision> obtenerDecisiones() {
@@ -97,4 +99,7 @@ public class Usuario {
         }
     }
 
+    public String getNumeroDeCelular() {
+        return numeroDeCelular;
+    }
 }
