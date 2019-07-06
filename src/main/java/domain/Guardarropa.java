@@ -22,10 +22,14 @@ public class Guardarropa {
     private Meteorologo meteorologo = new AccuWeather();
 
     public Guardarropa(Usuario usuario) {
+        // validar que sean premium
+        // agregar user y eliminar user
+        // recibe como param set de usuarios y los que son free solo pueden leer
         this.usuario = requireNonNull(usuario, "Debe ingresar un usuario");
     }
 
     public int limiteDePrendas() {
+        // cómo se comporta esto si está compartido? no tiene limite
         return this.usuario.limiteDePrendas();
     } //usuario.limiteDePrendas(); // el guardarropas queda seteado con el limite que tenga el usuario dueño del mismo
 
@@ -112,7 +116,18 @@ public class Guardarropa {
         }
     }
 
-    public List<Atuendo> generarSugerencia() {
+    public List<Atuendo> generarSugerencia() {// clima del dia (y ver si llueve o no) y evento (por si es formal o no???) como param
+        // en generar sugerencia, para obtener las prendas validas, se le
+        // va a preguntar a los usuarios "dueños" el listado de atuendosAceptados y esas
+        // prendas no van a poder ser usadas
+        // si las prendas que el usuario está pidiendo *si* pueden usarse acá, habria que tambien pasar el usuario por parametro
+        // y de esa manera sí se van a poder devolver prendas que pertenezcan a sus atuendosAceptados
+        // solo por una cantidad de tiempo no es usable
+        // delegar en otro objeto
+
+        // se filtra despues de crear sugerencia
+
+        // guardarropas trackea cuales estan libres y cuales no
         Set<Prenda> prendasInferioresAdecuadas;
         Set<Prenda> calzadosAdecuados;
         Set<Prenda> accesoriosAdecuados;

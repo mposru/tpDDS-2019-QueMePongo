@@ -20,6 +20,13 @@ public class Usuario {
     private ArrayList<Atuendo> atuendosAceptados = new ArrayList<>();
     private ArrayList<Atuendo> atuendosRechazados = new ArrayList<>();
     private Set<Evento> eventos = new HashSet<>();
+    // todo: agregar calendario en usuario
+    // variable que indique con cuanto tiempo antes quiere que le llegue sugerencia sobre evento
+
+    // alertador le pide al repo que usuarios ejecutar (los filtra para saber a quienes notificar en base al tiempo de anticipacion que tenga el user)
+    // notificador tiene que obtener de usuario proximo evento y tiempo de anticipacion y en base a eso devuelve si quiere o no ser notificado
+    // se le pide el proximo evento al user, se obtiene el clima de mismo
+    // se genera sugerencia con ese clima
 
     public Usuario(TipoUsuario tipoUsuario) {
         this.tipoUsuario = tipoUsuario;
@@ -70,7 +77,10 @@ public class Usuario {
     }
 
     public void calificarAtuendo(Atuendo atuendo, int nuevaCalificacion) {
-        atuendo.calificar(nuevaCalificacion);
+        atuendo.calificar(nuevaCalificacion); // se califica por parte de cuerpo
+        // factor de abrigo (sensibilidad) que es modificada por calificacion
+        // se relaciona directamente con temperatura
+        // calcular en base a una recta el factor de abrigo entre prenda y temperatura (excel recta)
         if (atuendo.estaCalificado()) {
             this.decisiones.push(new Recalificar(atuendo));
         } else {
