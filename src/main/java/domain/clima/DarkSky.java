@@ -3,6 +3,9 @@ package domain.clima;
 import com.sun.jersey.api.client.Client;
 import org.json.JSONObject;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class DarkSky extends Meteorologo {
     private Client client;
     private static final String API_DARKSKY = "https://api.darksky.net/forecast/d443d875fed330c9e41fe374130c3e1e/-34.36,-58.22?units=si&lang=es&exclude=currently,hourly";
@@ -29,7 +32,10 @@ public class DarkSky extends Meteorologo {
     }
 
     public String getJsonClima(){
-        return super.getJsonClima(this.client, API_DARKSKY);
+        return getJson(this.client, API_DARKSKY);
     }
 
+    public List<Alerta> obtenerAlertas() {
+        return new ArrayList<>();
+    }
 }

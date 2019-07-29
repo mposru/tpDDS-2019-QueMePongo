@@ -1,16 +1,15 @@
 package domain;
 
-//import java.util.HashSet;
-//import java.util.Set;
-
 import java.time.LocalDateTime;
 import java.util.*;
 import java.util.stream.Collectors;
 
+import domain.Notificacion.Notificador;
 import domain.TipoDeUsuario.Gratuito;
 import domain.TipoDeUsuario.Premium;
 import domain.TipoDeUsuario.TipoUsuario;
 import domain.Transiciones.*;
+import domain.clima.Alerta;
 import exceptions.*;
 
 public class Usuario {
@@ -21,6 +20,7 @@ public class Usuario {
     private ArrayList<Atuendo> atuendosAceptados = new ArrayList<>();
     private ArrayList<Atuendo> atuendosRechazados = new ArrayList<>();
     private Set<Evento> eventos = new HashSet<>();
+    private Set<Notificador> notificadores = new HashSet<>();
 
     public Usuario(TipoUsuario tipoUsuario, String numeroDeCelular) {
         this.tipoUsuario = tipoUsuario;
@@ -101,5 +101,32 @@ public class Usuario {
 
     public String getNumeroDeCelular() {
         return numeroDeCelular;
+    }
+
+    public void agregarNotificador(Notificador notificador) {
+        notificadores.add(notificador);
+    }
+
+    public void quitarNotificador(Notificador notificador) {
+        notificadores.remove(notificador);
+    }
+
+    //recibirAlertas(List<Alerta> alertas) {
+    //      foreach alerta -> this.recibirAlerta(alerta)
+
+
+    public void recibirAlerta(Alerta alerta) {
+        // Chequear que el atuendo no se ya adecuado
+        for(Notificador notificador: notificadores) {
+            if(alerta == Alerta.LLUVIA) {
+                notificador.notificar(this, "Alerta meteorologica de lluvia");
+            }
+            if(alerta == Alerta.GRANIZO) {
+                notificador.notificar(this, "Alerta meteorologica de granizo");
+            }
+            if(alerta == Alerta.VIENTO) {
+                notificador.notificar(this, "Alerta meteorologica de vientos fuertes");
+            }
+        }
     }
 }
