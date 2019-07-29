@@ -1,8 +1,9 @@
 package domain;
-import domain.EstadoAtuendo.EstadoAtuendo;
+import domain.estadoAtuendo.EstadoAtuendo;
 
 
-import domain.EstadoAtuendo.Nuevo;
+import domain.estadoAtuendo.Nuevo;
+import domain.prenda.Categoria;
 import exceptions.PrendaInvalidaException;
 
 import java.util.HashSet;

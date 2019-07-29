@@ -1,6 +1,7 @@
 package domain;
 
-import domain.TipoDeUsuario.*;
+import domain.usuario.tipoDeUsuario.*;
+import domain.prenda.*;
 import org.junit.*;
 import exceptions.*;
 import org.junit.rules.ExpectedException;

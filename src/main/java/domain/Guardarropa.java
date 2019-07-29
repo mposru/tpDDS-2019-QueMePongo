@@ -4,9 +4,9 @@ import com.google.common.collect.Sets;
 import domain.clima.AccuWeather;
 import domain.clima.Clima;
 import domain.clima.Meteorologo;
+import domain.prenda.*;
 import exceptions.*;
 
-import java.time.LocalDateTime;
 import java.util.*;
 import java.util.stream.Collectors;
 

@@ -1,5 +1,6 @@
-package domain;
+package domain.prenda;
 
+import domain.*;
 import exceptions.ColorSecundarioException;
 
 import static java.util.Objects.requireNonNull;

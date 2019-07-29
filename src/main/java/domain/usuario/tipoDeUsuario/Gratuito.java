@@ -1,6 +1,4 @@
-package domain.TipoDeUsuario;
-
-import domain.TipoDeUsuario.TipoUsuario;
+package domain.usuario.tipoDeUsuario;
 
 public class Gratuito implements TipoUsuario {
     private int limiteDePrendas=5;

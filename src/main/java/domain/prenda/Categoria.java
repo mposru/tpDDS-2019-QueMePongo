@@ -1,4 +1,4 @@
-package domain;
+package domain.prenda;
 
 public enum Categoria {
     PARTE_SUPERIOR,

@@ -1,4 +1,4 @@
-package domain.TipoDeUsuario;
+package domain.usuario.tipoDeUsuario;
 
 public interface TipoUsuario {
     int limiteDePrendas();

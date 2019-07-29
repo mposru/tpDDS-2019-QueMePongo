@@ -7,11 +7,15 @@ import java.time.LocalDateTime;
 import java.util.*;
 import java.util.stream.Collectors;
 
-import domain.TipoDeUsuario.Gratuito;
-import domain.TipoDeUsuario.Premium;
-import domain.TipoDeUsuario.TipoUsuario;
-import domain.Transiciones.*;
+import domain.usuario.Calendario;
+import domain.usuario.Evento;
+import domain.usuario.tipoDeUsuario.Gratuito;
+import domain.usuario.tipoDeUsuario.Premium;
+import domain.usuario.tipoDeUsuario.TipoUsuario;
+import domain.usuario.transiciones.*;
 import exceptions.*;
+
+import static java.time.LocalDate.now;
 
 public class Usuario {
     private Set<Guardarropa> guardarropas = new HashSet<>();
@@ -19,8 +23,7 @@ public class Usuario {
     private TipoUsuario tipoUsuario;
     private ArrayList<Atuendo> atuendosAceptados = new ArrayList<>();
     private ArrayList<Atuendo> atuendosRechazados = new ArrayList<>();
-    private Set<Evento> eventos = new HashSet<>();
-    // todo: agregar calendario en usuario
+    private Calendario calendario = new Calendario();
     // variable que indique con cuanto tiempo antes quiere que le llegue sugerencia sobre evento
 
     // alertador le pide al repo que usuarios ejecutar (los filtra para saber a quienes notificar en base al tiempo de anticipacion que tenga el user)
@@ -97,14 +100,18 @@ public class Usuario {
 
     public void agregarEvento(String nombre, String ubicacion, LocalDateTime fecha) {
         Evento nuevoEvento = new Evento(nombre, ubicacion, fecha);
-        this.eventos.add(nuevoEvento);
+        this.calendario.agregarEvento(nuevoEvento);
     }
 
     public void validarEventoDia() {
-        Set<Evento> eventosDeHoy = eventos.stream().filter( evento -> evento.esHoy()).collect(Collectors.toSet());
+        List<Evento> eventosDeHoy = calendario.obtenerEventosPorFecha(now());
         if (eventosDeHoy.isEmpty()) {
             throw new NoHayEventoCercanoException("No hay ningún evento para hoy");
         }
+    }
+
+    public Calendario getCalendario(){
+        return this.calendario;
     }
 
 }

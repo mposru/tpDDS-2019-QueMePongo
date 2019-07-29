@@ -1,4 +1,4 @@
-package domain;
+package domain.usuario;
 
 import java.time.LocalDateTime;
 
@@ -17,5 +17,9 @@ public class Evento {
 
     public boolean esHoy() {
         return this.fecha.toLocalDate().equals(LocalDateTime.now().toLocalDate());
+    }
+
+    public LocalDateTime getFecha() {
+        return fecha;
     }
 }

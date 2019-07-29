@@ -1,4 +1,4 @@
-package domain.EstadoAtuendo;
+package domain.estadoAtuendo;
 
 import domain.Atuendo;
 import exceptions.*;

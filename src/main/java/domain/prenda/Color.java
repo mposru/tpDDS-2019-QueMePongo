@@ -1,4 +1,4 @@
-package domain;
+package domain.prenda;
 
 import java.util.Objects;
 

@@ -1,4 +1,4 @@
-package domain.EstadoAtuendo;
+package domain.estadoAtuendo;
 
 public interface EstadoAtuendo {
     void aceptar();
