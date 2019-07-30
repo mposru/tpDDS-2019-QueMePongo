@@ -24,6 +24,11 @@ public class Usuario {
     private ArrayList<Atuendo> atuendosAceptados = new ArrayList<>();
     private ArrayList<Atuendo> atuendosRechazados = new ArrayList<>();
     private Calendario calendario = new Calendario();
+    // agregado de sensibilidades en las partes del cuerpo
+
+
+
+    //
     // variable que indique con cuanto tiempo antes quiere que le llegue sugerencia sobre evento
 
     // alertador le pide al repo que usuarios ejecutar (los filtra para saber a quienes notificar en base al tiempo de anticipacion que tenga el user)

@@ -54,6 +54,24 @@ public class Guardarropa {
         return accesorios;
     }
 
+    public Set<Prenda> obtenerPrendasSuperioresDisponibles() {
+        return prendasSuperiores.stream().filter(prenda -> prenda.getDisponibilidad()==true).collect(Collectors.toSet());
+    }
+
+    public Set<Prenda> obtenerPrendasInferioresDisponibles() {
+        return prendasInferiores.stream().filter(prenda -> prenda.getDisponibilidad()==true).collect(Collectors.toSet());
+    }
+
+    public Set<Prenda> obtenerCalzadosDisponibles() {
+        return calzados.stream().filter(prenda -> prenda.getDisponibilidad()==true).collect(Collectors.toSet());
+    }
+
+    public Set<Prenda> obtenerAccesoriosDisponibles() {
+        return accesorios.stream().filter(prenda -> prenda.getDisponibilidad()==true).collect(Collectors.toSet());
+    }
+
+
+
     public Usuario obtenerUsuario() {
         return usuario;
     }
@@ -139,15 +157,15 @@ public class Guardarropa {
         usuario.validarEventoDia(); //Ante la falencia de que no hay evento del dia tira excepcion
 
         Clima climaEvento = meteorologo.obtenerClima();
+// Hay que pasarle por parametro no todo el set de prendas de cada tipo, sino las disponibles
+        prendasInferioresAdecuadas = this.obtenerPrendaSegunClima(this.obtenerPrendasInferioresDisponibles(), climaEvento);
+        calzadosAdecuados = this.obtenerPrendaSegunClima(this.obtenerCalzadosDisponibles(), climaEvento);
+        accesoriosAdecuados = this.obtenerPrendaSegunClima(this.obtenerAccesoriosDisponibles(), climaEvento);
+        abrigosBasico = filtrarPrendaPorAbrigo(this.obtenerPrendasSuperioresDisponibles(), TipoAbrigo.BASICO, climaEvento);
+        abrigosMediano = filtrarPrendaPorAbrigo(this.obtenerPrendasSuperioresDisponibles(), TipoAbrigo.MEDIANO, climaEvento);
+        abrigosAlto = filtrarPrendaPorAbrigo(this.obtenerPrendasSuperioresDisponibles(), TipoAbrigo.ALTO, climaEvento);
 
-        prendasInferioresAdecuadas = this.obtenerPrendaSegunClima(prendasInferiores, climaEvento);
-        calzadosAdecuados = this.obtenerPrendaSegunClima(calzados, climaEvento);
-        accesoriosAdecuados = this.obtenerPrendaSegunClima(accesorios, climaEvento);
-        abrigosBasico = filtrarPrendaPorAbrigo(prendasSuperiores, TipoAbrigo.BASICO, climaEvento);
-        abrigosMediano = filtrarPrendaPorAbrigo(prendasSuperiores, TipoAbrigo.MEDIANO, climaEvento);
-        abrigosAlto = filtrarPrendaPorAbrigo(prendasSuperiores, TipoAbrigo.ALTO, climaEvento);
-
-        this.validarPrendas(prendasSuperiores, prendasInferioresAdecuadas, calzadosAdecuados,
+        this.validarPrendas(this.obtenerPrendasSuperioresDisponibles(), prendasInferioresAdecuadas, calzadosAdecuados,
                 accesoriosAdecuados, abrigosAlto, abrigosMediano, abrigosBasico);
 
         Set<Set<Prenda>> prendasSuperioresArmadas = Sets.cartesianProduct(abrigosBasico, abrigosMediano, abrigosAlto)
