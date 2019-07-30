@@ -1,20 +1,26 @@
-import domain.Evento;
+import domain.Usuario;
+import domain.usuario.Evento;
+import domain.usuario.tipoDeUsuario.Gratuito;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 
-public class EventoTest {
+public class CalendarioEventoTest {
     private LocalDateTime fecha;
     private String nombre;
     private String ubicacion;
     private Evento evento;
+    private Usuario marina;
 
     @Before
     public void iniciarTest() {
+        this.marina = new Usuario(Gratuito.getInstance(), "1534433333");
         this.fecha = LocalDateTime.of(2019, 5, 29, 17, 50, 30);
         this.nombre = "Ir a caminar";
         this.ubicacion = "UTN";
@@ -54,6 +60,11 @@ public class EventoTest {
     public void ocurreHoy() {
         this.evento = new Evento(this.nombre, this.ubicacion, LocalDateTime.now());
         Assert.assertTrue(this.evento.esHoy());
+    }
+
+    @Test
+    public void verificarQueNoHayEventosHoy() {
+        Assert.assertEquals(new ArrayList<Evento>(),marina.getCalendario().obtenerEventosPorFecha(LocalDate.now()));
     }
 
 }

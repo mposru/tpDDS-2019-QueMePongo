@@ -1,7 +1,7 @@
-package domain.Transiciones;
+package domain.usuario.transiciones;
 
 import domain.Atuendo;
-import domain.EstadoAtuendo.Nuevo;
+import domain.estadoAtuendo.Nuevo;
 import domain.Usuario;
 
 public class Aceptar implements Decision {

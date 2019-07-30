@@ -2,8 +2,10 @@ package domain;
 
 import domain.clima.Alerta;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class RepositorioDeUsuarios {
     private static RepositorioDeUsuarios instanceOfRepositorioDeUsuarios;
@@ -26,6 +28,8 @@ public class RepositorioDeUsuarios {
 
     public void alertarATodos(List<Alerta> alertas) {
         //foreach usuario -> usuario.recibirAlertas(alertas)
-        List<Usuario> usuariosConEvento = usuarios.stream().filter(usuario -> usuario.)
+        List<Usuario> usuariosConEvento = usuarios.stream()
+                .filter(usuario -> !usuario.getCalendario().obtenerEventosPorFecha(LocalDate.now()).isEmpty())
+                .collect(Collectors.toList());
     }
 }

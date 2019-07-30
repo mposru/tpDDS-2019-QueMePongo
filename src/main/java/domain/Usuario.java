@@ -5,12 +5,16 @@ import java.util.*;
 import java.util.stream.Collectors;
 
 import domain.Notificacion.Notificador;
-import domain.TipoDeUsuario.Gratuito;
-import domain.TipoDeUsuario.Premium;
-import domain.TipoDeUsuario.TipoUsuario;
-import domain.Transiciones.*;
 import domain.clima.Alerta;
+import domain.usuario.Calendario;
+import domain.usuario.Evento;
+import domain.usuario.tipoDeUsuario.Gratuito;
+import domain.usuario.tipoDeUsuario.Premium;
+import domain.usuario.tipoDeUsuario.TipoUsuario;
+import domain.usuario.transiciones.*;
 import exceptions.*;
+
+import static java.time.LocalDate.now;
 
 public class Usuario {
     private Set<Guardarropa> guardarropas = new HashSet<>();
@@ -19,8 +23,14 @@ public class Usuario {
     private String numeroDeCelular;
     private ArrayList<Atuendo> atuendosAceptados = new ArrayList<>();
     private ArrayList<Atuendo> atuendosRechazados = new ArrayList<>();
-    private Set<Evento> eventos = new HashSet<>();
     private Set<Notificador> notificadores = new HashSet<>();
+    private Calendario calendario = new Calendario();
+    // variable que indique con cuanto tiempo antes quiere que le llegue sugerencia sobre evento
+
+    // alertador le pide al repo que usuarios ejecutar (los filtra para saber a quienes notificar en base al tiempo de anticipacion que tenga el user)
+    // notificador tiene que obtener de usuario proximo evento y tiempo de anticipacion y en base a eso devuelve si quiere o no ser notificado
+    // se le pide el proximo evento al user, se obtiene el clima de mismo
+    // se genera sugerencia con ese clima
 
     public Usuario(TipoUsuario tipoUsuario, String numeroDeCelular) {
         this.tipoUsuario = tipoUsuario;
@@ -72,7 +82,10 @@ public class Usuario {
     }
 
     public void calificarAtuendo(Atuendo atuendo, int nuevaCalificacion) {
-        atuendo.calificar(nuevaCalificacion);
+        atuendo.calificar(nuevaCalificacion); // se califica por parte de cuerpo
+        // factor de abrigo (sensibilidad) que es modificada por calificacion
+        // se relaciona directamente con temperatura
+        // calcular en base a una recta el factor de abrigo entre prenda y temperatura (excel recta)
         if (atuendo.estaCalificado()) {
             this.decisiones.push(new Recalificar(atuendo));
         } else {
@@ -89,11 +102,11 @@ public class Usuario {
 
     public void agregarEvento(String nombre, String ubicacion, LocalDateTime fecha) {
         Evento nuevoEvento = new Evento(nombre, ubicacion, fecha);
-        this.eventos.add(nuevoEvento);
+        this.calendario.agregarEvento(nuevoEvento);
     }
 
     public void validarEventoDia() {
-        Set<Evento> eventosDeHoy = eventos.stream().filter( evento -> evento.esHoy()).collect(Collectors.toSet());
+        List<Evento> eventosDeHoy = calendario.obtenerEventosPorFecha(now());
         if (eventosDeHoy.isEmpty()) {
             throw new NoHayEventoCercanoException("No hay ningún evento para hoy");
         }
@@ -124,9 +137,10 @@ public class Usuario {
             if(alerta == Alerta.GRANIZO) {
                 notificador.notificar(this, "Alerta meteorologica de granizo");
             }
-            if(alerta == Alerta.VIENTO) {
-                notificador.notificar(this, "Alerta meteorologica de vientos fuertes");
-            }
         }
     }
+    public Calendario getCalendario(){
+        return this.calendario;
+    }
+
 }

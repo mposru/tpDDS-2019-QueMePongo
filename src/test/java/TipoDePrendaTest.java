@@ -1,5 +1,8 @@
 package domain;
 
+import domain.prenda.Categoria;
+import domain.prenda.Material;
+import domain.prenda.TipoDePrenda;
 import exceptions.MaterialInvalidoException;
 import org.junit.Rule;
 import org.junit.Test;

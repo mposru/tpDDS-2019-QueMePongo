@@ -1,6 +1,10 @@
 import domain.*;
-import domain.EstadoAtuendo.*;
-import domain.TipoDeUsuario.*;
+import domain.estadoAtuendo.*;
+import domain.usuario.tipoDeUsuario.*;
+import domain.prenda.Color;
+import domain.prenda.Material;
+import domain.prenda.TipoDePrenda;
+import domain.prenda.Trama;
 import exceptions.*;
 import org.junit.Assert;
 import org.junit.Rule;
@@ -86,7 +90,7 @@ public class UsuarioTest {
         merlin.aceptarAtuendo(atuendoVerano);
         merlin.calificarAtuendo(atuendoVerano,5);
         merlin.deshacer();
-        Assert.assertEquals("domain.EstadoAtuendo.Aceptado", this.atuendoVerano.obtenerEstadoAtuendo().getClass().getName());
+        Assert.assertEquals("domain.estadoAtuendo.Aceptado", this.atuendoVerano.obtenerEstadoAtuendo().getClass().getName());
     }
     @Test
     public void cantidadDeOperaciones(){

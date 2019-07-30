@@ -1,5 +1,6 @@
 package domain;
 import domain.clima.Clima;
+import domain.prenda.*;
 
 import java.io.IOException;
 import java.util.Objects;

@@ -1,4 +1,4 @@
-package domain;
+package domain.prenda;
 
 import javax.imageio.ImageIO;
 import java.awt.*;

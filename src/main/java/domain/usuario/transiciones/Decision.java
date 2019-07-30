@@ -1,4 +1,4 @@
-package domain.Transiciones;
+package domain.usuario.transiciones;
 
 import domain.*;
 

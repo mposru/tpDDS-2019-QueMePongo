@@ -1,8 +1,7 @@
-package domain.Transiciones;
+package domain.usuario.transiciones;
 
 import domain.Atuendo;
-import domain.EstadoAtuendo.Aceptado;
-import domain.Transiciones.Decision;
+import domain.estadoAtuendo.Aceptado;
 import domain.Usuario;
 
 public class Recalificar implements Decision {

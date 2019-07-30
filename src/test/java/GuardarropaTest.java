@@ -1,8 +1,12 @@
 package domain;
 
-import domain.TipoDeUsuario.*;
-import domain.TipoDeUsuario.Premium;
+import domain.usuario.tipoDeUsuario.*;
+import domain.usuario.tipoDeUsuario.Premium;
 import domain.clima.AccuWeather;
+import domain.prenda.Color;
+import domain.prenda.Material;
+import domain.prenda.TipoDePrenda;
+import domain.prenda.Trama;
 import exceptions.*;
 import org.junit.*;
 import org.junit.rules.ExpectedException;

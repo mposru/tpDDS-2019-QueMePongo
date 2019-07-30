@@ -1,6 +1,6 @@
 import domain.Notificacion.SMS;
 import domain.Notificacion.Whatsapp;
-import domain.TipoDeUsuario.Gratuito;
+import domain.usuario.tipoDeUsuario.Gratuito;
 import domain.Usuario;
 import org.junit.Assert;
 import org.junit.Before;

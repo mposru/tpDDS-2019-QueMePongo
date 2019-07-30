@@ -1,13 +1,17 @@
 package domain.clima;
 
 import com.sun.jersey.api.client.Client;
+import org.json.JSONArray;
 import org.json.JSONObject;
 
 import java.util.*;
 
+import static domain.clima.Alerta.*;
+
 public class AccuWeather extends Meteorologo {
     private Client client;
-    private static final String API_ACCUWEATHER = "http://dataservice.accuweather.com/forecasts/v1/daily/1day/7894?apikey=QZYTHbRTv93BEQmByL07F0ssLgYyNhYH&language=es-ar&details=true&metric=true";
+    private static final String CLIMA_ACCUWEATHER = "http://dataservice.accuweather.com/forecasts/v1/daily/1day/7894?apikey=QZYTHbRTv93BEQmByL07F0ssLgYyNhYH&language=es-ar&details=true&metric=true";
+    private static final String ALERTAS_ACCUWEATHER = "http://dataservice.accuweather.com/alarms/v1/1day/78947894?apikey=QZYTHbRTv93BEQmByL07F0ssLgYyNhYH";
 
     //Inicializacion del cliente
     public AccuWeather() {
@@ -34,11 +38,32 @@ public class AccuWeather extends Meteorologo {
         return new Clima(epochDate, valorMaximoTemperatura, valorMinimoTemperatura, precipitationProbabilityDay, precipitationProbabilityNight);
     }
 
-    public String getJsonClima(){
-        return getJson(this.client, API_ACCUWEATHER);
+    public String getJsonClima() {
+        return getJson(this.client, CLIMA_ACCUWEATHER);
+    }
+
+    public String getJsonAlertas() {
+        return getJson(this.client, ALERTAS_ACCUWEATHER);
     }
 
     public List<Alerta> obtenerAlertas() {
-        return new ArrayList<>();
+        List<Alerta> alertas = new ArrayList<>();
+        String jsonAlertas = this.getJsonAlertas();
+        JSONObject accuWeather = new JSONArray(jsonAlertas).getJSONObject(0);
+        JSONArray alertasJson = accuWeather.getJSONArray("Alarms");
+        if(alertasJson.isEmpty()) {
+            return alertas;
+        } else {
+            for(int i=0;i<alertasJson.length();i++) {
+                String tipoDeAlarma = alertasJson.getJSONObject(i).getString("AlarmType");
+                if(tipoDeAlarma.equals("Rain")) {
+                    alertas.add(LLUVIA);
+                }
+                if(tipoDeAlarma.equals("Ice")) {
+                    alertas.add(GRANIZO);
+                }
+            }
+            return alertas;
+        }
     }
 }

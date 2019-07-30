@@ -1,12 +1,17 @@
 package clima;
 
 import domain.clima.AccuWeather;
+import domain.clima.Alerta;
 import domain.clima.Clima;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mockito;
 
+import java.util.List;
+
+import static domain.clima.Alerta.LLUVIA;
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 import static org.mockito.Mockito.doReturn;
 import static org.mockito.Mockito.when;
 
@@ -260,11 +265,61 @@ public class AccuWeatherJsonTest {
             "        }\n" +
             "    ]\n" +
             "}";
+    private String jsonAlertas = "[\n" +
+            "{\n" +
+            "Date:\"2013-05-11T01:00:00-04:00\",\n" +
+            "EpochDate:1368234000,\n" +
+            "Alarms:[\n" +
+            "{\n" +
+            "AlarmType:\"Rain\",\n" +
+            "Value:{\n" +
+            "Metric:{\n" +
+            "Value:18.39,\n" +
+            "Unit:\"mm\",\n" +
+            "UnitType:3\n" +
+            "},\n" +
+            "Imperial:{\n" +
+            "Value:0.72,\n" +
+            "Unit:\"in\",\n" +
+            "UnitType:1\n" +
+            "}\n" +
+            "},\n" +
+            "Day:{\n" +
+            "Metric:{\n" +
+            "Value:11.3,\n" +
+            "Unit:\"mm\",\n" +
+            "UnitType:3\n" +
+            "},\n" +
+            "Imperial:{\n" +
+            "Value:0.44,\n" +
+            "Unit:\"in\",\n" +
+            "UnitType:1\n" +
+            "}\n" +
+            "},\n" +
+            "Night:{\n" +
+            "Metric:{\n" +
+            "Value:7.09,\n" +
+            "Unit:\"mm\",\n" +
+            "UnitType:3\n" +
+            "},\n" +
+            "Imperial:{\n" +
+            "Value:0.28,\n" +
+            "Unit:\"in\",\n" +
+            "UnitType:1\n" +
+            "}\n" +
+            "}\n" +
+            "}\n" +
+            "],\n" +
+            "MobileLink:\"http://m.accuweather.com/es/us/state-college-pa/16801/daily-weather-forecast/335315?day=1&lang=en-us\",\n" +
+            "Link:\"http://www.accuweather.com/es/us/state-college-pa/16801/daily-weather-forecast/335315?day=1&lang=en-us\"\n" +
+            "}\n" +
+            "]";
 
     @Before
     public void iniciarTest() {
         accuWeather = Mockito.spy(new AccuWeather());
         doReturn(jsonClima).when(accuWeather).getJsonClima();
+        doReturn(jsonAlertas).when(accuWeather).getJsonAlertas();
         clima = new Clima(1558864800,17.8,14.4,25,25);
     }
 
@@ -291,5 +346,11 @@ public class AccuWeatherJsonTest {
     @Test
     public void obtenerProbaPrecipitacionNocheDelJson() {
         assertEquals(clima.getPrecipitacionNoche(), accuWeather.obtenerClima().getPrecipitacionNoche(),0);
+    }
+
+    @Test
+    public void obtenerAlertasDelJson() {
+        List<Alerta> alertas = accuWeather.obtenerAlertas();
+        assertTrue(LLUVIA == alertas.get(0));
     }
 }

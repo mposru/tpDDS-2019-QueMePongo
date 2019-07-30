@@ -1,7 +1,11 @@
 package domain;
 
-import domain.EstadoAtuendo.*;
-import domain.TipoDeUsuario.*;
+import domain.estadoAtuendo.*;
+import domain.usuario.tipoDeUsuario.*;
+import domain.prenda.Color;
+import domain.prenda.Material;
+import domain.prenda.TipoDePrenda;
+import domain.prenda.Trama;
 import org.junit.*;
 import exceptions.*;
 import org.junit.rules.ExpectedException;
@@ -158,7 +162,7 @@ public class AtuendoTest {
 
     @Test
     public void validaEstadoAtuendo() {
-        Assert.assertEquals("domain.EstadoAtuendo.Nuevo", this.atuendoVerano.obtenerEstadoAtuendo().getClass().getName());
+        Assert.assertEquals("domain.estadoAtuendo.Nuevo", this.atuendoVerano.obtenerEstadoAtuendo().getClass().getName());
     }
 
 }

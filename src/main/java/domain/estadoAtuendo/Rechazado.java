@@ -1,7 +1,6 @@
-package domain.EstadoAtuendo;
+package domain.estadoAtuendo;
 
 import domain.Atuendo;
-import domain.EstadoAtuendo.EstadoAtuendo;
 import exceptions.*;
 
 import java.util.Objects;
