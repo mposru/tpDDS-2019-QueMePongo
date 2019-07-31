@@ -18,7 +18,7 @@ public class Prenda {
     private double temperaturaMin;
     private double temperaturaMax;
     private boolean esParaLluvia;
-    private boolean disponibilidad;
+    private boolean disponibilidad = true; //toda prenda inicia disponible
 
     public Prenda(TipoDePrenda tipoDePrenda, Material material, Color colorPrimario, Color colorSecundario, Trama trama,
                   Guardarropa guardarropa, double temperaturaMin, double temperaturaMax, boolean impermeable) {
@@ -32,7 +32,6 @@ public class Prenda {
         this.temperaturaMax = temperaturaMax;
         this.temperaturaMin = temperaturaMin;
         this.esParaLluvia = impermeable;
-        this.disponibilidad = true; //toda prenda inicia disponible
     }
 
     public void cargarImagen(String path) throws IOException {

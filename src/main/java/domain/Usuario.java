@@ -24,8 +24,13 @@ public class Usuario {
     private ArrayList<Atuendo> atuendosAceptados = new ArrayList<>();
     private ArrayList<Atuendo> atuendosRechazados = new ArrayList<>();
     private Calendario calendario = new Calendario();
-    // agregado de sensibilidades en las partes del cuerpo
-
+    // agregado de sensibilidades en las partes del cuerpo. Hacemos una escala que va de 1 a 10 (1 para muy friolento hasta 10 para muy caluroso)
+    private int sensibilidadGeneral;
+    private int sensibilidadManos;
+    private int sensibilidadCuello;
+    private int sensibilidadParteSuperior;
+    private int sensibilidadParteInferior;
+    private int sensibilidadCalzado;
 
 
     //
@@ -71,7 +76,7 @@ public class Usuario {
     public Set<Guardarropa> obtenerGuardarropas() {
         return this.guardarropas;
     }
-
+    //
     public void aceptarAtuendo(Atuendo atuendo) {
         atuendo.aceptar();
         this.atuendosAceptados.add(atuendo); //validar que el atuendo no se pueda aceptar dos veces.
@@ -96,6 +101,10 @@ public class Usuario {
         }
     }
 
+    public void calificarPrenda(Prenda prenda) {
+
+    }
+
     public void deshacer() { //deshacemos el último cambio
         if (decisiones.isEmpty()) {
             throw new PilaVaciaException("No hay decisiones por deshacer");
@@ -118,5 +127,19 @@ public class Usuario {
     public Calendario getCalendario(){
         return this.calendario;
     }
+
+    public void setSensibilidadGeneral(int sensibilidadGeneral) { this.sensibilidadGeneral = sensibilidadGeneral;}
+    public void setSensibilidadManos(int sensibilidadManos) {this.sensibilidadManos = sensibilidadManos;}
+    public void setSensibilidadCuello(int sensibilidadCuello) {this.sensibilidadCuello = sensibilidadCuello;}
+    public void setSensibilidadParteSuperior(int sensibilidadParteSuperior) {this.sensibilidadParteSuperior = sensibilidadParteSuperior;}
+    public void setSensibilidadParteInferior(int sensibilidadParteInferior) {this.sensibilidadParteInferior = sensibilidadParteInferior;}
+    public void setSensibilidadCalzado(int sensibilidadCalzado) {this.sensibilidadCalzado = sensibilidadCalzado;}
+
+    public int getSensibilidadGeneral(int sensibilidadGeneral) { return this.sensibilidadGeneral;}
+    public int getSensibilidadManos(int sensibilidadManos) {return this.sensibilidadManos;}
+    public int getSensibilidadCuello(int sensibilidadCuello) {return this.sensibilidadCuello;}
+    public int getSensibilidadParteSuperior(int sensibilidadParteSuperior) {return this.sensibilidadParteSuperior;}
+    public int getSensibilidadParteInferior(int sensibilidadParteInferior) {return this.sensibilidadParteInferior;};
+    public int getSensibilidadCalzado(int sensibilidadCalzado) {return this.sensibilidadCalzado;}
 
 }

@@ -33,8 +33,11 @@ public class TipoDePrenda {
     public static final TipoDePrenda BOTAS_NIEVE = new TipoDePrenda(Categoria.CALZADO, Arrays.asList(Material.ALGODON));
     public static final TipoDePrenda ZAPATILLAS = new TipoDePrenda(Categoria.CALZADO, Arrays.asList(Material.ALGODON));
     public static final TipoDePrenda NINGUNO_SUPERIOR = new TipoDePrenda(Categoria.PARTE_SUPERIOR, Arrays.asList(Material.NINGUNO));
-    public static final TipoDePrenda GUANTES = new TipoDePrenda(Categoria.ACCESORIO,Arrays.asList(Material.LANA));
-    public static final TipoDePrenda GORROABRIGO = new TipoDePrenda(Categoria.ACCESORIO,Arrays.asList(Material.LANA));
+    public static final TipoDePrenda GUANTES = new TipoDePrenda(Categoria.ACCESORIO_MANOS,Arrays.asList(Material.LANA));
+    public static final TipoDePrenda GORROABRIGO = new TipoDePrenda(Categoria.ACCESORIO_CABEZA,Arrays.asList(Material.LANA));
+    public static final TipoDePrenda BUFANDA = new TipoDePrenda(Categoria.ACCESORIO_CUELLO,Arrays.asList(Material.LANA));
+
+
 
 
 
