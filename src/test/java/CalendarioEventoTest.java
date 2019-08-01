@@ -8,10 +8,8 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
-import java.time.Duration;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.time.Period;
 import java.util.ArrayList;
 
 public class CalendarioEventoTest {
@@ -19,11 +17,11 @@ public class CalendarioEventoTest {
     private String nombre;
     private String ubicacion;
     private Evento evento;
-    private Usuario marina;
+    private Usuario nana;
 
     @Before
     public void iniciarTest() {
-        this.marina = new Usuario(Gratuito.getInstance(), "1534433333");
+        this.nana = new Usuario(Gratuito.getInstance(), "1534433333");
         this.fecha = LocalDateTime.of(2019, 5, 29, 17, 50, 30);
         this.nombre = "Ir a caminar";
         this.ubicacion = "UTN";
@@ -81,19 +79,19 @@ public class CalendarioEventoTest {
 
     @Test
     public void verificarQueNoHayEventosHoy() {
-        Assert.assertEquals(new ArrayList<Evento>(),marina.getCalendario().obtenerEventosPorFecha(LocalDate.now()));
+        Assert.assertEquals(new ArrayList<Evento>(), nana.getCalendario().obtenerEventosPorFecha(LocalDate.now()));
     }
 
     @Test
     public void validoObtenerProximoEvento() {
-        marina.getCalendario().agregarEvento(new Evento("Evento 1", this.ubicacion, LocalDateTime.now().plusDays(1),Periodo.NINGUNO,0));
-        marina.getCalendario().agregarEvento(new Evento("Evento 2", this.ubicacion, LocalDateTime.now(),Periodo.NINGUNO,0));
-        marina.getCalendario().agregarEvento(new Evento("Evento 3", this.ubicacion, LocalDateTime.now().plusDays(3),Periodo.NINGUNO,0));
-        Assert.assertEquals("Evento 2", marina.getCalendario().obtenerProximoEvento().getNombre());
+        nana.getCalendario().agregarEvento(new Evento("Evento 1", this.ubicacion, LocalDateTime.now().plusDays(1),Periodo.NINGUNO,0));
+        nana.getCalendario().agregarEvento(new Evento("Evento 2", this.ubicacion, LocalDateTime.now(),Periodo.NINGUNO,0));
+        nana.getCalendario().agregarEvento(new Evento("Evento 3", this.ubicacion, LocalDateTime.now().plusDays(3),Periodo.NINGUNO,0));
+        Assert.assertEquals("Evento 2", nana.getCalendario().obtenerProximoEvento().getNombre());
     }
 
     @Test
-    public void  hayEventoProximo(){
+    public void hayEventoProximo(){
         Usuario usuario=new Usuario(Gratuito.getInstance(),"011145454545");
         Evento evento=new Evento("Robar","BA", LocalDateTime.now().plusHours(1), Periodo.DIARIO,1);
         usuario.getCalendario().agregarEvento(evento);

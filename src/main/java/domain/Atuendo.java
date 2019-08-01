@@ -115,4 +115,10 @@ public class Atuendo {
                 Objects.equals(calzado, atuendo.obtenerCalzado()) &&
                 Objects.equals(estado, atuendo.obtenerEstadoAtuendo());
     }
+
+    public boolean esAptoParaLluvia() {
+        return this.obtenerAccesorio().obtenerTipoDePrenda() == TipoDePrenda.PARAGUAS
+                || (this.prendasSuperiores.stream().anyMatch(prenda -> prenda.obtenerSiEsParaLluvia())
+                && (this.calzado.obtenerSiEsParaLluvia()));
+    }
 }

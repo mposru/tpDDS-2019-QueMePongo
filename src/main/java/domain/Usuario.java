@@ -61,7 +61,7 @@ public class Usuario {
         for (Guardarropa guardarropa : guardarropas) {
             int diaEvento = -1;
             for(int i = 0; i < 5; i++) {
-                if(proximoEvento.getFecha().minusDays(i).equals(LocalDateTime.now().toLocalDate())) { diaEvento = i; }
+                if(proximoEvento.getFecha().minusDays(i).toLocalDate().equals(LocalDateTime.now().toLocalDate())) { diaEvento = i; }
             }
             if(diaEvento != -1) {
                 Clima climaEvento = guardarropa.obtenerMeteorologo().obtenerClima(diaEvento);
@@ -159,9 +159,7 @@ public class Usuario {
     }
 
     public void recibirAlertas(List<Alerta> alertas) {
-        for(Alerta alerta : alertas) {
-            this.recibirAlerta(alerta);
-        }
+        alertas.forEach(this::recibirAlerta);
     }
 
     public void recibirAlerta(Alerta alerta) {
@@ -200,22 +198,21 @@ public class Usuario {
     }
 
     public void notificar(String mensaje) {
-        for (Notificador notificador : notificadores) {
-            notificador.notificar(this, mensaje);
-        }
+        notificadores.forEach(notificador -> notificador.notificar(this, mensaje));
     }
 
     public boolean seDebeResugerir(Alerta alerta) {
         if(alerta == LLUVIA) {
-            return !this.atuendosSugeridosProximoEvento.getAtuendosSugeridos().stream().anyMatch(atuendo -> atuendo.obtenerAccesorio().obtenerTipoDePrenda() == TipoDePrenda.PARAGUAS);
+            return this.atuendosSugeridosProximoEvento.getAtuendosSugeridos().stream().noneMatch(atuendo -> atuendo.esAptoParaLluvia());
         } else {
-            return !this.atuendosSugeridosProximoEvento.getAtuendosSugeridos().stream().anyMatch(atuendo -> atuendo.obtenerAccesorio().obtenerTipoDePrenda() == TipoDePrenda.CASCO);
+            return this.atuendosSugeridosProximoEvento.getAtuendosSugeridos().stream().noneMatch(atuendo -> atuendo.obtenerAccesorio().obtenerTipoDePrenda() == TipoDePrenda.CASCO);
         }
     }
 
     public AtuendosSugeridosPorEvento obtenerAtuendosSugeridosProximoEvento() {
         return atuendosSugeridosProximoEvento;
     }
+
     public void calificarFrioEnManos(Atuendo atuendo, double temperatura) {
         this.sensibilidadManos = new Sensibilidad(temperatura, TipoSensibilidad.FRIO,atuendo);
     }
@@ -266,5 +263,13 @@ public class Usuario {
 
     public void sugerenciaParaEvento(Evento evento,Clima clima){
         this.guardarropas.forEach(guardarropa -> guardarropa.generarSugerencia(clima,evento));
+    }
+
+    public void agregarGuardarropa(Guardarropa guardarropa) {
+        this.guardarropas.add(guardarropa);
+    }
+
+    public void setTiempoDeAnticipacion(int tiempoDeAnticipacion) {
+        this.tiempoDeAnticipacion = tiempoDeAnticipacion;
     }
 }

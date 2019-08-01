@@ -20,4 +20,12 @@ public class AtuendosSugeridosPorEvento {
     public Evento getEvento() {
         return evento;
     }
+
+    public void setEvento(Evento evento) {
+        this.evento = evento;
+    }
+
+    public void agregarAtuendo(Atuendo atuendoSugerido) {
+        this.atuendosSugeridos.add(atuendoSugerido);
+    }
 }
