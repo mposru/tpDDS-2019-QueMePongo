@@ -36,9 +36,6 @@ public class Usuario {
     private Sensibilidad sensibilidadParteSuperior;
     private Sensibilidad sensibilidadParteInferior;
 
-
-
-
     //
     // variable que indique con cuanto tiempo antes quiere que le llegue sugerencia sobre evento
 
@@ -71,7 +68,7 @@ public class Usuario {
         this.tipoUsuario = Gratuito.getInstance();
     }
 
-    public int limiteDePrendas() {
+    public int obtenerLimiteDePrendas() {
         return this.tipoUsuario.limiteDePrendas();
     }
 

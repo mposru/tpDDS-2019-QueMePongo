@@ -101,8 +101,9 @@ public class Prenda {
                 (climaActual.getPrecipitacionDia() == 0 && climaActual.getPrecipitacionNoche() == 0);
     }
 
-    public boolean getDisponibilidad() { return this.disponibilidad;}
-    public void setDisponibilidad(boolean disponibilidad) { this.disponibilidad = disponibilidad;}
+    public boolean getDisponibilidad() { return this.disponibilidad; }
+
+    public void setDisponibilidad(boolean disponibilidad) { this.disponibilidad = disponibilidad; }
 
     @Override
     public boolean equals(Object o) {

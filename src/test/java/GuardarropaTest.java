@@ -1,5 +1,6 @@
 package domain;
 
+import domain.usuario.Evento;
 import domain.usuario.tipoDeUsuario.*;
 import domain.usuario.tipoDeUsuario.Premium;
 import domain.clima.AccuWeather;
@@ -51,6 +52,7 @@ public class GuardarropaTest {
     private Prenda mediasDeFutbol;
     private Prenda canillera;
     private AccuWeather accuWeather;
+    private Evento eventoX;
     private String jsonClimaAbrigoBasico = "{\n" +
             "    \"Headline\": {\n" +
             "        \"EffectiveDate\": \"2019-05-30T01:00:00-03:00\",\n" +
@@ -798,8 +800,12 @@ public class GuardarropaTest {
         this.marta = new Usuario(Gratuito.getInstance());
         this.flor = new Usuario(Premium.getInstance());
         flor.agregarEvento("Prueba", "UTN", LocalDateTime.now());
-        this.guardarropa = new Guardarropa(flor);
-        this.guardarropaLimitado = new Guardarropa(marta);
+        Set<Usuario> usuariosConFlor = new HashSet<>();
+        usuariosConFlor.add(flor);
+        Set<Usuario> usuariosConMarta = new HashSet<>();
+        usuariosConMarta.add(marta);
+        this.guardarropa = new Guardarropa(usuariosConFlor);
+        this.guardarropaLimitado = new Guardarropa(usuariosConMarta);
 
         this.color = new Color(1, 2, 3);
         this.pantalonPolar = new Prenda(TipoDePrenda.PANTALON, Material.ALGODON, color, null, Trama.CUADROS, guardarropa,6,9,false);;
@@ -830,6 +836,7 @@ public class GuardarropaTest {
         this.accuWeather = Mockito.spy(new AccuWeather());
         this.guardarropa.definirMeteorologo(this.accuWeather);
         doReturn(jsonClimaAbrigoBasico).when(this.accuWeather).getJsonClima();
+        this.eventoX = new Evento("Prueba", "UTN", LocalDateTime.now());
     }
 
     @Rule
@@ -844,7 +851,7 @@ public class GuardarropaTest {
         this.guardarropa.guardarPrenda(this.pollera);
         this.guardarropa.guardarPrenda(this.pañuelo);
         this.guardarropa.guardarPrenda(this.anteojos);
-        List<Atuendo> sugerencias = this.guardarropa.generarSugerencia();
+        List<Atuendo> sugerencias = this.guardarropa.generarSugerencia(accuWeather.obtenerClima(), this.eventoX);
 
         Set<Prenda> prendasSuperiores = new HashSet<>();
         prendasSuperiores.add(this.musculosa);
@@ -876,7 +883,7 @@ public class GuardarropaTest {
         this.guardarropa.guardarPrenda(this.pantalon); // valido
         this.guardarropa.guardarPrenda(this.pollera);
         this.guardarropa.guardarPrenda(this.pañuelo); // valido
-        List<Atuendo> sugerencias = this.guardarropa.generarSugerencia();
+        List<Atuendo> sugerencias = this.guardarropa.generarSugerencia(accuWeather.obtenerClima(), this.eventoX);
 
         Set<Prenda> prendasSuperiores = new HashSet<>();
         prendasSuperiores.add(this.musculosa);
@@ -909,7 +916,7 @@ public class GuardarropaTest {
         this.guardarropa.guardarPrenda(this.pantalonPolar); // valido
         this.guardarropa.guardarPrenda(this.pollera);
         this.guardarropa.guardarPrenda(this.bufanda); // valido
-        List<Atuendo> sugerencias = this.guardarropa.generarSugerencia();
+        List<Atuendo> sugerencias = this.guardarropa.generarSugerencia(accuWeather.obtenerClima(), this.eventoX);
 
         Set<Prenda> prendasSuperiores = new HashSet<>();
         prendasSuperiores.add(this.musculosa);
@@ -975,7 +982,7 @@ public class GuardarropaTest {
         this.guardarropa.guardarPrenda(this.pollera);
         exception.expect(FaltaPrendaException.class);
         exception.expectMessage("Faltan prendas superiores adecuadas para el clima del evento. ");
-        this.guardarropa.generarSugerencia();
+        this.guardarropa.generarSugerencia(accuWeather.obtenerClima(), this.eventoX);
     }
 
     @Test
@@ -985,7 +992,7 @@ public class GuardarropaTest {
         this.guardarropa.guardarPrenda(this.anteojos);
         exception.expect(FaltaPrendaException.class);
         exception.expectMessage("Faltan zapatos adecuados para el clima del evento. ");
-        this.guardarropa.generarSugerencia();
+        this.guardarropa.generarSugerencia(accuWeather.obtenerClima(), this.eventoX);
     }
 
     @Test
@@ -995,7 +1002,7 @@ public class GuardarropaTest {
         this.guardarropa.guardarPrenda(this.crocs);
         exception.expect(FaltaPrendaException.class);
         exception.expectMessage("Faltan accesorios adecuados para el clima del evento. ");
-        this.guardarropa.generarSugerencia();
+        this.guardarropa.generarSugerencia(accuWeather.obtenerClima(), this.eventoX);
     }
 
     @Test
@@ -1005,7 +1012,7 @@ public class GuardarropaTest {
         this.guardarropa.guardarPrenda(this.anteojos);
         exception.expect(FaltaPrendaException.class);
         exception.expectMessage("Faltan prendas inferiores adecuadas para el clima del evento. ");
-        this.guardarropa.generarSugerencia();
+        this.guardarropa.generarSugerencia(accuWeather.obtenerClima(), this.eventoX);
     }
 
     @Test
