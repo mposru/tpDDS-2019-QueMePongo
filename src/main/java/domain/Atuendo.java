@@ -11,6 +11,7 @@ import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
 
+import static domain.prenda.Categoria.*;
 import static java.util.stream.Collectors.toList;
 
 public class Atuendo {
@@ -47,7 +48,10 @@ public class Atuendo {
         if (calzado.obtenerCategoria() != Categoria.CALZADO) {
             mensajeDeError = mensajeDeError.concat("El calzado no es válido. ");
         }
-        if (accesorio.obtenerCategoria() != Categoria.ACCESORIO) {
+        if (accesorio.obtenerCategoria() != Categoria.ACCESORIO &&
+                accesorio.obtenerCategoria() != Categoria.ACCESORIO_CUELLO &&
+                accesorio.obtenerCategoria() != ACCESORIO_CABEZA &&
+                accesorio.obtenerCategoria() != ACCESORIO_MANOS) {
             mensajeDeError = mensajeDeError.concat("El accesorio no es válido. ");
         }
         if (mensajeDeError != "") {
