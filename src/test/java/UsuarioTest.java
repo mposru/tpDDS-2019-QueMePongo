@@ -39,8 +39,8 @@ public class UsuarioTest {
 
     @Before
     public void iniciarTest() {
-        this.merlin = new Usuario(Gratuito.getInstance());
-        this.maria = new Usuario(Premium.getInstance());
+        this.merlin = new Usuario(Gratuito.getInstance(), "1543333322");
+        this.maria = new Usuario(Premium.getInstance(), "1543333322");
         Set<Usuario> merlinLista = new HashSet<>();
         merlinLista.add(merlin);
         Set<Usuario> mariaLista = new HashSet<>();

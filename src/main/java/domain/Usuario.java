@@ -67,7 +67,7 @@ public class Usuario {
             }
             if(diaEvento != -1) {
                 Clima climaEvento = guardarropa.obtenerMeteorologo().obtenerClima(diaEvento);
-                atuendosSugeridos.addAll(guardarropa.generarSugerencia(this, climaEvento, this.calendario.obtenerProximoEvento()));
+                atuendosSugeridos.addAll(guardarropa.generarSugerencia(climaEvento, proximoEvento));
             }
         }
         this.atuendosSugeridosProximoEvento = new AtuendosSugeridosPorEvento(atuendosSugeridos, proximoEvento);

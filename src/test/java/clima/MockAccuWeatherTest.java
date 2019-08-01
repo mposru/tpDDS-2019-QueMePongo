@@ -25,7 +25,7 @@ public class MockAccuWeatherTest {
     @Before
     public void iniciarTest() {
         accuWeather = mock(AccuWeather.class);
-        marta = new Usuario(Premium.getInstance());
+        marta = new Usuario(Premium.getInstance(), "1534444444");
         Set<Usuario> martaLista = new HashSet<>();
         martaLista.add(marta);
         guardarropa = new Guardarropa(martaLista);
