@@ -23,7 +23,11 @@ public class Calendario {
             eventos.sort(Comparator.comparing(Evento::getFecha));
             return eventos.get(0);
         } else {
-            return new Evento("","", LocalDateTime.now());
+            return new Evento("","", LocalDateTime.now(),Periodo.NINGUNO,0);
         }
+    }
+
+    public List<Evento> eventosProximos(){
+        return eventos.stream().filter(evento -> evento.esProximo()).collect(Collectors.toList());
     }
 }

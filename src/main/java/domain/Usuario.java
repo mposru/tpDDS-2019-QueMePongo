@@ -12,10 +12,7 @@ import domain.notificacion.Notificador;
 import domain.clima.Alerta;
 import domain.prenda.TipoDePrenda;
 import domain.prenda.Categoria;
-import domain.usuario.Calendario;
-import domain.usuario.Evento;
-import domain.usuario.Sensibilidad;
-import domain.usuario.TipoSensibilidad;
+import domain.usuario.*;
 import domain.usuario.tipoDeUsuario.Gratuito;
 import domain.usuario.tipoDeUsuario.Premium;
 import domain.usuario.tipoDeUsuario.TipoUsuario;
@@ -36,7 +33,7 @@ public class Usuario {
     private Set<Notificador> notificadores = new HashSet<>();
     private Calendario calendario = new Calendario();
     private int tiempoDeAnticipacion = 0; // variable que indica con cuanto tiempo antes quiere que le llegue sugerencia sobre evento (en horas)
-    private AtuendosSugeridosPorEvento atuendosSugeridosProximoEvento = new AtuendosSugeridosPorEvento(new ArrayList<Atuendo>(), new Evento("","", LocalDateTime.now()));
+    private AtuendosSugeridosPorEvento atuendosSugeridosProximoEvento = new AtuendosSugeridosPorEvento(new ArrayList<Atuendo>(), new Evento("","", LocalDateTime.now(),Periodo.NINGUNO,0));
     // agregado de sensibilidades en las partes del cuerpo. Hacemos una escala que va de 1 a 10 (1 para muy friolento hasta 10 para muy caluroso)
     private Sensibilidad sensibilidadGeneral;
     private Sensibilidad sensibilidadManos;
@@ -55,6 +52,7 @@ public class Usuario {
     public Usuario(TipoUsuario tipoUsuario, String numeroDeCelular) {
         this.tipoUsuario = tipoUsuario;
         this.numeroDeCelular = numeroDeCelular;
+        RepositorioDeUsuarios.getInstance().agregarUsuarioTotal(this);
     }
 
     public void generarSugerenciasParaProximoEvento() {
@@ -136,8 +134,8 @@ public class Usuario {
         this.decisiones.pop().deshacer(this);
     }
 
-    public void agregarEvento(String nombre, String ubicacion, LocalDateTime fecha) {
-        Evento nuevoEvento = new Evento(nombre, ubicacion, fecha);
+    public void agregarEvento(String nombre, String ubicacion, LocalDateTime fecha, Periodo periodo, Integer antelacion) {
+        Evento nuevoEvento = new Evento(nombre, ubicacion, fecha, periodo, antelacion);
         this.calendario.agregarEvento(nuevoEvento);
     }
 
@@ -258,5 +256,15 @@ public class Usuario {
 
     public void calificarNormalEnParteInferior(Atuendo atuendo,double temperatura) {
         this.sensibilidadParteInferior = new Sensibilidad(temperatura, TipoSensibilidad.NORMAL, atuendo);
+    }
+
+    public void verificarSiHayEventoProximo(){
+        Clima clima=new Clima(1/11/10,10,20,20,20);
+        List<Evento> eventosProximos=calendario.eventosProximos();
+        eventosProximos.forEach(evento -> sugerenciaParaEvento(evento,clima));
+    }
+
+    public void sugerenciaParaEvento(Evento evento,Clima clima){
+        this.guardarropas.forEach(guardarropa -> guardarropa.generarSugerencia(clima,evento));
     }
 }

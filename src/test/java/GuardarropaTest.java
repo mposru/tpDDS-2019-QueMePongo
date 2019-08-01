@@ -1,6 +1,7 @@
 package domain;
 
 import domain.usuario.Evento;
+import domain.usuario.Periodo;
 import domain.usuario.tipoDeUsuario.*;
 import domain.usuario.tipoDeUsuario.Premium;
 import domain.clima.AccuWeather;
@@ -804,7 +805,7 @@ public class GuardarropaTest {
         this.marta = new Usuario(Gratuito.getInstance(),"");
         this.flor = new Usuario(Premium.getInstance(),"");
         this.pepita = new Usuario(Premium.getInstance(),"");
-        flor.agregarEvento("Prueba", "UTN", LocalDateTime.now());
+        flor.agregarEvento("Prueba", "UTN", LocalDateTime.now(), Periodo.NINGUNO,0);
         Set<Usuario> usuariosConFlor = new HashSet<>();
         usuariosConFlor.add(flor);
         Set<Usuario> usuariosConMarta = new HashSet<>();
@@ -847,7 +848,7 @@ public class GuardarropaTest {
         this.accuWeather = Mockito.spy(new AccuWeather());
         this.guardarropa.definirMeteorologo(this.accuWeather);
         doReturn(jsonClimaAbrigoBasico).when(this.accuWeather).getJsonClima();
-        this.eventoX = new Evento("Prueba", "UTN", LocalDateTime.now());
+        this.eventoX = new Evento("Prueba", "UTN", LocalDateTime.now(), Periodo.NINGUNO,0);
     }
 
     @Rule

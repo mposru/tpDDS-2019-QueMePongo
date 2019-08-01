@@ -10,6 +10,7 @@ import java.util.stream.Collectors;
 public class RepositorioDeUsuarios {
     private static RepositorioDeUsuarios instanceOfRepositorioDeUsuarios;
     List<Usuario> usuarios = new ArrayList<>();
+    List<Usuario> usuariosTotal = new ArrayList<>();
 
     public static RepositorioDeUsuarios getInstance() {
         if(instanceOfRepositorioDeUsuarios==null) {
@@ -25,4 +26,6 @@ public class RepositorioDeUsuarios {
     public void agregarUsuario(Usuario usuario) {
         usuarios.add(usuario);
     }
+
+    public void agregarUsuarioTotal(Usuario usuario) { usuariosTotal.add(usuario); }
 }

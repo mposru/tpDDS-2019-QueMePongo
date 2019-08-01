@@ -1,5 +1,6 @@
 import domain.Usuario;
 import domain.usuario.Evento;
+import domain.usuario.Periodo;
 import domain.usuario.tipoDeUsuario.Gratuito;
 import org.junit.Assert;
 import org.junit.Before;
@@ -7,8 +8,10 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
+import java.time.Duration;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.Period;
 import java.util.ArrayList;
 
 public class CalendarioEventoTest {
@@ -33,32 +36,46 @@ public class CalendarioEventoTest {
     public void deberiaHaberNombreAlDefinirEvento() {
         exception.expect(NullPointerException.class);
         exception.expectMessage("Usted no ingreso un nombre");
-        this.evento = new Evento(null, this.ubicacion, this.fecha);
+        this.evento = new Evento(null, this.ubicacion, this.fecha, Periodo.NINGUNO, 0);
     }
 
     @Test
     public void deberiaHaberUbicacionAlDefinirEvento() {
         exception.expect(NullPointerException.class);
         exception.expectMessage("Debe ingresar una ubicación para el evento");
-        this.evento = new Evento(this.nombre, null, this.fecha);
+        this.evento = new Evento(this.nombre, null, this.fecha, Periodo.NINGUNO, 0);
     }
 
     @Test
     public void crearEventoSinFecha() {
         exception.expect(NullPointerException.class);
         exception.expectMessage("Usted no ingreso una fecha para evento");
-        Evento evento = new Evento("a", "b", null);
+        Evento evento = new Evento("a", "b", null,Periodo.NINGUNO,0);
+    }
+
+    @Test
+    public void crearEventoAntelacion() {
+        exception.expect(NullPointerException.class);
+        exception.expectMessage("Debe ingresar la antelacion del evento");
+        Evento evento = new Evento("a", "b", LocalDateTime.now(), Periodo.NINGUNO, null);
+    }
+
+    @Test
+    public void crearEventoSinPeriodicidad() {
+        exception.expect(NullPointerException.class);
+        exception.expectMessage("Debe ingresar el tipo de periodicidad");
+        Evento evento = new Evento("a","b",LocalDateTime.now(),null,1);
     }
 
     @Test
     public void noOcurreHoy() {
-        this.evento = new Evento(this.nombre, this.ubicacion, this.fecha);
+        this.evento = new Evento(this.nombre, this.ubicacion, this.fecha, Periodo.NINGUNO,0);
         Assert.assertFalse(this.evento.esHoy());
     }
 
     @Test
     public void ocurreHoy() {
-        this.evento = new Evento(this.nombre, this.ubicacion, LocalDateTime.now());
+        this.evento = new Evento(this.nombre, this.ubicacion, LocalDateTime.now(), Periodo.NINGUNO,0);
         Assert.assertTrue(this.evento.esHoy());
     }
 
@@ -69,10 +86,32 @@ public class CalendarioEventoTest {
 
     @Test
     public void validoObtenerProximoEvento() {
-        marina.getCalendario().agregarEvento(new Evento("Evento 1", this.ubicacion, LocalDateTime.now().plusDays(1)));
-        marina.getCalendario().agregarEvento(new Evento("Evento 2", this.ubicacion, LocalDateTime.now()));
-        marina.getCalendario().agregarEvento(new Evento("Evento 3", this.ubicacion, LocalDateTime.now().plusDays(3)));
+        marina.getCalendario().agregarEvento(new Evento("Evento 1", this.ubicacion, LocalDateTime.now().plusDays(1),Periodo.NINGUNO,0));
+        marina.getCalendario().agregarEvento(new Evento("Evento 2", this.ubicacion, LocalDateTime.now(),Periodo.NINGUNO,0));
+        marina.getCalendario().agregarEvento(new Evento("Evento 3", this.ubicacion, LocalDateTime.now().plusDays(3),Periodo.NINGUNO,0));
         Assert.assertEquals("Evento 2", marina.getCalendario().obtenerProximoEvento().getNombre());
     }
 
+    @Test
+    public void  hayEventoProximo(){
+        Usuario usuario=new Usuario(Gratuito.getInstance(),"011145454545");
+        Evento evento=new Evento("Robar","BA", LocalDateTime.now().plusHours(1), Periodo.DIARIO,1);
+        usuario.getCalendario().agregarEvento(evento);
+        Assert.assertEquals(true,usuario.getCalendario().eventosProximos().size()>0);
+    }
+
+    @Test
+    public void noHayEventoProximo(){
+        Usuario usuario=new Usuario(Gratuito.getInstance(),"01154545412");
+        this.evento=new Evento(this.nombre,this.ubicacion,LocalDateTime.now().plusDays(1),Periodo.NINGUNO,10);
+        usuario.getCalendario().agregarEvento(evento);
+        Assert.assertEquals(false,usuario.getCalendario().eventosProximos().size()>0);
+    }
+
+    @Test
+    public void hayQueActualizarEvento(){
+        Evento evento = new Evento("a","CABA",LocalDateTime.now().plusHours(1),Periodo.DIARIO,1);
+        evento.esProximo();
+        Assert.assertEquals(true, LocalDateTime.now().plusDays(1).getDayOfWeek()==evento.getFecha().getDayOfWeek());
+    }
 }
