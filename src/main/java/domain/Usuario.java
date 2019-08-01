@@ -129,10 +129,6 @@ public class Usuario {
         }
     }
 
-    public void calificarPrenda(Prenda prenda) {
-
-    }
-
     public void deshacer() { //deshacemos el último cambio
         if (decisiones.isEmpty()) {
             throw new PilaVaciaException("No hay decisiones por deshacer");
