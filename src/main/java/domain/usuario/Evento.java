@@ -22,4 +22,12 @@ public class Evento {
     public LocalDateTime getFecha() {
         return fecha;
     }
+
+    public String getNombre() {
+        return nombre;
+    }
+
+    public String getUbicacion() {
+        return ubicacion;
+    }
 }

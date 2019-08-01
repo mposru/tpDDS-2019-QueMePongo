@@ -325,27 +325,27 @@ public class AccuWeatherJsonTest {
 
     @Test
     public void obtenerFechaDelJson() {
-        assertEquals(clima.getFecha(), accuWeather.obtenerClima().getFecha());
+        assertEquals(clima.getFecha(), accuWeather.obtenerClima(0).getFecha());
     }
 
     @Test
     public void obtenerMaximaDelJson() {
-        assertEquals(clima.getTemperaturaMaxima(), accuWeather.obtenerClima().getTemperaturaMaxima(),0);
+        assertEquals(clima.getTemperaturaMaxima(), accuWeather.obtenerClima(0).getTemperaturaMaxima(),0);
     }
 
     @Test
     public void obtenerMinimaDelJson() {
-        assertEquals(clima.getTemperaturaMinima(), accuWeather.obtenerClima().getTemperaturaMinima(),0);
+        assertEquals(clima.getTemperaturaMinima(), accuWeather.obtenerClima(0).getTemperaturaMinima(),0);
     }
 
     @Test
     public void obtenerProbaPrecipitacionDiaDelJson() {
-        assertEquals(clima.getPrecipitacionDia(), accuWeather.obtenerClima().getPrecipitacionDia(),0);
+        assertEquals(clima.getPrecipitacionDia(), accuWeather.obtenerClima(0).getPrecipitacionDia(),0);
     }
 
     @Test
     public void obtenerProbaPrecipitacionNocheDelJson() {
-        assertEquals(clima.getPrecipitacionNoche(), accuWeather.obtenerClima().getPrecipitacionNoche(),0);
+        assertEquals(clima.getPrecipitacionNoche(), accuWeather.obtenerClima(0).getPrecipitacionNoche(),0);
     }
 
     @Test

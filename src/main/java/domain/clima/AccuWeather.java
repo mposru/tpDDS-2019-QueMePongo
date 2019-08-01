@@ -10,7 +10,7 @@ import static domain.clima.Alerta.*;
 
 public class AccuWeather extends Meteorologo {
     private Client client;
-    private static final String CLIMA_ACCUWEATHER = "http://dataservice.accuweather.com/forecasts/v1/daily/1day/7894?apikey=QZYTHbRTv93BEQmByL07F0ssLgYyNhYH&language=es-ar&details=true&metric=true";
+    private static final String CLIMA_ACCUWEATHER = "http://dataservice.accuweather.com/forecasts/v1/daily/5day/7894?apikey=QZYTHbRTv93BEQmByL07F0ssLgYyNhYH&language=es-ar&details=true&metric=true";
     private static final String ALERTAS_ACCUWEATHER = "http://dataservice.accuweather.com/alarms/v1/1day/78947894?apikey=QZYTHbRTv93BEQmByL07F0ssLgYyNhYH";
 
     //Inicializacion del cliente
@@ -18,11 +18,20 @@ public class AccuWeather extends Meteorologo {
         this.client = Client.create();
     }
 
-    public Clima obtenerClima() {
+    private static AccuWeather instanceOfAccuWeather;
+
+    public static AccuWeather getInstance() {
+        if(instanceOfAccuWeather==null) {
+            instanceOfAccuWeather = new AccuWeather();
+        }
+        return instanceOfAccuWeather;
+    }
+
+    public Clima obtenerClima(int dia) {
         String jsonClima = this.getJsonClima();
         JSONObject accuWeather = new JSONObject(jsonClima);
 
-        JSONObject dailyForecasts = accuWeather.getJSONArray("DailyForecasts").getJSONObject(0);
+        JSONObject dailyForecasts = accuWeather.getJSONArray("DailyForecasts").getJSONObject(dia);
         long epochDate = dailyForecasts.getLong("EpochDate");
         JSONObject temperature = dailyForecasts.getJSONObject("Temperature");
         JSONObject day = dailyForecasts.getJSONObject("Day");

@@ -371,26 +371,26 @@ public class DarkSkyJsonTest {
 
     @Test
     public void obtenerFechaDelJson() {
-        assertEquals(clima.getFecha(), darkSky.obtenerClima().getFecha());
+        assertEquals(clima.getFecha(), darkSky.obtenerClima(0).getFecha());
     }
 
     @Test
     public void obtenerMaximaDelJson() {
-        assertEquals(clima.getTemperaturaMaxima(), darkSky.obtenerClima().getTemperaturaMaxima(),0);
+        assertEquals(clima.getTemperaturaMaxima(), darkSky.obtenerClima(0).getTemperaturaMaxima(),0);
     }
 
     @Test
     public void obtenerMinimaDelJson() {
-        assertEquals(clima.getTemperaturaMinima(), darkSky.obtenerClima().getTemperaturaMinima(),0);
+        assertEquals(clima.getTemperaturaMinima(), darkSky.obtenerClima(0).getTemperaturaMinima(),0);
     }
 
     @Test
     public void obtenerProbaPrecipitacionDiaDelJson() {
-        assertEquals(clima.getPrecipitacionDia(), darkSky.obtenerClima().getPrecipitacionDia(),0);
+        assertEquals(clima.getPrecipitacionDia(), darkSky.obtenerClima(0).getPrecipitacionDia(),0);
     }
 
     @Test
     public void obtenerProbaPrecipitacionNocheDelJson() {
-        assertEquals(clima.getPrecipitacionNoche(), darkSky.obtenerClima().getPrecipitacionNoche(),0);
+        assertEquals(clima.getPrecipitacionNoche(), darkSky.obtenerClima(0).getPrecipitacionNoche(),0);
     }
 }

@@ -30,8 +30,8 @@ public class MockAccuWeatherTest {
 
     @Test
     public void obtenerClima() {
-        when(accuWeather.obtenerClima()).thenReturn(clima);
-        assertEquals(accuWeather.obtenerClima(), clima);
-        verify(accuWeather).obtenerClima();
+        when(accuWeather.obtenerClima(0)).thenReturn(clima);
+        assertEquals(accuWeather.obtenerClima(0), clima);
+        verify(accuWeather).obtenerClima(0);
     }
 }

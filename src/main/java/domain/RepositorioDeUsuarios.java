@@ -25,11 +25,4 @@ public class RepositorioDeUsuarios {
     public void agregarUsuario(Usuario usuario) {
         usuarios.add(usuario);
     }
-
-    public void alertarATodos(List<Alerta> alertas) {
-        //foreach usuario -> usuario.recibirAlertas(alertas)
-        List<Usuario> usuariosConEvento = usuarios.stream()
-                .filter(usuario -> !usuario.getCalendario().obtenerEventosPorFecha(LocalDate.now()).isEmpty())
-                .collect(Collectors.toList());
-    }
 }

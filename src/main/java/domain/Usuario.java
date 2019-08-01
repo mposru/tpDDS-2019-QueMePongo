@@ -2,10 +2,11 @@ package domain;
 
 import java.time.LocalDateTime;
 import java.util.*;
-import java.util.stream.Collectors;
 
-import domain.Notificacion.Notificador;
+import domain.clima.Clima;
+import domain.notificacion.Notificador;
 import domain.clima.Alerta;
+import domain.prenda.TipoDePrenda;
 import domain.usuario.Calendario;
 import domain.usuario.Evento;
 import domain.usuario.tipoDeUsuario.Gratuito;
@@ -14,6 +15,8 @@ import domain.usuario.tipoDeUsuario.TipoUsuario;
 import domain.usuario.transiciones.*;
 import exceptions.*;
 
+import static domain.clima.Alerta.GRANIZO;
+import static domain.clima.Alerta.LLUVIA;
 import static java.time.LocalDate.now;
 
 public class Usuario {
@@ -25,16 +28,33 @@ public class Usuario {
     private ArrayList<Atuendo> atuendosRechazados = new ArrayList<>();
     private Set<Notificador> notificadores = new HashSet<>();
     private Calendario calendario = new Calendario();
-    // variable que indique con cuanto tiempo antes quiere que le llegue sugerencia sobre evento
+    private int tiempoDeAnticipacion = 0; // variable que indica con cuanto tiempo antes quiere que le llegue sugerencia sobre evento (en horas)
+    private AtuendosSugeridosPorEvento atuendosSugeridosProximoEvento = new AtuendosSugeridosPorEvento(new ArrayList<Atuendo>(), new Evento("","", LocalDateTime.now()));
 
     // alertador le pide al repo que usuarios ejecutar (los filtra para saber a quienes notificar en base al tiempo de anticipacion que tenga el user)
-    // notificador tiene que obtener de usuario proximo evento y tiempo de anticipacion y en base a eso devuelve si quiere o no ser notificado
+    // a. notificador tiene que obtener de usuario proximo evento y tiempo de anticipacion y en base a eso devuelve si quiere o no ser notificado
     // se le pide el proximo evento al user, se obtiene el clima de mismo
-    // se genera sugerencia con ese clima
+    // b. se genera sugerencia con ese clima
 
     public Usuario(TipoUsuario tipoUsuario, String numeroDeCelular) {
         this.tipoUsuario = tipoUsuario;
         this.numeroDeCelular = numeroDeCelular;
+    }
+
+    public void generarSugerenciasParaProximoEvento() {
+        List<Atuendo> atuendosSugeridos = new ArrayList<>();
+        Evento proximoEvento = this.calendario.obtenerProximoEvento();
+        for (Guardarropa guardarropa : guardarropas) {
+            int diaEvento = -1;
+            for(int i = 0; i < 5; i++) {
+                if(proximoEvento.getFecha().minusDays(i).equals(LocalDateTime.now().toLocalDate())) { diaEvento = i; }
+            }
+            if(diaEvento != -1) {
+                Clima climaEvento = guardarropa.obtenerMeteorologo().obtenerClima(diaEvento);
+                atuendosSugeridos.addAll(guardarropa.generarSugerencia(this, climaEvento, this.calendario.obtenerProximoEvento()));
+            }
+        }
+        this.atuendosSugeridosProximoEvento = new AtuendosSugeridosPorEvento(atuendosSugeridos, proximoEvento);
     }
 
     public Deque<Decision> obtenerDecisiones() {
@@ -124,23 +144,62 @@ public class Usuario {
         notificadores.remove(notificador);
     }
 
-    //recibirAlertas(List<Alerta> alertas) {
-    //      foreach alerta -> this.recibirAlerta(alerta)
-
+    public void recibirAlertas(List<Alerta> alertas) {
+        for(Alerta alerta : alertas) {
+            this.recibirAlerta(alerta);
+        }
+    }
 
     public void recibirAlerta(Alerta alerta) {
-        // Chequear que el atuendo no se ya adecuado
         for(Notificador notificador: notificadores) {
-            if(alerta == Alerta.LLUVIA) {
+            if(alerta == LLUVIA && this.seDebeResugerir(LLUVIA)) {
+                this.generarSugerenciasParaProximoEvento();
                 notificador.notificar(this, "Alerta meteorologica de lluvia");
             }
-            if(alerta == Alerta.GRANIZO) {
+            if(alerta == GRANIZO && this.seDebeResugerir(GRANIZO)) {
+                this.generarSugerenciasParaProximoEvento();
                 notificador.notificar(this, "Alerta meteorologica de granizo");
             }
         }
     }
+
     public Calendario getCalendario(){
         return this.calendario;
     }
 
+    public boolean quiereSerNotificado() {
+        LocalDateTime ahora = LocalDateTime.now();
+        LocalDateTime fechaProximoEvento = this.getCalendario().obtenerProximoEvento().getFecha();
+        return (ahora.isBefore(fechaProximoEvento)
+                && ahora.isAfter(fechaProximoEvento.minusHours(tiempoDeAnticipacion)))
+                || ahora.isEqual(fechaProximoEvento.minusHours(tiempoDeAnticipacion));
+    }
+
+    public boolean sugerenciasListasParaProximoEvento() {
+        return (atuendosSugeridosProximoEvento.getEvento().getFecha() == this.calendario.obtenerProximoEvento().getFecha()
+        && atuendosSugeridosProximoEvento.getEvento().getNombre() == this.calendario.obtenerProximoEvento().getNombre()
+        && atuendosSugeridosProximoEvento.getEvento().getUbicacion() == this.calendario.obtenerProximoEvento().getUbicacion());
+    }
+
+    public Set<Notificador> getNotificadores() {
+        return notificadores;
+    }
+
+    public void notificar(String mensaje) {
+        for (Notificador notificador : notificadores) {
+            notificador.notificar(this, mensaje);
+        }
+    }
+
+    public boolean seDebeResugerir(Alerta alerta) {
+        if(alerta == LLUVIA) {
+            return !this.atuendosSugeridosProximoEvento.getAtuendosSugeridos().stream().anyMatch(atuendo -> atuendo.obtenerAccesorio().obtenerTipoDePrenda() == TipoDePrenda.PARAGUAS);
+        } else {
+            return !this.atuendosSugeridosProximoEvento.getAtuendosSugeridos().stream().anyMatch(atuendo -> atuendo.obtenerAccesorio().obtenerTipoDePrenda() == TipoDePrenda.CASCO);
+        }
+    }
+
+    public AtuendosSugeridosPorEvento obtenerAtuendosSugeridosProximoEvento() {
+        return atuendosSugeridosProximoEvento;
+    }
 }

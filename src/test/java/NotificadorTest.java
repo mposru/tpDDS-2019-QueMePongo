@@ -1,13 +1,9 @@
-import domain.Notificacion.SMS;
-import domain.Notificacion.Whatsapp;
+import domain.notificacion.SMS;
+import domain.notificacion.Whatsapp;
 import domain.usuario.tipoDeUsuario.Gratuito;
 import domain.Usuario;
-import org.junit.Assert;
 import org.junit.Before;
-import org.junit.Rule;
 import org.junit.Test;
-
-import java.io.IOException;
 
 public class NotificadorTest {
 

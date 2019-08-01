@@ -11,15 +11,8 @@ import java.util.List;
 
 public abstract class Meteorologo {
 
-    public abstract Clima obtenerClima();
+    public abstract Clima obtenerClima(int dia);
     public abstract List<Alerta> obtenerAlertas();
-
-    public void chequearCondicionClimatica() {
-        List<Alerta> alertas = this.obtenerAlertas();
-        if(!alertas.isEmpty()) {
-            RepositorioDeUsuarios.getInstance().alertarATodos(alertas);
-        }
-    }
 
     public String getJson(Client client, String api){
         WebResource recurso = client.resource(api);

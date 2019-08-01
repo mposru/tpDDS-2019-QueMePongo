@@ -15,12 +15,12 @@ public class DarkSky extends Meteorologo {
         this.client = Client.create();
     }
 
-    public Clima obtenerClima() {
+    public Clima obtenerClima(int dia) {
         String jsonClima = this.getJsonClima().toString();
         JSONObject darksky = new JSONObject(jsonClima);
 
         JSONObject daily = darksky.getJSONObject("daily");
-        JSONObject data = daily.getJSONArray("data").getJSONObject(0);
+        JSONObject data = daily.getJSONArray("data").getJSONObject(dia);
 
         long epochDate = data.getLong("time");
         double precipitationProbabilityDay = data.getDouble("precipProbability");

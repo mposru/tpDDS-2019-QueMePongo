@@ -1,4 +1,4 @@
-package domain.Notificacion;
+package domain.notificacion;
 
 import domain.Usuario;
 

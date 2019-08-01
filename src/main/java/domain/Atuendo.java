@@ -20,7 +20,6 @@ public class Atuendo {
     private Prenda calzado;
     private EstadoAtuendo estado;
 
-
     public Atuendo(Set<Prenda> prendasSuperiores, Prenda prendaInferior, Prenda calzado, Prenda accesorio) {
         this.validarPrendas(prendasSuperiores, prendaInferior, calzado, accesorio);
         this.accesorio = accesorio;

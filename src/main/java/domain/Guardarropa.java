@@ -5,6 +5,7 @@ import domain.clima.AccuWeather;
 import domain.clima.Clima;
 import domain.clima.Meteorologo;
 import domain.prenda.*;
+import domain.usuario.Evento;
 import exceptions.*;
 
 import java.util.*;
@@ -116,7 +117,7 @@ public class Guardarropa {
         }
     }
 
-    public List<Atuendo> generarSugerencia() {// clima del dia (y ver si llueve o no) y evento (por si es formal o no???) como param
+    public List<Atuendo> generarSugerencia(Usuario usuario, Clima climaEvento, Evento evento) {// clima del dia (y ver si llueve o no) y evento (por si es formal o no???) como param
         // en generar sugerencia, para obtener las prendas validas, se le
         // va a preguntar a los usuarios "dueños" el listado de atuendosAceptados y esas
         // prendas no van a poder ser usadas
@@ -138,7 +139,7 @@ public class Guardarropa {
 
         usuario.validarEventoDia(); //Ante la falencia de que no hay evento del dia tira excepcion
 
-        Clima climaEvento = meteorologo.obtenerClima();
+        //Clima climaEvento = meteorologo.obtenerClima();
 
         prendasInferioresAdecuadas = this.obtenerPrendaSegunClima(prendasInferiores, climaEvento);
         calzadosAdecuados = this.obtenerPrendaSegunClima(calzados, climaEvento);
@@ -192,5 +193,9 @@ public class Guardarropa {
                 Objects.equals(calzados, guardarropa.obtenerCalzados()) &&
                 Objects.equals(accesorios, guardarropa.obtenerAccesorios()) &&
                 Objects.equals(usuario, guardarropa.obtenerUsuario());
+    }
+
+    public Meteorologo obtenerMeteorologo() {
+        return this.meteorologo;
     }
 }
