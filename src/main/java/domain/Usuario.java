@@ -6,10 +6,6 @@ package domain;
 
 import java.time.LocalDateTime;
 import java.util.*;
-import java.util.stream.Collectors;
-
-import domain.clima.Clima;
-import domain.prenda.Categoria;
 import domain.usuario.Calendario;
 import domain.usuario.Evento;
 import domain.usuario.Sensibilidad;
@@ -170,12 +166,6 @@ public class Usuario {
     }
 
     public void calificarNormalEnParteInferior(Atuendo atuendo,double temperatura) {
-        this.sensibilidadParteInferior= new Sensibilidad(temperatura, TipoSensibilidad.NORMAL,atuendo);
+        this.sensibilidadParteInferior = new Sensibilidad(temperatura, TipoSensibilidad.NORMAL, atuendo);
     }
-
-
-
-
-
-
 }
