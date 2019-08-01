@@ -261,12 +261,6 @@ public class Usuario {
     }
 
     public void calificarNormalEnParteInferior(Atuendo atuendo,double temperatura) {
-        this.sensibilidadParteInferior= new Sensibilidad(temperatura, TipoSensibilidad.NORMAL,atuendo);
+        this.sensibilidadParteInferior = new Sensibilidad(temperatura, TipoSensibilidad.NORMAL, atuendo);
     }
-
-
-
-
-
-
 }

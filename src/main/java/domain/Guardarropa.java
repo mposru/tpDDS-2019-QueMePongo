@@ -103,6 +103,9 @@ public class Guardarropa {
                 prendasInferiores.add(prenda);
                 break;
             case ACCESORIO:
+            case ACCESORIO_CUELLO:
+            case ACCESORIO_CABEZA:
+            case ACCESORIO_MANOS:
                 accesorios.add(prenda);
                 break;
         }
