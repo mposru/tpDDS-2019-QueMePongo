@@ -160,6 +160,24 @@ public class Usuario {
     }
 
 
+    public void calificarNormalEnManos(Atuendo atuendo, double temperatura) {
+        this.sensibilidadManos = new Sensibilidad(temperatura, TipoSensibilidad.NORMAL,atuendo);
+    }
+
+    public void calificarNormalEnCuello(Atuendo atuendo, double temperatura) {
+        this.sensibilidadCuello = new Sensibilidad(temperatura, TipoSensibilidad.NORMAL,atuendo);
+    }
+
+    public void calificarNormalEnParteSuperior(Atuendo atuendo, double temperatura) {
+        this.sensibilidadParteSuperior= new Sensibilidad(temperatura, TipoSensibilidad.NORMAL,atuendo);
+    }
+
+    public void calificarNormalEnParteInferior(Atuendo atuendo,double temperatura) {
+        this.sensibilidadParteInferior= new Sensibilidad(temperatura, TipoSensibilidad.NORMAL,atuendo);
+    }
+
+
+
 
 
 
