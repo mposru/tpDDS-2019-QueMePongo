@@ -67,4 +67,12 @@ public class CalendarioEventoTest {
         Assert.assertEquals(new ArrayList<Evento>(),marina.getCalendario().obtenerEventosPorFecha(LocalDate.now()));
     }
 
+    @Test
+    public void validoObtenerProximoEvento() {
+        marina.getCalendario().agregarEvento(new Evento("Evento 1", this.ubicacion, LocalDateTime.now().plusDays(1)));
+        marina.getCalendario().agregarEvento(new Evento("Evento 2", this.ubicacion, LocalDateTime.now()));
+        marina.getCalendario().agregarEvento(new Evento("Evento 3", this.ubicacion, LocalDateTime.now().plusDays(3)));
+        Assert.assertEquals("Evento 2", marina.getCalendario().obtenerProximoEvento().getNombre());
+    }
+
 }
