@@ -1,5 +1,9 @@
 package domain;
 
+
+//import java.util.HashSet;
+//import java.util.Set;
+
 import java.time.LocalDateTime;
 import java.util.*;
 
@@ -7,8 +11,11 @@ import domain.clima.Clima;
 import domain.notificacion.Notificador;
 import domain.clima.Alerta;
 import domain.prenda.TipoDePrenda;
+import domain.prenda.Categoria;
 import domain.usuario.Calendario;
 import domain.usuario.Evento;
+import domain.usuario.Sensibilidad;
+import domain.usuario.TipoSensibilidad;
 import domain.usuario.tipoDeUsuario.Gratuito;
 import domain.usuario.tipoDeUsuario.Premium;
 import domain.usuario.tipoDeUsuario.TipoUsuario;
@@ -30,6 +37,15 @@ public class Usuario {
     private Calendario calendario = new Calendario();
     private int tiempoDeAnticipacion = 0; // variable que indica con cuanto tiempo antes quiere que le llegue sugerencia sobre evento (en horas)
     private AtuendosSugeridosPorEvento atuendosSugeridosProximoEvento = new AtuendosSugeridosPorEvento(new ArrayList<Atuendo>(), new Evento("","", LocalDateTime.now()));
+    // agregado de sensibilidades en las partes del cuerpo. Hacemos una escala que va de 1 a 10 (1 para muy friolento hasta 10 para muy caluroso)
+    private Sensibilidad sensibilidadGeneral;
+    private Sensibilidad sensibilidadManos;
+    private Sensibilidad sensibilidadCuello;
+    private Sensibilidad sensibilidadParteSuperior;
+    private Sensibilidad sensibilidadParteInferior;
+
+    //
+    // variable que indique con cuanto tiempo antes quiere que le llegue sugerencia sobre evento
 
     // alertador le pide al repo que usuarios ejecutar (los filtra para saber a quienes notificar en base al tiempo de anticipacion que tenga el user)
     // a. notificador tiene que obtener de usuario proximo evento y tiempo de anticipacion y en base a eso devuelve si quiere o no ser notificado
@@ -77,7 +93,7 @@ public class Usuario {
         this.tipoUsuario = Gratuito.getInstance();
     }
 
-    public int limiteDePrendas() {
+    public int obtenerLimiteDePrendas() {
         return this.tipoUsuario.limiteDePrendas();
     }
 
@@ -88,7 +104,7 @@ public class Usuario {
     public Set<Guardarropa> obtenerGuardarropas() {
         return this.guardarropas;
     }
-
+    //
     public void aceptarAtuendo(Atuendo atuendo) {
         atuendo.aceptar();
         this.atuendosAceptados.add(atuendo); //validar que el atuendo no se pueda aceptar dos veces.
@@ -111,6 +127,10 @@ public class Usuario {
         } else {
             this.decisiones.push(new Calificar(atuendo));
         }
+    }
+
+    public void calificarPrenda(Prenda prenda) {
+
     }
 
     public void deshacer() { //deshacemos el último cambio
@@ -202,4 +222,51 @@ public class Usuario {
     public AtuendosSugeridosPorEvento obtenerAtuendosSugeridosProximoEvento() {
         return atuendosSugeridosProximoEvento;
     }
+    public void calificarFrioEnManos(Atuendo atuendo, double temperatura) {
+        this.sensibilidadManos = new Sensibilidad(temperatura, TipoSensibilidad.FRIO,atuendo);
+    }
+    public void calificarCalorEnManos(Atuendo atuendo, double temperatura) {
+        this.sensibilidadManos = new Sensibilidad(temperatura, TipoSensibilidad.CALOR,atuendo);
+    }
+    public void calificarFrioEnCuello(Atuendo atuendo, double temperatura) {
+        this.sensibilidadCuello = new Sensibilidad(temperatura, TipoSensibilidad.FRIO,atuendo);
+    }
+    public void calificarCalorEnCuello(Atuendo atuendo, double temperatura) {
+        this.sensibilidadCuello = new Sensibilidad(temperatura, TipoSensibilidad.CALOR,atuendo);
+    }
+    public void calificarFrioEnParteSuperior(Atuendo atuendo, double temperatura) {
+        this.sensibilidadParteSuperior= new Sensibilidad(temperatura, TipoSensibilidad.FRIO,atuendo);
+    }
+    public void calificarCalorEnParteSuperior(Atuendo atuendo,double temperatura) {
+        this.sensibilidadParteSuperior = new Sensibilidad(temperatura, TipoSensibilidad.CALOR,atuendo);
+    }
+    public void calificarFrioEnParteInferior(Atuendo atuendo,double temperatura) {
+        this.sensibilidadParteInferior= new Sensibilidad(temperatura, TipoSensibilidad.FRIO,atuendo);
+    }
+    public void calificarCalorEnParteInferior(Atuendo atuendo,double temperatura) {
+        this.sensibilidadParteInferior = new Sensibilidad(temperatura, TipoSensibilidad.CALOR,atuendo);
+    }
+
+
+    public void calificarNormalEnManos(Atuendo atuendo, double temperatura) {
+        this.sensibilidadManos = new Sensibilidad(temperatura, TipoSensibilidad.NORMAL,atuendo);
+    }
+
+    public void calificarNormalEnCuello(Atuendo atuendo, double temperatura) {
+        this.sensibilidadCuello = new Sensibilidad(temperatura, TipoSensibilidad.NORMAL,atuendo);
+    }
+
+    public void calificarNormalEnParteSuperior(Atuendo atuendo, double temperatura) {
+        this.sensibilidadParteSuperior= new Sensibilidad(temperatura, TipoSensibilidad.NORMAL,atuendo);
+    }
+
+    public void calificarNormalEnParteInferior(Atuendo atuendo,double temperatura) {
+        this.sensibilidadParteInferior= new Sensibilidad(temperatura, TipoSensibilidad.NORMAL,atuendo);
+    }
+
+
+
+
+
+
 }

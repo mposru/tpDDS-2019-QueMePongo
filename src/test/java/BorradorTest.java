@@ -6,6 +6,9 @@ import org.junit.*;
 import exceptions.*;
 import org.junit.rules.ExpectedException;
 
+import java.util.HashSet;
+import java.util.Set;
+
 public class BorradorTest {
 
     private TipoDePrenda tipoDePrenda;
@@ -30,7 +33,9 @@ public class BorradorTest {
         this.temperaturaMin = 0;
         this.temperaturaMax = 20;
         this.esParaLluvia = true;
-        this.guardarropa = new Guardarropa(magdalena);
+        Set<Usuario> magdalenaLista = new HashSet<>();
+        magdalenaLista.add(magdalena);
+        this.guardarropa = new Guardarropa(magdalenaLista);
         //creamos un borrador sin definirle el tipoDePrenda, material, trama y guardarropa
         this.borradorZapatillas = new Borrador();
         this.materialInvalido = Material.JEAN;

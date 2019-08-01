@@ -18,6 +18,7 @@ public class Prenda {
     private double temperaturaMin;
     private double temperaturaMax;
     private boolean esParaLluvia;
+    private boolean disponibilidad = true; //toda prenda inicia disponible
 
     public Prenda(TipoDePrenda tipoDePrenda, Material material, Color colorPrimario, Color colorSecundario, Trama trama,
                   Guardarropa guardarropa, double temperaturaMin, double temperaturaMax, boolean impermeable) {
@@ -99,6 +100,10 @@ public class Prenda {
         return ((climaActual.getPrecipitacionDia() != 0 || climaActual.getPrecipitacionNoche() != 0) && this.esParaLluvia) ||
                 (climaActual.getPrecipitacionDia() == 0 && climaActual.getPrecipitacionNoche() == 0);
     }
+
+    public boolean getDisponibilidad() { return this.disponibilidad; }
+
+    public void setDisponibilidad(boolean disponibilidad) { this.disponibilidad = disponibilidad; }
 
     @Override
     public boolean equals(Object o) {

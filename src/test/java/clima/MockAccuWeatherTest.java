@@ -8,6 +8,9 @@ import domain.Guardarropa;
 import org.junit.Before;
 import org.junit.Test;
 
+import java.util.HashSet;
+import java.util.Set;
+
 import static org.junit.Assert.assertEquals;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
@@ -22,8 +25,10 @@ public class MockAccuWeatherTest {
     @Before
     public void iniciarTest() {
         accuWeather = mock(AccuWeather.class);
-        marta = new Usuario(Premium.getInstance(), "");
-        guardarropa = new Guardarropa(marta);
+        marta = new Usuario(Premium.getInstance());
+        Set<Usuario> martaLista = new HashSet<>();
+        martaLista.add(marta);
+        guardarropa = new Guardarropa(martaLista);
         guardarropa.definirMeteorologo(accuWeather);
         clima = new Clima(1558917066, 30, 20, 0.5, 1.0);
     }

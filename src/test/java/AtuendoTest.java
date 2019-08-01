@@ -30,8 +30,10 @@ public class AtuendoTest {
 
     @Before
     public void iniciarTest() {
-        this.carlos = new Usuario(Premium.getInstance(),"");
-        this.guardarropa = new Guardarropa(carlos);
+        this.carlos = new Usuario(Premium.getInstance());
+        Set<Usuario> carlosLista = new HashSet<>();
+        carlosLista.add(carlos);
+        this.guardarropa = new Guardarropa(carlosLista);
         this.color = new Color(1, 2, 3);
         this.musculosa = new Prenda(TipoDePrenda.MUSCULOSA, Material.ALGODON, color, null, Trama.CUADROS, guardarropa,28,40,false);
         this.blusa = new Prenda(TipoDePrenda.BLUSA, Material.ALGODON, color, null, Trama.CUADROS, guardarropa,25,30,false);

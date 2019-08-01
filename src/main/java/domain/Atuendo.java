@@ -4,6 +4,7 @@ import domain.estadoAtuendo.EstadoAtuendo;
 
 import domain.estadoAtuendo.Nuevo;
 import domain.prenda.Categoria;
+import domain.prenda.TipoDePrenda;
 import exceptions.PrendaInvalidaException;
 
 import java.util.HashSet;
@@ -77,6 +78,11 @@ public class Atuendo {
 
     public void aceptar() {
         this.estado.aceptar();
+        this.accesorio.setDisponibilidad(false);
+        this.calzado.setDisponibilidad(false);
+        this.prendaInferior.setDisponibilidad(false);
+        this.prendasSuperiores.forEach(prenda -> prenda.setDisponibilidad(false));
+
     }
 
     public void calificar(int nuevaCalificacion) {

@@ -39,10 +39,14 @@ public class UsuarioTest {
 
     @Before
     public void iniciarTest() {
-        this.merlin = new Usuario(Gratuito.getInstance(),"");
-        this.maria = new Usuario(Premium.getInstance(),"");
-        this.guardarropaDeMerlin = new Guardarropa(merlin);
-        this.guardarropaDeMaria = new Guardarropa(maria);
+        this.merlin = new Usuario(Gratuito.getInstance());
+        this.maria = new Usuario(Premium.getInstance());
+        Set<Usuario> merlinLista = new HashSet<>();
+        merlinLista.add(merlin);
+        Set<Usuario> mariaLista = new HashSet<>();
+        mariaLista.add(maria);
+        this.guardarropaDeMerlin = new Guardarropa(merlinLista);
+        this.guardarropaDeMaria = new Guardarropa(mariaLista);
         this.color = new Color(1, 2, 3);
         this.musculosa = new Prenda(TipoDePrenda.MUSCULOSA, Material.ALGODON, color, null, Trama.CUADROS, guardarropaDeMerlin,21,30,false);
         this.blusa = new Prenda(TipoDePrenda.BLUSA, Material.ALGODON, color, null, Trama.CUADROS, guardarropaDeMerlin,21,30,false);

@@ -37,8 +37,7 @@ public class TipoDePrenda {
     public static final TipoDePrenda GORROABRIGO = new TipoDePrenda(Categoria.ACCESORIO,Arrays.asList(Material.LANA));
     public static final TipoDePrenda PARAGUAS = new TipoDePrenda(Categoria.ACCESORIO,Arrays.asList(Material.PLASTICO));
     public static final TipoDePrenda CASCO = new TipoDePrenda(Categoria.ACCESORIO,Arrays.asList(Material.PLASTICO));
-
-
+    public static final TipoDePrenda BUFANDA = new TipoDePrenda(Categoria.ACCESORIO_CUELLO,Arrays.asList(Material.LANA));
 
 
     public TipoDePrenda(Categoria categoria, List<Material> materialesValidos) {
