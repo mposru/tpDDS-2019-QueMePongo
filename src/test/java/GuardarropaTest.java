@@ -1056,7 +1056,7 @@ public class GuardarropaTest {
         Atuendo primerAtuendo = new Atuendo(prendasSuperiores, shortDeJean, crocs, anteojos);
         flor.aceptarAtuendo(primerAtuendo);
         // cuando pepita pide las sugerencias, no puede tener la ropa del primer atuendo
-        List<Atuendo> sugerencias = this.guardarropaCompartido.generarSugerencia(accuWeather.obtenerClima(), this.eventoX);
+        List<Atuendo> sugerencias = this.guardarropaCompartido.generarSugerencia(accuWeather.obtenerClima(0), this.eventoX);
         Set<Prenda> prendasSuperiores2 = new HashSet<>();
         prendasSuperiores2.add(this.remeraFutbol);
         prendasSuperiores2.add(this.buzo);
