@@ -1,4 +1,5 @@
 import domain.Usuario;
+import domain.usuario.Calendario;
 import domain.usuario.Evento;
 import domain.usuario.Periodo;
 import domain.usuario.tipoDeUsuario.Gratuito;
@@ -18,10 +19,12 @@ public class CalendarioEventoTest {
     private String ubicacion;
     private Evento evento;
     private Usuario nana;
+    private Calendario calendario;
 
     @Before
     public void iniciarTest() {
-        this.nana = new Usuario(Gratuito.getInstance(), "1534433333");
+        this.calendario = new Calendario();
+        this.nana = new Usuario(Gratuito.getInstance(), "1534433333", calendario);
         this.fecha = LocalDateTime.of(2019, 5, 29, 17, 50, 30);
         this.nombre = "Ir a caminar";
         this.ubicacion = "UTN";
@@ -92,7 +95,7 @@ public class CalendarioEventoTest {
 
     @Test
     public void hayEventoProximo(){
-        Usuario usuario=new Usuario(Gratuito.getInstance(),"011145454545");
+        Usuario usuario=new Usuario(Gratuito.getInstance(),"011145454545", calendario);
         Evento evento=new Evento("Robar","BA", LocalDateTime.now().plusHours(1), Periodo.DIARIO,1);
         usuario.getCalendario().agregarEvento(evento);
         Assert.assertEquals(true,usuario.getCalendario().eventosProximos().size()>0);
@@ -100,7 +103,7 @@ public class CalendarioEventoTest {
 
     @Test
     public void noHayEventoProximo(){
-        Usuario usuario=new Usuario(Gratuito.getInstance(),"01154545412");
+        Usuario usuario=new Usuario(Gratuito.getInstance(),"01154545412", calendario);
         this.evento=new Evento(this.nombre,this.ubicacion,LocalDateTime.now().plusDays(1),Periodo.NINGUNO,10);
         usuario.getCalendario().agregarEvento(evento);
         Assert.assertEquals(false,usuario.getCalendario().eventosProximos().size()>0);
