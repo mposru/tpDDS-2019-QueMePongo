@@ -1,5 +1,6 @@
 package clima;
 
+import domain.usuario.Calendario;
 import domain.usuario.tipoDeUsuario.Premium;
 import domain.Usuario;
 import domain.clima.AccuWeather;
@@ -21,11 +22,11 @@ public class MockAccuWeatherTest {
     private Guardarropa guardarropa;
     private Clima clima;
     private Usuario marta;
-
+    private Calendario calendarioMarta;
     @Before
     public void iniciarTest() {
         accuWeather = mock(AccuWeather.class);
-        marta = new Usuario(Premium.getInstance(), "1534444444");
+        marta = new Usuario(Premium.getInstance(), "1534444444", calendarioMarta);
         Set<Usuario> martaLista = new HashSet<>();
         martaLista.add(marta);
         guardarropa = new Guardarropa(martaLista);

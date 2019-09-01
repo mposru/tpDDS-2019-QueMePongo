@@ -1,5 +1,6 @@
 package domain;
 
+import domain.usuario.Calendario;
 import domain.usuario.tipoDeUsuario.*;
 import domain.prenda.*;
 import org.junit.*;
@@ -22,10 +23,11 @@ public class BorradorTest {
     private boolean esParaLluvia;
     private Material materialInvalido;
     private Usuario magdalena;
+    private Calendario calendario;
 
     @Before
     public void iniciarTest() {
-        this.magdalena = new Usuario(Premium.getInstance(),"");
+        this.magdalena = new Usuario(Premium.getInstance(),"", calendario);
         this.tipoDePrenda = TipoDePrenda.ZAPATO;
         this.material = Material.CUERO;
         this.colorPrimario = new Color(20, 20, 30);

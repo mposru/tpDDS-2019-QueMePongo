@@ -1,5 +1,6 @@
 package domain;
 
+import domain.usuario.Calendario;
 import domain.usuario.Evento;
 import domain.usuario.Periodo;
 import domain.usuario.tipoDeUsuario.*;
@@ -56,6 +57,9 @@ public class GuardarropaTest {
     private Prenda shortDeFutbol;
     private Prenda mediasDeFutbol;
     private Prenda canillera;
+    private Calendario calendarioMarta;
+    private Calendario calendarioFlor;
+    private Calendario calendarioPepita;
     private AccuWeather accuWeather;
     private Evento eventoX;
     private String jsonClimaAbrigoBasico = "{\n" +
@@ -147,7 +151,7 @@ public class GuardarropaTest {
             "                },\n" +
             "                {\n" +
             "                    \"Name\": \"Grass\",\n" +
-            "                    \"Value\": 0,\n" +
+            "                    \"Valu--e\": 0,\n" +
             "                    \"Category\": \"Bajo\",\n" +
             "                    \"CategoryValue\": 1\n" +
             "                },\n" +
@@ -802,9 +806,9 @@ public class GuardarropaTest {
 
     @Before
     public void iniciarTest() {
-        this.marta = new Usuario(Gratuito.getInstance(),"");
-        this.flor = new Usuario(Premium.getInstance(),"");
-        this.pepita = new Usuario(Premium.getInstance(),"");
+        this.marta = new Usuario(Gratuito.getInstance(),"", calendarioMarta);
+        this.flor = new Usuario(Premium.getInstance(),"",calendarioFlor);
+        this.pepita = new Usuario(Premium.getInstance(),"", calendarioPepita);
         flor.agregarEvento("Prueba", "UTN", LocalDateTime.now(), Periodo.NINGUNO,0);
         Set<Usuario> usuariosConFlor = new HashSet<>();
         usuariosConFlor.add(flor);
