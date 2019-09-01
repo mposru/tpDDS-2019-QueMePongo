@@ -35,11 +35,7 @@ public class Usuario {
     private int tiempoDeAnticipacion = 0; // variable que indica con cuanto tiempo antes quiere que le llegue sugerencia sobre evento (en horas)
     private AtuendosSugeridosPorEvento atuendosSugeridosProximoEvento = new AtuendosSugeridosPorEvento(new ArrayList<Atuendo>(), new Evento("","", LocalDateTime.now(),Periodo.NINGUNO,0));
     // agregado de sensibilidades en las partes del cuerpo. Hacemos una escala que va de 1 a 10 (1 para muy friolento hasta 10 para muy caluroso)
-    private Sensibilidad sensibilidadGeneral;
-    private Sensibilidad sensibilidadManos;
-    private Sensibilidad sensibilidadCuello;
-    private Sensibilidad sensibilidadParteSuperior;
-    private Sensibilidad sensibilidadParteInferior;
+
 
     //
     // variable que indique con cuanto tiempo antes quiere que le llegue sugerencia sobre evento
