@@ -6,6 +6,7 @@ import org.json.JSONObject;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.temporal.ChronoUnit;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -53,7 +54,7 @@ public class AccuWeather extends Meteorologo {
                 double valorMinimoTemperatura = minimum.getDouble("Value");
                 this.agregarClima(new Clima(epochDate, valorMaximoTemperatura, valorMinimoTemperatura, precipitationProbabilityDay, precipitationProbabilityNight));
             }
-            return climas.get(dia.getDayOfMonth() - this.puntoDeReferencia().getDayOfMonth());
+            return climas.get((int) ChronoUnit.DAYS.between(this.puntoDeReferencia(), dia));
         }
     }
 

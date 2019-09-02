@@ -4,6 +4,7 @@ import com.sun.jersey.api.client.Client;
 import org.json.JSONObject;
 
 import java.time.LocalDate;
+import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -35,7 +36,7 @@ public class DarkSky extends Meteorologo {
                 double valorMinimoTemperatura = data.getDouble("temperatureMin");
                 this.agregarClima(new Clima(epochDate, valorMaximoTemperatura, valorMinimoTemperatura, precipitationProbabilityDay, precipitationProbabilityNight));
             }
-            return climas.get(dia.getDayOfMonth() - this.puntoDeReferencia().getDayOfMonth());
+            return climas.get((int) ChronoUnit.DAYS.between(this.puntoDeReferencia(), dia));
         }
     }
 
