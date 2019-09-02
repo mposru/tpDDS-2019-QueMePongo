@@ -16,7 +16,6 @@ public class AccuWeather extends Meteorologo {
     private static final String CLIMA_ACCUWEATHER = "http://dataservice.accuweather.com/forecasts/v1/daily/5day/7894?apikey=QZYTHbRTv93BEQmByL07F0ssLgYyNhYH&language=es-ar&details=true&metric=true";
     private static final String ALERTAS_ACCUWEATHER = "http://dataservice.accuweather.com/alarms/v1/1day/78947894?apikey=QZYTHbRTv93BEQmByL07F0ssLgYyNhYH";
 
-    //Inicializacion del cliente
     public AccuWeather() {
         this.client = Client.create();
     }
@@ -30,26 +29,8 @@ public class AccuWeather extends Meteorologo {
         return instanceOfAccuWeather;
     }
 
-    public void validarQuePuedaObtenerElClima(LocalDate dia) {
-        LocalDate ahora = this.puntoDeReferencia();
-        if(!dia.isAfter(ahora.plusDays(-1)) || !dia.isBefore(ahora.plusDays(5))) {
-            throw new RuntimeException("La API de AccuWeather solo puede obtener el pronostico de aca a 5 dias");
-        }
-    }
-
-    public Clima obtenerClimaDelDiaSiLoTengo(LocalDate dia) {
-        if(climas == null) {
-            return null;
-        }
-        List<Clima> climasDelDia = climas.stream().filter(climaDia -> climaDia.esDelDia(dia)).collect(Collectors.toList());
-        if(climasDelDia.isEmpty()) {
-            return null;
-        }
-        return climasDelDia.get(0);
-    }
-
     public Clima obtenerClima(LocalDate dia) {
-        this.validarQuePuedaObtenerElClima(dia);
+        this.validarQuePuedaObtenerElClima(dia, 5, "AccuWeather");
         Clima climaDelDia = this.obtenerClimaDelDiaSiLoTengo(dia);
         if(climaDelDia != null) {
             return climaDelDia;

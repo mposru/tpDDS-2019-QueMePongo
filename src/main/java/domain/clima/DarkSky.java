@@ -11,26 +11,33 @@ public class DarkSky extends Meteorologo {
     private Client client;
     private static final String API_DARKSKY = "https://api.darksky.net/forecast/d443d875fed330c9e41fe374130c3e1e/-34.36,-58.22?units=si&lang=es&exclude=currently,hourly";
 
-    //Inicializacion del cliente
     public DarkSky() {
         this.client = Client.create();
     }
 
     public Clima obtenerClima(LocalDate dia) {
-        /*String jsonClima = this.getJsonClima();
-        JSONObject darksky = new JSONObject(jsonClima);
+        this.validarQuePuedaObtenerElClima(dia, 8, "DarkSky");
+        Clima climaDelDia = this.obtenerClimaDelDiaSiLoTengo(dia);
+        if(climaDelDia != null) {
+            return climaDelDia;
+        } else {
+            String jsonClima = this.getJsonClima();
+            JSONObject darksky = new JSONObject(jsonClima);
+            JSONObject daily = darksky.getJSONObject("daily");
 
-        JSONObject daily = darksky.getJSONObject("daily");
-        JSONObject data = daily.getJSONArray("data").getJSONObject(dia);
+            for(int i = 0; i<daily.getJSONArray("data").length() ; i++) {
+                JSONObject data = daily.getJSONArray("data").getJSONObject(i);
 
-        long epochDate = data.getLong("time");
-        double precipitationProbabilityDay = data.getDouble("precipProbability");
-        double precipitationProbabilityNight = data.getDouble("precipProbability");
-        double valorMaximoTemperatura = data.getDouble("temperatureMax");
-        double valorMinimoTemperatura = data.getDouble("temperatureMin");
-
-        return new Clima(epochDate, valorMaximoTemperatura, valorMinimoTemperatura, precipitationProbabilityDay, precipitationProbabilityNight);
-    */return null;}
+                long epochDate = data.getLong("time");
+                double precipitationProbabilityDay = data.getDouble("precipProbability");
+                double precipitationProbabilityNight = data.getDouble("precipProbability");
+                double valorMaximoTemperatura = data.getDouble("temperatureMax");
+                double valorMinimoTemperatura = data.getDouble("temperatureMin");
+                this.agregarClima(new Clima(epochDate, valorMaximoTemperatura, valorMinimoTemperatura, precipitationProbabilityDay, precipitationProbabilityNight));
+            }
+            return climas.get(dia.getDayOfMonth() - this.puntoDeReferencia().getDayOfMonth());
+        }
+    }
 
     public String getJsonClima(){
         return getJson(this.client, API_DARKSKY);
@@ -38,13 +45,5 @@ public class DarkSky extends Meteorologo {
 
     public List<Alerta> obtenerAlertas() {
         return new ArrayList<>();
-    }
-
-    public void validarQuePuedaObtenerElClima(LocalDate dia) {
-
-    }
-
-    public Clima obtenerClimaDelDiaSiLoTengo(LocalDate dia) {
-        return null;
     }
 }

@@ -6,6 +6,8 @@ import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mockito;
 
+import java.time.LocalDate;
+
 import static org.junit.Assert.assertEquals;
 import static org.mockito.Mockito.doReturn;
 import static org.mockito.Mockito.when;
@@ -14,6 +16,7 @@ import static org.mockito.Mockito.when;
 public class DarkSkyJsonTest {
     private Clima clima;
     private DarkSky darkSky;
+    private LocalDate dia;
     private String jsonClima = "{\n" +
             "    \"latitude\": -34.36,\n" +
             "    \"longitude\": -58.22,\n" +
@@ -364,33 +367,35 @@ public class DarkSkyJsonTest {
 
     @Before
     public void iniciarTest(){
+        dia = LocalDate.of(2019, 5, 26);
         darkSky = Mockito.spy(new DarkSky());
         doReturn(jsonClima).when(darkSky).getJsonClima();
+        doReturn(dia).when(darkSky).puntoDeReferencia();
         clima = new Clima(1558839600,17.9,13.96,0.26,0.26);
     }
 
     @Test
     public void obtenerFechaDelJson() {
-        //assertEquals(clima.getFecha(), darkSky.obtenerClima(0).getFecha());
+        assertEquals(clima.getFecha(), darkSky.obtenerClima(dia).getFecha());
     }
 
     @Test
     public void obtenerMaximaDelJson() {
-        //assertEquals(clima.getTemperaturaMaxima(), darkSky.obtenerClima(0).getTemperaturaMaxima(),0);
+        assertEquals(clima.getTemperaturaMaxima(), darkSky.obtenerClima(dia).getTemperaturaMaxima(),0);
     }
 
     @Test
     public void obtenerMinimaDelJson() {
-        //assertEquals(clima.getTemperaturaMinima(), darkSky.obtenerClima(0).getTemperaturaMinima(),0);
+        assertEquals(clima.getTemperaturaMinima(), darkSky.obtenerClima(dia).getTemperaturaMinima(),0);
     }
 
     @Test
     public void obtenerProbaPrecipitacionDiaDelJson() {
-        //assertEquals(clima.getPrecipitacionDia(), darkSky.obtenerClima(0).getPrecipitacionDia(),0);
+        assertEquals(clima.getPrecipitacionDia(), darkSky.obtenerClima(dia).getPrecipitacionDia(),0);
     }
 
     @Test
     public void obtenerProbaPrecipitacionNocheDelJson() {
-        //assertEquals(clima.getPrecipitacionNoche(), darkSky.obtenerClima(0).getPrecipitacionNoche(),0);
+        assertEquals(clima.getPrecipitacionNoche(), darkSky.obtenerClima(dia).getPrecipitacionNoche(),0);
     }
 }
