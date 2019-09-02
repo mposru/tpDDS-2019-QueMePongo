@@ -4,7 +4,10 @@ import com.sun.jersey.api.client.Client;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.*;
+import java.util.stream.Collectors;
 
 import static domain.clima.Alerta.*;
 
@@ -27,24 +30,50 @@ public class AccuWeather extends Meteorologo {
         return instanceOfAccuWeather;
     }
 
-    public Clima obtenerClima(int dia) {
-        String jsonClima = this.getJsonClima();
-        JSONObject accuWeather = new JSONObject(jsonClima);
+    public void validarQuePuedaObtenerElClima(LocalDate dia) {
+        LocalDate ahora = this.puntoDeReferencia();
+        if(!dia.isAfter(ahora.plusDays(-1)) || !dia.isBefore(ahora.plusDays(5))) {
+            throw new RuntimeException("La API de AccuWeather solo puede obtener el pronostico de aca a 5 dias");
+        }
+    }
 
-        JSONObject dailyForecasts = accuWeather.getJSONArray("DailyForecasts").getJSONObject(dia);
-        long epochDate = dailyForecasts.getLong("EpochDate");
-        JSONObject temperature = dailyForecasts.getJSONObject("Temperature");
-        JSONObject day = dailyForecasts.getJSONObject("Day");
-        double precipitationProbabilityDay = day.getDouble("PrecipitationProbability");
-        JSONObject night = dailyForecasts.getJSONObject("Night");
-        double precipitationProbabilityNight = day.getDouble("PrecipitationProbability");
+    public Clima obtenerClimaDelDiaSiLoTengo(LocalDate dia) {
+        if(climas == null) {
+            return null;
+        }
+        List<Clima> climasDelDia = climas.stream().filter(climaDia -> climaDia.esDelDia(dia)).collect(Collectors.toList());
+        if(climasDelDia.isEmpty()) {
+            return null;
+        }
+        return climasDelDia.get(0);
+    }
 
-        JSONObject maximum = temperature.getJSONObject("Maximum");
-        double valorMaximoTemperatura = maximum.getDouble("Value");
-        JSONObject minimum = temperature.getJSONObject("Minimum");
-        double valorMinimoTemperatura = minimum.getDouble("Value");
+    public Clima obtenerClima(LocalDate dia) {
+        this.validarQuePuedaObtenerElClima(dia);
+        Clima climaDelDia = this.obtenerClimaDelDiaSiLoTengo(dia);
+        if(climaDelDia != null) {
+            return climaDelDia;
+        } else {
+            String jsonClima = this.getJsonClima();
+            JSONObject accuWeather = new JSONObject(jsonClima);
 
-        return new Clima(epochDate, valorMaximoTemperatura, valorMinimoTemperatura, precipitationProbabilityDay, precipitationProbabilityNight);
+            for(int i = 0; i<accuWeather.getJSONArray("DailyForecasts").length() ; i++) {
+                JSONObject dailyForecasts = accuWeather.getJSONArray("DailyForecasts").getJSONObject(i);
+                long epochDate = dailyForecasts.getLong("EpochDate");
+                JSONObject temperature = dailyForecasts.getJSONObject("Temperature");
+                JSONObject day = dailyForecasts.getJSONObject("Day");
+                double precipitationProbabilityDay = day.getDouble("PrecipitationProbability");
+                JSONObject night = dailyForecasts.getJSONObject("Night");
+                double precipitationProbabilityNight = night.getDouble("PrecipitationProbability");
+
+                JSONObject maximum = temperature.getJSONObject("Maximum");
+                double valorMaximoTemperatura = maximum.getDouble("Value");
+                JSONObject minimum = temperature.getJSONObject("Minimum");
+                double valorMinimoTemperatura = minimum.getDouble("Value");
+                this.agregarClima(new Clima(epochDate, valorMaximoTemperatura, valorMinimoTemperatura, precipitationProbabilityDay, precipitationProbabilityNight));
+            }
+            return climas.get(dia.getDayOfMonth() - this.puntoDeReferencia().getDayOfMonth());
+        }
     }
 
     public String getJsonClima() {

@@ -3,6 +3,7 @@ package domain.clima;
 import com.sun.jersey.api.client.Client;
 import org.json.JSONObject;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -15,8 +16,8 @@ public class DarkSky extends Meteorologo {
         this.client = Client.create();
     }
 
-    public Clima obtenerClima(int dia) {
-        String jsonClima = this.getJsonClima().toString();
+    public Clima obtenerClima(LocalDate dia) {
+        /*String jsonClima = this.getJsonClima();
         JSONObject darksky = new JSONObject(jsonClima);
 
         JSONObject daily = darksky.getJSONObject("daily");
@@ -29,7 +30,7 @@ public class DarkSky extends Meteorologo {
         double valorMinimoTemperatura = data.getDouble("temperatureMin");
 
         return new Clima(epochDate, valorMaximoTemperatura, valorMinimoTemperatura, precipitationProbabilityDay, precipitationProbabilityNight);
-    }
+    */return null;}
 
     public String getJsonClima(){
         return getJson(this.client, API_DARKSKY);
@@ -37,5 +38,13 @@ public class DarkSky extends Meteorologo {
 
     public List<Alerta> obtenerAlertas() {
         return new ArrayList<>();
+    }
+
+    public void validarQuePuedaObtenerElClima(LocalDate dia) {
+
+    }
+
+    public Clima obtenerClimaDelDiaSiLoTengo(LocalDate dia) {
+        return null;
     }
 }

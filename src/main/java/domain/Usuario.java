@@ -4,6 +4,7 @@ package domain;
 //import java.util.HashSet;
 //import java.util.Set;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.*;
 
@@ -59,14 +60,8 @@ public class Usuario {
         List<Atuendo> atuendosSugeridos = new ArrayList<>();
         Evento proximoEvento = this.calendario.obtenerProximoEvento();
         for (Guardarropa guardarropa : guardarropas) {
-            int diaEvento = -1;
-            for(int i = 0; i < 5; i++) {
-                if(proximoEvento.getFecha().minusDays(i).toLocalDate().equals(LocalDateTime.now().toLocalDate())) { diaEvento = i; }
-            }
-            if(diaEvento != -1) {
-                Clima climaEvento = guardarropa.obtenerMeteorologo().obtenerClima(diaEvento);
-                atuendosSugeridos.addAll(guardarropa.generarSugerencia(climaEvento, proximoEvento));
-            }
+            Clima climaEvento = guardarropa.obtenerMeteorologo().obtenerClima(proximoEvento.getFecha().toLocalDate());
+            atuendosSugeridos.addAll(guardarropa.generarSugerencia(climaEvento, proximoEvento));
         }
         this.atuendosSugeridosProximoEvento = new AtuendosSugeridosPorEvento(atuendosSugeridos, proximoEvento);
     }
