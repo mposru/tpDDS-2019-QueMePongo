@@ -12,6 +12,8 @@ public class Evento {
     private Integer antelacionEnHoras=1;
     private Periodo  tipoDeActualizacion;
 
+    public Evento(){
+    }
     public Evento(String nombre, String ubicacion, LocalDateTime fecha,Periodo tipoDeActualizacion,Integer antelacionEnHoras) {
         this.fecha = requireNonNull(fecha, "Usted no ingreso una fecha para evento");
         this.nombre = requireNonNull(nombre, "Usted no ingreso un nombre para evento");
