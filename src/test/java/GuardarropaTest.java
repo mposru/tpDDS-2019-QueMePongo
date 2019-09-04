@@ -855,6 +855,7 @@ public class GuardarropaTest {
         this.accuWeather = Mockito.spy(new AccuWeather());
         this.guardarropa.definirMeteorologo(this.accuWeather);
         doReturn(jsonClimaAbrigoBasico).when(this.accuWeather).getJsonClima();
+        doReturn(dia).when(accuWeather).puntoDeReferencia();
         this.eventoX = new Evento("Prueba", "UTN", LocalDateTime.now(), Periodo.NINGUNO,0);
     }
 
