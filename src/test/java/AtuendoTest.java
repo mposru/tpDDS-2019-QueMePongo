@@ -1,6 +1,7 @@
 package domain;
 
 import domain.estadoAtuendo.*;
+import domain.usuario.Calendario;
 import domain.usuario.tipoDeUsuario.*;
 import domain.prenda.Color;
 import domain.prenda.Material;
@@ -27,10 +28,11 @@ public class AtuendoTest {
     private Color color;
     private Usuario carlos;
     private Atuendo atuendoInvalido;
+    private Calendario calendario;
 
     @Before
     public void iniciarTest() {
-        this.carlos = new Usuario(Premium.getInstance(), "1534544344");
+        this.carlos = new Usuario(Premium.getInstance(), "1534544344", calendario);
         Set<Usuario> carlosLista = new HashSet<>();
         carlosLista.add(carlos);
         this.guardarropa = new Guardarropa(carlosLista);

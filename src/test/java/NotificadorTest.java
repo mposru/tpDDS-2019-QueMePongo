@@ -1,5 +1,6 @@
 import domain.notificacion.SMS;
 import domain.notificacion.Whatsapp;
+import domain.usuario.Calendario;
 import domain.usuario.tipoDeUsuario.Gratuito;
 import domain.Usuario;
 import org.junit.Assert;
@@ -15,10 +16,11 @@ public class NotificadorTest {
     private Usuario merlin;
     private Whatsapp notificadorWhatsapp;
     private SMS notificadorSMS;
+    private Calendario calendario;
 
     @Before
     public void iniciarTest() {
-        merlin = new Usuario(Gratuito.getInstance(), "+5491134522303");
+        merlin = new Usuario(Gratuito.getInstance(), "+5491134522303", calendario);
     }
 
     @Test

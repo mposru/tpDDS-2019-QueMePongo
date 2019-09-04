@@ -32,7 +32,7 @@ public class Usuario {
     private ArrayList<Atuendo> atuendosAceptados = new ArrayList<>();
     private ArrayList<Atuendo> atuendosRechazados = new ArrayList<>();
     private Set<Notificador> notificadores = new HashSet<>();
-    private Calendario calendario = new Calendario();
+    private Calendario calendario;
     private int tiempoDeAnticipacion = 0; // variable que indica con cuanto tiempo antes quiere que le llegue sugerencia sobre evento (en horas)
     private AtuendosSugeridosPorEvento atuendosSugeridosProximoEvento = new AtuendosSugeridosPorEvento(new ArrayList<Atuendo>(), new Evento("","", LocalDateTime.now(),Periodo.NINGUNO,0));
     // agregado de sensibilidades en las partes del cuerpo. Hacemos una escala que va de 1 a 10 (1 para muy friolento hasta 10 para muy caluroso)
@@ -50,9 +50,10 @@ public class Usuario {
     // se le pide el proximo evento al user, se obtiene el clima de mismo
     // b. se genera sugerencia con ese clima
 
-    public Usuario(TipoUsuario tipoUsuario, String numeroDeCelular) {
+    public Usuario(TipoUsuario tipoUsuario, String numeroDeCelular,Calendario miCalendario) {
         this.tipoUsuario = tipoUsuario;
         this.numeroDeCelular = numeroDeCelular;
+        this.calendario = miCalendario;
         RepositorioDeUsuarios.getInstance().agregarUsuarioTotal(this);
     }
 

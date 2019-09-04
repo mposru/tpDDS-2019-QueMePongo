@@ -2,6 +2,7 @@ import domain.*;
 import domain.clima.AccuWeather;
 import domain.clima.Alerta;
 import domain.estadoAtuendo.*;
+import domain.usuario.Calendario;
 import domain.usuario.Evento;
 import domain.usuario.Periodo;
 import domain.usuario.tipoDeUsuario.*;
@@ -49,6 +50,9 @@ public class UsuarioTest {
     private Prenda anteojos;
     private Color color;
     private Usuario nana;
+    private Calendario calendarioMaria;
+    private Calendario calendarioMerlin;
+    private Calendario calendarioNana;
 
     private AccuWeather accuWeather;
     private String jsonClima = "{\n" +
@@ -300,9 +304,12 @@ public class UsuarioTest {
 
     @Before
     public void iniciarTest() {
+        this.calendarioMaria = new Calendario();
+        this.calendarioNana = new Calendario();
+        this.calendarioMerlin = new Calendario();
         this.accuWeather = Mockito.spy(new AccuWeather());
-        this.merlin = new Usuario(Gratuito.getInstance(), "1543333322");
-        this.maria = new Usuario(Premium.getInstance(), "1543333322");
+        this.merlin = new Usuario(Gratuito.getInstance(), "1543333322", calendarioMerlin);
+        this.maria = new Usuario(Premium.getInstance(), "1543333322",calendarioMaria );
         Set<Usuario> merlinLista = new HashSet<>();
         merlinLista.add(merlin);
         Set<Usuario> mariaLista = new HashSet<>();
@@ -321,7 +328,7 @@ public class UsuarioTest {
         Set<Prenda> superiores = new HashSet<>();
         superiores.add(musculosa);
         this.atuendoVerano = new Atuendo(superiores,shortDeJean,crocs,anteojos);
-        this.nana = new Usuario(Premium.getInstance(), "1534433333");
+        this.nana = new Usuario(Premium.getInstance(), "1534433333", calendarioNana);
         doReturn(jsonClima).when(accuWeather).getJsonClima();
     }
 
