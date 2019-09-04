@@ -2,8 +2,13 @@ import domain.notificacion.SMS;
 import domain.notificacion.Whatsapp;
 import domain.usuario.tipoDeUsuario.Gratuito;
 import domain.Usuario;
+import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
+import org.mockito.Mockito;
+import org.mockito.stubbing.Answer;
+
+import static org.mockito.Matchers.any;
 
 public class NotificadorTest {
 
@@ -13,18 +18,30 @@ public class NotificadorTest {
 
     @Before
     public void iniciarTest() {
-        this.merlin = new Usuario(Gratuito.getInstance(), "+5491134522303");
-        this.notificadorWhatsapp = new Whatsapp();
-        this.notificadorSMS = new SMS();
+        merlin = new Usuario(Gratuito.getInstance(), "+5491134522303");
     }
 
     @Test
-    public void enviarWhatsapp() {
-        notificadorWhatsapp.notificar(merlin, "Sugerencias listas!");
+    public void enviarMensajePorWhatsapp() {
+        notificadorWhatsapp = Mockito.mock(Whatsapp.class);
+        Mockito.doAnswer(invocation -> {
+            Object args[] = invocation.getArguments();
+            Assert.assertEquals(merlin, args[0]);
+            Assert.assertEquals("Mensaje enviado por Whatsapp", args[1]);
+            return null;
+        }).when(notificadorWhatsapp).notificar(any(Usuario.class), any(String.class));
+        notificadorWhatsapp.notificar(merlin, "Mensaje enviado por Whatsapp");
     }
 
     @Test
-    public void enviarSMS() {
-        notificadorSMS.notificar(merlin, "Sugerencias listas!");
+    public void enviarMensajePorSMS() {
+        notificadorSMS = Mockito.mock(SMS.class);
+        Mockito.doAnswer(invocation -> {
+            Object args[] = invocation.getArguments();
+            Assert.assertEquals(merlin, args[0]);
+            Assert.assertEquals("Mensaje enviado por SMS", args[1]);
+            return null;
+        }).when(notificadorSMS).notificar(any(Usuario.class), any(String.class));
+        notificadorSMS.notificar(merlin, "Mensaje enviado por SMS");
     }
 }
