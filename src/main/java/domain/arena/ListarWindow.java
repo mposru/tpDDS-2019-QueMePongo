@@ -10,10 +10,10 @@ import org.uqbar.arena.windows.WindowOwner;
 
 import java.awt.*;
 
-public class ListarWindow extends SimpleWindow<Listar> {
+public class ListarWindow extends SimpleWindow<ListarViewModel> {
 
-    public ListarWindow(WindowOwner parent) {
-        super(parent, new Listar());
+    public ListarWindow(WindowOwner owner) {
+        super(owner, new ListarViewModel());
         this.getModelObject().obtenerLista();
     }
 

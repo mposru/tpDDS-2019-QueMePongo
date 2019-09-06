@@ -8,16 +8,16 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @Observable
-public class Listar {
+public class ListarViewModel {
 
     private LocalDate FechaDesde;
     private LocalDate FechaHasta;
-    List<Usuario> usuarios = RepositorioDeUsuarios.getInstance().getUsuarios();
+    List<Usuario> usuarios;// = RepositorioDeUsuarios.getInstance().getUsuarios();
 
-
-    // ********************************************************
-    // ** Acciones
-    // ********************************************************
+    public ListarViewModel() {
+        this.usuarios = RepositorioDeUsuarios.getInstance().getUsuarios();
+        System.out.println("Cantidad de usuarios: " + usuarios.size());
+    }
 
     public void obtenerLista() {
         List<Usuario> usuariosConEventoEntreFechas = usuarios.stream()
@@ -25,10 +25,6 @@ public class Listar {
                 .collect(Collectors.toList());
     }
 
-
-    // ********************************************************
-    // ** Atributos
-    // ********************************************************
 
     public LocalDate getFechaDesde() {
         return FechaDesde;
