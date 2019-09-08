@@ -209,47 +209,6 @@ public class Usuario {
         return atuendosSugeridosProximoEvento;
     }
 
-    public void calificarFrioEnManos(Atuendo atuendo, double temperatura) {
-        this.sensibilidadManos = new Sensibilidad(temperatura, TipoSensibilidad.FRIO,atuendo);
-    }
-    public void calificarCalorEnManos(Atuendo atuendo, double temperatura) {
-        this.sensibilidadManos = new Sensibilidad(temperatura, TipoSensibilidad.CALOR,atuendo);
-    }
-    public void calificarFrioEnCuello(Atuendo atuendo, double temperatura) {
-        this.sensibilidadCuello = new Sensibilidad(temperatura, TipoSensibilidad.FRIO,atuendo);
-    }
-    public void calificarCalorEnCuello(Atuendo atuendo, double temperatura) {
-        this.sensibilidadCuello = new Sensibilidad(temperatura, TipoSensibilidad.CALOR,atuendo);
-    }
-    public void calificarFrioEnParteSuperior(Atuendo atuendo, double temperatura) {
-        this.sensibilidadParteSuperior= new Sensibilidad(temperatura, TipoSensibilidad.FRIO,atuendo);
-    }
-    public void calificarCalorEnParteSuperior(Atuendo atuendo,double temperatura) {
-        this.sensibilidadParteSuperior = new Sensibilidad(temperatura, TipoSensibilidad.CALOR,atuendo);
-    }
-    public void calificarFrioEnParteInferior(Atuendo atuendo,double temperatura) {
-        this.sensibilidadParteInferior= new Sensibilidad(temperatura, TipoSensibilidad.FRIO,atuendo);
-    }
-    public void calificarCalorEnParteInferior(Atuendo atuendo,double temperatura) {
-        this.sensibilidadParteInferior = new Sensibilidad(temperatura, TipoSensibilidad.CALOR,atuendo);
-    }
-
-
-    public void calificarNormalEnManos(Atuendo atuendo, double temperatura) {
-        this.sensibilidadManos = new Sensibilidad(temperatura, TipoSensibilidad.NORMAL,atuendo);
-    }
-
-    public void calificarNormalEnCuello(Atuendo atuendo, double temperatura) {
-        this.sensibilidadCuello = new Sensibilidad(temperatura, TipoSensibilidad.NORMAL,atuendo);
-    }
-
-    public void calificarNormalEnParteSuperior(Atuendo atuendo, double temperatura) {
-        this.sensibilidadParteSuperior= new Sensibilidad(temperatura, TipoSensibilidad.NORMAL,atuendo);
-    }
-
-    public void calificarNormalEnParteInferior(Atuendo atuendo,double temperatura) {
-        this.sensibilidadParteInferior = new Sensibilidad(temperatura, TipoSensibilidad.NORMAL, atuendo);
-    }
 
     public void verificarSiHayEventoProximo(){
         Clima clima=new Clima(1/11/10,10,20,20,20);
