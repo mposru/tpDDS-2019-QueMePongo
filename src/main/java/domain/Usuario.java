@@ -35,7 +35,7 @@ public class Usuario {
     private int tiempoDeAnticipacion = 0; // variable que indica con cuanto tiempo antes quiere que le llegue sugerencia sobre evento (en horas)
     private AtuendosSugeridosPorEvento atuendosSugeridosProximoEvento = new AtuendosSugeridosPorEvento(new ArrayList<Atuendo>(), new Evento("","", LocalDateTime.now(),Periodo.NINGUNO,0));
     // agregado de sensibilidades en las partes del cuerpo. Hacemos una escala que va de 1 a 10 (1 para muy friolento hasta 10 para muy caluroso)
-
+    private Sensibilidad sensibilidad = new Sensibilidad();
 
     //
     // variable que indique con cuanto tiempo antes quiere que le llegue sugerencia sobre evento
@@ -50,6 +50,26 @@ public class Usuario {
         this.numeroDeCelular = numeroDeCelular;
         RepositorioDeUsuarios.getInstance().agregarUsuarioTotal(this);
     }
+    public void calificarSensibilidadGeneral(CalificacionSensibilidad calificacionSensibilidad) {
+        this.sensibilidad.calificarSensibilidadGeneral(calificacionSensibilidad);
+    }
+    public void calificarSensibilidadEnManos(CalificacionSensibilidad calificacionSensibilidad) {
+        this.sensibilidad.calificarSensibilidadEnManos(calificacionSensibilidad);
+    }
+    public void calificarSensibilidadEnCuello(CalificacionSensibilidad calificacionSensibilidad) {
+        this.sensibilidad.calificarSensibilidadEnCuello(calificacionSensibilidad);
+    }
+    public double getFactorSensibilidadGeneral(){
+        return this.sensibilidad.getFactorSensibilidadGeneral();
+    }
+    public double getFactorSensibilidadEnManos(){
+        return this.sensibilidad.getFactorSensibilidadEnManos();
+    }
+    public double getFactorSensibilidadEnCuello(){
+        return this.sensibilidad.getFactorSensibilidadEnCuello();
+    }
+
+
 
     public void generarSugerenciasParaProximoEvento() {
         List<Atuendo> atuendosSugeridos = new ArrayList<>();
