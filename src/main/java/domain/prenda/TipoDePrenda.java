@@ -65,7 +65,7 @@ public class TipoDePrenda {
 
     public double getUnidadDeAbrigo() {
         if(!isNull(this.temperaturaMin) && !isNull(this.temperaturaMax)) {
-           return NivelAbrigo.getInstance().getNivelAbrigo(temperaturaMin,temperaturaMax);
+           this.unidadDeAbrigo = NivelAbrigo.getInstance().getNivelAbrigo(temperaturaMin,temperaturaMax);
         }
         return this.unidadDeAbrigo;
     }

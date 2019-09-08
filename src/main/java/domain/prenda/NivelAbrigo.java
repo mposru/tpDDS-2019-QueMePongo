@@ -1,6 +1,6 @@
 package domain.prenda;
 
-//Singleton que me calcula el nivel de abrigo entre dos temperaturas
+//Singleton que me calcula el nivel de abrigo entre dos temperaturas. Tiene la recta unidadDeAbrigo/Temp.
     public class NivelAbrigo   {
 
             private static NivelAbrigo instanceOfNivelAbrigo;
@@ -12,7 +12,14 @@ package domain.prenda;
                 }
                 return instanceOfNivelAbrigo;}
             public double getNivelAbrigo(double temperaturaMin,double temperaturaMax) {
-                return (-(temperaturaMin+temperaturaMax) + 25);
+                double nivelDeAbrigo;
+                nivelDeAbrigo = (-(temperaturaMin+temperaturaMax) + 25);
+                return nivelDeAbrigo;
     }
+            public double getTemperatura(double nivelAbrigo) {
+                double temperatura;
+                temperatura = -2*nivelAbrigo + 50;
+                return temperatura;
+            }
 
 }
