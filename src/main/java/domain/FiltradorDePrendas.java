@@ -4,6 +4,7 @@ import domain.clima.Clima;
 import domain.prenda.NivelAbrigo;
 import domain.usuario.Sensibilidad;
 
+import java.util.HashSet;
 import java.util.Set;
 import java.util.concurrent.atomic.AtomicReference;
 import java.util.stream.Collectors;
@@ -21,17 +22,34 @@ public class FiltradorDePrendas {
         return instanceOfFiltradorDePrendas;
     }
 
-    public Set<Prenda> filtrarPrendas(Set<Prenda> prendas, Clima climaEvento, Sensibilidad sensibilidad, TipoDeSensibilidad tipoDeSensibilidad) {
-        AtomicReference<Double> unidadesDeAbrigoAcumuladas = new AtomicReference<>(0.0);
-        Set<Prenda> prendasFiltradas = prendas.stream().filter(prenda -> {
+    public Set<Set<Prenda>> filtrarPrendas(Set<Prenda> prendas, Clima climaEvento, Sensibilidad sensibilidad, TipoDeSensibilidad tipoDeSensibilidad) {
+        Set<Set<Prenda>> prendasFiltradas = new HashSet<>();
+        double nivelDeAbrigo = obtenerNivelDeAbrigo(climaEvento, sensibilidad, tipoDeSensibilidad);
+        prendas.forEach(prenda -> {
+            AtomicReference<Double> unidadesDeAbrigoAcumuladas = new AtomicReference<>(0.0);
             double unidades = prenda.obtenerUnidadDeAbrigo();
-            double unidadesTemporales = unidades + unidadesDeAbrigoAcumuladas.get();
-            if (unidadesTemporales <= obtenerNivelDeAbrigo(climaEvento, sensibilidad, tipoDeSensibilidad)) {
-                unidadesDeAbrigoAcumuladas.set(unidadesTemporales);
+
+            if (unidades <= nivelDeAbrigo) {
+                // si el nivel de esta prenda no supera el nivel que tengo que armar, entro al otro foreach
+                Set<Prenda> conjunto = new HashSet<>();
+                unidadesDeAbrigoAcumuladas.set(unidades);
+                conjunto.add(prenda);
+                prenda.setDisponibilidad(false);
+                prendas.forEach(otraPrenda -> {
+                    // no voy a ponerme dos prendas iguales ni superar el nivelDeAbrigo
+                    if (prenda != otraPrenda && unidadesDeAbrigoAcumuladas.get() < nivelDeAbrigo) {
+                        double unidadesTemporales = unidades + unidadesDeAbrigoAcumuladas.get();
+                        // si lo acumulado de niveles no supera lo que tengo que alcanzar lo agrego
+                        if (unidadesTemporales <= nivelDeAbrigo) {
+                            unidadesDeAbrigoAcumuladas.set(unidadesTemporales);
+                            conjunto.add(otraPrenda);
+                            prenda.setDisponibilidad(false);
+                        }
+                    }
+                });
+                prendasFiltradas.add(conjunto);
             }
-            return unidadesTemporales <= obtenerNivelDeAbrigo(climaEvento, sensibilidad, tipoDeSensibilidad);
-        }).collect(Collectors.toSet());
-        // pensar como hacer para armar los sets
+        });
         return prendasFiltradas;
     }
 

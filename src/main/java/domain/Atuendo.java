@@ -104,11 +104,14 @@ public class Atuendo {
 
     public void aceptar() {
         this.estado.aceptar();
-        this.accesorios.forEach(prenda -> prenda.setDisponibilidad(false));
-        this.calzados.forEach(prenda -> prenda.setDisponibilidad(false));
-        this.prendasInferiores.forEach(prenda -> prenda.setDisponibilidad(false));
-        this.prendasSuperiores.forEach(prenda -> prenda.setDisponibilidad(false));
+        this.cambiarDisponibilidadPrendas(false);
+    }
 
+    private void cambiarDisponibilidadPrendas(boolean nuevaDisponibilidad) {
+        this.accesorios.forEach(prenda -> prenda.setDisponibilidad(nuevaDisponibilidad));
+        this.calzados.forEach(prenda -> prenda.setDisponibilidad(nuevaDisponibilidad));
+        this.prendasInferiores.forEach(prenda -> prenda.setDisponibilidad(nuevaDisponibilidad));
+        this.prendasSuperiores.forEach(prenda -> prenda.setDisponibilidad(nuevaDisponibilidad));
     }
 
     public void calificar(int nuevaCalificacion) {
@@ -117,6 +120,7 @@ public class Atuendo {
 
     public void rechazar() {
         this.estado.rechazar();
+        this.cambiarDisponibilidadPrendas(true);
     }
 
     public void cambiarEstado(EstadoAtuendo estado) {

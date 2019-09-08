@@ -84,8 +84,7 @@ public class Usuario {
                 }
             }
             if (diaEvento != -1) {
-                Clima climaEvento = guardarropa.obtenerMeteorologo().obtenerClima(diaEvento);
-                atuendosSugeridos.addAll(guardarropa.generarSugerencia(climaEvento, proximoEvento));
+                atuendosSugeridos.addAll(guardarropa.generarSugerencia(proximoEvento, sensibilidad));
             }
         }
         this.atuendosSugeridosProximoEvento = new AtuendosSugeridosPorEvento(atuendosSugeridos, proximoEvento);
@@ -226,7 +225,7 @@ public class Usuario {
         if (alerta == LLUVIA) {
             return this.atuendosSugeridosProximoEvento.getAtuendosSugeridos().stream().noneMatch(atuendo -> atuendo.esAptoParaLluvia());
         } else {
-            return this.atuendosSugeridosProximoEvento.getAtuendosSugeridos().stream().noneMatch(atuendo -> atuendo.obtenerAccesorio().obtenerTipoDePrenda() == TipoDePrenda.CASCO);
+            return this.atuendosSugeridosProximoEvento.getAtuendosSugeridos().stream().noneMatch(atuendo -> atuendo.obtenerAccesorios().stream().noneMatch(acc -> acc.obtenerTipoDePrenda() == TipoDePrenda.CASCO));
         }
     }
 
@@ -235,13 +234,14 @@ public class Usuario {
     }
 
     public void verificarSiHayEventoProximo() {
+        // todo: que es esto?!?!?!?!??!?!
         Clima clima = new Clima(1 / 11 / 10, 10, 20, 20, 20);
         List<Evento> eventosProximos = calendario.eventosProximos();
-        eventosProximos.forEach(evento -> sugerenciaParaEvento(evento, clima));
+        eventosProximos.forEach(evento -> sugerenciaParaEvento(evento));
     }
 
-    public void sugerenciaParaEvento(Evento evento, Clima clima) {
-        this.guardarropas.forEach(guardarropa -> guardarropa.generarSugerencia(clima, evento));
+    public void sugerenciaParaEvento(Evento evento) {
+        this.guardarropas.forEach(guardarropa -> guardarropa.generarSugerencia(evento, sensibilidad));
     }
 
     public void agregarGuardarropa(Guardarropa guardarropa) {

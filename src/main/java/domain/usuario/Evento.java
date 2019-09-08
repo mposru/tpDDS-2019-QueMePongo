@@ -1,5 +1,9 @@
 package domain.usuario;
 
+import domain.clima.AccuWeather;
+import domain.clima.Clima;
+import domain.clima.Meteorologo;
+
 import java.time.Duration;
 import java.time.LocalDateTime;
 
@@ -9,8 +13,9 @@ public class Evento {
     private LocalDateTime fecha;
     private String nombre;
     private String ubicacion;
-    private Integer antelacionEnHoras=1;
-    private Periodo  tipoDeActualizacion;
+    private Integer antelacionEnHoras = 1;
+    private Periodo tipoDeActualizacion;
+    private Meteorologo meteorologo = new AccuWeather();;
 
     public Evento(String nombre, String ubicacion, LocalDateTime fecha,Periodo tipoDeActualizacion,Integer antelacionEnHoras) {
         this.fecha = requireNonNull(fecha, "Debe ingresar una fecha para el evento");
@@ -70,5 +75,10 @@ public class Evento {
 
     private double obtenerComparacionDeHora(){
         return (double) Duration.between(LocalDateTime.now(),fecha).getSeconds()/3600;
+    }
+
+    public Clima obtenerClima() {
+        // todo: poner bien el dia
+        return meteorologo.obtenerClima(0);
     }
 }
