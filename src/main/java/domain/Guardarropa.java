@@ -192,7 +192,7 @@ public class Guardarropa {
         if (clima.getTemperaturaMaxima() > tipoAbrigo.obtenerTemperaturaMaxima()) {
             // clima no matchea con tipo de abrigo
             Prenda prendaVacia = new Prenda(TipoDePrenda.NINGUNO_SUPERIOR, Material.NINGUNO, new Color(0, 0, 0),
-                    null, Trama.NINGUNO, this, 0, 0, false);
+                    null, Trama.NINGUNO, this,  false);
             Set<Prenda> prendasVacias = new HashSet<>();
             prendasVacias.add(prendaVacia);
             return prendasVacias;
@@ -224,4 +224,28 @@ public class Guardarropa {
     public Meteorologo obtenerMeteorologo() {
         return this.meteorologo;
     }
+
+ // pruebas de generarSugerencia con cambios que se hicieron para sensibilidad.
+
+    public List<Atuendo> generarSugerencia2 (Clima climaEvento, Evento evento,Usuario usuario) {
+
+        Set<Prenda> prendasInferioresAdecuadas;
+        Set<Prenda> calzadosAdecuados;
+        Set<Prenda> accesoriosAdecuados;
+
+        //Clima climaEvento = meteorologo.obtenerClima();
+        //usuario.validarEventoDia(); //Ante la falencia de que no hay evento del dia tira excepcion
+
+        // Clima climaEvento = meteorologo.obtenerClima();
+        prendasInferioresAdecuadas = this.obtenerPrendaSegunClima(this.obtenerPrendasInferioresDisponibles(), climaEvento);
+        calzadosAdecuados = this.obtenerPrendaSegunClima(this.obtenerCalzadosDisponibles(), climaEvento);
+        accesoriosAdecuados = this.obtenerPrendaSegunClima(this.obtenerAccesoriosDisponibles(), climaEvento);
+
+
+        return Sets.cartesianProduct(prendasSuperioresArmadas, prendasInferioresAdecuadas, calzadosAdecuados, accesoriosAdecuados)
+                .stream()
+                .map(atuendo -> new Atuendo((Set<Prenda>) atuendo.get(0), (Prenda) atuendo.get(1), (Prenda) atuendo.get(2), (Prenda) atuendo.get(3)))
+                .collect(Collectors.toList());
+    }
+
 }

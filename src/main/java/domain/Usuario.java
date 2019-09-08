@@ -68,9 +68,6 @@ public class Usuario {
     public double getFactorSensibilidadEnCuello(){
         return this.sensibilidad.getFactorSensibilidadEnCuello();
     }
-
-
-
     public void generarSugerenciasParaProximoEvento() {
         List<Atuendo> atuendosSugeridos = new ArrayList<>();
         Evento proximoEvento = this.calendario.obtenerProximoEvento();

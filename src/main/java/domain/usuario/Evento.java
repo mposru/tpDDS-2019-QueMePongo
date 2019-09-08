@@ -13,8 +13,8 @@ public class Evento {
     private Periodo  tipoDeActualizacion;
 
     public Evento(String nombre, String ubicacion, LocalDateTime fecha,Periodo tipoDeActualizacion,Integer antelacionEnHoras) {
-        this.fecha = requireNonNull(fecha, "Usted no ingreso una fecha para evento");
-        this.nombre = requireNonNull(nombre, "Usted no ingreso un nombre para evento");
+        this.fecha = requireNonNull(fecha, "Debe ingresar una fecha para el evento");
+        this.nombre = requireNonNull(nombre, "Debe ingresar un nombre para el evento");
         this.ubicacion = requireNonNull(ubicacion, "Debe ingresar una ubicación para el evento");
         this.antelacionEnHoras = requireNonNull(antelacionEnHoras,"Debe ingresar la antelacion del evento");
         this.tipoDeActualizacion=requireNonNull(tipoDeActualizacion,"Debe ingresar el tipo de periodicidad");
@@ -37,7 +37,7 @@ public class Evento {
     }
 
     public boolean esProximo(){
-        double horas=obtenerComparacionDeHora();
+        double horas = obtenerComparacionDeHora();
         if(horas<=this.antelacionEnHoras&&horas>0){
             this.actualizacion();
             return true;
