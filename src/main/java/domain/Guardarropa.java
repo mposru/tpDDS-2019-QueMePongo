@@ -65,19 +65,19 @@ public class Guardarropa {
     }
 
     public Set<Prenda> obtenerPrendasSuperioresDisponibles() {
-        return prendasSuperiores.stream().filter(prenda -> prenda.getDisponibilidad()==true).collect(Collectors.toSet());
+        return prendasSuperiores.stream().filter(prenda -> prenda.getDisponibilidad()).collect(Collectors.toSet());
     }
 
     public Set<Prenda> obtenerPrendasInferioresDisponibles() {
-        return prendasInferiores.stream().filter(prenda -> prenda.getDisponibilidad()==true).collect(Collectors.toSet());
+        return prendasInferiores.stream().filter(prenda -> prenda.getDisponibilidad()).collect(Collectors.toSet());
     }
 
     public Set<Prenda> obtenerCalzadosDisponibles() {
-        return calzados.stream().filter(prenda -> prenda.getDisponibilidad()==true).collect(Collectors.toSet());
+        return calzados.stream().filter(prenda -> prenda.getDisponibilidad()).collect(Collectors.toSet());
     }
 
     public Set<Prenda> obtenerAccesoriosDisponibles() {
-        return accesorios.stream().filter(prenda -> prenda.getDisponibilidad()==true).collect(Collectors.toSet());
+        return accesorios.stream().filter(prenda -> prenda.getDisponibilidad()).collect(Collectors.toSet());
     }
 
     public Set<Usuario> obtenerUsuarios() {
