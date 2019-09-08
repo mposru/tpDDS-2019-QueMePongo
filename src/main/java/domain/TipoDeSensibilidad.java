@@ -1,4 +1,7 @@
 package domain;
 
-public class TipoDeSensibilidad {
+public enum TipoDeSensibilidad {
+    MANOS,
+    CUELLO,
+    GENERAL
 }

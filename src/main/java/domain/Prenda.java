@@ -34,6 +34,10 @@ public class Prenda {
         this.imagen = this.imagen.leerDeFileSystem(path);
     }
 
+    public double obtenerUnidadDeAbrigo() {
+        return this.tipoDePrenda.obtenerUnidadDeAbrigo();
+    }
+
     public Trama obtenerTrama() {
         return this.trama;
     }

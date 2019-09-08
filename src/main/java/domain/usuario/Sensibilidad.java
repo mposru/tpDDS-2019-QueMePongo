@@ -1,5 +1,7 @@
 package domain.usuario;
 
+import domain.TipoDeSensibilidad;
+
 public class Sensibilidad {
     /*El criterio que tomamos es
         caluroso < 0
@@ -19,41 +21,53 @@ public class Sensibilidad {
     private double sensibilidadEnCuello = 0;
     private double sensibilidadEnManos = 0;
 
-    public void calificarSensibilidadGeneral (CalificacionSensibilidad calificacionSensibilidad) {
+    public void calificarSensibilidadGeneral(CalificacionSensibilidad calificacionSensibilidad) {
         if (calificacionSensibilidad == CalificacionSensibilidad.CALOR) {
-            this.sensibilidadGeneral-=0.1 ;
+            this.sensibilidadGeneral -= 0.1;
         }
         if (calificacionSensibilidad == CalificacionSensibilidad.FRIO) {
-            this.sensibilidadGeneral+=0.1;
+            this.sensibilidadGeneral += 0.1;
         }
-
     }
 
-    public void calificarSensibilidadEnCuello (CalificacionSensibilidad calificacionSensibilidad) {
-        if (calificacionSensibilidad == CalificacionSensibilidad.CALOR) {
-            this.sensibilidadEnCuello-=0.1;
+    public double getFactorSensibilidad(TipoDeSensibilidad tipoDeSensibilidad) {
+        switch (tipoDeSensibilidad) {
+            case MANOS:
+                return this.getFactorSensibilidadEnManos();
+            case CUELLO:
+                return this.getFactorSensibilidadEnCuello();
+            case GENERAL:
+                return this.getFactorSensibilidadGeneral();
         }
-         if (calificacionSensibilidad == CalificacionSensibilidad.FRIO) {
-            this.sensibilidadEnCuello+=0.1;
-        }
-
+        return 0.0;
     }
-    public void calificarSensibilidadEnManos (CalificacionSensibilidad calificacionSensibilidad) {
+
+    public void calificarSensibilidadEnCuello(CalificacionSensibilidad calificacionSensibilidad) {
         if (calificacionSensibilidad == CalificacionSensibilidad.CALOR) {
-            this.sensibilidadEnManos-=0.1;
+            this.sensibilidadEnCuello -= 0.1;
         }
         if (calificacionSensibilidad == CalificacionSensibilidad.FRIO) {
-            this.sensibilidadEnManos+=0.1;
+            this.sensibilidadEnCuello += 0.1;
         }
+    }
 
+    public void calificarSensibilidadEnManos(CalificacionSensibilidad calificacionSensibilidad) {
+        if (calificacionSensibilidad == CalificacionSensibilidad.CALOR) {
+            this.sensibilidadEnManos -= 0.1;
+        }
+        if (calificacionSensibilidad == CalificacionSensibilidad.FRIO) {
+            this.sensibilidadEnManos += 0.1;
+        }
     }
 
     public double getFactorSensibilidadGeneral() {
         return this.sensibilidadGeneral;
     }
+
     public double getFactorSensibilidadEnManos() {
         return this.sensibilidadEnManos;
     }
+
     public double getFactorSensibilidadEnCuello() {
         return this.sensibilidadEnCuello;
     }
