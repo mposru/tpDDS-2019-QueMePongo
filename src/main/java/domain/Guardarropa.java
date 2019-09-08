@@ -144,6 +144,9 @@ public class Guardarropa {
     }
 
     public List<Atuendo> generarSugerencia(Clima climaEvento, Evento evento) {
+
+        // pedirle al evento el clima y sensibilidad
+
         // clima del dia (y ver si llueve o no) y evento (por si es formal o no???) como param
         // en generar sugerencia, para obtener las prendas validas, se le
         // va a preguntar a los usuarios "dueños" el listado de atuendosAceptados y esas
