@@ -2,9 +2,11 @@ package domain;
 import domain.clima.Clima;
 import domain.prenda.*;
 
+import javax.persistence.Entity;
 import java.io.IOException;
 import java.util.Objects;
 
+@Entity
 
 public class Prenda {
 

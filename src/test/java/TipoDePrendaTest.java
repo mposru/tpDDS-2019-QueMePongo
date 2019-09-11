@@ -1,9 +1,12 @@
+
 package domain;
+
 
 import domain.prenda.Categoria;
 import domain.prenda.Material;
 import domain.prenda.TipoDePrenda;
 import exceptions.MaterialInvalidoException;
+import org.junit.Assert;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
@@ -16,6 +19,7 @@ public class TipoDePrendaTest {
     private Categoria categoria;
     private List<Material> materiales = new ArrayList<Material>();
     private TipoDePrenda tipoDePrenda;
+    private TipoDePrenda pantalonJean;
 
     @Rule
     public ExpectedException exception = ExpectedException.none();
@@ -26,7 +30,7 @@ public class TipoDePrendaTest {
         this.categoria = null;
         exception.expect(NullPointerException.class);
         exception.expectMessage("La categoría es obligatoria");
-        this.tipoDePrenda = new TipoDePrenda(this.categoria, this.materiales);
+        this.tipoDePrenda = new TipoDePrenda(this.categoria, this.materiales,25,10);
     }
 
     @Test
@@ -35,14 +39,14 @@ public class TipoDePrendaTest {
         this.categoria = Categoria.CALZADO;
         exception.expect(NullPointerException.class);
         exception.expectMessage("Los materiales son obligatorios");
-        this.tipoDePrenda = new TipoDePrenda(this.categoria, this.materiales);
+        this.tipoDePrenda = new TipoDePrenda(this.categoria, this.materiales,25,10);
     }
 
     @Test
     public void deberiaSerMaterialValidoParaTipo() {
         this.materiales.add(Material.ORO);
         this.categoria = Categoria.CALZADO;
-        this.tipoDePrenda = new TipoDePrenda(this.categoria, this.materiales);
+        this.tipoDePrenda = new TipoDePrenda(this.categoria, this.materiales,25,10);
         exception.expect(MaterialInvalidoException.class);
         exception.expectMessage("El material no es permitido en el tipo de prenda");
         this.tipoDePrenda.validarMaterial(Material.ALGODON);
@@ -52,7 +56,16 @@ public class TipoDePrendaTest {
     public void tipoDePrendaConExito() {
         this.materiales.add(Material.ORO);
         this.categoria = Categoria.ACCESORIO;
-        this.tipoDePrenda = new TipoDePrenda(this.categoria, this.materiales);
+        this.tipoDePrenda = new TipoDePrenda(this.categoria, this.materiales,25,10);
+    }
+
+    @Test
+    public void unidadesDeAbrigoDeUnJean() {
+        this.materiales.add(Material.JEAN);
+        this.categoria = Categoria.PARTE_INFERIOR;
+        this.pantalonJean = new TipoDePrenda(this.categoria, this.materiales,25,0);
+        double unidadDeAbrigo = 18.75;
+        Assert.assertTrue(this.pantalonJean.obtenerUnidadDeAbrigo()==unidadDeAbrigo);
     }
 
 }

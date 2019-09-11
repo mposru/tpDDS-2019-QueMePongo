@@ -1,3 +1,4 @@
+/*
 package clima;
 
 import domain.usuario.tipoDeUsuario.Premium;
@@ -40,3 +41,4 @@ public class MockAccuWeatherTest {
         verify(accuWeather).obtenerClima(0);
     }
 }
+*/

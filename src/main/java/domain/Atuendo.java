@@ -38,9 +38,21 @@ public class Atuendo {
         mensajeDeError = mensajeDeError.concat(validarPrendas(PARTE_INFERIOR, prendasInferiores));
 
         mensajeDeError = mensajeDeError.concat(validarPrendas(CALZADO, calzados));
-
-        // todo: agregar todos los tipos de accesorios
-        mensajeDeError = mensajeDeError.concat(validarPrendas(ACCESORIO, accesorios));
+        if(accesorios.stream().anyMatch(accesorio->accesorio.obtenerCategoria()==ACCESORIO)) {
+            mensajeDeError = mensajeDeError.concat(validarPrendas(ACCESORIO, accesorios));
+        }
+        if(accesorios.stream().anyMatch(accesorio->accesorio.obtenerCategoria()==ACCESORIO_CUELLO)) {
+            mensajeDeError = mensajeDeError.concat(validarPrendas(ACCESORIO_CUELLO, accesorios));
+        }
+        if(accesorios.stream().anyMatch(accesorio->accesorio.obtenerCategoria()==ACCESORIO_CABEZA)) {
+            mensajeDeError = mensajeDeError.concat(validarPrendas(ACCESORIO_CABEZA, accesorios));
+        }
+        if(accesorios.stream().anyMatch(accesorio->accesorio.obtenerCategoria()==ACCESORIO_MANOS)) {
+            mensajeDeError = mensajeDeError.concat(validarPrendas(ACCESORIO_MANOS, accesorios));
+        }
+        if(accesorios.stream().anyMatch(accesorio->accesorio.obtenerCategoria()==ACCESORIO_PIES)) {
+            mensajeDeError = mensajeDeError.concat(validarPrendas(ACCESORIO_PIES, accesorios));
+        }
 
         if (mensajeDeError != "") {
             throw new PrendaInvalidaException(mensajeDeError);
@@ -64,15 +76,22 @@ public class Atuendo {
                     tipoPrenda = "prendas superiores";
                     break;
                 case CALZADO:
-                    tipoPrenda = "prendas de tipo calzados";
+                    tipoPrenda = "prendas de tipo calzado";
                     break;
                 case ACCESORIO:
+                    tipoPrenda = "prendas accesorias en general";
+                    break;
                 case ACCESORIO_PIES:
+                    tipoPrenda = "prendas accesorias para pies";
+                    break;
                 case ACCESORIO_MANOS:
+                    tipoPrenda = "prendas accesorias para manos";
+                    break;
                 case ACCESORIO_CABEZA:
+                    tipoPrenda = "prendas accesorias para cabeza";
+                    break;
                 case ACCESORIO_CUELLO:
-                    // todo: agregar cada caso bien
-                    tipoPrenda = "prendas de tipo accesorios";
+                    tipoPrenda = "prendas accesorias para cuello";
                     break;
             }
             mensajeDeError = mensajeDeError.concat("Una de las " + tipoPrenda + " no es válida. ");
