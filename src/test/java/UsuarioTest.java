@@ -336,7 +336,7 @@ public class UsuarioTest {
         calzados.add(crocs);
         accesorios.add(anteojos);
         this.atuendoVerano = new Atuendo(superiores,inferiores,calzados,accesorios);
-        this.nana = new Usuario(Premium.getInstance(), "1534433333");
+        this.nana = new Usuario(Premium.getInstance(), "1534433333",calendarioNana);
         doReturn(jsonClima).when(accuWeather).getJsonClima();
     }
 

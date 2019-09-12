@@ -823,9 +823,9 @@ public class GuardarropaTest {
         this.pepita = new Usuario(Premium.getInstance(),"", calendarioPepita);
         flor.agregarEvento("Prueba", "UTN", LocalDateTime.now(), Periodo.NINGUNO,0);
 
-        this.marta = new Usuario(Gratuito.getInstance(), "");
-        this.flor = new Usuario(Premium.getInstance(), "");
-        this.pepita = new Usuario(Premium.getInstance(), "");
+        this.marta = new Usuario(Gratuito.getInstance(), "",calendarioMarta);
+        this.flor = new Usuario(Premium.getInstance(), "",calendarioFlor);
+        this.pepita = new Usuario(Premium.getInstance(), "",calendarioPepita);
         flor.agregarEvento("Prueba", "UTN", LocalDateTime.now(), Periodo.NINGUNO, 0);
 
         Set<Usuario> usuariosConFlor = new HashSet<>();

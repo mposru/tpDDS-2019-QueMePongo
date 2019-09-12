@@ -36,7 +36,7 @@ public class CalendarioEventoTest {
     @Test
     public void deberiaHaberNombreAlDefinirEvento() {
         exception.expect(NullPointerException.class);
-        exception.expectMessage("Usted no ingreso un nombre");
+        exception.expectMessage("Debe ingresar un nombre para el evento");
         this.evento = new Evento(null, this.ubicacion, this.fecha, Periodo.NINGUNO, 0);
     }
 
@@ -50,7 +50,7 @@ public class CalendarioEventoTest {
     @Test
     public void crearEventoSinFecha() {
         exception.expect(NullPointerException.class);
-        exception.expectMessage("Usted no ingreso una fecha para evento");
+        exception.expectMessage("Debe ingresar una fecha para el evento");
         Evento evento = new Evento("a", "b", null,Periodo.NINGUNO,0);
     }
 
