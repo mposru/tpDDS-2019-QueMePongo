@@ -1,11 +1,8 @@
 package domain;
 
 import com.google.common.collect.Sets;
-import domain.clima.AccuWeather;
-import domain.clima.Clima;
-import domain.clima.Meteorologo;
-import domain.prenda.*;
 import domain.usuario.Evento;
+import domain.usuario.Sensibilidad;
 import exceptions.*;
 
 import java.util.*;
@@ -19,8 +16,7 @@ public class Guardarropa {
     private Set<Prenda> prendasInferiores = new HashSet<>();
     private Set<Prenda> calzados = new HashSet<>();
     private Set<Prenda> accesorios = new HashSet<>();
-    private Set<Usuario> usuarios = new HashSet<>();
-    private Meteorologo meteorologo = new AccuWeather();
+    private Set<Usuario> usuarios;
 
     public Guardarropa(Set<Usuario> usuarios) {
         // validar que sean premium
@@ -65,19 +61,19 @@ public class Guardarropa {
     }
 
     public Set<Prenda> obtenerPrendasSuperioresDisponibles() {
-        return prendasSuperiores.stream().filter(prenda -> prenda.getDisponibilidad()==true).collect(Collectors.toSet());
+        return prendasSuperiores.stream().filter(prenda -> prenda.getDisponibilidad()).collect(Collectors.toSet());
     }
 
     public Set<Prenda> obtenerPrendasInferioresDisponibles() {
-        return prendasInferiores.stream().filter(prenda -> prenda.getDisponibilidad()==true).collect(Collectors.toSet());
+        return prendasInferiores.stream().filter(prenda -> prenda.getDisponibilidad()).collect(Collectors.toSet());
     }
 
     public Set<Prenda> obtenerCalzadosDisponibles() {
-        return calzados.stream().filter(prenda -> prenda.getDisponibilidad()==true).collect(Collectors.toSet());
+        return calzados.stream().filter(prenda -> prenda.getDisponibilidad()).collect(Collectors.toSet());
     }
 
     public Set<Prenda> obtenerAccesoriosDisponibles() {
-        return accesorios.stream().filter(prenda -> prenda.getDisponibilidad()==true).collect(Collectors.toSet());
+        return accesorios.stream().filter(prenda -> prenda.getDisponibilidad()).collect(Collectors.toSet());
     }
 
     public Set<Usuario> obtenerUsuarios() {
@@ -112,24 +108,13 @@ public class Guardarropa {
     }
 
     private void validarPrendas(Set<Prenda> prendasSuperioresValidas, Set<Prenda> prendasInferioresValidas,
-                                Set<Prenda> calzadosValidos, Set<Prenda> accesoriosValidos, Set<Prenda> abrigosAlto,
-                                Set<Prenda> abrigosMediano, Set<Prenda> abrigosBasico) {
+                                Set<Prenda> calzadosValidos, Set<Prenda> accesoriosValidos) {
         //todo: mandar en el mensaje de error el clima. se concatena en la misma linea que se tira error
         String mensajeDeError = "";
-        if(prendasSuperioresValidas.size() <= 0) {
+        if (prendasSuperioresValidas.size() <= 0) {
             mensajeDeError = mensajeDeError.concat("Faltan prendas superiores adecuadas para el clima del evento. ");
-        } else {
-            if (abrigosAlto.size() <= 0) {
-                mensajeDeError = mensajeDeError.concat("Faltan prendas superiores abrigadas de tipo alto para el clima del evento. ");
-            }
-            if (abrigosMediano.size() <= 0) {
-                mensajeDeError = mensajeDeError.concat("Faltan prendas superiores abrigadas de tipo mediano para el clima del evento. ");
-            }
-            if (abrigosBasico.size() <= 0) {
-                mensajeDeError = mensajeDeError.concat("Faltan prendas superiores abrigadas de tipo basico para el clima del evento. ");
-            }
         }
-        if(prendasInferioresValidas.size() <= 0) {
+        if (prendasInferioresValidas.size() <= 0) {
             mensajeDeError = mensajeDeError.concat("Faltan prendas inferiores adecuadas para el clima del evento. ");
         }
         if (calzadosValidos.size() <= 0) {
@@ -143,7 +128,10 @@ public class Guardarropa {
         }
     }
 
-    public List<Atuendo> generarSugerencia(Clima climaEvento, Evento evento) {
+    public List<Atuendo> generarSugerencia(Evento evento, Sensibilidad sensibilidad) {
+
+        // pedirle al evento el clima y sensibilidad
+
         // clima del dia (y ver si llueve o no) y evento (por si es formal o no???) como param
         // en generar sugerencia, para obtener las prendas validas, se le
         // va a preguntar a los usuarios "dueños" el listado de atuendosAceptados y esas
@@ -156,58 +144,21 @@ public class Guardarropa {
         // se filtra despues de crear sugerencia
 
         // guardarropas trackea cuales estan libres y cuales no
-        Set<Prenda> prendasInferioresAdecuadas;
-        Set<Prenda> calzadosAdecuados;
-        Set<Prenda> accesoriosAdecuados;
-        Set<Prenda> abrigosBasico;
-        Set<Prenda> abrigosMediano;
-        Set<Prenda> abrigosAlto;
+        Set<Set<Prenda>> prendasInferioresAdecuadas = FiltradorDePrendas.getInstance().filtrarPrendas(this.obtenerPrendasInferioresDisponibles(), evento.obtenerClima(), sensibilidad, TipoDeSensibilidad.GENERAL);
+        Set<Set<Prenda>> calzadosAdecuados = FiltradorDePrendas.getInstance().filtrarPrendas(this.obtenerCalzadosDisponibles(), evento.obtenerClima(), sensibilidad, TipoDeSensibilidad.GENERAL);
+        Set<Set<Prenda>> accesoriosAdecuados = FiltradorDePrendas.getInstance().filtrarPrendas(this.obtenerAccesoriosDisponibles(), evento.obtenerClima(), sensibilidad, TipoDeSensibilidad.GENERAL);
+        Set<Set<Prenda>> prendasSuperioresAdecuadas = FiltradorDePrendas.getInstance().filtrarPrendas(this.obtenerPrendasSuperioresDisponibles(), evento.obtenerClima(), sensibilidad, TipoDeSensibilidad.GENERAL);
 
-        //Clima climaEvento = meteorologo.obtenerClima();
-        //usuario.validarEventoDia(); //Ante la falencia de que no hay evento del dia tira excepcion
 
-        // Clima climaEvento = meteorologo.obtenerClima();
-        prendasInferioresAdecuadas = this.obtenerPrendaSegunClima(this.obtenerPrendasInferioresDisponibles(), climaEvento);
-        calzadosAdecuados = this.obtenerPrendaSegunClima(this.obtenerCalzadosDisponibles(), climaEvento);
-        accesoriosAdecuados = this.obtenerPrendaSegunClima(this.obtenerAccesoriosDisponibles(), climaEvento);
-        abrigosBasico = filtrarPrendaPorAbrigo(this.obtenerPrendasSuperioresDisponibles(), TipoAbrigo.BASICO, climaEvento);
-        abrigosMediano = filtrarPrendaPorAbrigo(this.obtenerPrendasSuperioresDisponibles(), TipoAbrigo.MEDIANO, climaEvento);
-        abrigosAlto = filtrarPrendaPorAbrigo(this.obtenerPrendasSuperioresDisponibles(), TipoAbrigo.ALTO, climaEvento);
 
-        this.validarPrendas(this.obtenerPrendasSuperioresDisponibles(), prendasInferioresAdecuadas, calzadosAdecuados,
-                accesoriosAdecuados, abrigosAlto, abrigosMediano, abrigosBasico);
 
-        Set<Set<Prenda>> prendasSuperioresArmadas = Sets.cartesianProduct(abrigosBasico, abrigosMediano, abrigosAlto)
+        return Sets.cartesianProduct(prendasSuperioresAdecuadas, prendasInferioresAdecuadas, calzadosAdecuados, accesoriosAdecuados)
                 .stream()
-                .map(conjuntoSuperior -> new HashSet<Prenda>(conjuntoSuperior))
-                .collect(Collectors.toSet());
-
-        return Sets.cartesianProduct(prendasSuperioresArmadas, prendasInferioresAdecuadas, calzadosAdecuados, accesoriosAdecuados)
-                .stream()
-                .map(atuendo -> new Atuendo((Set<Prenda>) atuendo.get(0), (Prenda) atuendo.get(1), (Prenda) atuendo.get(2), (Prenda) atuendo.get(3)))
+                .map(atuendo -> new Atuendo(atuendo.get(0), atuendo.get(1), atuendo.get(2), atuendo.get(3)))
                 .collect(Collectors.toList());
     }
 
-    private Set<Prenda> filtrarPrendaPorAbrigo(Set<Prenda> prendasSinFiltrar, TipoAbrigo tipoAbrigo, Clima clima) {
-        if (clima.getTemperaturaMaxima() > tipoAbrigo.obtenerTemperaturaMaxima()) {
-            // clima no matchea con tipo de abrigo
-            Prenda prendaVacia = new Prenda(TipoDePrenda.NINGUNO_SUPERIOR, Material.NINGUNO, new Color(0, 0, 0),
-                    null, Trama.NINGUNO, this, 0, 0, false);
-            Set<Prenda> prendasVacias = new HashSet<>();
-            prendasVacias.add(prendaVacia);
-            return prendasVacias;
-        }
-        return prendasSinFiltrar.stream().filter(prenda -> prenda.obtenerTipoDeAbrigo() == tipoAbrigo).collect(Collectors.toSet());
-    }
 
-
-    private Set<Prenda> obtenerPrendaSegunClima(Set<Prenda> prendas, Clima climaEvento) {
-        return prendas.stream().filter((prenda) -> prenda.aptaParaTemperatura(climaEvento) && prenda.noMeMojo(climaEvento)).collect(Collectors.toSet());
-    }
-
-    public void definirMeteorologo(Meteorologo meteorologo) {
-        this.meteorologo = meteorologo;
-    }
 
     @Override
     public boolean equals(Object o) {
@@ -221,7 +172,6 @@ public class Guardarropa {
                 Objects.equals(usuarios, guardarropa.obtenerUsuarios());
     }
 
-    public Meteorologo obtenerMeteorologo() {
-        return this.meteorologo;
-    }
+
+
 }
