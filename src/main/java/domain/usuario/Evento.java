@@ -1,16 +1,24 @@
 package domain.usuario;
 
+import org.uqbar.commons.model.Entity;
+import org.uqbar.commons.model.annotations.Observable;
+import org.uqbar.commons.model.annotations.Transactional;
+
 import java.time.Duration;
 import java.time.LocalDateTime;
 
 import static java.util.Objects.requireNonNull;
 
-public class Evento {
+@Transactional
+@Observable
+public class Evento extends Entity {
     private LocalDateTime fecha;
     private String nombre;
     private String ubicacion;
     private Integer antelacionEnHoras=1;
     private Periodo  tipoDeActualizacion;
+    private Boolean tieneSugerencia = false;
+
 
     public Evento(){
     }
@@ -72,5 +80,13 @@ public class Evento {
 
     private double obtenerComparacionDeHora(){
         return (double) Duration.between(LocalDateTime.now(),fecha).getSeconds()/3600;
+    }
+
+    public Boolean getTieneSugerencia() {
+        return tieneSugerencia;
+    }
+
+    public void setTieneSugerencia(Boolean tieneSugerencia) {
+        this.tieneSugerencia = tieneSugerencia;
     }
 }
