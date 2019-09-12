@@ -129,8 +129,8 @@ public class Guardarropa {
     }
 
     public List<Atuendo> generarSugerencia(Evento evento, Sensibilidad sensibilidad) {
-
-        // pedirle al evento el clima y sensibilidad
+        this.validarPrendas(this.prendasSuperiores,this.prendasInferiores,this.calzados,this.accesorios);
+        // pedirle al evento el clima y sensibilidad,
 
         // clima del dia (y ver si llueve o no) y evento (por si es formal o no???) como param
         // en generar sugerencia, para obtener las prendas validas, se le
