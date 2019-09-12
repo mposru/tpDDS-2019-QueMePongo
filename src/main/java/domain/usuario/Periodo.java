@@ -5,5 +5,5 @@ public enum Periodo {
     SEMANAL,
     MENSUAL,
     ANUAL,
-    NINGUNO,
+    NINGUNO
 }
