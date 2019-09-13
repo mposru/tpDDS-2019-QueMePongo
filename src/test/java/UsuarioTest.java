@@ -505,7 +505,7 @@ public class UsuarioTest {
         prendasSuperiores.add(musculosa);
         prendasInferiores.add(shortDeJean);
         calzados.add(crocs);
-        accesorios.add(anteojos);
+        accesorios.add(paraguas);
         nana.obtenerAtuendosSugeridosProximoEvento().agregarAtuendo(new Atuendo(prendasSuperiores, prendasInferiores, calzados, accesorios));
         Assert.assertFalse(nana.seDebeResugerir(Alerta.LLUVIA));
     }
@@ -515,7 +515,7 @@ public class UsuarioTest {
         Prenda remera = new Prenda(TipoDePrenda.REMERA, Material.ALGODON, color, null, Trama.LISA, guardarropaDeMarina,false);
         Prenda rompevientos = new Prenda(TipoDePrenda.CAMPERA, Material.NINGUNO, color, null, Trama.LISA, guardarropaDeMarina,true);
         Prenda botas = new Prenda(TipoDePrenda.BOTAS, Material.GOMA, color, null, Trama.CUADROS, guardarropaDeMarina,true);
-        Prenda jean = new Prenda(TipoDePrenda.PANTALON, Material.JEAN, color, null, Trama.LISA, guardarropaDeMarina,false);
+        Prenda jean = new Prenda(TipoDePrenda.PANTALON, Material.JEAN, color, null, Trama.LISA, guardarropaDeMarina,true);
         Prenda pañuelo = new Prenda(TipoDePrenda.PANUELO, Material.PLASTICO, color, null, Trama.LISA, guardarropaDeMarina,false);
         Set<Prenda> prendasSuperiores = new HashSet<>();
         Set<Prenda> prendasInferiores = new HashSet<>();
