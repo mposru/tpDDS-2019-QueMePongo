@@ -4,9 +4,7 @@ import domain.Atuendo;
 import domain.estadoAtuendo.Nuevo;
 import domain.Usuario;
 
-public class Rechazar implements Decision {
-    private Atuendo atuendo;
-
+public class Rechazar extends Decision {
     public Rechazar(Atuendo atuendoRechazado) {
         this.atuendo = atuendoRechazado;
     }

@@ -2,26 +2,45 @@ package domain;
 import domain.clima.Clima;
 import domain.prenda.*;
 
+import javax.persistence.*;
 import java.io.IOException;
 import java.util.Objects;
 
-
+@Entity
 public class Prenda {
+    @Id
+    @GeneratedValue
+    private long id;
 
+    @ManyToOne
     private TipoDePrenda tipoDePrenda;
+
+    @Enumerated
     private Material material;
+
+    @ManyToOne
+    @Embedded
     private Color colorPrimario;
+
+    @ManyToOne
+    @Embedded
     private Color colorSecundario;
+
+    @Enumerated
     private Trama trama;
+
+    //va la annotation?
     private Guardarropa guardarropa;
+
+    @OneToOne
+    @Embedded
     private Imagen imagen;
-    private double temperaturaMin;
-    private double temperaturaMax;
+
     private boolean esParaLluvia;
     private boolean disponibilidad = true; //toda prenda inicia disponible
 
     public Prenda(TipoDePrenda tipoDePrenda, Material material, Color colorPrimario, Color colorSecundario, Trama trama,
-                  Guardarropa guardarropa, double temperaturaMin, double temperaturaMax, boolean impermeable) {
+                  Guardarropa guardarropa, boolean impermeable) {
         this.tipoDePrenda = tipoDePrenda;
         this.material = material;
         this.colorPrimario = colorPrimario;
@@ -29,8 +48,6 @@ public class Prenda {
         this.trama = trama;
         // esta bien esto?
         this.guardarropa = guardarropa;
-        this.temperaturaMax = temperaturaMax;
-        this.temperaturaMin = temperaturaMin;
         this.esParaLluvia = impermeable;
     }
 
@@ -38,25 +55,12 @@ public class Prenda {
         this.imagen = this.imagen.leerDeFileSystem(path);
     }
 
+    public double obtenerUnidadDeAbrigo() {
+        return this.tipoDePrenda.obtenerUnidadDeAbrigo();
+    }
+
     public Trama obtenerTrama() {
         return this.trama;
-    }
-
-    public TipoAbrigo obtenerTipoDeAbrigo() {
-        if (this.esTipoDeAbrigo(TipoAbrigo.BASICO)) {
-            return TipoAbrigo.BASICO;
-        }
-        if (this.esTipoDeAbrigo(TipoAbrigo.MEDIANO)) {
-            return TipoAbrigo.MEDIANO;
-        }
-        if (this.esTipoDeAbrigo(TipoAbrigo.ALTO)) {
-            return TipoAbrigo.ALTO;
-        }
-        return TipoAbrigo.NINGUNO;
-    }
-
-    private boolean esTipoDeAbrigo(TipoAbrigo tipoAbrigo) {
-        return temperaturaMax <= tipoAbrigo.obtenerTemperaturaMaxima() && temperaturaMin >= tipoAbrigo.obtenerTemperaturaMinima();
     }
 
     public Color obtenerColorPrimario() {
@@ -79,22 +83,10 @@ public class Prenda {
 
     public Guardarropa obtenerGuardarropa() {return this.guardarropa; }
 
-    public double obtenerTemperaturaMax() {
-        return temperaturaMax;
-    }
-
-    public double obtenerTemperaturaMin() {
-        return temperaturaMin;
-    }
-
     public boolean obtenerSiEsParaLluvia() {
         return esParaLluvia;
     }
 
-    public boolean aptaParaTemperatura(Clima climaActual) {
-        return this.temperaturaMax <= climaActual.getTemperaturaMaxima() && this.temperaturaMax >= climaActual.getTemperaturaMinima() &&
-                this.temperaturaMin <= climaActual.getTemperaturaMaxima() && this.temperaturaMin >= climaActual.getTemperaturaMinima();
-    }
 
     public boolean noMeMojo(Clima climaActual) {
         return ((climaActual.getPrecipitacionDia() != 0 || climaActual.getPrecipitacionNoche() != 0) && this.esParaLluvia) ||
@@ -104,6 +96,10 @@ public class Prenda {
     public boolean getDisponibilidad() { return this.disponibilidad; }
 
     public void setDisponibilidad(boolean disponibilidad) { this.disponibilidad = disponibilidad; }
+
+    public Imagen obtenerImagen() {
+        return imagen;
+    }
 
     @Override
     public boolean equals(Object o) {
@@ -116,11 +112,11 @@ public class Prenda {
                 Objects.equals(colorSecundario, prenda.obtenerColorSecundario()) &&
                 Objects.equals(trama, prenda.obtenerTrama()) &&
                 Objects.equals(guardarropa, prenda.obtenerGuardarropa()) &&
-                Objects.equals(temperaturaMax, prenda.obtenerTemperaturaMax()) &&
-                Objects.equals(temperaturaMin, prenda.obtenerTemperaturaMin()) &&
-                Objects.equals(esParaLluvia, prenda.obtenerSiEsParaLluvia());
+                Objects.equals(esParaLluvia, prenda.obtenerSiEsParaLluvia()) &&
+                Objects.equals(disponibilidad, prenda.getDisponibilidad()) /*&&
+                agregar esto cuando imagen tenga equals
+                Objects.equals(imagen, prenda.obtenerImagen())*/;
     }
 
 }
 
-// Hacer el requerimiento de limpieza de la prenda (patron state)

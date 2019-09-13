@@ -3,10 +3,11 @@ package domain.estadoAtuendo;
 import domain.Atuendo;
 import exceptions.NoSePuedeCalificarException;
 
+import javax.persistence.DiscriminatorValue;
 import java.util.Objects;
 
-public class Nuevo implements EstadoAtuendo {
-    private Atuendo atuendo;
+@DiscriminatorValue("N")
+public class Nuevo extends EstadoAtuendo {
     public Nuevo (Atuendo atuendo) {
         this.atuendo = atuendo;
     }

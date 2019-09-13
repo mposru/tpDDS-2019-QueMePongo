@@ -2,6 +2,10 @@ package domain.usuario.transiciones;
 
 import domain.*;
 
-public interface Decision {
-    void deshacer(Usuario usuario);
+// convertimos interfaz en clase abstracta para poder persistirla
+
+public abstract class Decision {
+    public Atuendo atuendo;
+
+    public abstract void deshacer(Usuario usuario);
 }

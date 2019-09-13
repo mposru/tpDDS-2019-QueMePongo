@@ -1,6 +1,9 @@
 package domain.usuario.tipoDeUsuario;
 
-public class Premium implements TipoUsuario {
+import javax.persistence.DiscriminatorValue;
+
+@DiscriminatorValue("P")
+public class Premium extends TipoUsuario {
     private static Premium instanceOfPremium;
     private Premium(){}
     public static Premium getInstance() {

@@ -1,6 +1,9 @@
 package domain.usuario.tipoDeUsuario;
 
-public class Gratuito implements TipoUsuario {
+import javax.persistence.DiscriminatorValue;
+
+@DiscriminatorValue("E")
+public class Gratuito extends TipoUsuario {
     private int limiteDePrendas=5;
     private static Gratuito instanceOfGratuito;
 

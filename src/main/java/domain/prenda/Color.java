@@ -1,7 +1,9 @@
 package domain.prenda;
 
+import javax.persistence.Embeddable;
 import java.util.Objects;
 
+@Embeddable
 public class Color {
 
     private int rojo, verde, azul;

@@ -1,10 +1,8 @@
 package domain;
 
-
 //import java.util.HashSet;
 //import java.util.Set;
 
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.*;
 
@@ -12,7 +10,6 @@ import domain.clima.Clima;
 import domain.notificacion.Notificador;
 import domain.clima.Alerta;
 import domain.prenda.TipoDePrenda;
-import domain.prenda.Categoria;
 import domain.usuario.*;
 import domain.usuario.tipoDeUsuario.Gratuito;
 import domain.usuario.tipoDeUsuario.Premium;
@@ -20,27 +17,46 @@ import domain.usuario.tipoDeUsuario.TipoUsuario;
 import domain.usuario.transiciones.*;
 import exceptions.*;
 
+import javax.persistence.*;
+
 import static domain.clima.Alerta.GRANIZO;
 import static domain.clima.Alerta.LLUVIA;
 import static java.time.LocalDate.now;
 
+@Entity
 public class Usuario {
+    @Id
+    @GeneratedValue
+    private long id;
+
+    @ManyToMany
     private Set<Guardarropa> guardarropas = new HashSet<>();
+
     private Deque<Decision> decisiones = new LinkedList<>();
+
+    @ManyToOne
     private TipoUsuario tipoUsuario;
+
     private String numeroDeCelular;
-    private ArrayList<Atuendo> atuendosAceptados = new ArrayList<>();
-    private ArrayList<Atuendo> atuendosRechazados = new ArrayList<>();
+
+    @OneToMany
+    @JoinColumn(name = "aceptados_id")
+    private List<Atuendo> atuendosAceptados = new ArrayList<>();
+
+    @OneToMany
+    @JoinColumn(name = "rechazados_id")
+    private List<Atuendo> atuendosRechazados = new ArrayList<>();
+
     private Set<Notificador> notificadores = new HashSet<>();
+
+    @OneToOne
     private Calendario calendario;
+
     private int tiempoDeAnticipacion = 0; // variable que indica con cuanto tiempo antes quiere que le llegue sugerencia sobre evento (en horas)
-    private AtuendosSugeridosPorEvento atuendosSugeridosProximoEvento = new AtuendosSugeridosPorEvento(new ArrayList<Atuendo>(), new Evento("","", LocalDateTime.now(),Periodo.NINGUNO,0));
+    private AtuendosSugeridosPorEvento atuendosSugeridosProximoEvento = new AtuendosSugeridosPorEvento(new ArrayList<Atuendo>(), new Evento("", "", LocalDateTime.now(), Periodo.NINGUNO, 0));
     // agregado de sensibilidades en las partes del cuerpo. Hacemos una escala que va de 1 a 10 (1 para muy friolento hasta 10 para muy caluroso)
-    private Sensibilidad sensibilidadGeneral;
-    private Sensibilidad sensibilidadManos;
-    private Sensibilidad sensibilidadCuello;
-    private Sensibilidad sensibilidadParteSuperior;
-    private Sensibilidad sensibilidadParteInferior;
+    @Embedded
+    private Sensibilidad sensibilidad = new Sensibilidad();
 
     //
     // variable que indique con cuanto tiempo antes quiere que le llegue sugerencia sobre evento
@@ -57,12 +73,44 @@ public class Usuario {
         RepositorioDeUsuarios.getInstance().agregarUsuarioTotal(this);
     }
 
+    public void calificarSensibilidadGeneral(CalificacionSensibilidad calificacionSensibilidad) {
+        this.sensibilidad.calificarSensibilidadGeneral(calificacionSensibilidad);
+    }
+
+    public void calificarSensibilidadEnManos(CalificacionSensibilidad calificacionSensibilidad) {
+        this.sensibilidad.calificarSensibilidadEnManos(calificacionSensibilidad);
+    }
+
+    public void calificarSensibilidadEnCuello(CalificacionSensibilidad calificacionSensibilidad) {
+        this.sensibilidad.calificarSensibilidadEnCuello(calificacionSensibilidad);
+    }
+
+    public double getFactorSensibilidadGeneral() {
+        return this.sensibilidad.getFactorSensibilidadGeneral();
+    }
+
+    public double getFactorSensibilidadEnManos() {
+        return this.sensibilidad.getFactorSensibilidadEnManos();
+    }
+
+    public double getFactorSensibilidadEnCuello() {
+        return this.sensibilidad.getFactorSensibilidadEnCuello();
+    }
+
     public void generarSugerenciasParaProximoEvento() {
         List<Atuendo> atuendosSugeridos = new ArrayList<>();
         Evento proximoEvento = this.calendario.obtenerProximoEvento();
         for (Guardarropa guardarropa : guardarropas) {
-            Clima climaEvento = guardarropa.obtenerMeteorologo().obtenerClima(proximoEvento.getFecha().toLocalDate());
-            atuendosSugeridos.addAll(guardarropa.generarSugerencia(climaEvento, proximoEvento));
+
+            int diaEvento = -1;
+            for (int i = 0; i < 5; i++) {
+                if (proximoEvento.getFecha().minusDays(i).toLocalDate().equals(LocalDateTime.now().toLocalDate())) {
+                    diaEvento = i;
+                }
+            }
+            if (diaEvento != -1) {
+                atuendosSugeridos.addAll(guardarropa.generarSugerencia(proximoEvento, sensibilidad));
+            }
         }
         this.atuendosSugeridosProximoEvento = new AtuendosSugeridosPorEvento(atuendosSugeridos, proximoEvento);
     }
@@ -71,11 +119,11 @@ public class Usuario {
         return this.decisiones;
     }
 
-    public ArrayList<Atuendo> obtenerAtuendosAceptados() {
+    public List<Atuendo> obtenerAtuendosAceptados() {
         return this.atuendosAceptados;
     }
 
-    public ArrayList<Atuendo> obtenerAtuendosRechazados() {
+    public List<Atuendo> obtenerAtuendosRechazados() {
         return this.atuendosRechazados;
     }
 
@@ -98,6 +146,7 @@ public class Usuario {
     public Set<Guardarropa> obtenerGuardarropas() {
         return this.guardarropas;
     }
+
     //
     public void aceptarAtuendo(Atuendo atuendo) {
         atuendo.aceptar();
@@ -159,19 +208,19 @@ public class Usuario {
     }
 
     public void recibirAlerta(Alerta alerta) {
-        for(Notificador notificador: notificadores) {
-            if(alerta == LLUVIA && this.seDebeResugerir(LLUVIA)) {
+        for (Notificador notificador : notificadores) {
+            if (alerta == LLUVIA && this.seDebeResugerir(LLUVIA)) {
                 this.generarSugerenciasParaProximoEvento();
                 notificador.notificar(this, "Alerta meteorologica de lluvia");
             }
-            if(alerta == GRANIZO && this.seDebeResugerir(GRANIZO)) {
+            if (alerta == GRANIZO && this.seDebeResugerir(GRANIZO)) {
                 this.generarSugerenciasParaProximoEvento();
                 notificador.notificar(this, "Alerta meteorologica de granizo");
             }
         }
     }
 
-    public Calendario getCalendario(){
+    public Calendario getCalendario() {
         return this.calendario;
     }
 
@@ -185,8 +234,8 @@ public class Usuario {
 
     public boolean sugerenciasListasParaProximoEvento() {
         return (atuendosSugeridosProximoEvento.getEvento().getFecha() == this.calendario.obtenerProximoEvento().getFecha()
-        && atuendosSugeridosProximoEvento.getEvento().getNombre() == this.calendario.obtenerProximoEvento().getNombre()
-        && atuendosSugeridosProximoEvento.getEvento().getUbicacion() == this.calendario.obtenerProximoEvento().getUbicacion());
+                && atuendosSugeridosProximoEvento.getEvento().getNombre() == this.calendario.obtenerProximoEvento().getNombre()
+                && atuendosSugeridosProximoEvento.getEvento().getUbicacion() == this.calendario.obtenerProximoEvento().getUbicacion());
     }
 
     public Set<Notificador> getNotificadores() {
@@ -198,10 +247,10 @@ public class Usuario {
     }
 
     public boolean seDebeResugerir(Alerta alerta) {
-        if(alerta == LLUVIA) {
+        if (alerta == LLUVIA) {
             return this.atuendosSugeridosProximoEvento.getAtuendosSugeridos().stream().noneMatch(atuendo -> atuendo.esAptoParaLluvia());
         } else {
-            return this.atuendosSugeridosProximoEvento.getAtuendosSugeridos().stream().noneMatch(atuendo -> atuendo.obtenerAccesorio().obtenerTipoDePrenda() == TipoDePrenda.CASCO);
+            return this.atuendosSugeridosProximoEvento.getAtuendosSugeridos().stream().noneMatch(atuendo -> atuendo.obtenerAccesorios().stream().anyMatch(acc -> acc.obtenerTipoDePrenda() == TipoDePrenda.CASCO));
         }
     }
 
@@ -209,56 +258,15 @@ public class Usuario {
         return atuendosSugeridosProximoEvento;
     }
 
-    public void calificarFrioEnManos(Atuendo atuendo, double temperatura) {
-        this.sensibilidadManos = new Sensibilidad(temperatura, TipoSensibilidad.FRIO,atuendo);
-    }
-    public void calificarCalorEnManos(Atuendo atuendo, double temperatura) {
-        this.sensibilidadManos = new Sensibilidad(temperatura, TipoSensibilidad.CALOR,atuendo);
-    }
-    public void calificarFrioEnCuello(Atuendo atuendo, double temperatura) {
-        this.sensibilidadCuello = new Sensibilidad(temperatura, TipoSensibilidad.FRIO,atuendo);
-    }
-    public void calificarCalorEnCuello(Atuendo atuendo, double temperatura) {
-        this.sensibilidadCuello = new Sensibilidad(temperatura, TipoSensibilidad.CALOR,atuendo);
-    }
-    public void calificarFrioEnParteSuperior(Atuendo atuendo, double temperatura) {
-        this.sensibilidadParteSuperior= new Sensibilidad(temperatura, TipoSensibilidad.FRIO,atuendo);
-    }
-    public void calificarCalorEnParteSuperior(Atuendo atuendo,double temperatura) {
-        this.sensibilidadParteSuperior = new Sensibilidad(temperatura, TipoSensibilidad.CALOR,atuendo);
-    }
-    public void calificarFrioEnParteInferior(Atuendo atuendo,double temperatura) {
-        this.sensibilidadParteInferior= new Sensibilidad(temperatura, TipoSensibilidad.FRIO,atuendo);
-    }
-    public void calificarCalorEnParteInferior(Atuendo atuendo,double temperatura) {
-        this.sensibilidadParteInferior = new Sensibilidad(temperatura, TipoSensibilidad.CALOR,atuendo);
+    public void verificarSiHayEventoProximo() {
+        // todo: que es esto?!?!?!?!??!?!
+        Clima clima = new Clima(1 / 11 / 10, 10, 20, 20, 20);
+        List<Evento> eventosProximos = calendario.eventosProximos();
+        eventosProximos.forEach(evento -> sugerenciaParaEvento(evento));
     }
 
-
-    public void calificarNormalEnManos(Atuendo atuendo, double temperatura) {
-        this.sensibilidadManos = new Sensibilidad(temperatura, TipoSensibilidad.NORMAL,atuendo);
-    }
-
-    public void calificarNormalEnCuello(Atuendo atuendo, double temperatura) {
-        this.sensibilidadCuello = new Sensibilidad(temperatura, TipoSensibilidad.NORMAL,atuendo);
-    }
-
-    public void calificarNormalEnParteSuperior(Atuendo atuendo, double temperatura) {
-        this.sensibilidadParteSuperior= new Sensibilidad(temperatura, TipoSensibilidad.NORMAL,atuendo);
-    }
-
-    public void calificarNormalEnParteInferior(Atuendo atuendo,double temperatura) {
-        this.sensibilidadParteInferior = new Sensibilidad(temperatura, TipoSensibilidad.NORMAL, atuendo);
-    }
-
-    public void verificarSiHayEventoProximo(){
-        Clima clima=new Clima(1/11/10,10,20,20,20);
-        List<Evento> eventosProximos=calendario.eventosProximos();
-        eventosProximos.forEach(evento -> sugerenciaParaEvento(evento,clima));
-    }
-
-    public void sugerenciaParaEvento(Evento evento,Clima clima){
-        this.guardarropas.forEach(guardarropa -> guardarropa.generarSugerencia(clima,evento));
+    public void sugerenciaParaEvento(Evento evento) {
+        this.guardarropas.forEach(guardarropa -> guardarropa.generarSugerencia(evento, sensibilidad));
     }
 
     public void agregarGuardarropa(Guardarropa guardarropa) {

@@ -1,11 +1,13 @@
 package domain.prenda;
 
 import javax.imageio.ImageIO;
+import javax.persistence.Embeddable;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 
+@Embeddable
 public class Imagen {
 
     private int ancho = 900;

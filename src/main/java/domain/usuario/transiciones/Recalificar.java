@@ -4,8 +4,7 @@ import domain.Atuendo;
 import domain.estadoAtuendo.Aceptado;
 import domain.Usuario;
 
-public class Recalificar implements Decision {
-    private Atuendo atuendo;
+public class Recalificar extends Decision {
     private int calificacionAnterior;
 
     public Recalificar(Atuendo atuendoRecalificado) {

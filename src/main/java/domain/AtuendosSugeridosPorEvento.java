@@ -2,10 +2,21 @@ package domain;
 
 import domain.usuario.Evento;
 
+import javax.persistence.*;
 import java.util.List;
 
+@Entity
 public class AtuendosSugeridosPorEvento {
+
+    @GeneratedValue
+    @Id
+    long id;
+
+    @OneToMany
+    @JoinColumn(name = "atuendos_sugeridos_id")
     List<Atuendo> atuendosSugeridos;
+
+    @OneToOne
     Evento evento;
 
     public AtuendosSugeridosPorEvento(List<Atuendo> atuendosSugeridos, Evento evento) {
