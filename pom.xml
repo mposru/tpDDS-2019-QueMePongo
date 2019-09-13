@@ -84,6 +84,25 @@
         </dependency>
         <dependency>
             <groupId>org.uqbar-project</groupId>
+            <artifactId>jpa-java8-extras</artifactId>
+            <version>1.0-alpha-1</version>
+        </dependency>
+        <!-- https://mvnrepository.com/artifact/mysql/mysql-connector-java -->
+        <dependency>
+            <groupId>mysql</groupId>
+            <artifactId>mysql-connector-java</artifactId>
+            <version>5.1.47</version>
+        </dependency>
+        <dependency>
+            <groupId>org.hsqldb</groupId>
+            <artifactId>hsqldb</artifactId>
+            <version>2.4.0</version>
+        </dependency>
+
+
+
+        <dependency>
+            <groupId>org.uqbar-project</groupId>
             <artifactId>arena-jface</artifactId>
             <version>3.6.3</version>
         </dependency>

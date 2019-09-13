@@ -1,5 +1,11 @@
 package domain.clima;
 
+import org.springframework.format.datetime.joda.LocalDateParser;
+
+import java.time.Instant;
+import java.time.LocalDate;
+import java.time.ZoneId;
+
 public class Clima {
     private long fecha;
     private double temperaturaMaxima;
@@ -35,23 +41,7 @@ public class Clima {
         return precipitacionNoche;
     }
 
-    public void setFecha(long fecha) {
-        this.fecha = fecha;
-    }
-
-    public void setTemperaturaMaxima(double temperaturaMaxima) {
-        this.temperaturaMaxima = temperaturaMaxima;
-    }
-
-    public void setTemperaturaMinima(double temperaturaMinima) {
-        this.temperaturaMinima = temperaturaMinima;
-    }
-
-    public void setPrecipitacionDia(double precipitacionDia) {
-        this.precipitacionDia = precipitacionDia;
-    }
-
-    public void setPrecipitacionNoche(double precipitacionNoche) {
-        this.precipitacionNoche = precipitacionNoche;
+    public boolean esDelDia(LocalDate dia) {
+        return Instant.ofEpochMilli(fecha*1000).atZone(ZoneId.systemDefault()).toLocalDate().isEqual(dia);
     }
 }

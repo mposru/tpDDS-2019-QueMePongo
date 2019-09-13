@@ -2,21 +2,22 @@ package clima;
 
 import domain.clima.Clima;
 import domain.clima.DarkSky;
+import domain.clima.Meteorologo;
+import org.junit.Assert;
 import org.junit.Before;
+import org.junit.Rule;
 import org.junit.Test;
+import org.junit.rules.ExpectedException;
 import org.mockito.Mockito;
 
 import java.time.LocalDate;
-
 import static org.junit.Assert.assertEquals;
 import static org.mockito.Mockito.doReturn;
-import static org.mockito.Mockito.when;
 
+public class MeteorologoTest {
 
-public class DarkSkyJsonTest {
-    private Clima clima;
-    private DarkSky darkSky;
-    private LocalDate dia;
+    LocalDate dia;
+    DarkSky meteorologo;
     private String jsonClima = "{\n" +
             "    \"latitude\": -34.36,\n" +
             "    \"longitude\": -58.22,\n" +
@@ -364,38 +365,49 @@ public class DarkSkyJsonTest {
             "    },\n" +
             "    \"offset\": -3\n" +
             "}";
+    Clima clima;
+
+    @Rule
+    public ExpectedException exception = ExpectedException.none();
 
     @Before
     public void iniciarTest(){
         dia = LocalDate.of(2019, 5, 26);
-        darkSky = Mockito.spy(new DarkSky());
-        doReturn(jsonClima).when(darkSky).getJsonClima();
-        doReturn(dia).when(darkSky).puntoDeReferencia();
+        meteorologo = Mockito.spy(new DarkSky());
+        doReturn(jsonClima).when(meteorologo).getJsonClima();
+        doReturn(dia).when(meteorologo).puntoDeReferencia();
         clima = new Clima(1558839600,17.9,13.96,0.26,0.26);
     }
 
     @Test
-    public void obtenerFechaDelJson() {
-        assertEquals(clima.getFecha(), darkSky.obtenerClima(dia).getFecha());
+    public void noSePuedeObtenerElClimaDeAcaA8Dias() {
+        exception.expect(RuntimeException.class);
+        exception.expectMessage("No se puede obtener el pronostico de ese dia. La API DarkSky no lo provee");
+        meteorologo.obtenerClima(dia.plusDays(8));
     }
 
     @Test
-    public void obtenerMaximaDelJson() {
-        assertEquals(clima.getTemperaturaMaxima(), darkSky.obtenerClima(dia).getTemperaturaMaxima(),0);
+    public void noSePuedeObtenerElClimaDeHace1Dia() {
+        exception.expect(RuntimeException.class);
+        exception.expectMessage("No se puede obtener el pronostico de ese dia. La API DarkSky no lo provee");
+        meteorologo.obtenerClima(dia.plusDays(-1));
     }
 
     @Test
-    public void obtenerMinimaDelJson() {
-        assertEquals(clima.getTemperaturaMinima(), darkSky.obtenerClima(dia).getTemperaturaMinima(),0);
+    public void sePuedeObtenerElClimaDelDia() {
+        assertEquals(clima.getFecha(), meteorologo.obtenerClima(dia).getFecha());
     }
 
     @Test
-    public void obtenerProbaPrecipitacionDiaDelJson() {
-        assertEquals(clima.getPrecipitacionDia(), darkSky.obtenerClima(dia).getPrecipitacionDia(),0);
+    public void sePuedeObtenerElClimaDeAcaA7Dias() {
+        clima = new Clima(1559444400,17.9,13.96,0.26,0.26);
+        assertEquals(clima.getFecha(), meteorologo.obtenerClima(dia.plusDays(7)).getFecha());
     }
 
     @Test
-    public void obtenerProbaPrecipitacionNocheDelJson() {
-        assertEquals(clima.getPrecipitacionNoche(), darkSky.obtenerClima(dia).getPrecipitacionNoche(),0);
+    public void sePuedeObtenerElClimaDelDiaPorSegundaVezSinConsultarALaAPI() {
+        meteorologo.obtenerClima(dia);
+        Mockito.doCallRealMethod().when(meteorologo).obtenerClima(dia);
+        assertEquals(clima.getFecha(), meteorologo.obtenerClima(dia).getFecha());
     }
 }

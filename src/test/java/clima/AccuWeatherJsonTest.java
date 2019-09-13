@@ -7,17 +7,20 @@ import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mockito;
 
+import java.time.Instant;
+import java.time.LocalDate;
+import java.time.ZoneId;
+import java.util.Date;
 import java.util.List;
 
 import static domain.clima.Alerta.LLUVIA;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 import static org.mockito.Mockito.doReturn;
-import static org.mockito.Mockito.when;
-
 
 public class AccuWeatherJsonTest {
     private Clima clima;
+    private LocalDate dia;
     private AccuWeather accuWeather;
     private String jsonClima = "{\n" +
             "    \"Headline\": {\n" +
@@ -317,35 +320,37 @@ public class AccuWeatherJsonTest {
 
     @Before
     public void iniciarTest() {
+        dia = LocalDate.of(2019,5,26);
         accuWeather = Mockito.spy(new AccuWeather());
         doReturn(jsonClima).when(accuWeather).getJsonClima();
         doReturn(jsonAlertas).when(accuWeather).getJsonAlertas();
+        doReturn(dia).when(accuWeather).puntoDeReferencia();
         clima = new Clima(1558864800,17.8,14.4,25,25);
     }
 
     @Test
     public void obtenerFechaDelJson() {
-        assertEquals(clima.getFecha(), accuWeather.obtenerClima(0).getFecha());
+        assertEquals(clima.getFecha(), accuWeather.obtenerClima(dia).getFecha());
     }
 
     @Test
     public void obtenerMaximaDelJson() {
-        assertEquals(clima.getTemperaturaMaxima(), accuWeather.obtenerClima(0).getTemperaturaMaxima(),0);
+        assertEquals(clima.getTemperaturaMaxima(), accuWeather.obtenerClima(dia).getTemperaturaMaxima(),0);
     }
 
     @Test
     public void obtenerMinimaDelJson() {
-        assertEquals(clima.getTemperaturaMinima(), accuWeather.obtenerClima(0).getTemperaturaMinima(),0);
+        assertEquals(clima.getTemperaturaMinima(), accuWeather.obtenerClima(dia).getTemperaturaMinima(),0);
     }
 
     @Test
     public void obtenerProbaPrecipitacionDiaDelJson() {
-        assertEquals(clima.getPrecipitacionDia(), accuWeather.obtenerClima(0).getPrecipitacionDia(),0);
+        assertEquals(clima.getPrecipitacionDia(), accuWeather.obtenerClima(dia).getPrecipitacionDia(),0);
     }
 
     @Test
     public void obtenerProbaPrecipitacionNocheDelJson() {
-        assertEquals(clima.getPrecipitacionNoche(), accuWeather.obtenerClima(0).getPrecipitacionNoche(),0);
+        assertEquals(clima.getPrecipitacionNoche(), accuWeather.obtenerClima(dia).getPrecipitacionNoche(),0);
     }
 
     @Test

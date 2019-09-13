@@ -75,7 +75,7 @@ public class Borrador  {
         requireNonNull(temperaturaMax, "Debe asignarle una temperatura maxima a la prenda");
         requireNonNull(temperaturaMin, "Debe asignarle una temperatura minima a la prenda");
         requireNonNull(esParaLluvia, "Debe asignarle si es impermeable a la prenda");
-        Prenda prenda = new Prenda(tipoDePrenda, material, colorPrimario, colorSecundario, trama, guardarropa, temperaturaMin, temperaturaMax, esParaLluvia);
+        Prenda prenda = new Prenda(tipoDePrenda, material, colorPrimario, colorSecundario, trama, guardarropa, esParaLluvia);
         return prenda;
     }
 }

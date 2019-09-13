@@ -1,4 +1,4 @@
-package domain;
+ package domain;
 
 import domain.estadoAtuendo.*;
 import domain.usuario.Calendario;
@@ -29,6 +29,12 @@ public class AtuendoTest {
     private Usuario carlos;
     private Atuendo atuendoInvalido;
     private Calendario calendario;
+    private Set<Prenda> superiores = new HashSet<>();
+    private Set<Prenda> inferiores = new HashSet<>();
+    private Set<Prenda> calzados = new HashSet<>();
+    private Set<Prenda> accesorios = new HashSet<>();
+
+
 
     @Before
     public void iniciarTest() {
@@ -37,17 +43,19 @@ public class AtuendoTest {
         carlosLista.add(carlos);
         this.guardarropa = new Guardarropa(carlosLista);
         this.color = new Color(1, 2, 3);
-        this.musculosa = new Prenda(TipoDePrenda.MUSCULOSA, Material.ALGODON, color, null, Trama.CUADROS, guardarropa,28,40,false);
-        this.blusa = new Prenda(TipoDePrenda.BLUSA, Material.ALGODON, color, null, Trama.CUADROS, guardarropa,25,30,false);
-        this.crocs = new Prenda(TipoDePrenda.CROCS, Material.GOMA, color, null, Trama.CUADROS, guardarropa,0,40,true);
-        this.zapatos = new Prenda(TipoDePrenda.ZAPATO, Material.CUERO, color, null, Trama.LISA, guardarropa,0,20,true);
-        this.shortDeJean = new Prenda(TipoDePrenda.SHORT, Material.JEAN, color, null, Trama.LISA, guardarropa,25,40,false);
-        this.pollera = new Prenda(TipoDePrenda.POLLERA, Material.JEAN, color, null, Trama.LISA, guardarropa,25,40,false);
-        this.pañuelo = new Prenda(TipoDePrenda.PANUELO, Material.ALGODON, color, null, Trama.LISA, guardarropa,10,25,false);
-        this.anteojos = new Prenda(TipoDePrenda.ANTEOJOS, Material.PLASTICO, color, null, Trama.LISA, guardarropa,0,100,false);
-        Set<Prenda> superiores = new HashSet<>();
-        superiores.add(musculosa);
-        this.atuendoVerano = new Atuendo(superiores,shortDeJean,crocs,anteojos);
+        this.musculosa = new Prenda(TipoDePrenda.MUSCULOSA, Material.ALGODON, color, null, Trama.CUADROS, guardarropa,false);
+        this.blusa = new Prenda(TipoDePrenda.BLUSA, Material.ALGODON, color, null, Trama.CUADROS, guardarropa,false);
+        this.crocs = new Prenda(TipoDePrenda.CROCS, Material.GOMA, color, null, Trama.CUADROS, guardarropa,true);
+        this.zapatos = new Prenda(TipoDePrenda.ZAPATO, Material.CUERO, color, null, Trama.LISA, guardarropa,true);
+        this.shortDeJean = new Prenda(TipoDePrenda.SHORT, Material.JEAN, color, null, Trama.LISA, guardarropa,false);
+        this.pollera = new Prenda(TipoDePrenda.POLLERA, Material.JEAN, color, null, Trama.LISA, guardarropa,false);
+        this.pañuelo = new Prenda(TipoDePrenda.PANUELO, Material.ALGODON, color, null, Trama.LISA, guardarropa,false);
+        this.anteojos = new Prenda(TipoDePrenda.ANTEOJOS, Material.PLASTICO, color, null, Trama.LISA, guardarropa,false);
+        this.superiores.add(musculosa);
+        this.inferiores.add(shortDeJean);
+        this.calzados.add(crocs);
+        this.accesorios.add(anteojos);
+        this.atuendoVerano = new Atuendo(superiores,inferiores,calzados,accesorios);
     }
 
     @Rule
@@ -138,30 +146,36 @@ public class AtuendoTest {
     @Test
     public void validarAtuendo() {
         exception.expect(PrendaInvalidaException.class);
-        exception.expectMessage("Una de las prendas superiores no es válida. La prenda inferior no es válida. El calzado no es válido. El accesorio no es válido. ");
+        exception.expectMessage("Una de las prendas superiores no es válida. Una de las prendas inferiores no es válida. Una de las prendas de tipo calzado no es válida. ");
         Set<Prenda> partesInferiores = new HashSet<>();
+        Set<Prenda> partesSuperiores = new HashSet<>();
+        Set<Prenda> calzados = new HashSet<>();
+        Set<Prenda> accesorios = new HashSet<>();
         partesInferiores.add(pollera);
-        this.atuendoInvalido = new Atuendo(partesInferiores,zapatos,anteojos,blusa); //con sus partes fuera de orden.
+        partesSuperiores.add(musculosa);
+        calzados.add(zapatos);
+        accesorios.add(anteojos);
+
+        this.atuendoInvalido = new Atuendo(partesInferiores,calzados,accesorios,partesSuperiores); //con sus partes fuera de orden.
     }
 
     @Test
     public void validarAccesorioAtuendo() {
-        Assert.assertEquals(anteojos, this.atuendoVerano.obtenerAccesorio());
+        Assert.assertEquals(accesorios, this.atuendoVerano.obtenerAccesorios());
     }
 
     @Test
     public void validarPrendaSuperiorAtuendo() {
-       // Assert.assertEquals(musculosa, this.atuendoVerano.);
-    }
+        Assert.assertTrue(this.atuendoVerano.obtenerPrendasSuperiores().contains(this.musculosa));    }
 
     @Test
     public void validarPrendaInferiorAtuendo() {
-        Assert.assertEquals(shortDeJean, this.atuendoVerano.obtenerPrendaInferior());
+        Assert.assertTrue(this.atuendoVerano.obtenerPrendasInferiores().contains(shortDeJean) );
     }
 
     @Test
     public void validarCalzadoAtuendo() {
-        Assert.assertEquals(crocs, this.atuendoVerano.obtenerCalzado());
+        Assert.assertTrue(this.atuendoVerano.obtenerCalzados().contains(crocs));
     }
 
     @Test
