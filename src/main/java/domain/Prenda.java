@@ -78,6 +78,10 @@ public class Prenda {
 
     public void setDisponibilidad(boolean disponibilidad) { this.disponibilidad = disponibilidad; }
 
+    public Imagen obtenerImagen() {
+        return imagen;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -89,7 +93,10 @@ public class Prenda {
                 Objects.equals(colorSecundario, prenda.obtenerColorSecundario()) &&
                 Objects.equals(trama, prenda.obtenerTrama()) &&
                 Objects.equals(guardarropa, prenda.obtenerGuardarropa()) &&
-                Objects.equals(esParaLluvia, prenda.obtenerSiEsParaLluvia());
+                Objects.equals(esParaLluvia, prenda.obtenerSiEsParaLluvia()) &&
+                Objects.equals(disponibilidad, prenda.getDisponibilidad()) /*&&
+                agregar esto cuando imagen tenga equals
+                Objects.equals(imagen, prenda.obtenerImagen())*/;
     }
 
 }

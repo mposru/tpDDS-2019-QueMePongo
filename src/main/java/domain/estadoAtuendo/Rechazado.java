@@ -5,8 +5,7 @@ import exceptions.*;
 
 import java.util.Objects;
 
-public class Rechazado implements EstadoAtuendo {
-    private Atuendo atuendo;
+public class Rechazado extends EstadoAtuendo {
     public Rechazado (Atuendo atuendo) {
         this.atuendo = atuendo;
     }

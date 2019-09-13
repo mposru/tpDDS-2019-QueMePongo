@@ -4,8 +4,7 @@ import domain.Atuendo;
 import exceptions.*;
 
 
-public class Calificado implements EstadoAtuendo {
-    private Atuendo atuendo;
+public class Calificado extends EstadoAtuendo {
     private int calificacionActual;
     private int calificacionAnterior;
     public Calificado (Atuendo atuendo,int nuevaCalificacion) {

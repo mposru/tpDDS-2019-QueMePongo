@@ -1,6 +1,8 @@
 package domain.usuario.tipoDeUsuario;
 
-public interface TipoUsuario {
-    int limiteDePrendas();
-    boolean tieneLimiteDePrendas();
+// convertimos interfaz en clase abstracta para poder persistirla
+
+public abstract class TipoUsuario {
+    public abstract int limiteDePrendas();
+    public abstract boolean tieneLimiteDePrendas();
 }

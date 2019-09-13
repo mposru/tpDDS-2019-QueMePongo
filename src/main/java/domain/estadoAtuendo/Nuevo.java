@@ -5,8 +5,7 @@ import exceptions.NoSePuedeCalificarException;
 
 import java.util.Objects;
 
-public class Nuevo implements EstadoAtuendo {
-    private Atuendo atuendo;
+public class Nuevo extends EstadoAtuendo {
     public Nuevo (Atuendo atuendo) {
         this.atuendo = atuendo;
     }

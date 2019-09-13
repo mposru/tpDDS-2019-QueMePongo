@@ -1,6 +1,6 @@
 package domain.usuario.tipoDeUsuario;
 
-public class Gratuito implements TipoUsuario {
+public class Gratuito extends TipoUsuario {
     private int limiteDePrendas=5;
     private static Gratuito instanceOfGratuito;
 

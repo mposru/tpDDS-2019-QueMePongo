@@ -26,6 +26,10 @@ public class Evento {
         this.tipoDeActualizacion=requireNonNull(tipoDeActualizacion,"Debe ingresar el tipo de periodicidad");
     }
 
+    public void setearMeteorologo(Meteorologo meteorologo) {
+        this.meteorologo = meteorologo;
+    }
+
     public boolean esHoy() {
         return this.fecha.toLocalDate().equals(LocalDateTime.now().toLocalDate());
     }

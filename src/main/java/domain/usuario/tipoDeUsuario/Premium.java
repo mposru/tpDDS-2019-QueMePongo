@@ -1,6 +1,6 @@
 package domain.usuario.tipoDeUsuario;
 
-public class Premium implements TipoUsuario {
+public class Premium extends TipoUsuario {
     private static Premium instanceOfPremium;
     private Premium(){}
     public static Premium getInstance() {
