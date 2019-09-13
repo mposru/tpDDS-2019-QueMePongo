@@ -17,13 +17,22 @@ import domain.usuario.tipoDeUsuario.TipoUsuario;
 import domain.usuario.transiciones.*;
 import exceptions.*;
 
+import javax.persistence.*;
+
 import static domain.clima.Alerta.GRANIZO;
 import static domain.clima.Alerta.LLUVIA;
 import static java.time.LocalDate.now;
 
+@Entity
 public class Usuario {
+    @Id
+    @GeneratedValue
+    private long id;
+    @OneToMany
     private Set<Guardarropa> guardarropas = new HashSet<>();
+
     private Deque<Decision> decisiones = new LinkedList<>();
+
     private TipoUsuario tipoUsuario;
     private String numeroDeCelular;
     private ArrayList<Atuendo> atuendosAceptados = new ArrayList<>();

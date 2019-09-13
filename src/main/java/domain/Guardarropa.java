@@ -5,17 +5,23 @@ import domain.usuario.Evento;
 import domain.usuario.Sensibilidad;
 import exceptions.*;
 
+import javax.persistence.*;
 import java.util.*;
 import java.util.stream.Collectors;
 
 import static java.util.Objects.requireNonNull;
-
+@Entity
 public class Guardarropa {
+    @Id
+    @GeneratedValue
+    private long id;
 
+    @OneToMany
     private Set<Prenda> prendasSuperiores = new HashSet<>();
     private Set<Prenda> prendasInferiores = new HashSet<>();
     private Set<Prenda> calzados = new HashSet<>();
     private Set<Prenda> accesorios = new HashSet<>();
+    @ManyToMany
     private Set<Usuario> usuarios;
 
     public Guardarropa(Set<Usuario> usuarios) {

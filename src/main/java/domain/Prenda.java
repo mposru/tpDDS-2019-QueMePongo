@@ -3,18 +3,29 @@ import domain.clima.Clima;
 import domain.prenda.*;
 
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 import java.io.IOException;
 import java.util.Objects;
 
 @Entity
-
 public class Prenda {
+    @Id
+    @GeneratedValue
+    private long id;
 
+    @ManyToOne
     private TipoDePrenda tipoDePrenda;
+    @ManyToOne
     private Material material;
+    @ManyToOne
     private Color colorPrimario;
+    @ManyToOne
     private Color colorSecundario;
+    @ManyToOne
     private Trama trama;
+    //Esta bien no poner la anotation?
     private Guardarropa guardarropa;
     private Imagen imagen;
     private boolean esParaLluvia;
