@@ -2,10 +2,7 @@ package domain.prenda;
 
 import exceptions.MaterialInvalidoException;
 
-import javax.persistence.Entity;
-import javax.persistence.Enumerated;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.util.Arrays;
 import java.util.List;
 
@@ -26,6 +23,8 @@ public class TipoDePrenda {
     @Enumerated
     private Categoria categoria;
 
+    @OneToMany
+    @JoinColumn(name = "material")
     @Enumerated
     private List<Material> materialesValidos;
 

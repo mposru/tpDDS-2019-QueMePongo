@@ -4,9 +4,11 @@ import domain.Atuendo;
 import exceptions.NoSePuedeCalificarException;
 
 import javax.persistence.DiscriminatorValue;
+import javax.persistence.Entity;
 import java.util.Objects;
 
 @DiscriminatorValue("N")
+@Entity
 public class Nuevo extends EstadoAtuendo {
     public Nuevo (Atuendo atuendo) {
         this.atuendo = atuendo;

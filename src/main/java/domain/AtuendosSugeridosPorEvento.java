@@ -13,7 +13,7 @@ public class AtuendosSugeridosPorEvento {
     long id;
 
     @OneToMany
-    @JoinColumn(name = "atuendos_sugeridos_id")
+    @JoinColumn(name = "atuendo_sugerido_id")
     List<Atuendo> atuendosSugeridos;
 
     @OneToOne

@@ -4,9 +4,11 @@ import domain.Atuendo;
 import exceptions.*;
 
 import javax.persistence.DiscriminatorValue;
+import javax.persistence.Entity;
 import java.util.Objects;
 
 @DiscriminatorValue("R")
+@Entity
 public class Rechazado extends EstadoAtuendo {
     public Rechazado (Atuendo atuendo) {
         this.atuendo = atuendo;

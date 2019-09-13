@@ -18,11 +18,9 @@ public class Prenda {
     @Enumerated
     private Material material;
 
-    @ManyToOne
     @Embedded
     private Color colorPrimario;
 
-    @ManyToOne
     @Embedded
     private Color colorSecundario;
 
@@ -32,7 +30,6 @@ public class Prenda {
     //va la annotation?
     private Guardarropa guardarropa;
 
-    @OneToOne
     @Embedded
     private Imagen imagen;
 

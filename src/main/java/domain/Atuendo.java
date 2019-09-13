@@ -23,16 +23,16 @@ public class Atuendo {
     long id;
 
     @OneToMany
-    @JoinColumn(name = "accesorios_id")
+    @JoinColumn(name = "accesorio_id")
     private Set<Prenda> accesorios = new HashSet<>();
     @OneToMany
-    @JoinColumn(name = "prendas_superiores_id")
+    @JoinColumn(name = "prenda_superiore_id")
     private Set<Prenda> prendasSuperiores = new HashSet<>();
     @OneToMany
-    @JoinColumn(name = "prendas_inferiores_id")
+    @JoinColumn(name = "prenda_inferior_id")
     private Set<Prenda> prendasInferiores = new HashSet<>();
     @OneToMany
-    @JoinColumn(name = "calzados_id")
+    @JoinColumn(name = "calzado_id")
     private Set<Prenda> calzados = new HashSet<>();
 
     @ManyToOne

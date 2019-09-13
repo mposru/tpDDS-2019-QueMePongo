@@ -1,8 +1,10 @@
 package domain.usuario.tipoDeUsuario;
 
 import javax.persistence.DiscriminatorValue;
+import javax.persistence.Entity;
 
 @DiscriminatorValue("E")
+@Entity
 public class Gratuito extends TipoUsuario {
     private int limiteDePrendas=5;
     private static Gratuito instanceOfGratuito;

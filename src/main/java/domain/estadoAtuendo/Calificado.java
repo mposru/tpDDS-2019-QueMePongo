@@ -4,8 +4,10 @@ import domain.Atuendo;
 import exceptions.*;
 
 import javax.persistence.DiscriminatorValue;
+import javax.persistence.Entity;
 
 @DiscriminatorValue("C")
+@Entity
 public class Calificado extends EstadoAtuendo {
     private int calificacionActual;
     private int calificacionAnterior;

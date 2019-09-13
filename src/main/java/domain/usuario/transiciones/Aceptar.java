@@ -4,6 +4,11 @@ import domain.Atuendo;
 import domain.estadoAtuendo.Nuevo;
 import domain.Usuario;
 
+import javax.persistence.DiscriminatorValue;
+import javax.persistence.Entity;
+
+@DiscriminatorValue("A")
+@Entity
 public class Aceptar extends Decision {
     public Aceptar (Atuendo atuendoAceptado) {
         this.atuendo = atuendoAceptado;

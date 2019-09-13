@@ -7,6 +7,7 @@ import org.uqbar.commons.model.Entity;
 import org.uqbar.commons.model.annotations.Observable;
 import org.uqbar.commons.model.annotations.Transactional;
 
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import java.time.Duration;
@@ -17,6 +18,7 @@ import static java.util.Objects.requireNonNull;
 
 @Transactional
 @Observable
+@org.hibernate.annotations.Entity
 public class Evento extends Entity {
 
     @GeneratedValue
@@ -27,6 +29,7 @@ public class Evento extends Entity {
     private String nombre;
     private String ubicacion;
     private Integer antelacionEnHoras = 1;
+    @Enumerated
     private Periodo tipoDeActualizacion;
     private Boolean tieneSugerencia = false;
     private Meteorologo meteorologo = new AccuWeather();

@@ -16,7 +16,7 @@ public class Calendario {
     long id;
     
     @OneToMany
-    @JoinColumn(name = "eventos_id")
+    @JoinColumn(name = "evento_id")
     List<Evento> eventos = new ArrayList<>();
 
     public void agregarEvento(Evento evento) {
