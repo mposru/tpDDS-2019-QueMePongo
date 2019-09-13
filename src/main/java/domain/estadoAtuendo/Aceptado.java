@@ -3,8 +3,10 @@ package domain.estadoAtuendo;
 import domain.Atuendo;
 import exceptions.*;
 
+import javax.persistence.DiscriminatorValue;
 import java.util.Objects;
 
+@DiscriminatorValue("A")
 public class Aceptado extends EstadoAtuendo {
     public Aceptado(Atuendo atuendo) {
         this.atuendo = atuendo;

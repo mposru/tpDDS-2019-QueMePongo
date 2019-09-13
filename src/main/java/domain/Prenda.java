@@ -2,10 +2,7 @@ package domain;
 import domain.clima.Clima;
 import domain.prenda.*;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.ManyToOne;
+import javax.persistence.*;
 import java.io.IOException;
 import java.util.Objects;
 
@@ -17,17 +14,28 @@ public class Prenda {
 
     @ManyToOne
     private TipoDePrenda tipoDePrenda;
-    @ManyToOne
+
+    @Enumerated
     private Material material;
+
     @ManyToOne
+    @Embedded
     private Color colorPrimario;
+
     @ManyToOne
+    @Embedded
     private Color colorSecundario;
-    @ManyToOne
+
+    @Enumerated
     private Trama trama;
-    //Esta bien no poner la anotation?
+
+    //va la annotation?
     private Guardarropa guardarropa;
+
+    @OneToOne
+    @Embedded
     private Imagen imagen;
+
     private boolean esParaLluvia;
     private boolean disponibilidad = true; //toda prenda inicia disponible
 

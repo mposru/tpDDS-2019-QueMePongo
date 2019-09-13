@@ -17,10 +17,21 @@ public class Guardarropa {
     private long id;
 
     @OneToMany
+    @JoinColumn(name = "prendas_superiores_id")
     private Set<Prenda> prendasSuperiores = new HashSet<>();
+
+    @OneToMany
+    @JoinColumn(name = "prendas_inferiores_id")
     private Set<Prenda> prendasInferiores = new HashSet<>();
+
+    @OneToMany
+    @JoinColumn(name = "calzados_id")
     private Set<Prenda> calzados = new HashSet<>();
+
+    @OneToMany
+    @JoinColumn(name = "accesorios_id")
     private Set<Prenda> accesorios = new HashSet<>();
+
     @ManyToMany
     private Set<Usuario> usuarios;
 

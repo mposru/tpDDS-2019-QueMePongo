@@ -6,6 +6,9 @@ import domain.clima.Meteorologo;
 import org.uqbar.commons.model.Entity;
 import org.uqbar.commons.model.annotations.Observable;
 import org.uqbar.commons.model.annotations.Transactional;
+
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
 import java.time.Duration;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -15,14 +18,18 @@ import static java.util.Objects.requireNonNull;
 @Transactional
 @Observable
 public class Evento extends Entity {
+
+    @GeneratedValue
+    @Id
+    long id;
+
     private LocalDateTime fecha;
     private String nombre;
     private String ubicacion;
     private Integer antelacionEnHoras = 1;
     private Periodo tipoDeActualizacion;
     private Boolean tieneSugerencia = false;
-    private Meteorologo meteorologo = new AccuWeather();;
-
+    private Meteorologo meteorologo = new AccuWeather();
 
     public Evento(){
     }

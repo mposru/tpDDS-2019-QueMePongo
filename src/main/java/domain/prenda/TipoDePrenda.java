@@ -2,20 +2,31 @@ package domain.prenda;
 
 import exceptions.MaterialInvalidoException;
 
+import javax.persistence.Entity;
+import javax.persistence.Enumerated;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
 import java.util.Arrays;
 import java.util.List;
 
 import static java.util.Objects.isNull;
 import static java.util.Objects.requireNonNull;
 
+@Entity
 public class TipoDePrenda {
+
+    @GeneratedValue
+    @Id
+    private long id;
     // Manejamos unidad de abrigo de 0 a 50 de inversamente proporcional a la temperatura.
     private double unidadDeAbrigo;
     private double temperaturaMax;
     private double temperaturaMin;
 
-
+    @Enumerated
     private Categoria categoria;
+
+    @Enumerated
     private List<Material> materialesValidos;
 
     public static final TipoDePrenda ZAPATO = new TipoDePrenda(Categoria.CALZADO, Arrays.asList(Material.CUERO), 35, -5);

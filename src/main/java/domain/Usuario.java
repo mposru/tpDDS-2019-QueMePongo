@@ -28,20 +28,34 @@ public class Usuario {
     @Id
     @GeneratedValue
     private long id;
-    @OneToMany
+
+    @ManyToMany
     private Set<Guardarropa> guardarropas = new HashSet<>();
 
     private Deque<Decision> decisiones = new LinkedList<>();
 
+    @ManyToOne
     private TipoUsuario tipoUsuario;
+
     private String numeroDeCelular;
-    private ArrayList<Atuendo> atuendosAceptados = new ArrayList<>();
-    private ArrayList<Atuendo> atuendosRechazados = new ArrayList<>();
+
+    @OneToMany
+    @JoinColumn(name = "aceptados_id")
+    private List<Atuendo> atuendosAceptados = new ArrayList<>();
+
+    @OneToMany
+    @JoinColumn(name = "rechazados_id")
+    private List<Atuendo> atuendosRechazados = new ArrayList<>();
+
     private Set<Notificador> notificadores = new HashSet<>();
+
+    @OneToOne
     private Calendario calendario;
+
     private int tiempoDeAnticipacion = 0; // variable que indica con cuanto tiempo antes quiere que le llegue sugerencia sobre evento (en horas)
     private AtuendosSugeridosPorEvento atuendosSugeridosProximoEvento = new AtuendosSugeridosPorEvento(new ArrayList<Atuendo>(), new Evento("", "", LocalDateTime.now(), Periodo.NINGUNO, 0));
     // agregado de sensibilidades en las partes del cuerpo. Hacemos una escala que va de 1 a 10 (1 para muy friolento hasta 10 para muy caluroso)
+    @Embedded
     private Sensibilidad sensibilidad = new Sensibilidad();
 
     //
@@ -105,11 +119,11 @@ public class Usuario {
         return this.decisiones;
     }
 
-    public ArrayList<Atuendo> obtenerAtuendosAceptados() {
+    public List<Atuendo> obtenerAtuendosAceptados() {
         return this.atuendosAceptados;
     }
 
-    public ArrayList<Atuendo> obtenerAtuendosRechazados() {
+    public List<Atuendo> obtenerAtuendosRechazados() {
         return this.atuendosRechazados;
     }
 

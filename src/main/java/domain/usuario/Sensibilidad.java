@@ -2,6 +2,9 @@ package domain.usuario;
 
 import domain.TipoDeSensibilidad;
 
+import javax.persistence.Embeddable;
+
+@Embeddable
 public class Sensibilidad {
     /*El criterio que tomamos es
         caluroso < 0

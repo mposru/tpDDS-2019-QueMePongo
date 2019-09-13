@@ -3,7 +3,9 @@ package domain.estadoAtuendo;
 import domain.Atuendo;
 import exceptions.*;
 
+import javax.persistence.DiscriminatorValue;
 
+@DiscriminatorValue("C")
 public class Calificado extends EstadoAtuendo {
     private int calificacionActual;
     private int calificacionAnterior;

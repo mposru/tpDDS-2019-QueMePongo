@@ -7,6 +7,7 @@ import domain.prenda.Categoria;
 import domain.prenda.TipoDePrenda;
 import exceptions.PrendaInvalidaException;
 
+import javax.persistence.*;
 import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
@@ -14,12 +15,27 @@ import java.util.Set;
 import static domain.prenda.Categoria.*;
 import static java.util.stream.Collectors.toList;
 
+@Entity
 public class Atuendo {
 
+    @GeneratedValue
+    @Id
+    long id;
+
+    @OneToMany
+    @JoinColumn(name = "accesorios_id")
     private Set<Prenda> accesorios = new HashSet<>();
+    @OneToMany
+    @JoinColumn(name = "prendas_superiores_id")
     private Set<Prenda> prendasSuperiores = new HashSet<>();
+    @OneToMany
+    @JoinColumn(name = "prendas_inferiores_id")
     private Set<Prenda> prendasInferiores = new HashSet<>();
+    @OneToMany
+    @JoinColumn(name = "calzados_id")
     private Set<Prenda> calzados = new HashSet<>();
+
+    @ManyToOne
     private EstadoAtuendo estado;
 
     public Atuendo(Set<Prenda> prendasSuperiores, Set<Prenda> prendasInferiores, Set<Prenda> calzados, Set<Prenda> accesorios) {
