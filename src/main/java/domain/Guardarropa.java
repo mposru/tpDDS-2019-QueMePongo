@@ -43,7 +43,7 @@ public class Guardarropa {
     }
 
     public boolean tieneLimiteDePrendas() {
-        return this.usuarios.stream().allMatch(usuario -> usuario.tieneLimiteDePrendas());
+        return this.usuarios.stream().anyMatch(usuario -> usuario.tieneLimiteDePrendas());
     }
 
     public int limiteDePrendas() {
