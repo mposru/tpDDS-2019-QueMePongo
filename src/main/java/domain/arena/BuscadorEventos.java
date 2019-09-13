@@ -18,7 +18,6 @@ public class BuscadorEventos {
     private int mesHasta=1;
     private int anioHasta;
     private List<Evento> resultados;
-    private List<Evento> eventosSeleccionados;
 
     LocalDateTime fechaDesde = LocalDateTime.of(anioDesde,mesDesde,diaDesde,0,0);
     LocalDateTime fechaHasta = LocalDateTime.of(anioHasta,mesHasta,diaHasta,0,0);
@@ -42,14 +41,6 @@ public class BuscadorEventos {
 
     public void setResultados(List<Evento> resultados) {
         this.resultados = resultados;
-    }
-
-    public List<Evento> getEventosSeleccionados() {
-        return eventosSeleccionados;
-    }
-
-    public void setEventosSeleccionados(List<Evento> eventosSeleccionados) {
-        this.eventosSeleccionados = eventosSeleccionados;
     }
 
     public int getDiaDesde() {

@@ -24,7 +24,7 @@ public class BuscarEventosWindow extends SimpleWindow<BuscadorEventos> {
     @Override
     protected void createMainTemplate(Panel mainPanel) {
         this.setTitle("Buscador de Eventos");
-        this.setTaskDescription("Ingrese los parámetros de búsqueda");
+        this.setTaskDescription("Ingrese los parámetros de búsqueda - D M AAAA");
 
         super.createMainTemplate(mainPanel);
         this.createResultsGrid(mainPanel);
@@ -34,7 +34,7 @@ public class BuscarEventosWindow extends SimpleWindow<BuscadorEventos> {
     //  FORMULARIO DE BUSQUEDA
 
     @Override
-    protected void createFormPanel(Panel mainPanel) { //El panel principal de búsuqeda permite filtrar por número y fecha
+    protected void createFormPanel(Panel mainPanel) { //El PANEL PRINCIPAL para buscar permite filtrar por fecha
         Panel searchFormPanel = new Panel(mainPanel);
         searchFormPanel.setLayout(new ColumnLayout(4));
 
@@ -47,7 +47,6 @@ public class BuscarEventosWindow extends SimpleWindow<BuscadorEventos> {
         new TextBox(searchFormPanel).setWidth(50).bindValueToProperty("diaHasta");
         new TextBox(searchFormPanel).setWidth(50).bindValueToProperty("mesHasta");
         new TextBox(searchFormPanel).setWidth(50).bindValueToProperty("anioHasta");
-
     }
 
 
@@ -72,8 +71,7 @@ public class BuscarEventosWindow extends SimpleWindow<BuscadorEventos> {
         table.setNumberVisibleRows(10);
         table.setWidth(350);
 
-        table.bindItemsToProperty("resultados");
-        table.bindValueToProperty("eventosSeleccionados");
+        table.bindItemsToProperty("resultados"); //Asigna el contenido de esta tabla a la grilla
 
         this.describeResultsGrid(table);
     }
@@ -82,12 +80,12 @@ public class BuscarEventosWindow extends SimpleWindow<BuscadorEventos> {
 //    Define las columnas de la grilla. Cada columna se puede bindear:
 //    1) contra una propiedad del model, como en el caso del nombre del evento o la fecha.
     protected void describeResultsGrid(Table<Evento> table) {
-        new Column<Evento>(table) //
+        new Column<Evento>(table)
                 .setTitle("Nombre Evento")
                 .setFixedSize(100)
                 .bindContentsToProperty("nombre");
 
-        new Column<Evento>(table) //
+        new Column<Evento>(table)
                 .setTitle("Fecha Evento")
                 .setFixedSize(100)
                 .alignRight()
