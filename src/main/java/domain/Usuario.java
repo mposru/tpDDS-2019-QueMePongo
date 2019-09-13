@@ -250,7 +250,7 @@ public class Usuario {
         if (alerta == LLUVIA) {
             return this.atuendosSugeridosProximoEvento.getAtuendosSugeridos().stream().noneMatch(atuendo -> atuendo.esAptoParaLluvia());
         } else {
-            return this.atuendosSugeridosProximoEvento.getAtuendosSugeridos().stream().noneMatch(atuendo -> atuendo.obtenerAccesorios().stream().noneMatch(acc -> acc.obtenerTipoDePrenda() == TipoDePrenda.CASCO));
+            return this.atuendosSugeridosProximoEvento.getAtuendosSugeridos().stream().noneMatch(atuendo -> atuendo.obtenerAccesorios().stream().anyMatch(acc -> acc.obtenerTipoDePrenda() == TipoDePrenda.CASCO));
         }
     }
 
