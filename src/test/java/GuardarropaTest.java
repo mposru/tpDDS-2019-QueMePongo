@@ -80,7 +80,7 @@ public class GuardarropaTest {
     @Before
     public void iniciarTest() {
 
-        dia = Instant.ofEpochMilli(1559188800).atZone(ZoneId.systemDefault()).toLocalDate();
+        dia = LocalDate.of(2019,5,26);//Instant.ofEpochMilli(1559188800).atZone(ZoneId.systemDefault()).toLocalDate();
         this.marta = new Usuario(Gratuito.getInstance(),"", calendarioMarta);
         this.flor = new Usuario(Premium.getInstance(),"",calendarioFlor);
         this.pepita = new Usuario(Premium.getInstance(),"", calendarioPepita);
@@ -127,9 +127,9 @@ public class GuardarropaTest {
         doReturn(jsonClimaAbrigoBasico).when(this.accuWeather).getJsonClima();
 
         doReturn(dia).when(accuWeather).puntoDeReferencia();
-        this.eventoX = new Evento("Prueba", "UTN", LocalDateTime.now(), Periodo.NINGUNO,0);
+        this.eventoX = new Evento("Prueba", "UTN", LocalDateTime.of(2019,5,26,0,0), Periodo.NINGUNO,0);
 
-        this.eventoX = new Evento("Prueba", "UTN", LocalDateTime.now(), Periodo.NINGUNO, 0);
+        eventoX.setearMeteorologo(accuWeather);
         this.sensibilidad = new Sensibilidad();
 
     }

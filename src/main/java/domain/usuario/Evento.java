@@ -32,7 +32,7 @@ public class Evento extends Entity {
     @Enumerated
     private Periodo tipoDeActualizacion;
     private Boolean tieneSugerencia = false;
-    private Meteorologo meteorologo = new AccuWeather();
+    private Meteorologo meteorologo;
 
     public Evento(){
     }
@@ -110,6 +110,6 @@ public class Evento extends Entity {
 
     public Clima obtenerClima() {
         // todo: poner bien el dia
-       return meteorologo.obtenerClima(LocalDate.now());
+       return meteorologo.obtenerClima(fecha.toLocalDate());
     }
 }
