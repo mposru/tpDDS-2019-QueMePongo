@@ -347,6 +347,7 @@ public class GuardarropaTest {
         this.guardarropaLimitado.guardarPrenda(this.shortDeFutbol);
         this.guardarropaLimitado.guardarPrenda(this.mediasDeFutbol);
         this.guardarropaLimitado.guardarPrenda(this.canillera);
+        this.guardarropaLimitado.guardarPrenda(this.anteojos);
     }
 
     @Test
