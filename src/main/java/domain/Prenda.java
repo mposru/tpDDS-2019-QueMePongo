@@ -28,6 +28,7 @@ public class Prenda {
     private Trama trama;
 
     //va la annotation?
+    // guardamos guardarropa_id
     private Guardarropa guardarropa;
 
     @Embedded

@@ -22,6 +22,7 @@ public class FiltradorDePrendas {
         return instanceOfFiltradorDePrendas;
     }
 
+    // cambiar nombre de metodo: filtrarYGenerarCombinacion
     public Set<Set<Prenda>> filtrarPrendas(Set<Prenda> prendas, Clima climaEvento, Sensibilidad sensibilidad, TipoDeSensibilidad tipoDeSensibilidad) {
         Set<Set<Prenda>> prendasFiltradas = new HashSet<>();
         double nivelDeAbrigo = obtenerNivelDeAbrigo(climaEvento, sensibilidad, tipoDeSensibilidad);

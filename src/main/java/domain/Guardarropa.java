@@ -4,6 +4,7 @@ import com.google.common.collect.Sets;
 import domain.usuario.Evento;
 import domain.usuario.Sensibilidad;
 import exceptions.*;
+import org.hibernate.annotations.WhereJoinTable;
 
 import javax.persistence.*;
 import java.util.*;
@@ -17,7 +18,6 @@ public class Guardarropa {
     private long id;
 
     @OneToMany
-    @JoinColumn(name = "accesorio_id")
     private Set<Prenda> accesorios = new HashSet<>();
 
     @OneToMany

@@ -20,7 +20,7 @@ public class TipoDePrenda {
     private double temperaturaMax;
     private double temperaturaMin;
 
-    @Enumerated
+    @Enumerated(EnumType.STRING)
     private Categoria categoria;
 
     @OneToMany
