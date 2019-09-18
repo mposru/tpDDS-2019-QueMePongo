@@ -1,8 +1,8 @@
 
 package domain;
 
+import domain.guardarropa.Premium;
 import domain.usuario.Calendario;
-import domain.usuario.tipoDeUsuario.*;
 import domain.prenda.*;
 import org.junit.*;
 import exceptions.*;
@@ -28,7 +28,7 @@ public class BorradorTest {
 
     @Before
     public void iniciarTest() {
-        this.magdalena = new Usuario(Premium.getInstance(),"", calendario);
+        this.magdalena = new Usuario("", calendario);
         this.tipoDePrenda = TipoDePrenda.ZAPATO;
         this.material = Material.CUERO;
         this.colorPrimario = new Color(20, 20, 30);
@@ -38,7 +38,7 @@ public class BorradorTest {
         this.esParaLluvia = true;
         Set<Usuario> magdalenaLista = new HashSet<>();
         magdalenaLista.add(magdalena);
-        this.guardarropa = new Guardarropa(magdalenaLista);
+        this.guardarropa = new Guardarropa(magdalenaLista,new Premium());
         //creamos un borrador sin definirle el tipoDePrenda, material, trama y guardarropa
         this.borradorZapatillas = new Borrador();
         this.materialInvalido = Material.JEAN;

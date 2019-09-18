@@ -1,15 +1,10 @@
 package domain;
-import domain.GeneraJson;
-import domain.Atuendo;
-import domain.Guardarropa;
-import domain.Prenda;
-import domain.Usuario;
+import domain.guardarropa.Gratuito;
+import domain.guardarropa.Premium;
 import domain.usuario.Calendario;
 import domain.usuario.Evento;
 import domain.usuario.Periodo;
 import domain.usuario.Sensibilidad;
-import domain.usuario.tipoDeUsuario.*;
-import domain.usuario.tipoDeUsuario.Premium;
 import domain.clima.AccuWeather;
 import domain.prenda.Color;
 import domain.prenda.Material;
@@ -20,10 +15,8 @@ import org.junit.*;
 import org.junit.rules.ExpectedException;
 import org.mockito.Mockito;
 
-import java.time.Instant;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.time.ZoneId;
 import java.util.Arrays;
 import java.util.HashSet;
 import java.util.List;
@@ -81,19 +74,19 @@ public class GuardarropaTest {
     public void iniciarTest() {
 
         dia = LocalDate.of(2019,5,26);//Instant.ofEpochMilli(1559188800).atZone(ZoneId.systemDefault()).toLocalDate();
-        this.marta = new Usuario(Gratuito.getInstance(),"", calendarioMarta);
-        this.flor = new Usuario(Premium.getInstance(),"",calendarioFlor);
-        this.pepita = new Usuario(Premium.getInstance(),"", calendarioPepita);
+        this.marta = new Usuario("", calendarioMarta);
+        this.flor = new Usuario("",calendarioFlor);
+        this.pepita = new Usuario("", calendarioPepita);
         Set<Usuario> usuariosConFlor = new HashSet<>();
         usuariosConFlor.add(flor);
         Set<Usuario> usuariosConMarta = new HashSet<>();
         usuariosConMarta.add(marta);
-        this.guardarropa = new Guardarropa(usuariosConFlor);
-        this.guardarropaLimitado = new Guardarropa(usuariosConMarta);
+        this.guardarropa = new Guardarropa(usuariosConFlor,new Premium());
+        this.guardarropaLimitado = new Guardarropa(usuariosConMarta,new Gratuito(5));
         Set<Usuario> usuarios = new HashSet<>();
         usuarios.add(flor);
         usuarios.add(pepita);
-        this.guardarropaCompartido = new Guardarropa(usuarios);
+        this.guardarropaCompartido = new Guardarropa(usuarios,new Premium());
 
         this.color = new Color(1, 2, 3);
         this.pantalonPolar = new Prenda(TipoDePrenda.PANTALON, Material.ALGODON, color, null, Trama.CUADROS, guardarropa, false);
@@ -340,7 +333,7 @@ public class GuardarropaTest {
     @Test
     public void superarLimiteDePrendas() {
         exception.expect(SuperaLimiteDePrendasException.class);
-        exception.expectMessage("Se supera el límite de " + guardarropaLimitado.limiteDePrendas() + " prendas definido para el tipo de usuario del guardarropa");
+        exception.expectMessage("Se supera el límite de " + guardarropaLimitado.getlimiteDePrendas() + " prendas definido para el tipo de usuario del guardarropa");
         this.guardarropaLimitado.guardarPrenda(this.remeraFutbol);
         this.guardarropaLimitado.guardarPrenda(this.camperaDeportiva);
         this.guardarropaLimitado.guardarPrenda(this.botines);

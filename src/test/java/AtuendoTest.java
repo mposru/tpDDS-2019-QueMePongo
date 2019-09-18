@@ -1,6 +1,7 @@
  package domain;
 
 import domain.estadoAtuendo.*;
+import domain.guardarropa.Premium;
 import domain.usuario.Calendario;
 import domain.usuario.tipoDeUsuario.*;
 import domain.prenda.Color;
@@ -10,6 +11,7 @@ import domain.prenda.Trama;
 import org.junit.*;
 import exceptions.*;
 import org.junit.rules.ExpectedException;
+import domain.guardarropa.*;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -38,10 +40,10 @@ public class AtuendoTest {
 
     @Before
     public void iniciarTest() {
-        this.carlos = new Usuario(Premium.getInstance(), "1534544344", calendario);
+        this.carlos = new Usuario("1534544344", calendario);
         Set<Usuario> carlosLista = new HashSet<>();
         carlosLista.add(carlos);
-        this.guardarropa = new Guardarropa(carlosLista);
+        this.guardarropa = new Guardarropa(carlosLista,new Premium());
         this.color = new Color(1, 2, 3);
         this.musculosa = new Prenda(TipoDePrenda.MUSCULOSA, Material.ALGODON, color, null, Trama.CUADROS, guardarropa,false);
         this.blusa = new Prenda(TipoDePrenda.BLUSA, Material.ALGODON, color, null, Trama.CUADROS, guardarropa,false);

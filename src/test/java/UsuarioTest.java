@@ -4,10 +4,11 @@ import domain.*;
 import domain.clima.AccuWeather;
 import domain.clima.Alerta;
 import domain.estadoAtuendo.*;
+import domain.guardarropa.Gratuito;
+import domain.guardarropa.Premium;
 import domain.usuario.Calendario;
 import domain.usuario.Evento;
 import domain.usuario.Periodo;
-import domain.usuario.tipoDeUsuario.*;
 import domain.prenda.Color;
 import domain.prenda.Material;
 import domain.prenda.TipoDePrenda;
@@ -21,9 +22,7 @@ import org.junit.Test;
 import org.mockito.Mockito;
 
 import java.time.LocalDateTime;
-import java.util.Arrays;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 
 import static org.mockito.Mockito.doReturn;
@@ -310,14 +309,14 @@ public class UsuarioTest {
         this.calendarioNana = new Calendario();
         this.calendarioMerlin = new Calendario();
         this.accuWeather = Mockito.spy(new AccuWeather());
-        this.merlin = new Usuario(Gratuito.getInstance(), "1543333322", calendarioMerlin);
-        this.maria = new Usuario(Premium.getInstance(), "1543333322",calendarioMaria );
+        this.merlin = new Usuario( "1543333322", calendarioMerlin);
+        this.maria = new Usuario("1543333322",calendarioMaria );
         Set<Usuario> merlinLista = new HashSet<>();
         merlinLista.add(merlin);
         Set<Usuario> mariaLista = new HashSet<>();
         mariaLista.add(maria);
-        this.guardarropaDeMerlin = new Guardarropa(merlinLista);
-        this.guardarropaDeMaria = new Guardarropa(mariaLista);
+        this.guardarropaDeMerlin = new Guardarropa(merlinLista,new Gratuito(5));
+        this.guardarropaDeMaria = new Guardarropa(mariaLista,new Premium());
         this.color = new Color(1, 2, 3);
         this.musculosa = new Prenda(TipoDePrenda.MUSCULOSA, Material.ALGODON, color, null, Trama.CUADROS, guardarropaDeMerlin,false);
         this.blusa = new Prenda(TipoDePrenda.BLUSA, Material.ALGODON, color, null, Trama.CUADROS, guardarropaDeMerlin,false);
@@ -336,7 +335,7 @@ public class UsuarioTest {
         calzados.add(crocs);
         accesorios.add(anteojos);
         this.atuendoVerano = new Atuendo(superiores,inferiores,calzados,accesorios);
-        this.nana = new Usuario(Premium.getInstance(), "1534433333",calendarioNana);
+        this.nana = new Usuario( "1534433333",calendarioNana);
         doReturn(jsonClima).when(accuWeather).getJsonClima();
     }
 
@@ -344,13 +343,14 @@ public class UsuarioTest {
     public ExpectedException exception = ExpectedException.none();
 
     @Test
-    public void usuarioGratuitoTieneLimiteDePrendas(){
-        Assert.assertTrue(merlin.tieneLimiteDePrendas());
+    public void guardarropaGratuitoTieneLimiteDePrendas(){
+        Assert.assertTrue(this.guardarropaDeMerlin.tieneLimiteDePrendas());
     }
     @Test
-    public void usuarioPremiumNoTieneLimiteDePrendas(){
-        Assert.assertFalse(maria.tieneLimiteDePrendas());
+    public void guardarropaPremiumNoTieneLimiteDePrendas(){
+        Assert.assertFalse(this.guardarropaDeMaria.tieneLimiteDePrendas());
     }
+
     @Test
     public void usuarioAceptaAtuendo(){
         merlin.aceptarAtuendo(atuendoVerano);

@@ -1,7 +1,6 @@
 import domain.notificacion.SMS;
 import domain.notificacion.Whatsapp;
 import domain.usuario.Calendario;
-import domain.usuario.tipoDeUsuario.Gratuito;
 import domain.Usuario;
 import org.junit.Assert;
 import org.junit.Before;
@@ -20,7 +19,7 @@ public class NotificadorTest {
 
     @Before
     public void iniciarTest() {
-        merlin = new Usuario(Gratuito.getInstance(), "+5491134522303", calendario);
+        merlin = new Usuario( "+5491134522303", calendario);
     }
 
     @Test

@@ -11,9 +11,6 @@ import domain.notificacion.Notificador;
 import domain.clima.Alerta;
 import domain.prenda.TipoDePrenda;
 import domain.usuario.*;
-import domain.usuario.tipoDeUsuario.Gratuito;
-import domain.usuario.tipoDeUsuario.Premium;
-import domain.usuario.tipoDeUsuario.TipoUsuario;
 import domain.usuario.transiciones.*;
 import exceptions.*;
 
@@ -35,9 +32,6 @@ public class Usuario {
     @OneToMany
     @JoinColumn(name = "decision_id")
     private Deque<Decision> decisiones = new LinkedList<>();
-
-    @ManyToOne
-    private TipoUsuario tipoUsuario;
 
     private String numeroDeCelular;
 
@@ -70,8 +64,7 @@ public class Usuario {
     // se le pide el proximo evento al user, se obtiene el clima de mismo
     // b. se genera sugerencia con ese clima
 
-    public Usuario(TipoUsuario tipoUsuario, String numeroDeCelular,Calendario miCalendario) {
-        this.tipoUsuario = tipoUsuario;
+    public Usuario(String numeroDeCelular,Calendario miCalendario) {
         this.numeroDeCelular = numeroDeCelular;
         this.calendario = miCalendario;
         RepositorioDeUsuarios.getInstance().agregarUsuarioTotal(this);
@@ -131,21 +124,6 @@ public class Usuario {
         return this.atuendosRechazados;
     }
 
-    public void cambiarAPremium() {
-        this.tipoUsuario = Premium.getInstance();
-    }
-
-    public void cambiarAGratuito() {
-        this.tipoUsuario = Gratuito.getInstance();
-    }
-
-    public int obtenerLimiteDePrendas() {
-        return this.tipoUsuario.limiteDePrendas();
-    }
-
-    public boolean tieneLimiteDePrendas() {
-        return this.tipoUsuario.tieneLimiteDePrendas();
-    }
 
     public Set<Guardarropa> obtenerGuardarropas() {
         return this.guardarropas;

@@ -4,11 +4,12 @@ import com.google.common.collect.Sets;
 import domain.usuario.Evento;
 import domain.usuario.Sensibilidad;
 import exceptions.*;
-import org.hibernate.annotations.WhereJoinTable;
 
 import javax.persistence.*;
 import java.util.*;
 import java.util.stream.Collectors;
+import domain.guardarropa.TipoDeGuardarropa;
+
 
 import static java.util.Objects.requireNonNull;
 @Entity
@@ -35,27 +36,27 @@ public class Guardarropa {
     @ManyToMany
     private Set<Usuario> usuarios;
 
-    public Guardarropa(Set<Usuario> usuarios) {
-        // validar que sean premium
-        // agregar user y eliminar user
-        // recibe como param set de usuarios y los que son free solo pueden leer
+    private TipoDeGuardarropa tipoDeGuardarropa;
+
+    public Guardarropa(Set<Usuario> usuarios, TipoDeGuardarropa tipoDeGuardarropa) {
         this.usuarios = requireNonNull(usuarios, "Debe ingresar un conjunto de usuarios");
+        this.tipoDeGuardarropa = requireNonNull(tipoDeGuardarropa,"Debe ingresar el tipo de guardarropa");
+    }
+    public void setLimiteDePrendas(int limiteDePrendas) {
+        this.tipoDeGuardarropa.setLimiteDePrendas(limiteDePrendas);
     }
 
     public boolean tieneLimiteDePrendas() {
-        return this.usuarios.stream().anyMatch(usuario -> usuario.tieneLimiteDePrendas());
+        return this.tipoDeGuardarropa.tieneLimiteDePrendas();
     }
 
-    public int limiteDePrendas() {
-        // cómo se comporta esto si está compartido? -> no tiene limite
-        // se toma el limite como el del dueño que mas tiene
-        if (this.tieneLimiteDePrendas()) {
-            return Collections.max(this.usuarios, Comparator.comparing(usuario -> usuario.obtenerLimiteDePrendas())).obtenerLimiteDePrendas();
-        } else {
-            return 0;
-        }
-    } //usuario.limiteDePrendas(); // el guardarropas queda seteado con el limite que tenga el usuario dueño del mismo
+    public int getlimiteDePrendas() {
+        return this.tipoDeGuardarropa.getLimiteDePrendas();
+    }
 
+    public void cambiarTipoDeGuardarropa(TipoDeGuardarropa tipoDeGuardarropa) {
+        this.tipoDeGuardarropa = tipoDeGuardarropa;
+    }
 
     public int obtenerCantidadDePrendas() {
         return (this.prendasSuperiores.size() + this.prendasInferiores.size() + this.accesorios.size() + this.calzados.size());
@@ -98,8 +99,8 @@ public class Guardarropa {
     }
 
     public void verificarLimiteDePrendas() {
-        if (this.tieneLimiteDePrendas() && this.obtenerCantidadDePrendas() >= this.limiteDePrendas()) {
-            throw new SuperaLimiteDePrendasException("Se supera el límite de " + this.limiteDePrendas() + " prendas definido para el tipo de usuario del guardarropa");
+        if (this.tieneLimiteDePrendas() && this.obtenerCantidadDePrendas() >= this.getlimiteDePrendas()) {
+            throw new SuperaLimiteDePrendasException("Se supera el límite de " + this.getlimiteDePrendas() + " prendas definido para el tipo de guardarropa");
         }
     }
 
