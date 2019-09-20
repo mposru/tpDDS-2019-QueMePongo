@@ -10,6 +10,7 @@ entity Prenda  {
 (PK) id_prenda
 --
 (FK) id_guardarropa
+(FK) id_atuendo
 }
 
 entity Usuario {
@@ -46,11 +47,6 @@ entity Calendario {
 
 entity Atuendo {
 (PK) id_atuendo
---
-(FK) id_calzado
-(FK) id_superior
-(FK) id_inferior
-(FK) id_accesorio
 
 }
 entity Evento {
@@ -63,6 +59,13 @@ entity TipoDePrenda {
 (PK) id_tipoDePrenda
 }
 
+entity AtuendoSugeridoPorEvento {
+(PK) id_atuendo_sugerido
+(PK) id_atuendo
+--
+(FK) id_usuario
+}
+
 
 Guardarropa ||--o{ Prenda
 Guardarropa ||--|{ Usuario_Guardarropa
@@ -72,11 +75,11 @@ Usuario ||--o{ AtuendoAceptado
 Usuario ||--o{ AtuendoRechazado
 Usuario ||--|| Calendario
 Atuendo |o--|{ Prenda
-Atuendo |o--|{ Prenda
-Atuendo |o--|{ Prenda
-Atuendo |o--|{ Prenda
+
 Calendario ||--o{ Evento
 Prenda |o--|| TipoDePrenda
-
+AtuendoSugeridoPorEvento ||--|{ Atuendo
+Usuario ||--o| AtuendoSugeridoPorEvento
+AtuendoSugeridoPorEvento |o--|| Evento
 
 @enduml
