@@ -77,7 +77,7 @@ Usuario ||--|| Calendario
 Atuendo |o--|{ Prenda
 
 Calendario ||--o{ Evento
-Prenda |o--|| TipoDePrenda
+Prenda }o--|| TipoDePrenda
 AtuendoSugeridoPorEvento ||--|{ Atuendo
 Usuario ||--o| AtuendoSugeridoPorEvento
 AtuendoSugeridoPorEvento |o--|| Evento
