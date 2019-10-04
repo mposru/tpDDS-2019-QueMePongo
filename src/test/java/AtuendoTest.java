@@ -3,7 +3,6 @@
 import domain.estadoAtuendo.*;
 import domain.guardarropa.Premium;
 import domain.usuario.Calendario;
-import domain.usuario.tipoDeUsuario.*;
 import domain.prenda.Color;
 import domain.prenda.Material;
 import domain.prenda.TipoDePrenda;
@@ -11,7 +10,6 @@ import domain.prenda.Trama;
 import org.junit.*;
 import exceptions.*;
 import org.junit.rules.ExpectedException;
-import domain.guardarropa.*;
 
 import java.util.HashSet;
 import java.util.Set;

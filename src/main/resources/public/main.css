@@ -1,0 +1,25 @@
+body {
+    font-family: fantasy;
+}
+
+.titulo {
+    /* font-family: fantasy; */
+    color: #a74fe2;
+    background-color: #f1defa;
+    justify-content: center;
+    display: flex;
+    height: 70px;
+    /* text-align: center; */
+}
+
+.prenda {
+    border: 1px solid gray;
+    margin: 20px;
+    max-width: 400px;
+    padding: 20px;
+}
+
+.detalles {
+    display: inline-block;
+    margin-left: 40px;
+}

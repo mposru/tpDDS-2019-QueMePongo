@@ -21,6 +21,27 @@
         </plugins>
     </build>
 
+    <repositories>
+        <repository>
+            <id>maven.uqbar.org-releases</id>
+            <name>maven.uqbar.org-releases</name>
+            <url>http://maven.uqbar.org/releases</url>
+        </repository>
+        <repository>
+            <snapshots />
+            <id>maven.uqbar.org-snapshots</id>
+            <name>maven.uqbar.org-snapshots</name>
+            <url>http://maven.uqbar.org/snapshots</url>
+        </repository>
+        <repository>
+            <id>maven.log4j</id>
+            <url>https://mvnrepository.com/</url>
+        </repository>
+    </repositories>
+
+    <properties>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    </properties>
 
     <dependencies>
         <dependency>
@@ -98,26 +119,22 @@
             <artifactId>hsqldb</artifactId>
             <version>2.4.0</version>
         </dependency>
-
-
-
         <dependency>
             <groupId>org.uqbar-project</groupId>
             <artifactId>arena-jface</artifactId>
             <version>3.6.3</version>
         </dependency>
+        <!-- https://mvnrepository.com/artifact/log4j/log4j -->
         <dependency>
-            <groupId>org.apache.logging.log4j</groupId>
+            <groupId>log4j</groupId>
             <artifactId>log4j</artifactId>
-            <version>2.11.2</version>
+            <version>1.2.17</version>
         </dependency>
         <dependency>
             <groupId>org.slf4j</groupId>
             <artifactId>slf4j-simple</artifactId>
             <version>1.7.21</version>
         </dependency>
-
-
         <dependency>
             <groupId>com.sparkjava</groupId>
             <artifactId>spark-core</artifactId>
@@ -129,20 +146,16 @@
             <artifactId>spark-template-handlebars</artifactId>
             <version>2.3</version>
         </dependency>
-
         <dependency>
             <groupId>com.sparkjava</groupId>
             <artifactId>spark-debug-tools</artifactId>
             <version>0.5</version>
         </dependency>
-
-
         <dependency>
             <groupId>com.github.jknack</groupId>
             <artifactId>handlebars-helpers</artifactId>
             <version>4.0.6</version>
         </dependency>
-
         <dependency>
             <groupId>com.github.jknack</groupId>
             <artifactId>handlebars-humanize</artifactId>
