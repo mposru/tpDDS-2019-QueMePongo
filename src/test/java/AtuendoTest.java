@@ -3,7 +3,6 @@
 import domain.estadoAtuendo.*;
 import domain.guardarropa.Premium;
 import domain.usuario.Calendario;
-import domain.usuario.tipoDeUsuario.*;
 import domain.prenda.Color;
 import domain.prenda.Material;
 import domain.prenda.TipoDePrenda;
