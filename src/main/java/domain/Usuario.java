@@ -13,6 +13,8 @@ import domain.prenda.TipoDePrenda;
 import domain.usuario.*;
 import domain.usuario.transiciones.*;
 import exceptions.*;
+import org.uqbar.commons.model.annotations.Observable;
+import org.uqbar.commons.model.annotations.Transactional;
 
 import javax.persistence.*;
 
@@ -20,6 +22,8 @@ import static domain.clima.Alerta.GRANIZO;
 import static domain.clima.Alerta.LLUVIA;
 import static java.time.LocalDate.now;
 
+@Transactional
+@Observable
 @Entity
 public class Usuario {
     @Id
@@ -31,7 +35,7 @@ public class Usuario {
 
     @OneToMany
     @JoinColumn(name = "decision_id")
-    private Deque<Decision> decisiones = new LinkedList<>();
+    private LinkedList<Decision> decisiones = new LinkedList<>();
 
     private String numeroDeCelular;
 
@@ -112,7 +116,7 @@ public class Usuario {
         this.atuendosSugeridosProximoEvento = new AtuendosSugeridosPorEvento(atuendosSugeridos, proximoEvento);
     }
 
-    public Deque<Decision> obtenerDecisiones() {
+    public List<Decision> obtenerDecisiones() {
         return this.decisiones;
     }
 
@@ -133,13 +137,13 @@ public class Usuario {
     public void aceptarAtuendo(Atuendo atuendo) {
         atuendo.aceptar();
         this.atuendosAceptados.add(atuendo); //validar que el atuendo no se pueda aceptar dos veces.
-        this.decisiones.push(new Aceptar(atuendo));
+        this.decisiones.addFirst(new Aceptar(atuendo));
     }
 
     public void rechazarAtuendo(Atuendo atuendo) {
         atuendo.rechazar();
         atuendosRechazados.add(atuendo); //validar que el atuendo no se pueda rechazar dos veces.
-        this.decisiones.push(new Rechazar(atuendo));
+        this.decisiones.addFirst(new Rechazar(atuendo));
     }
 
     public void calificarAtuendo(Atuendo atuendo, int nuevaCalificacion) {
@@ -148,9 +152,9 @@ public class Usuario {
         // se relaciona directamente con temperatura
         // calcular en base a una recta el factor de abrigo entre prenda y temperatura (excel recta)
         if (atuendo.estaCalificado()) {
-            this.decisiones.push(new Recalificar(atuendo));
+            this.decisiones.addFirst(new Recalificar(atuendo));
         } else {
-            this.decisiones.push(new Calificar(atuendo));
+            this.decisiones.addFirst(new Calificar(atuendo));
         }
     }
 
@@ -158,7 +162,7 @@ public class Usuario {
         if (decisiones.isEmpty()) {
             throw new PilaVaciaException("No hay decisiones por deshacer");
         }
-        this.decisiones.pop().deshacer(this);
+        this.decisiones.removeFirst().deshacer(this);
     }
 
     public void agregarEvento(String nombre, String ubicacion, LocalDateTime fecha, Periodo periodo, Integer antelacion) {
