@@ -1,4 +1,4 @@
-package server;
+package Controller;
 
 import domain.Guardarropa;
 import domain.RepositorioGuardarropas;
@@ -16,4 +16,17 @@ public class ControllerGuardarropas {
 
         return new ModelAndView(guardarropas, "guardarropas.hbs");
     }
+
+/*    //en la clase usuario
+
+    private String passHash; //no se puede guardar una pass encriptada
+    // no se puede tampoco guardarla encriptada
+    // hay que guardar un hash
+
+    public void validarContrasenia(string pass) {
+        if(!this.passHash.equals(hash(pass)) {
+            //tiro excepcion de constraseña invalida
+        }
+    }
+*/
 }
