@@ -23,7 +23,7 @@ public class FiltradorDePrendas {
     }
 
     // cambiar nombre de metodo: filtrarYGenerarCombinacion
-    public Set<Set<Prenda>> filtrarPrendas(Set<Prenda> prendas, Clima climaEvento, Sensibilidad sensibilidad, TipoDeSensibilidad tipoDeSensibilidad) {
+    public Set<Set<Prenda>> filtrarPrendas(Set<Prenda> prendas, Clima climaEvento, Sensibilidad sensibilidad, String tipoDeSensibilidad) {
         Set<Set<Prenda>> prendasFiltradas = new HashSet<>();
         double nivelDeAbrigo = obtenerNivelDeAbrigo(climaEvento, sensibilidad, tipoDeSensibilidad);
         prendas.forEach(prenda -> {
@@ -54,7 +54,7 @@ public class FiltradorDePrendas {
         return prendasFiltradas;
     }
 
-    private double obtenerNivelDeAbrigo(Clima climaEvento, Sensibilidad sensibilidad, TipoDeSensibilidad tipoDeSensibilidad) {
+    private double obtenerNivelDeAbrigo(Clima climaEvento, Sensibilidad sensibilidad, String tipoDeSensibilidad) {
         double nivelDeAbrigoEvento = NivelAbrigo.getInstance().getNivelAbrigo(climaEvento.getTemperaturaMinima(), climaEvento.getTemperaturaMaxima());
         // le sumo al nivel de abrigo un porcentaje que depende de la sensibilidad
         return nivelDeAbrigoEvento + sensibilidad.getFactorSensibilidad(tipoDeSensibilidad) * nivelDeAbrigoEvento;

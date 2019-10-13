@@ -162,13 +162,10 @@ public class Guardarropa {
         // se filtra despues de crear sugerencia
 
         // guardarropas trackea cuales estan libres y cuales no
-        Set<Set<Prenda>> prendasInferioresAdecuadas = FiltradorDePrendas.getInstance().filtrarPrendas(this.obtenerPrendasInferioresDisponibles(), evento.obtenerClima(), sensibilidad, TipoDeSensibilidad.GENERAL);
-        Set<Set<Prenda>> calzadosAdecuados = FiltradorDePrendas.getInstance().filtrarPrendas(this.obtenerCalzadosDisponibles(), evento.obtenerClima(), sensibilidad, TipoDeSensibilidad.GENERAL);
-        Set<Set<Prenda>> accesoriosAdecuados = FiltradorDePrendas.getInstance().filtrarPrendas(this.obtenerAccesoriosDisponibles(), evento.obtenerClima(), sensibilidad, TipoDeSensibilidad.GENERAL);
-        Set<Set<Prenda>> prendasSuperioresAdecuadas = FiltradorDePrendas.getInstance().filtrarPrendas(this.obtenerPrendasSuperioresDisponibles(), evento.obtenerClima(), sensibilidad, TipoDeSensibilidad.GENERAL);
-
-
-
+        Set<Set<Prenda>> prendasInferioresAdecuadas = FiltradorDePrendas.getInstance().filtrarPrendas(this.obtenerPrendasInferioresDisponibles(), evento.obtenerClima(), sensibilidad, "general");
+        Set<Set<Prenda>> calzadosAdecuados = FiltradorDePrendas.getInstance().filtrarPrendas(this.obtenerCalzadosDisponibles(), evento.obtenerClima(), sensibilidad, "general");
+        Set<Set<Prenda>> accesoriosAdecuados = FiltradorDePrendas.getInstance().filtrarPrendas(this.obtenerAccesoriosDisponibles(), evento.obtenerClima(), sensibilidad, "general");
+        Set<Set<Prenda>> prendasSuperioresAdecuadas = FiltradorDePrendas.getInstance().filtrarPrendas(this.obtenerPrendasSuperioresDisponibles(), evento.obtenerClima(), sensibilidad, "general");
 
         return Sets.cartesianProduct(prendasSuperioresAdecuadas, prendasInferioresAdecuadas, calzadosAdecuados, accesoriosAdecuados)
                 .stream()

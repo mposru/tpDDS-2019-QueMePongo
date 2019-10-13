@@ -75,27 +75,27 @@ public class Usuario {
     }
 
     public void calificarSensibilidadGeneral(CalificacionSensibilidad calificacionSensibilidad) {
-        this.sensibilidad.calificarSensibilidadGeneral(calificacionSensibilidad);
+        this.sensibilidad.calificarSensibilidad(calificacionSensibilidad, "general");
     }
 
     public void calificarSensibilidadEnManos(CalificacionSensibilidad calificacionSensibilidad) {
-        this.sensibilidad.calificarSensibilidadEnManos(calificacionSensibilidad);
+        this.sensibilidad.calificarSensibilidad(calificacionSensibilidad, "manos");
     }
 
     public void calificarSensibilidadEnCuello(CalificacionSensibilidad calificacionSensibilidad) {
-        this.sensibilidad.calificarSensibilidadEnCuello(calificacionSensibilidad);
+        this.sensibilidad.calificarSensibilidad(calificacionSensibilidad, "cuello");
     }
 
     public double getFactorSensibilidadGeneral() {
-        return this.sensibilidad.getFactorSensibilidadGeneral();
+        return this.sensibilidad.getFactorSensibilidad("general");
     }
 
     public double getFactorSensibilidadEnManos() {
-        return this.sensibilidad.getFactorSensibilidadEnManos();
+        return this.sensibilidad.getFactorSensibilidad("manos");
     }
 
     public double getFactorSensibilidadEnCuello() {
-        return this.sensibilidad.getFactorSensibilidadEnCuello();
+        return this.sensibilidad.getFactorSensibilidad("cuello");
     }
 
     public void generarSugerenciasParaProximoEvento() {
