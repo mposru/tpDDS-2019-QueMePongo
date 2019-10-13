@@ -333,7 +333,7 @@ public class GuardarropaTest {
     @Test
     public void superarLimiteDePrendas() {
         exception.expect(SuperaLimiteDePrendasException.class);
-        exception.expectMessage("Se supera el límite de " + guardarropaLimitado.getlimiteDePrendas() + " prendas definido para el tipo de usuario del guardarropa");
+        exception.expectMessage("Se supera el límite de " + guardarropaLimitado.getlimiteDePrendas() + " prendas definido para el tipo de guardarropa");
         this.guardarropaLimitado.guardarPrenda(this.remeraFutbol);
         this.guardarropaLimitado.guardarPrenda(this.camperaDeportiva);
         this.guardarropaLimitado.guardarPrenda(this.botines);
