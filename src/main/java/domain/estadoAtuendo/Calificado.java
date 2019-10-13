@@ -6,7 +6,7 @@ import exceptions.*;
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
 
-@DiscriminatorValue("C")
+@DiscriminatorValue("Calificado")
 @Entity
 public class Calificado extends EstadoAtuendo {
     private int calificacionActual;
