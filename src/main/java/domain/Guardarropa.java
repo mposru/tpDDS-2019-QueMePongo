@@ -1,6 +1,6 @@
 package domain;
 
-import com.google.common.collect.Sets;
+import domain.prenda.Categoria;
 import domain.usuario.Evento;
 import domain.usuario.Sensibilidad;
 import exceptions.*;
@@ -91,7 +91,7 @@ public class Guardarropa {
     }
 
     public Set<Prenda> obtenerAccesoriosDisponibles() {
-        return accesorios.stream().filter(prenda -> prenda.getDisponibilidad()).collect(Collectors.toSet());
+        return accesorios.stream().filter(prenda -> prenda.getDisponibilidad() && prenda.esAccesorioGeneral()).collect(Collectors.toSet());
     }
 
     public Set<Usuario> obtenerUsuarios() {
@@ -111,6 +111,9 @@ public class Guardarropa {
                 calzados.add(prenda);
                 break;
             case PARTE_SUPERIOR:
+            case PARTE_SUPERIOR_ABAJO:
+            case PARTE_SUPERIOR_MEDIO:
+            case PARTE_SUPERIOR_ARRIBA:
                 prendasSuperiores.add(prenda);
                 break;
             case PARTE_INFERIOR:
@@ -125,29 +128,48 @@ public class Guardarropa {
         }
     }
 
-    private void validarPrendas(Set<Prenda> prendasSuperioresValidas, Set<Prenda> prendasInferioresValidas,
-                                Set<Prenda> calzadosValidos, Set<Prenda> accesoriosValidos) {
+    private void validarPrendas() {
         //todo: mandar en el mensaje de error el clima. se concatena en la misma linea que se tira error
         String mensajeDeError = "";
-        if (prendasSuperioresValidas.size() <= 0) {
-            mensajeDeError = mensajeDeError.concat("Faltan prendas superiores adecuadas para el clima del evento. ");
+        if (this.obtenerPrendasSuperioresDisponibles().size() <= 0) {
+            mensajeDeError = mensajeDeError.concat("Faltan prendas superiores. ");
         }
-        if (prendasInferioresValidas.size() <= 0) {
-            mensajeDeError = mensajeDeError.concat("Faltan prendas inferiores adecuadas para el clima del evento. ");
+        if (this.obtenerPrendasInferioresDisponibles().size() <= 0) {
+            mensajeDeError = mensajeDeError.concat("Faltan prendas inferiores. ");
         }
-        if (calzadosValidos.size() <= 0) {
-            mensajeDeError = mensajeDeError.concat("Faltan zapatos adecuados para el clima del evento. ");
+        if (this.obtenerCalzadosDisponibles().size() <= 0) {
+            mensajeDeError = mensajeDeError.concat("Faltan zapatos. ");
         }
-        if (accesoriosValidos.size() <= 0) {
-            mensajeDeError = mensajeDeError.concat("Faltan accesorios adecuados para el clima del evento. ");
+        if (this.obtenerAccesoriosDisponibles().size() <= 0) {
+            mensajeDeError = mensajeDeError.concat("Faltan accesorios. ");
+        }
+        if (this.obtenerAccesorioCuelloDisponibles().size() <= 0) {
+            mensajeDeError = mensajeDeError.concat("Faltan accesorios cuello. ");
+        }
+        if (this.obtenerAccesorioManosDisponibles().size() <= 0) {
+            mensajeDeError = mensajeDeError.concat("Faltan accesorios manos. ");
         }
         if (mensajeDeError != "") {
             throw new FaltaPrendaException(mensajeDeError);
         }
     }
 
+    public Set<Prenda> obtenerAccesorioCuelloDisponibles() {
+        return accesorios
+                .stream()
+                .filter(prenda -> prenda.getDisponibilidad() && prenda.obtenerCategoria() == Categoria.ACCESORIO_CUELLO)
+                .collect(Collectors.toSet());
+    }
+
+    public Set<Prenda> obtenerAccesorioManosDisponibles() {
+        return accesorios
+                .stream()
+                .filter(prenda -> prenda.getDisponibilidad() && prenda.obtenerCategoria() == Categoria.ACCESORIO_MANOS)
+                .collect(Collectors.toSet());
+    }
+
     public List<Atuendo> generarSugerencia(Evento evento, Sensibilidad sensibilidad) {
-        this.validarPrendas(this.prendasSuperiores,this.prendasInferiores,this.calzados,this.accesorios);
+        this.validarPrendas();
         // pedirle al evento el clima y sensibilidad,
 
         // clima del dia (y ver si llueve o no) y evento (por si es formal o no???) como param
@@ -159,21 +181,12 @@ public class Guardarropa {
         // solo por una cantidad de tiempo no es usable
         // delegar en otro objeto
 
-        // se filtra despues de crear sugerencia
+        // hacer producto cartesiano y dsp filtrar
 
-        // guardarropas trackea cuales estan libres y cuales no
-        Set<Set<Prenda>> prendasInferioresAdecuadas = FiltradorDePrendas.getInstance().filtrarPrendas(this.obtenerPrendasInferioresDisponibles(), evento.obtenerClima(), sensibilidad, "general");
-        Set<Set<Prenda>> calzadosAdecuados = FiltradorDePrendas.getInstance().filtrarPrendas(this.obtenerCalzadosDisponibles(), evento.obtenerClima(), sensibilidad, "general");
-        Set<Set<Prenda>> accesoriosAdecuados = FiltradorDePrendas.getInstance().filtrarPrendas(this.obtenerAccesoriosDisponibles(), evento.obtenerClima(), sensibilidad, "general");
-        Set<Set<Prenda>> prendasSuperioresAdecuadas = FiltradorDePrendas.getInstance().filtrarPrendas(this.obtenerPrendasSuperioresDisponibles(), evento.obtenerClima(), sensibilidad, "general");
-
-        return Sets.cartesianProduct(prendasSuperioresAdecuadas, prendasInferioresAdecuadas, calzadosAdecuados, accesoriosAdecuados)
-                .stream()
-                .map(atuendo -> new Atuendo(atuendo.get(0), atuendo.get(1), atuendo.get(2), atuendo.get(3)))
-                .collect(Collectors.toList());
+        return FiltradorDePrendas.getInstance().filtrarYGenerarCombinacion(this.obtenerPrendasSuperioresDisponibles(),
+                this.obtenerPrendasInferioresDisponibles(), this.obtenerCalzadosDisponibles(), this.obtenerAccesoriosDisponibles(),
+                this.obtenerAccesorioCuelloDisponibles(), this.obtenerAccesorioManosDisponibles(), evento, sensibilidad);
     }
-
-
 
     @Override
     public boolean equals(Object o) {

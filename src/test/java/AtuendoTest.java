@@ -1,4 +1,4 @@
- package domain;
+package domain;
 
 import domain.estadoAtuendo.*;
 import domain.guardarropa.Premium;
@@ -10,7 +10,6 @@ import domain.prenda.Trama;
 import org.junit.*;
 import exceptions.*;
 import org.junit.rules.ExpectedException;
-import domain.guardarropa.*;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -26,6 +25,8 @@ public class AtuendoTest {
     private Prenda pollera;
     private Prenda pañuelo;
     private Prenda anteojos;
+    private Prenda bufandaRoja;
+    private Prenda guantesCuero;
     private Color color;
     private Usuario carlos;
     private Atuendo atuendoInvalido;
@@ -33,30 +34,26 @@ public class AtuendoTest {
     private Set<Prenda> superiores = new HashSet<>();
     private Set<Prenda> inferiores = new HashSet<>();
     private Set<Prenda> calzados = new HashSet<>();
-    private Set<Prenda> accesorios = new HashSet<>();
-
-
 
     @Before
     public void iniciarTest() {
         this.carlos = new Usuario("1534544344", calendario);
         Set<Usuario> carlosLista = new HashSet<>();
         carlosLista.add(carlos);
-        this.guardarropa = new Guardarropa(carlosLista,new Premium());
+        this.guardarropa = new Guardarropa(carlosLista, new Premium());
         this.color = new Color(1, 2, 3);
-        this.musculosa = new Prenda(TipoDePrenda.MUSCULOSA, Material.ALGODON, color, null, Trama.CUADROS, guardarropa,false);
-        this.blusa = new Prenda(TipoDePrenda.BLUSA, Material.ALGODON, color, null, Trama.CUADROS, guardarropa,false);
-        this.crocs = new Prenda(TipoDePrenda.CROCS, Material.GOMA, color, null, Trama.CUADROS, guardarropa,true);
-        this.zapatos = new Prenda(TipoDePrenda.ZAPATO, Material.CUERO, color, null, Trama.LISA, guardarropa,true);
-        this.shortDeJean = new Prenda(TipoDePrenda.SHORT, Material.JEAN, color, null, Trama.LISA, guardarropa,false);
-        this.pollera = new Prenda(TipoDePrenda.POLLERA, Material.JEAN, color, null, Trama.LISA, guardarropa,false);
-        this.pañuelo = new Prenda(TipoDePrenda.PANUELO, Material.ALGODON, color, null, Trama.LISA, guardarropa,false);
-        this.anteojos = new Prenda(TipoDePrenda.ANTEOJOS, Material.PLASTICO, color, null, Trama.LISA, guardarropa,false);
+        this.musculosa = new Prenda(TipoDePrenda.MUSCULOSA, Material.ALGODON, color, null, Trama.CUADROS, guardarropa, false);
+        this.blusa = new Prenda(TipoDePrenda.BLUSA, Material.ALGODON, color, null, Trama.CUADROS, guardarropa, false);
+        this.crocs = new Prenda(TipoDePrenda.CROCS, Material.GOMA, color, null, Trama.CUADROS, guardarropa, true);
+        this.zapatos = new Prenda(TipoDePrenda.ZAPATO, Material.CUERO, color, null, Trama.LISA, guardarropa, true);
+        this.shortDeJean = new Prenda(TipoDePrenda.SHORT, Material.JEAN, color, null, Trama.LISA, guardarropa, false);
+        this.pollera = new Prenda(TipoDePrenda.POLLERA, Material.JEAN, color, null, Trama.LISA, guardarropa, false);
+        this.pañuelo = new Prenda(TipoDePrenda.PANUELO, Material.ALGODON, color, null, Trama.LISA, guardarropa, false);
+        this.anteojos = new Prenda(TipoDePrenda.ANTEOJOS, Material.PLASTICO, color, null, Trama.LISA, guardarropa, false);
+        this.bufandaRoja = new Prenda(TipoDePrenda.BUFANDA, Material.LANA, color, null, Trama.LISA, guardarropa, false);
+        this.guantesCuero = new Prenda(TipoDePrenda.GUANTES, Material.CUERO, color, null, Trama.LISA, guardarropa, false);
         this.superiores.add(musculosa);
-        this.inferiores.add(shortDeJean);
-        this.calzados.add(crocs);
-        this.accesorios.add(anteojos);
-        this.atuendoVerano = new Atuendo(superiores,inferiores,calzados,accesorios);
+        this.atuendoVerano = new Atuendo(superiores, shortDeJean, crocs, anteojos, bufandaRoja, guantesCuero);
     }
 
     @Rule
@@ -68,6 +65,7 @@ public class AtuendoTest {
         exception.expectMessage("No se puede calificar un atuendo con estado Nuevo.");
         this.atuendoVerano.calificar(4);
     }
+
     @Test
     public void calificarAtuendoRechazado() {
         exception.expect(NoSePuedeCalificarException.class);
@@ -76,6 +74,7 @@ public class AtuendoTest {
         this.atuendoVerano.cambiarEstado(new Rechazado(this.atuendoVerano));
         this.atuendoVerano.calificar(4);
     }
+
     @Test
     public void calificarAtuendoAceptado() {
         this.atuendoVerano.cambiarEstado(new Aceptado(this.atuendoVerano));
@@ -83,6 +82,7 @@ public class AtuendoTest {
         Assert.assertEquals(4, this.atuendoVerano.obtenerCalificacionActual());
 
     }
+
     @Test
     public void calificarAtuendoFueraDeRango() {
         exception.expect(RangoDeCalificacionException.class);
@@ -106,6 +106,7 @@ public class AtuendoTest {
         this.atuendoVerano.cambiarEstado(new Rechazado(this.atuendoVerano));
         this.atuendoVerano.aceptar();
     }
+
     @Test
     public void aceptarAtuendoAceptado() {
         exception.expect(NoSePuedeAceptarException.class);
@@ -113,6 +114,7 @@ public class AtuendoTest {
         this.atuendoVerano.cambiarEstado(new Aceptado(this.atuendoVerano));
         this.atuendoVerano.aceptar();
     }
+
     @Test
     public void aceptarAtuendoCalificado() {
         exception.expect(NoSePuedeAceptarException.class);
@@ -121,6 +123,7 @@ public class AtuendoTest {
         this.atuendoVerano.calificar(5);
         this.atuendoVerano.aceptar();
     }
+
     @Test
     public void rechachazarAtuendoAceptado() {
         exception.expect(NoSePuedeRechazarException.class);
@@ -128,6 +131,7 @@ public class AtuendoTest {
         this.atuendoVerano.cambiarEstado(new Aceptado(this.atuendoVerano));
         this.atuendoVerano.rechazar();
     }
+
     @Test
     public void rechachazarAtuendoCalificado() {
         exception.expect(NoSePuedeRechazarException.class);
@@ -136,6 +140,7 @@ public class AtuendoTest {
         this.atuendoVerano.calificar(5);
         this.atuendoVerano.rechazar();
     }
+
     @Test
     public void rechachazarAtuendoRechazado() {
         exception.expect(NoSePuedeRechazarException.class);
@@ -147,36 +152,31 @@ public class AtuendoTest {
     @Test
     public void validarAtuendo() {
         exception.expect(PrendaInvalidaException.class);
-        exception.expectMessage("Una de las prendas superiores no es válida. Una de las prendas inferiores no es válida. Una de las prendas de tipo calzado no es válida. ");
+        exception.expectMessage("Una/s de las prendas superiores no es válida. La prenda inferior no es válida. La prenda de tipo calzado no es válida. La prenda accesorio no es válida. ");
         Set<Prenda> partesInferiores = new HashSet<>();
-        Set<Prenda> partesSuperiores = new HashSet<>();
-        Set<Prenda> calzados = new HashSet<>();
-        Set<Prenda> accesorios = new HashSet<>();
         partesInferiores.add(pollera);
-        partesSuperiores.add(musculosa);
-        calzados.add(zapatos);
-        accesorios.add(anteojos);
 
-        this.atuendoInvalido = new Atuendo(partesInferiores,calzados,accesorios,partesSuperiores); //con sus partes fuera de orden.
+        this.atuendoInvalido = new Atuendo(partesInferiores, zapatos, anteojos, musculosa, bufandaRoja, guantesCuero); //con sus partes fuera de orden.
     }
 
     @Test
     public void validarAccesorioAtuendo() {
-        Assert.assertEquals(accesorios, this.atuendoVerano.obtenerAccesorios());
+        Assert.assertEquals(anteojos, this.atuendoVerano.obtenerAccesorio());
     }
 
     @Test
     public void validarPrendaSuperiorAtuendo() {
-        Assert.assertTrue(this.atuendoVerano.obtenerPrendasSuperiores().contains(this.musculosa));    }
+        Assert.assertTrue(this.atuendoVerano.obtenerPrendasSuperiores().contains(this.musculosa));
+    }
 
     @Test
     public void validarPrendaInferiorAtuendo() {
-        Assert.assertTrue(this.atuendoVerano.obtenerPrendasInferiores().contains(shortDeJean) );
+        Assert.assertTrue(this.atuendoVerano.obtenerPrendaInferior().equals(shortDeJean));
     }
 
     @Test
     public void validarCalzadoAtuendo() {
-        Assert.assertTrue(this.atuendoVerano.obtenerCalzados().contains(crocs));
+        Assert.assertTrue(this.atuendoVerano.obtenerCalzado().equals(crocs));
     }
 
     @Test

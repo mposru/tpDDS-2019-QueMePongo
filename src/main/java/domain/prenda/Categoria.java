@@ -2,6 +2,9 @@ package domain.prenda;
 
 public enum Categoria {
     PARTE_SUPERIOR,
+    PARTE_SUPERIOR_ARRIBA,
+    PARTE_SUPERIOR_MEDIO,
+    PARTE_SUPERIOR_ABAJO,
     CALZADO,
     PARTE_INFERIOR,
     ACCESORIO_MANOS,

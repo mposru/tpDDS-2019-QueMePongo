@@ -45,12 +45,12 @@ public class GeneraJson {
                 "            },\n" +
                 "            \"Temperature\": {\n" +
                 "                \"Minimum\": {\n" +
-                "                    \"Value\": 21,\n" +
+                "                    \"Value\": 20,\n" +
                 "                    \"Unit\": \"C\",\n" +
                 "                    \"UnitType\": 17\n" +
                 "                },\n" +
                 "                \"Maximum\": {\n" +
-                "                    \"Value\": 30,\n" +
+                "                    \"Value\": 40,\n" +
                 "                    \"Unit\": \"C\",\n" +
                 "                    \"UnitType\": 17\n" +
                 "                }\n" +
@@ -544,7 +544,7 @@ public class GeneraJson {
                 "            },\n" +
                 "            \"Temperature\": {\n" +
                 "                \"Minimum\": {\n" +
-                "                    \"Value\": 5,\n" +
+                "                    \"Value\": 4,\n" +
                 "                    \"Unit\": \"C\",\n" +
                 "                    \"UnitType\": 17\n" +
                 "                },\n" +

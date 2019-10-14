@@ -19,7 +19,6 @@ public class NivelAbrigo {
         double nivelDeAbrigo;
         nivelDeAbrigo = (-0.5*(0.5*(temperaturaMin + temperaturaMax)) + 25);
         return nivelDeAbrigo;
-
     }
 
     public double getTemperatura(double nivelAbrigo) {

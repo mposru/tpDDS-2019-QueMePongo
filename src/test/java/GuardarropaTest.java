@@ -40,7 +40,7 @@ public class GuardarropaTest {
     private Prenda ojotas;
     private Prenda pañuelo;
     private Prenda bandana;
-    private Prenda bufanda;
+    private Prenda gorro;
     private Prenda anteojos;
     private Prenda prendaVacia;
     private Prenda otraPrendaVacia;
@@ -58,6 +58,10 @@ public class GuardarropaTest {
     private Prenda shortDeFutbol;
     private Prenda mediasDeFutbol;
     private Prenda canillera;
+    private Prenda sinAccesorioCuello;
+    private Prenda sinAccesorioManos;
+    private Prenda sinAccesorioCuello2;
+    private Prenda sinAccesorioManos2;
     private Calendario calendarioMarta;
     private Calendario calendarioFlor;
     private Calendario calendarioPepita;
@@ -68,7 +72,6 @@ public class GuardarropaTest {
     private String jsonClimaAbrigoBasico = GeneraJson.getInstance().dameJSONClimaAbrigoBasico();
     private String jsonClimaAbrigoMediano = GeneraJson.getInstance().dameJSONClimaAbrigoMediano();
     private String jsonClimaAbrigoAlto = GeneraJson.getInstance().dameJSONClimaAbrigoAlto();
-
 
     @Before
     public void iniciarTest() {
@@ -104,10 +107,14 @@ public class GuardarropaTest {
         this.pollera = new Prenda(TipoDePrenda.POLLERA, Material.ALGODON, color, null, Trama.LISA, guardarropa, false);
         this.pañuelo = new Prenda(TipoDePrenda.PANUELO, Material.ALGODON, color, null, Trama.LISA, guardarropa, false);
         this.bandana = new Prenda(TipoDePrenda.PANUELO, Material.ALGODON, color, null, Trama.LISA, guardarropa, false);
-        this.bufanda = new Prenda(TipoDePrenda.BUFANDA, Material.LANA, color, null, Trama.LISA, guardarropa, false);
+        this.gorro = new Prenda(TipoDePrenda.GORRO, Material.LANA, color, null, Trama.LISA, guardarropa, false);
         this.anteojos = new Prenda(TipoDePrenda.ANTEOJOS, Material.PLASTICO, color, null, Trama.LISA, guardarropa, false);
         this.prendaVacia = new Prenda(TipoDePrenda.NINGUNO_SUPERIOR, Material.NINGUNO, new Color(0, 0, 0), null, Trama.NINGUNO, guardarropa, false);
         this.otraPrendaVacia = new Prenda(TipoDePrenda.NINGUNO_SUPERIOR, Material.NINGUNO, new Color(0, 0, 0), null, Trama.NINGUNO, guardarropa, false);
+        this.sinAccesorioManos = new Prenda(TipoDePrenda.ACCESORIO_VACIO_MANOS, Material.NINGUNO, color, null, Trama.LISA, guardarropa, false);
+        this.sinAccesorioCuello = new Prenda(TipoDePrenda.ACCESORIO_VACIO_CUELLO, Material.NINGUNO, color, null, Trama.LISA, guardarropa, false);
+        this.sinAccesorioManos2 = new Prenda(TipoDePrenda.ACCESORIO_VACIO_MANOS, Material.NINGUNO, color, null, Trama.LISA, guardarropa, false);
+        this.sinAccesorioCuello2 = new Prenda(TipoDePrenda.ACCESORIO_VACIO_CUELLO, Material.NINGUNO, color, null, Trama.LISA, guardarropa, false);
         //De guardarropa limitado
         this.remeraFutbol = new Prenda(TipoDePrenda.REMERA, Material.ALGODON, color, null, Trama.ESTAMPADO, guardarropaLimitado, false);
         this.camperaDeportiva = new Prenda(TipoDePrenda.CAMPERA, Material.ALGODON, color, null, Trama.LISA, guardarropaLimitado, false);
@@ -137,36 +144,33 @@ public class GuardarropaTest {
         this.guardarropa.guardarPrenda(this.crocs);
         this.guardarropa.guardarPrenda(this.shortDeJean);
         this.guardarropa.guardarPrenda(this.pollera);
-        this.guardarropa.guardarPrenda(this.pañuelo);
         this.guardarropa.guardarPrenda(this.anteojos);
+        this.guardarropa.guardarPrenda(this.sinAccesorioCuello);
+        this.guardarropa.guardarPrenda(this.sinAccesorioManos);
 
         List<Atuendo> sugerencias = this.guardarropa.generarSugerencia(this.eventoX, this.sensibilidad);
 
         Set<Prenda> prendasSuperiores = new HashSet<>();
         prendasSuperiores.add(this.musculosa);
-        prendasSuperiores.add(this.prendaVacia);
-        prendasSuperiores.add(this.otraPrendaVacia);
-        Set<Prenda> prendasInferiores = new HashSet<>();
-        prendasInferiores.add(shortDeJean);
-        Set<Prenda> prendasInferiores2 = new HashSet<>();
-        prendasInferiores2.add(pollera);
-        Set<Prenda> calzados = new HashSet<>();
-        calzados.add(crocs);
-        Set<Prenda> accesorios = new HashSet<>();
-        accesorios.add(anteojos);
+        Prenda prendaInferior = shortDeJean;
+        Prenda prendaInferior2 = pollera;
+        Prenda calzado = crocs;
+        Prenda accesorio = anteojos;
 
-        Atuendo primerAtuendo = new Atuendo(prendasSuperiores, prendasInferiores, calzados, accesorios);
-        Atuendo segundoAtuendo = new Atuendo(prendasSuperiores, prendasInferiores2, calzados, accesorios);
+        Atuendo primerAtuendo = new Atuendo(prendasSuperiores, prendaInferior, calzado, accesorio, this.sinAccesorioCuello, this.sinAccesorioManos);
+        Atuendo segundoAtuendo = new Atuendo(prendasSuperiores, prendaInferior2, calzado, accesorio, this.sinAccesorioCuello, this.sinAccesorioManos);
         List<Atuendo> sugerenciasEsperadas = Arrays.asList(primerAtuendo, segundoAtuendo);
         sugerencias.forEach(sugerencia -> {
             boolean coincide = sugerenciasEsperadas.stream().anyMatch(sugerenciaEsperada ->
-                    sugerenciaEsperada.obtenerAccesorios() == sugerencia.obtenerAccesorios() &&
-                            sugerenciaEsperada.obtenerCalzados() == sugerencia.obtenerCalzados() &&
-                            sugerenciaEsperada.obtenerPrendasInferiores() == sugerencia.obtenerPrendasInferiores()
+                    sugerenciaEsperada.obtenerAccesorio().equals(sugerencia.obtenerAccesorio()) &&
+                            sugerenciaEsperada.obtenerCalzado().equals(sugerencia.obtenerCalzado()) &&
+                            sugerenciaEsperada.obtenerPrendaInferior().equals(sugerencia.obtenerPrendaInferior()) &&
+                            sugerenciaEsperada.obtenerAccesorioManos().equals(sugerencia.obtenerAccesorioManos()) &&
+                            sugerenciaEsperada.obtenerAccesorioCuello().equals(sugerencia.obtenerAccesorioCuello())
             );
             Assert.assertTrue(coincide);
             //prendasSuperiores.retainAll(sugerencia.obtenerPrendasSuperiores());
-            Assert.assertTrue(sugerencia.obtenerPrendasSuperiores().size() == 3);
+            Assert.assertTrue(sugerencia.obtenerPrendasSuperiores().size() == 1);
         });
         Assert.assertEquals(sugerenciasEsperadas.size(), sugerencias.size());
     }
@@ -181,6 +185,8 @@ public class GuardarropaTest {
         this.guardarropa.guardarPrenda(this.pantalon); // valido
         this.guardarropa.guardarPrenda(this.pollera);
         this.guardarropa.guardarPrenda(this.pañuelo); // valido
+        this.guardarropa.guardarPrenda(this.sinAccesorioCuello);
+        this.guardarropa.guardarPrenda(this.sinAccesorioManos);
 
         List<Atuendo> sugerencias = this.guardarropa.generarSugerencia(this.eventoX, this.sensibilidad);
 
@@ -188,24 +194,20 @@ public class GuardarropaTest {
         prendasSuperiores.add(this.musculosa);
         prendasSuperiores.add(this.buzo);
         prendasSuperiores.add(this.prendaVacia);
-        Set<Prenda> prendasInferiores = new HashSet<>();
-        prendasInferiores.add(pantalon);
-        Set<Prenda> calzados = new HashSet<>();
-        calzados.add(zapatillas);
-        Set<Prenda> accesorios = new HashSet<>();
-        accesorios.add(pañuelo);
-        Atuendo primerAtuendo = new Atuendo(prendasSuperiores, prendasInferiores, calzados, accesorios);
+        Atuendo primerAtuendo = new Atuendo(prendasSuperiores, pantalon, zapatillas, pañuelo, this.sinAccesorioCuello, this.sinAccesorioManos);
         List<Atuendo> sugerenciasEsperadas = Arrays.asList(primerAtuendo);
         sugerencias.forEach(sugerencia -> {
             boolean coincide = sugerenciasEsperadas.stream().anyMatch(sugerenciaEsperada ->
-                    sugerenciaEsperada.obtenerAccesorios() == sugerencia.obtenerAccesorios() &&
-                            sugerenciaEsperada.obtenerCalzados() == sugerencia.obtenerCalzados() &&
-                            sugerenciaEsperada.obtenerPrendasInferiores() == sugerencia.obtenerPrendasInferiores()
+                    sugerenciaEsperada.obtenerAccesorio().equals(sugerencia.obtenerAccesorio()) &&
+                            sugerenciaEsperada.obtenerCalzado().equals(sugerencia.obtenerCalzado()) &&
+                            sugerenciaEsperada.obtenerPrendaInferior().equals(sugerencia.obtenerPrendaInferior()) &&
+                            sugerenciaEsperada.obtenerAccesorioManos().equals(sugerencia.obtenerAccesorioManos()) &&
+                            sugerenciaEsperada.obtenerAccesorioCuello().equals(sugerencia.obtenerAccesorioCuello())
             );
             //prendasSuperiores.retainAll(sugerencia.obtenerPrendasSuperiores());
             //Assert.assertTrue(prendasSuperiores.size() == 3);
             Assert.assertTrue(coincide);
-            Assert.assertTrue(sugerencia.obtenerPrendasSuperiores().size() == 3);
+            Assert.assertTrue(sugerencia.obtenerPrendasSuperiores().stream().allMatch(prenda -> prendasSuperiores.contains(prenda)));
         });
         Assert.assertEquals(sugerenciasEsperadas.size(), sugerencias.size());
     }
@@ -220,7 +222,9 @@ public class GuardarropaTest {
         this.guardarropa.guardarPrenda(this.botasDeNieve); // valido
         this.guardarropa.guardarPrenda(this.pantalonPolar); // valido
         this.guardarropa.guardarPrenda(this.pollera);
-        this.guardarropa.guardarPrenda(this.bufanda); // valido
+        this.guardarropa.guardarPrenda(this.gorro); // valido
+        this.guardarropa.guardarPrenda(this.sinAccesorioCuello);
+        this.guardarropa.guardarPrenda(this.sinAccesorioManos);
 
         List<Atuendo> sugerencias = this.guardarropa.generarSugerencia(this.eventoX, this.sensibilidad);
 
@@ -228,24 +232,23 @@ public class GuardarropaTest {
         prendasSuperiores.add(this.musculosa);
         prendasSuperiores.add(this.buzo);
         prendasSuperiores.add(this.campera);
-        Set<Prenda> prendasInferiores = new HashSet<>();
-        prendasInferiores.add(pantalonPolar);
-        Set<Prenda> calzados = new HashSet<>();
-        calzados.add(botasDeNieve);
-        Set<Prenda> accesorios = new HashSet<>();
-        accesorios.add(bufanda);
-        Atuendo primerAtuendo = new Atuendo(prendasSuperiores, prendasInferiores, calzados, accesorios);
-        List<Atuendo> sugerenciasEsperadas = Arrays.asList(primerAtuendo);
+        Set<Prenda> prendasSuperiores2 = new HashSet<>();
+        prendasSuperiores2.add(this.musculosa);
+        prendasSuperiores2.add(this.buzo);
+        Atuendo primerAtuendo = new Atuendo(prendasSuperiores, pantalonPolar, botasDeNieve, gorro, this.sinAccesorioCuello, this.sinAccesorioManos);
+        Atuendo segundoAtuendo = new Atuendo(prendasSuperiores2, pantalonPolar, botasDeNieve, gorro, this.sinAccesorioCuello, this.sinAccesorioManos);
+        List<Atuendo> sugerenciasEsperadas = Arrays.asList(primerAtuendo, segundoAtuendo);
         sugerencias.forEach(sugerencia -> {
             boolean coincide = sugerenciasEsperadas.stream().anyMatch(sugerenciaEsperada ->
-                    sugerenciaEsperada.obtenerAccesorios() == sugerencia.obtenerAccesorios() &&
-                            sugerenciaEsperada.obtenerCalzados() == sugerencia.obtenerCalzados() &&
-                            sugerenciaEsperada.obtenerPrendasInferiores() == sugerencia.obtenerPrendasInferiores()
+                    sugerenciaEsperada.obtenerAccesorio() == sugerencia.obtenerAccesorio() &&
+                            sugerenciaEsperada.obtenerCalzado() == sugerencia.obtenerCalzado() &&
+                            sugerenciaEsperada.obtenerPrendaInferior() == sugerencia.obtenerPrendaInferior()&&
+                            sugerenciaEsperada.obtenerAccesorioManos().equals(sugerencia.obtenerAccesorioManos()) &&
+                            sugerenciaEsperada.obtenerAccesorioCuello().equals(sugerencia.obtenerAccesorioCuello())
             );
-            //prendasSuperiores.retainAll(sugerencia.obtenerPrendasSuperiores());
-            //Assert.assertTrue(prendasSuperiores.size() == 3);
             Assert.assertTrue(coincide);
-            Assert.assertTrue(sugerencia.obtenerPrendasSuperiores().size() == 3);
+            Assert.assertTrue(sugerencia.obtenerPrendasSuperiores().stream().allMatch(prenda -> prendasSuperiores.contains(prenda))
+            || sugerencia.obtenerPrendasSuperiores().stream().allMatch(prenda -> prendasSuperiores2.contains(prenda)));
         });
         Assert.assertEquals(sugerenciasEsperadas.size(), sugerencias.size());
     }
@@ -292,8 +295,36 @@ public class GuardarropaTest {
         this.guardarropa.guardarPrenda(this.crocs);
         this.guardarropa.guardarPrenda(this.anteojos);
         this.guardarropa.guardarPrenda(this.pollera);
+        this.guardarropa.guardarPrenda(this.sinAccesorioCuello);
+        this.guardarropa.guardarPrenda(this.sinAccesorioManos);
         exception.expect(FaltaPrendaException.class);
-        exception.expectMessage("Faltan prendas superiores adecuadas para el clima del evento. ");
+        exception.expectMessage("Faltan prendas superiores. ");
+
+        this.guardarropa.generarSugerencia(this.eventoX, this.sensibilidad);
+    }
+
+    @Test
+    public void noSePuedeSugerirSinAccesorioDeManos() {
+        this.guardarropa.guardarPrenda(this.crocs);
+        this.guardarropa.guardarPrenda(this.anteojos);
+        this.guardarropa.guardarPrenda(this.pollera);
+        this.guardarropa.guardarPrenda(this.musculosa);
+        this.guardarropa.guardarPrenda(this.sinAccesorioCuello);
+        exception.expect(FaltaPrendaException.class);
+        exception.expectMessage("Faltan accesorios manos. ");
+
+        this.guardarropa.generarSugerencia(this.eventoX, this.sensibilidad);
+    }
+
+    @Test
+    public void noSePuedeSugerirSinAccesorioDeCuello() {
+        this.guardarropa.guardarPrenda(this.crocs);
+        this.guardarropa.guardarPrenda(this.anteojos);
+        this.guardarropa.guardarPrenda(this.pollera);
+        this.guardarropa.guardarPrenda(this.musculosa);
+        this.guardarropa.guardarPrenda(this.sinAccesorioManos);
+        exception.expect(FaltaPrendaException.class);
+        exception.expectMessage("Faltan accesorios cuello. ");
 
         this.guardarropa.generarSugerencia(this.eventoX, this.sensibilidad);
     }
@@ -303,8 +334,10 @@ public class GuardarropaTest {
         this.guardarropa.guardarPrenda(this.pollera);
         this.guardarropa.guardarPrenda(this.musculosa);
         this.guardarropa.guardarPrenda(this.anteojos);
+        this.guardarropa.guardarPrenda(this.sinAccesorioCuello);
+        this.guardarropa.guardarPrenda(this.sinAccesorioManos);
         exception.expect(FaltaPrendaException.class);
-        exception.expectMessage("Faltan zapatos adecuados para el clima del evento. ");
+        exception.expectMessage("Faltan zapatos. ");
 
         this.guardarropa.generarSugerencia(this.eventoX, this.sensibilidad);
     }
@@ -314,8 +347,10 @@ public class GuardarropaTest {
         this.guardarropa.guardarPrenda(this.pollera);
         this.guardarropa.guardarPrenda(this.musculosa);
         this.guardarropa.guardarPrenda(this.crocs);
+        this.guardarropa.guardarPrenda(this.sinAccesorioCuello);
+        this.guardarropa.guardarPrenda(this.sinAccesorioManos);
         exception.expect(FaltaPrendaException.class);
-        exception.expectMessage("Faltan accesorios adecuados para el clima del evento. ");
+        exception.expectMessage("Faltan accesorios. ");
         this.guardarropa.generarSugerencia(this.eventoX, this.sensibilidad);
     }
 
@@ -324,8 +359,10 @@ public class GuardarropaTest {
         this.guardarropa.guardarPrenda(this.musculosa);
         this.guardarropa.guardarPrenda(this.crocs);
         this.guardarropa.guardarPrenda(this.anteojos);
+        this.guardarropa.guardarPrenda(this.sinAccesorioCuello);
+        this.guardarropa.guardarPrenda(this.sinAccesorioManos);
         exception.expect(FaltaPrendaException.class);
-        exception.expectMessage("Faltan prendas inferiores adecuadas para el clima del evento. ");
+        exception.expectMessage("Faltan prendas inferiores. ");
 
         this.guardarropa.generarSugerencia(this.eventoX, this.sensibilidad);
     }
@@ -356,16 +393,14 @@ public class GuardarropaTest {
         this.guardarropaCompartido.guardarPrenda(this.pollera);
         this.guardarropaCompartido.guardarPrenda(this.bandana);
         this.guardarropaCompartido.guardarPrenda(this.anteojos);
+        this.guardarropaCompartido.guardarPrenda(this.sinAccesorioCuello);
+        this.guardarropaCompartido.guardarPrenda(this.sinAccesorioManos);
+        this.guardarropaCompartido.guardarPrenda(this.sinAccesorioCuello2);
+        this.guardarropaCompartido.guardarPrenda(this.sinAccesorioManos2);
 
         Set<Prenda> prendasSuperiores = new HashSet<>();
         prendasSuperiores.add(this.musculosa);
-        Set<Prenda> prendasInferiores = new HashSet<>();
-        prendasInferiores.add(shortDeJean);
-        Set<Prenda> calzados = new HashSet<>();
-        calzados.add(crocs);
-        Set<Prenda> accesorios = new HashSet<>();
-        accesorios.add(anteojos);
-        Atuendo primerAtuendo = new Atuendo(prendasSuperiores, prendasInferiores, calzados, accesorios);
+        Atuendo primerAtuendo = new Atuendo(prendasSuperiores, shortDeJean, crocs, anteojos, this.sinAccesorioCuello, this.sinAccesorioManos);
         flor.aceptarAtuendo(primerAtuendo);
 
         // cuando pepita pide las sugerencias, no puede tener la ropa del primer atuendo
@@ -375,13 +410,7 @@ public class GuardarropaTest {
         prendasSuperiores2.add(this.remeraFutbol);
         prendasSuperiores2.add(this.buzo);
         prendasSuperiores2.add(this.campera);
-        Set<Prenda> prendasInferiores2 = new HashSet<>();
-        prendasInferiores2.add(pollera);
-        Set<Prenda> calzados2 = new HashSet<>();
-        calzados2.add(ojotas);
-        Set<Prenda> accesorios2 = new HashSet<>();
-        accesorios2.add(bandana);
-        Atuendo primerAtuendo2 = new Atuendo(prendasSuperiores2, prendasInferiores2, calzados2, accesorios2);
+        Atuendo primerAtuendo2 = new Atuendo(prendasSuperiores2, pollera, ojotas, bandana, this.sinAccesorioCuello, this.sinAccesorioManos);
         List<Atuendo> sugerenciasEsperadas = Arrays.asList(primerAtuendo2);
         boolean sugierePrendaAceptada = sugerencias.stream().anyMatch(atuendo -> atuendo.obtenerPrendasSuperiores().contains(musculosa));
 
