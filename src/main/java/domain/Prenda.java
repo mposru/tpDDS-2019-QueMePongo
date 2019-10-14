@@ -53,6 +53,18 @@ public class Prenda {
         this.imagen = this.imagen.leerDeFileSystem(path);
     }
 
+    public boolean esParteSuperior() {
+        return this.obtenerCategoria() == Categoria.PARTE_SUPERIOR_ABAJO
+                || this.obtenerCategoria() == Categoria.PARTE_SUPERIOR_MEDIO
+                || this.obtenerCategoria() == Categoria.PARTE_SUPERIOR_ARRIBA;
+    }
+
+    public boolean esAccesorioGeneral() {
+        return this.obtenerCategoria() == Categoria.ACCESORIO
+                || this.obtenerCategoria() == Categoria.ACCESORIO_CABEZA
+                || this.obtenerCategoria() == Categoria.ACCESORIO_PIES;
+    }
+
     public double obtenerUnidadDeAbrigo() {
         return this.tipoDePrenda.obtenerUnidadDeAbrigo();
     }

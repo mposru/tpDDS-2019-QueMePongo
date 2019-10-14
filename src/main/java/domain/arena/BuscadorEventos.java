@@ -11,25 +11,25 @@ import java.util.List;
 @Observable
 public class BuscadorEventos {
 
-    private int diaDesde=1;
-    private int mesDesde=1;
-    private int anioDesde;
-    private int diaHasta=1;
-    private int mesHasta=1;
-    private int anioHasta;
+    private Integer diaDesde=1;
+    private Integer mesDesde=1;
+    private Integer anioDesde=1;
+    private Integer diaHasta=1;
+    private Integer mesHasta=1;
+    private Integer anioHasta=1;
     private List<Evento> resultados;
 
-    LocalDateTime fechaDesde = LocalDateTime.of(anioDesde,mesDesde,diaDesde,0,0);
-    LocalDateTime fechaHasta = LocalDateTime.of(anioHasta,mesHasta,diaHasta,0,0);
-
+    LocalDateTime fechaDesde;
+    LocalDateTime fechaHasta;
 
     public BuscadorEventos() {
     }
 
     public void search() {
-        this.resultados = this.getRepositorioEventos().search(this.fechaDesde,this.fechaHasta);
+            fechaDesde = LocalDateTime.of(anioDesde, mesDesde, diaDesde, 0, 0);
+            fechaHasta = LocalDateTime.of(anioHasta, mesHasta, diaHasta, 0, 0);
+            this.resultados = this.getRepositorioEventos().search(this.fechaDesde, this.fechaHasta);
     }
-
 
     public RepositorioEventos getRepositorioEventos() {
         return (RepositorioEventos) ApplicationContext.getInstance().getSingleton(Evento.class);

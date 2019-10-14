@@ -13,7 +13,6 @@ import java.util.Objects;
 import java.util.Set;
 
 import static domain.prenda.Categoria.*;
-import static java.util.stream.Collectors.toList;
 
 @Entity
 public class Atuendo {
@@ -22,53 +21,53 @@ public class Atuendo {
     @Id
     long id;
 
-    @OneToMany
+    @OneToOne
     @JoinColumn(name = "accesorio_id")
-    private Set<Prenda> accesorios = new HashSet<>();
+    private Prenda accesorio;
     @OneToMany
-    @JoinColumn(name = "prenda_superiore_id")
+    @JoinColumn(name = "prendas_superiores_id")
     private Set<Prenda> prendasSuperiores = new HashSet<>();
-    @OneToMany
+    @OneToOne
     @JoinColumn(name = "prenda_inferior_id")
-    private Set<Prenda> prendasInferiores = new HashSet<>();
-    @OneToMany
+    private Prenda prendaInferior;
+    @OneToOne
     @JoinColumn(name = "calzado_id")
-    private Set<Prenda> calzados = new HashSet<>();
+    private Prenda calzado;
+    @OneToOne
+    @JoinColumn(name = "accesorio_cuello_id")
+    private Prenda accesorioCuello;
+    @OneToOne
+    @JoinColumn(name = "accesorio_manos_id")
+    private Prenda accesorioManos;
 
     @ManyToOne
     private EstadoAtuendo estado;
 
-    public Atuendo(Set<Prenda> prendasSuperiores, Set<Prenda> prendasInferiores, Set<Prenda> calzados, Set<Prenda> accesorios) {
-        this.validarPrendas(prendasSuperiores, prendasInferiores, calzados, accesorios);
-        this.accesorios = accesorios;
+    public Atuendo(Set<Prenda> prendasSuperiores, Prenda prendaInferior, Prenda calzado, Prenda accesorio, Prenda accesorioCuello, Prenda accesorioManos) {
+        this.validarPrenda(prendasSuperiores, prendaInferior, calzado, accesorio, accesorioCuello, accesorioManos);
+        this.accesorio = accesorio;
         this.prendasSuperiores = prendasSuperiores;
-        this.prendasInferiores = prendasInferiores;
-        this.calzados = calzados;
+        this.prendaInferior = prendaInferior;
+        this.calzado = calzado;
+        this.accesorioCuello = accesorioCuello;
+        this.accesorioManos = accesorioManos;
         this.estado = new Nuevo(this); //todo atuendo nace en estado nuevo.
     }
 
-    private void validarPrendas(Set<Prenda> prendasSuperiores, Set<Prenda> prendasInferiores, Set<Prenda> calzados, Set<Prenda> accesorios) {
+    private void validarPrenda(Set<Prenda> prendasSuperiores, Prenda prendaInferior,
+                               Prenda calzado, Prenda accesorio, Prenda accesorioCuello, Prenda accesorioManos) {
         String mensajeDeError = "";
         mensajeDeError = mensajeDeError.concat(validarPrendas(PARTE_SUPERIOR, prendasSuperiores));
 
-        mensajeDeError = mensajeDeError.concat(validarPrendas(PARTE_INFERIOR, prendasInferiores));
+        mensajeDeError = mensajeDeError.concat(validarPrenda(PARTE_INFERIOR, prendaInferior));
 
-        mensajeDeError = mensajeDeError.concat(validarPrendas(CALZADO, calzados));
-        if(accesorios.stream().anyMatch(accesorio->accesorio.obtenerCategoria()==ACCESORIO)) {
-            mensajeDeError = mensajeDeError.concat(validarPrendas(ACCESORIO, accesorios));
-        }
-        if(accesorios.stream().anyMatch(accesorio->accesorio.obtenerCategoria()==ACCESORIO_CUELLO)) {
-            mensajeDeError = mensajeDeError.concat(validarPrendas(ACCESORIO_CUELLO, accesorios));
-        }
-        if(accesorios.stream().anyMatch(accesorio->accesorio.obtenerCategoria()==ACCESORIO_CABEZA)) {
-            mensajeDeError = mensajeDeError.concat(validarPrendas(ACCESORIO_CABEZA, accesorios));
-        }
-        if(accesorios.stream().anyMatch(accesorio->accesorio.obtenerCategoria()==ACCESORIO_MANOS)) {
-            mensajeDeError = mensajeDeError.concat(validarPrendas(ACCESORIO_MANOS, accesorios));
-        }
-        if(accesorios.stream().anyMatch(accesorio->accesorio.obtenerCategoria()==ACCESORIO_PIES)) {
-            mensajeDeError = mensajeDeError.concat(validarPrendas(ACCESORIO_PIES, accesorios));
-        }
+        mensajeDeError = mensajeDeError.concat(validarPrenda(CALZADO, calzado));
+
+        mensajeDeError = mensajeDeError.concat(validarPrenda(ACCESORIO, accesorio));
+
+        mensajeDeError = mensajeDeError.concat(validarPrenda(ACCESORIO_CUELLO, accesorioCuello));
+
+        mensajeDeError = mensajeDeError.concat(validarPrenda(ACCESORIO_MANOS, accesorioManos));
 
         if (mensajeDeError != "") {
             throw new PrendaInvalidaException(mensajeDeError);
@@ -77,40 +76,47 @@ public class Atuendo {
 
     private String validarPrendas(Categoria categoria, Set<Prenda> prendas) {
         String mensajeDeError = "";
-        int prendasInvalidas;
-        prendasInvalidas = prendas.stream().
-                filter(prenda -> prenda.obtenerCategoria() != categoria)
-                .collect(toList())
-                .size();
-        if (prendasInvalidas > 0) {
+        if (prendas.stream().anyMatch(prenda -> prenda.obtenerCategoria() != categoria)) {
+            switch (categoria) {
+                case PARTE_SUPERIOR:
+                    if (prendas.stream().anyMatch(prenda -> !prenda.esParteSuperior())) {
+                        mensajeDeError = "Una/s de las prendas superiores no es válida. ";
+                    }
+                    break;
+            }
+        }
+        return mensajeDeError;
+    }
+
+    private String validarPrenda(Categoria categoria, Prenda prenda) {
+        String mensajeDeError = "";
+        if (prenda.obtenerCategoria() != categoria) {
             String tipoPrenda = "";
             switch (categoria) {
                 case PARTE_INFERIOR:
-                    tipoPrenda = "prendas inferiores";
+                    tipoPrenda = "prenda inferior";
                     break;
                 case PARTE_SUPERIOR:
-                    tipoPrenda = "prendas superiores";
+                    tipoPrenda = "prenda superior";
                     break;
                 case CALZADO:
-                    tipoPrenda = "prendas de tipo calzado";
+                    tipoPrenda = "prenda de tipo calzado";
                     break;
                 case ACCESORIO:
-                    tipoPrenda = "prendas accesorias en general";
-                    break;
-                case ACCESORIO_PIES:
-                    tipoPrenda = "prendas accesorias para pies";
-                    break;
-                case ACCESORIO_MANOS:
-                    tipoPrenda = "prendas accesorias para manos";
-                    break;
-                case ACCESORIO_CABEZA:
-                    tipoPrenda = "prendas accesorias para cabeza";
+                    if (prenda.esAccesorioGeneral()) {
+                        break;
+                    }
+                    tipoPrenda = "prenda accesorio";
                     break;
                 case ACCESORIO_CUELLO:
-                    tipoPrenda = "prendas accesorias para cuello";
+                    tipoPrenda = "prenda accesorio cuello";
                     break;
+                case ACCESORIO_MANOS:
+                    tipoPrenda = "prenda accesorio manos";
+                    break;
+
             }
-            mensajeDeError = mensajeDeError.concat("Una de las " + tipoPrenda + " no es válida. ");
+            mensajeDeError = mensajeDeError.concat("La " + tipoPrenda + " no es válida. ");
         }
         return mensajeDeError;
     }
@@ -119,16 +125,24 @@ public class Atuendo {
         return prendasSuperiores;
     }
 
-    public Set<Prenda> obtenerPrendasInferiores() {
-        return prendasInferiores;
+    public Prenda obtenerPrendaInferior() {
+        return prendaInferior;
     }
 
-    public Set<Prenda> obtenerAccesorios() {
-        return accesorios;
+    public Prenda obtenerAccesorio() {
+        return accesorio;
     }
 
-    public Set<Prenda> obtenerCalzados() {
-        return calzados;
+    public Prenda obtenerCalzado() {
+        return calzado;
+    }
+
+    public Prenda obtenerAccesorioCuello() {
+        return accesorioCuello;
+    }
+
+    public Prenda obtenerAccesorioManos() {
+        return accesorioManos;
     }
 
     public EstadoAtuendo obtenerEstadoAtuendo() { return this.estado; }
@@ -143,9 +157,11 @@ public class Atuendo {
     }
 
     private void cambiarDisponibilidadPrendas(boolean nuevaDisponibilidad) {
-        this.accesorios.forEach(prenda -> prenda.setDisponibilidad(nuevaDisponibilidad));
-        this.calzados.forEach(prenda -> prenda.setDisponibilidad(nuevaDisponibilidad));
-        this.prendasInferiores.forEach(prenda -> prenda.setDisponibilidad(nuevaDisponibilidad));
+        this.accesorio.setDisponibilidad(nuevaDisponibilidad);
+        this.calzado.setDisponibilidad(nuevaDisponibilidad);
+        this.prendaInferior.setDisponibilidad(nuevaDisponibilidad);
+        this.accesorioManos.setDisponibilidad(nuevaDisponibilidad);
+        this.accesorioCuello.setDisponibilidad(nuevaDisponibilidad);
         this.prendasSuperiores.forEach(prenda -> prenda.setDisponibilidad(nuevaDisponibilidad));
     }
 
@@ -161,8 +177,18 @@ public class Atuendo {
     public void cambiarEstado(EstadoAtuendo estado) {
         this.estado = estado;
     }
+
     public boolean estaCalificado() {
         return this.obtenerCalificacionActual()>0;
+    }
+
+    public boolean esAptoParaLluvia() {
+        return (this.accesorio.obtenerTipoDePrenda() == TipoDePrenda.PARAGUAS || this.accesorioManos.obtenerTipoDePrenda() == TipoDePrenda.PARAGUAS)
+                || (this.prendasSuperiores.stream().anyMatch(prenda -> prenda.obtenerSiEsParaLluvia())
+                && this.prendaInferior.obtenerSiEsParaLluvia()
+                && this.calzado.obtenerSiEsParaLluvia()
+                && this.accesorioCuello.obtenerSiEsParaLluvia()
+                && this.accesorioManos.obtenerSiEsParaLluvia());
     }
 
     @Override
@@ -170,17 +196,12 @@ public class Atuendo {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Atuendo atuendo = (Atuendo) o;
-        return Objects.equals(accesorios, atuendo.obtenerAccesorios()) &&
+        return Objects.equals(accesorio, atuendo.obtenerAccesorio()) &&
                 Objects.equals(prendasSuperiores, atuendo.obtenerPrendasSuperiores()) &&
-                Objects.equals(prendasInferiores, atuendo.obtenerPrendasInferiores()) &&
-                Objects.equals(calzados, atuendo.obtenerCalzados()) &&
-                Objects.equals(estado, atuendo.obtenerEstadoAtuendo());
-    }
-
-    public boolean esAptoParaLluvia() {
-        return this.obtenerAccesorios().stream().anyMatch(accesorio -> accesorio.obtenerTipoDePrenda() == TipoDePrenda.PARAGUAS)
-                || (this.prendasSuperiores.stream().anyMatch(prenda -> prenda.obtenerSiEsParaLluvia())
-                && this.prendasInferiores.stream().anyMatch(prenda -> prenda.obtenerSiEsParaLluvia())
-                && this.calzados.stream().anyMatch(prenda -> prenda.obtenerSiEsParaLluvia()));
+                Objects.equals(prendaInferior, atuendo.obtenerPrendaInferior()) &&
+                Objects.equals(calzado, atuendo.obtenerCalzado()) &&
+                Objects.equals(estado, atuendo.obtenerEstadoAtuendo()) &&
+                Objects.equals(accesorioCuello, atuendo.obtenerAccesorioCuello()) &&
+                Objects.equals(accesorioManos, atuendo.obtenerAccesorioManos());
     }
 }

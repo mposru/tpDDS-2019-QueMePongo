@@ -1,8 +1,8 @@
 package domain.usuario;
 
-import domain.TipoDeSensibilidad;
-
 import javax.persistence.Embeddable;
+import java.util.HashMap;
+import java.util.Map;
 
 @Embeddable
 public class Sensibilidad {
@@ -20,59 +20,28 @@ public class Sensibilidad {
 
      */
     //todos los factores arrancan en cero, después se van a ir modificando a medida que el usuario califique
-    private double sensibilidadGeneral = 0; //cubre parte superior en inferior
-    private double sensibilidadEnCuello = 0;
-    private double sensibilidadEnManos = 0;
+    private Map<String, Double> sensibilidades = new HashMap<>();
 
-    public void calificarSensibilidadGeneral(CalificacionSensibilidad calificacionSensibilidad) {
+    public Sensibilidad() {
+        sensibilidades.put("general", new Double(0.0));
+        sensibilidades.put("cuello", new Double(0.0));
+        sensibilidades.put("manos", new Double(0.0));
+    }
+
+    public void calificarSensibilidad(CalificacionSensibilidad calificacionSensibilidad, String tipoDeSensibilidad) {
+        Double sensibilidadAnterior = this.sensibilidades.get(tipoDeSensibilidad);
+        double sumador = 0.0;
         if (calificacionSensibilidad == CalificacionSensibilidad.CALOR) {
-            this.sensibilidadGeneral -= 0.1;
+            sumador = -0.1;
         }
         if (calificacionSensibilidad == CalificacionSensibilidad.FRIO) {
-            this.sensibilidadGeneral += 0.1;
+            sumador = 0.1;
         }
+        this.sensibilidades.replace(tipoDeSensibilidad, new Double(sensibilidadAnterior.doubleValue() + sumador));
     }
 
-    public double getFactorSensibilidad(TipoDeSensibilidad tipoDeSensibilidad) {
-        switch (tipoDeSensibilidad) {
-            case MANOS:
-                return this.getFactorSensibilidadEnManos();
-            case CUELLO:
-                return this.getFactorSensibilidadEnCuello();
-            case GENERAL:
-                return this.getFactorSensibilidadGeneral();
-        }
-        return 0.0;
-    }
-
-    public void calificarSensibilidadEnCuello(CalificacionSensibilidad calificacionSensibilidad) {
-        if (calificacionSensibilidad == CalificacionSensibilidad.CALOR) {
-            this.sensibilidadEnCuello -= 0.1;
-        }
-        if (calificacionSensibilidad == CalificacionSensibilidad.FRIO) {
-            this.sensibilidadEnCuello += 0.1;
-        }
-    }
-
-    public void calificarSensibilidadEnManos(CalificacionSensibilidad calificacionSensibilidad) {
-        if (calificacionSensibilidad == CalificacionSensibilidad.CALOR) {
-            this.sensibilidadEnManos -= 0.1;
-        }
-        if (calificacionSensibilidad == CalificacionSensibilidad.FRIO) {
-            this.sensibilidadEnManos += 0.1;
-        }
-    }
-
-    public double getFactorSensibilidadGeneral() {
-        return this.sensibilidadGeneral;
-    }
-
-    public double getFactorSensibilidadEnManos() {
-        return this.sensibilidadEnManos;
-    }
-
-    public double getFactorSensibilidadEnCuello() {
-        return this.sensibilidadEnCuello;
+    public double getFactorSensibilidad(String tipoDeSensibilidad) {
+        return this.sensibilidades.get(tipoDeSensibilidad).doubleValue();
     }
 
 }

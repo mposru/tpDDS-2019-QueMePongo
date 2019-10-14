@@ -3,7 +3,6 @@ import domain.*;
 
 import domain.clima.AccuWeather;
 import domain.clima.Alerta;
-import domain.estadoAtuendo.*;
 import domain.guardarropa.Gratuito;
 import domain.guardarropa.Premium;
 import domain.usuario.Calendario;
@@ -26,7 +25,6 @@ import java.util.HashSet;
 import java.util.Set;
 
 import static org.mockito.Mockito.doReturn;
-import static org.mockito.Mockito.mock;
 
 public class UsuarioTest {
 
@@ -35,11 +33,6 @@ public class UsuarioTest {
     private Guardarropa guardarropaDeMarina;
     private Usuario merlin;
     private Usuario maria;
-    private Prenda accesorio;
-    private Prenda prendaSuperior;
-    private Prenda prendaInferior;
-    private Prenda calzado;
-    private EstadoAtuendo estado;
     private Atuendo atuendoVerano;
     private Prenda musculosa;
     private Prenda blusa;
@@ -49,6 +42,8 @@ public class UsuarioTest {
     private Prenda pollera;
     private Prenda pañuelo;
     private Prenda anteojos;
+    private Prenda ningunAccesorioManos;
+    private Prenda chalina;
     private Color color;
     private Usuario nana;
     private Calendario calendarioMaria;
@@ -326,15 +321,11 @@ public class UsuarioTest {
         this.pollera = new Prenda(TipoDePrenda.POLLERA, Material.JEAN, color, null, Trama.LISA, guardarropaDeMerlin,false);
         this.pañuelo = new Prenda(TipoDePrenda.PANUELO, Material.ALGODON, color, null, Trama.LISA, guardarropaDeMerlin,false);
         this.anteojos = new Prenda(TipoDePrenda.ANTEOJOS, Material.PLASTICO, color, null, Trama.LISA, guardarropaDeMerlin,false);
-         Set<Prenda> superiores = new HashSet<>();
-         Set<Prenda> inferiores = new HashSet<>();
-         Set<Prenda> calzados = new HashSet<>();
-         Set<Prenda> accesorios = new HashSet<>();
+        this.chalina = new Prenda(TipoDePrenda.CHALINA, Material.SEDA, color, null, Trama.LISA, guardarropaDeMerlin, true);
+        this.ningunAccesorioManos = new Prenda(TipoDePrenda.ACCESORIO_VACIO_MANOS, Material.NINGUNO, color, null, Trama.LISA, guardarropaDeMerlin, true);
+        Set<Prenda> superiores = new HashSet<>();
         superiores.add(musculosa);
-        inferiores.add(shortDeJean);
-        calzados.add(crocs);
-        accesorios.add(anteojos);
-        this.atuendoVerano = new Atuendo(superiores,inferiores,calzados,accesorios);
+        this.atuendoVerano = new Atuendo(superiores, shortDeJean, crocs, anteojos, chalina, ningunAccesorioManos);
         this.nana = new Usuario( "1534433333",calendarioNana);
         doReturn(jsonClima).when(accuWeather).getJsonClima();
     }
@@ -499,14 +490,8 @@ public class UsuarioTest {
         Prenda shortDeJean = new Prenda(TipoDePrenda.SHORT, Material.JEAN, color, null, Trama.LISA, guardarropaDeMarina,false);
         Prenda paraguas = new Prenda(TipoDePrenda.PARAGUAS, Material.PLASTICO, color, null, Trama.LISA, guardarropaDeMarina,true);
         Set<Prenda> prendasSuperiores = new HashSet<>();
-        Set<Prenda> prendasInferiores = new HashSet<>();
-        Set<Prenda> calzados = new HashSet<>();
-        Set<Prenda> accesorios = new HashSet<>();
         prendasSuperiores.add(musculosa);
-        prendasInferiores.add(shortDeJean);
-        calzados.add(crocs);
-        accesorios.add(paraguas);
-        nana.obtenerAtuendosSugeridosProximoEvento().agregarAtuendo(new Atuendo(prendasSuperiores, prendasInferiores, calzados, accesorios));
+        nana.obtenerAtuendosSugeridosProximoEvento().agregarAtuendo(new Atuendo(prendasSuperiores, shortDeJean, crocs, paraguas, this.chalina, this.ningunAccesorioManos));
         Assert.assertFalse(nana.seDebeResugerir(Alerta.LLUVIA));
     }
 
@@ -518,15 +503,9 @@ public class UsuarioTest {
         Prenda jean = new Prenda(TipoDePrenda.PANTALON, Material.JEAN, color, null, Trama.LISA, guardarropaDeMarina,true);
         Prenda pañuelo = new Prenda(TipoDePrenda.PANUELO, Material.PLASTICO, color, null, Trama.LISA, guardarropaDeMarina,false);
         Set<Prenda> prendasSuperiores = new HashSet<>();
-        Set<Prenda> prendasInferiores = new HashSet<>();
-        Set<Prenda> calzados = new HashSet<>();
-        Set<Prenda> accesorios = new HashSet<>();
         prendasSuperiores.add(remera);
         prendasSuperiores.add(rompevientos);
-        prendasInferiores.add(jean);
-        calzados.add(botas);
-        accesorios.add(pañuelo);
-        nana.obtenerAtuendosSugeridosProximoEvento().agregarAtuendo(new Atuendo(prendasSuperiores, prendasInferiores, calzados, accesorios));
+        nana.obtenerAtuendosSugeridosProximoEvento().agregarAtuendo(new Atuendo(prendasSuperiores, jean, botas, pañuelo, this.chalina, this.ningunAccesorioManos));
         Assert.assertFalse(nana.seDebeResugerir(Alerta.LLUVIA));
     }
 
@@ -537,14 +516,8 @@ public class UsuarioTest {
         Prenda shortDeJean = new Prenda(TipoDePrenda.SHORT, Material.JEAN, color, null, Trama.LISA, guardarropaDeMarina,false);
         Prenda casco = new Prenda(TipoDePrenda.CASCO, Material.PLASTICO, color, null, Trama.LISA, guardarropaDeMarina,true);
         Set<Prenda> prendasSuperiores = new HashSet<>();
-        Set<Prenda> prendasInferiores = new HashSet<>();
-        Set<Prenda> calzados = new HashSet<>();
-        Set<Prenda> accesorios = new HashSet<>();
         prendasSuperiores.add(musculosa);
-        prendasInferiores.add(shortDeJean);
-        calzados.add(crocs);
-        accesorios.add(casco);
-        nana.obtenerAtuendosSugeridosProximoEvento().agregarAtuendo(new Atuendo(prendasSuperiores, prendasInferiores, calzados, accesorios));
+        nana.obtenerAtuendosSugeridosProximoEvento().agregarAtuendo(new Atuendo(prendasSuperiores, shortDeJean, crocs, casco, this.chalina, this.ningunAccesorioManos));
         Assert.assertFalse(nana.seDebeResugerir(Alerta.GRANIZO));
     }
 
