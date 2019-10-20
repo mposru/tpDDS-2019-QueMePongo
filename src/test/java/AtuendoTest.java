@@ -40,7 +40,7 @@ public class AtuendoTest {
         this.carlos = new Usuario("1534544344", calendario);
         Set<Usuario> carlosLista = new HashSet<>();
         carlosLista.add(carlos);
-        this.guardarropa = new Guardarropa(carlosLista, new Premium());
+        this.guardarropa = new Guardarropa("GuardarropaCarlos",carlosLista, new Premium());
         this.color = new Color(1, 2, 3);
         this.musculosa = new Prenda(TipoDePrenda.MUSCULOSA, Material.ALGODON, color, null, Trama.CUADROS, guardarropa, false);
         this.blusa = new Prenda(TipoDePrenda.BLUSA, Material.ALGODON, color, null, Trama.CUADROS, guardarropa, false);
@@ -152,7 +152,7 @@ public class AtuendoTest {
     @Test
     public void validarAtuendo() {
         exception.expect(PrendaInvalidaException.class);
-        exception.expectMessage("Una/s de las prendas superiores no es válida. La prenda inferior no es válida. La prenda de tipo calzado no es válida. La prenda accesorio no es válida. ");
+        exception.expectMessage("Una/s de las guardarropas superiores no es válida. La prenda inferior no es válida. La prenda de tipo calzado no es válida. La prenda accesorio no es válida. ");
         Set<Prenda> partesInferiores = new HashSet<>();
         partesInferiores.add(pollera);
 

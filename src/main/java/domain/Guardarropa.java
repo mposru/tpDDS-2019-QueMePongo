@@ -36,9 +36,12 @@ public class Guardarropa {
     @ManyToMany
     private Set<Usuario> usuarios;
 
+    private String nombreGuardarropa;
+
     private TipoDeGuardarropa tipoDeGuardarropa;
 
-    public Guardarropa(Set<Usuario> usuarios, TipoDeGuardarropa tipoDeGuardarropa) {
+    public Guardarropa(String nombreGuardarropa, Set<Usuario> usuarios, TipoDeGuardarropa tipoDeGuardarropa) {
+        this.nombreGuardarropa = requireNonNull(nombreGuardarropa, "Debe ingresar un nombre para el guardarropa");
         this.usuarios = requireNonNull(usuarios, "Debe ingresar un conjunto de usuarios");
         this.tipoDeGuardarropa = requireNonNull(tipoDeGuardarropa,"Debe ingresar el tipo de guardarropa");
     }
@@ -100,7 +103,7 @@ public class Guardarropa {
 
     public void verificarLimiteDePrendas() {
         if (this.tieneLimiteDePrendas() && this.obtenerCantidadDePrendas() >= this.getlimiteDePrendas()) {
-            throw new SuperaLimiteDePrendasException("Se supera el límite de " + this.getlimiteDePrendas() + " prendas definido para el tipo de guardarropa");
+            throw new SuperaLimiteDePrendasException("Se supera el límite de " + this.getlimiteDePrendas() + " guardarropas definido para el tipo de guardarropa");
         }
     }
 
@@ -132,10 +135,10 @@ public class Guardarropa {
         //todo: mandar en el mensaje de error el clima. se concatena en la misma linea que se tira error
         String mensajeDeError = "";
         if (this.obtenerPrendasSuperioresDisponibles().size() <= 0) {
-            mensajeDeError = mensajeDeError.concat("Faltan prendas superiores. ");
+            mensajeDeError = mensajeDeError.concat("Faltan guardarropas superiores. ");
         }
         if (this.obtenerPrendasInferioresDisponibles().size() <= 0) {
-            mensajeDeError = mensajeDeError.concat("Faltan prendas inferiores. ");
+            mensajeDeError = mensajeDeError.concat("Faltan guardarropas inferiores. ");
         }
         if (this.obtenerCalzadosDisponibles().size() <= 0) {
             mensajeDeError = mensajeDeError.concat("Faltan zapatos. ");
@@ -173,11 +176,11 @@ public class Guardarropa {
         // pedirle al evento el clima y sensibilidad,
 
         // clima del dia (y ver si llueve o no) y evento (por si es formal o no???) como param
-        // en generar sugerencia, para obtener las prendas validas, se le
+        // en generar sugerencia, para obtener las guardarropas validas, se le
         // va a preguntar a los usuarios "dueños" el listado de atuendosAceptados y esas
-        // prendas no van a poder ser usadas
-        // si las prendas que el usuario está pidiendo *si* pueden usarse acá, habria que tambien pasar el usuario por parametro
-        // y de esa manera sí se van a poder devolver prendas que pertenezcan a sus atuendosAceptados
+        // guardarropas no van a poder ser usadas
+        // si las guardarropas que el usuario está pidiendo *si* pueden usarse acá, habria que tambien pasar el usuario por parametro
+        // y de esa manera sí se van a poder devolver guardarropas que pertenezcan a sus atuendosAceptados
         // solo por una cantidad de tiempo no es usable
         // delegar en otro objeto
 
@@ -201,5 +204,11 @@ public class Guardarropa {
     }
 
 
+    public String getNombreGuardarropa() {
+        return nombreGuardarropa;
+    }
 
+    public void setNombreGuardarropa(String nombreGuardarropa) {
+        this.nombreGuardarropa = nombreGuardarropa;
+    }
 }

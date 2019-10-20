@@ -50,7 +50,7 @@ public class GuardarropaTest {
     private Usuario pepita;
     private Guardarropa guardarropaLimitado;
     private Guardarropa guardarropaCompartido;
-    //prendas de mi guardarropa limitado
+    //guardarropas de mi guardarropa limitado
     private Prenda remeraFutbol;
     private Prenda camperaDeportiva;
     private Prenda botines;
@@ -84,12 +84,12 @@ public class GuardarropaTest {
         usuariosConFlor.add(flor);
         Set<Usuario> usuariosConMarta = new HashSet<>();
         usuariosConMarta.add(marta);
-        this.guardarropa = new Guardarropa(usuariosConFlor,new Premium());
-        this.guardarropaLimitado = new Guardarropa(usuariosConMarta,new Gratuito(5));
+        this.guardarropa = new Guardarropa("GuardarropaFlor",usuariosConFlor,new Premium());
+        this.guardarropaLimitado = new Guardarropa("GuardarropaMarta",usuariosConMarta,new Gratuito(5));
         Set<Usuario> usuarios = new HashSet<>();
         usuarios.add(flor);
         usuarios.add(pepita);
-        this.guardarropaCompartido = new Guardarropa(usuarios,new Premium());
+        this.guardarropaCompartido = new Guardarropa("GuardaropaUsuario",usuarios,new Premium());
 
         this.color = new Color(1, 2, 3);
         this.pantalonPolar = new Prenda(TipoDePrenda.PANTALON, Material.ALGODON, color, null, Trama.CUADROS, guardarropa, false);
@@ -298,7 +298,7 @@ public class GuardarropaTest {
         this.guardarropa.guardarPrenda(this.sinAccesorioCuello);
         this.guardarropa.guardarPrenda(this.sinAccesorioManos);
         exception.expect(FaltaPrendaException.class);
-        exception.expectMessage("Faltan prendas superiores. ");
+        exception.expectMessage("Faltan guardarropas superiores. ");
 
         this.guardarropa.generarSugerencia(this.eventoX, this.sensibilidad);
     }
@@ -362,7 +362,7 @@ public class GuardarropaTest {
         this.guardarropa.guardarPrenda(this.sinAccesorioCuello);
         this.guardarropa.guardarPrenda(this.sinAccesorioManos);
         exception.expect(FaltaPrendaException.class);
-        exception.expectMessage("Faltan prendas inferiores. ");
+        exception.expectMessage("Faltan guardarropas inferiores. ");
 
         this.guardarropa.generarSugerencia(this.eventoX, this.sensibilidad);
     }
@@ -370,7 +370,7 @@ public class GuardarropaTest {
     @Test
     public void superarLimiteDePrendas() {
         exception.expect(SuperaLimiteDePrendasException.class);
-        exception.expectMessage("Se supera el límite de " + guardarropaLimitado.getlimiteDePrendas() + " prendas definido para el tipo de guardarropa");
+        exception.expectMessage("Se supera el límite de " + guardarropaLimitado.getlimiteDePrendas() + " guardarropas definido para el tipo de guardarropa");
         this.guardarropaLimitado.guardarPrenda(this.remeraFutbol);
         this.guardarropaLimitado.guardarPrenda(this.camperaDeportiva);
         this.guardarropaLimitado.guardarPrenda(this.botines);
