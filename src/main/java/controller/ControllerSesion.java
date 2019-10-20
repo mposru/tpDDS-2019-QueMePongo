@@ -1,4 +1,4 @@
-package Controller;
+package controller;
 
 import domain.Usuario;
 import domain.usuario.Calendario;

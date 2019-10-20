@@ -1,4 +1,4 @@
-package Controller;
+package controller;
 
 import domain.Guardarropa;
 import domain.RepositorioGuardarropas;
