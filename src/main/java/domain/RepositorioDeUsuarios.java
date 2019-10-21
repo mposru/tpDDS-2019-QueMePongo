@@ -5,6 +5,7 @@ import domain.clima.Alerta;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collector;
 import java.util.stream.Collectors;
 
 public class RepositorioDeUsuarios {
@@ -28,4 +29,14 @@ public class RepositorioDeUsuarios {
     }
 
     public void agregarUsuarioTotal(Usuario usuario) { usuariosTotal.add(usuario); }
+
+    public Usuario buscarUsuarioPorId(int id) {
+        List<Usuario> usuariosEncontrados = usuarios.stream().filter(usuario -> usuario.getId() == id).collect(Collectors.toList());
+        if(usuariosEncontrados.isEmpty()) {
+            throw new RuntimeException("No se encontró ningun usuario con ese Id");
+        }
+        else {
+            return usuariosEncontrados.get(0);
+        }
+    }
 }
