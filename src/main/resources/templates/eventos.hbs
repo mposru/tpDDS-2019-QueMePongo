@@ -1,0 +1,25 @@
+<html>
+    <head>
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+        <link rel="stylesheet" href="../../main.css">
+    </head>
+    <body>
+    <h1 class="titulo">
+        Elija un evento
+    </h1>
+    {{#if redirectSugerencias}}
+    <div>
+        Se aceptó la sugerencia con éxito
+    </div>
+    {{/if}}
+    <ul>
+        {{#each eventos}}
+        <li class="evento">
+            <a href="/eventos/{{id}}/sugerencias/0">
+            Nombre: {{nombre}} - Fecha: {{fecha}} - Ubicación: {{ubicacion}}
+            </a>
+        </li>
+        {{/each}}
+    </ul>
+    </body>
+</html>

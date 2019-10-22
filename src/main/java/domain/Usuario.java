@@ -5,11 +5,16 @@ package domain;
 
 import java.time.LocalDateTime;
 import java.util.*;
+import java.util.stream.Collectors;
 
 import domain.clima.Clima;
+import domain.guardarropa.Gratuito;
 import domain.notificacion.Notificador;
 import domain.clima.Alerta;
+import domain.prenda.Color;
+import domain.prenda.Material;
 import domain.prenda.TipoDePrenda;
+import domain.prenda.Trama;
 import domain.usuario.*;
 import domain.usuario.transiciones.*;
 import exceptions.*;
@@ -255,11 +260,37 @@ public class Usuario {
         this.guardarropas.forEach(guardarropa -> guardarropa.generarSugerencia(evento, sensibilidad));
     }
 
+    public List<Atuendo> obtenerSugerenciasDeEvento(Evento evento) {
+        //todo: borrar
+        List<Atuendo> sugerencias = new ArrayList<>();
+        Set<Prenda> prendasSuperiores2 = new HashSet<>();
+        Color color = new Color(2,2,2);
+        Set<Usuario> usuarios = new HashSet<>();
+        usuarios.add(this);
+        Guardarropa g = new Guardarropa(usuarios, new Gratuito(3));
+        Prenda remeraFutbol = new Prenda(TipoDePrenda.REMERA, Material.ALGODON, color, null, Trama.ESTAMPADO, g, false);
+        Prenda pollera = new Prenda(TipoDePrenda.POLLERA, Material.ALGODON, color, null, Trama.LISA, g, false);
+        Prenda bandana = new Prenda(TipoDePrenda.PANUELO, Material.ALGODON, color, null, Trama.LISA, g, false);
+        Prenda sinAccesorioManos = new Prenda(TipoDePrenda.ACCESORIO_VACIO_MANOS, Material.NINGUNO, color, null, Trama.LISA, g, false);
+        Prenda sinAccesorioCuello = new Prenda(TipoDePrenda.ACCESORIO_VACIO_CUELLO, Material.NINGUNO, color, null, Trama.LISA, g, false);
+        Prenda ojotas = new Prenda(TipoDePrenda.CROCS, Material.GOMA, color, null, Trama.CUADROS, g, true);
+
+        prendasSuperiores2.add(remeraFutbol);
+        Atuendo primerAtuendo2 = new Atuendo(prendasSuperiores2, pollera, ojotas, bandana, sinAccesorioCuello, sinAccesorioManos);
+        sugerencias.add(primerAtuendo2);
+        this.guardarropas.forEach(guardarropa -> guardarropa.generarSugerencia(evento, sensibilidad).forEach(sugerencia -> sugerencias.add(sugerencia)));
+        return sugerencias;
+    }
+
     public void agregarGuardarropa(Guardarropa guardarropa) {
         this.guardarropas.add(guardarropa);
     }
 
     public void setTiempoDeAnticipacion(int tiempoDeAnticipacion) {
         this.tiempoDeAnticipacion = tiempoDeAnticipacion;
+    }
+
+    public List<Evento> obtenerEventos() {
+        return calendario.obtenerEventos().stream().sorted(Comparator.comparing(Evento::getFecha)).collect(Collectors.toList());
     }
 }

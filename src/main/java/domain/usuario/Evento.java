@@ -3,10 +3,10 @@ package domain.usuario;
 import domain.clima.AccuWeather;
 import domain.clima.Clima;
 import domain.clima.Meteorologo;
-import org.uqbar.commons.model.Entity;
 import org.uqbar.commons.model.annotations.Observable;
 import org.uqbar.commons.model.annotations.Transactional;
 
+import javax.persistence.Entity;
 import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
@@ -18,8 +18,8 @@ import static java.util.Objects.requireNonNull;
 
 @Transactional
 @Observable
-@org.hibernate.annotations.Entity
-public class Evento extends Entity {
+@Entity
+public class Evento {
 
     @GeneratedValue
     @Id
@@ -42,6 +42,7 @@ public class Evento extends Entity {
         this.ubicacion = requireNonNull(ubicacion, "Debe ingresar una ubicación para el evento");
         this.antelacionEnHoras = requireNonNull(antelacionEnHoras,"Debe ingresar la antelacion del evento");
         this.tipoDeActualizacion=requireNonNull(tipoDeActualizacion,"Debe ingresar el tipo de periodicidad");
+        this.id = 3;
     }
 
     public void setearMeteorologo(Meteorologo meteorologo) {
@@ -111,5 +112,10 @@ public class Evento extends Entity {
     public Clima obtenerClima() {
         // todo: poner bien el dia
        return meteorologo.obtenerClima(fecha.toLocalDate());
+    }
+
+    public long getId() {
+        return 6;
+        //return id;
     }
 }

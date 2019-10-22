@@ -1,0 +1,67 @@
+<html>
+<head>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous"></link>
+    <link rel="stylesheet" href="../../../main.css"></link>
+</head>
+<body>
+<h1 class="titulo">
+    Aceptación de sugerencias del evento {{nombreEvento}}
+</h1>
+{{#if noHayMasSugerencias}}
+Esta es la última sugerencia, por lo tanto se tomará como aceptada
+{{/if}}
+{{#with sugerencia}}
+<ul class="sugerencia">
+    <li>
+        {{accesorio.categoria}}
+        {{accesorio.material}}
+        {{accesorio.trama}}
+        <img src="{{accesorio.imagen}}"/>
+    </li>
+    {{#each prendasSuperiores}}
+    <li>
+
+        {{categoria}}
+        {{material}}
+        {{trama}}
+        <img src="{{imagen}}"/>
+    </li>
+    {{/each}}
+    <li>
+        {{prendaInferior.categoria}}
+        {{prendaInferior.material}}
+        {{prendaInferior.trama}}
+        <img src="{{prendaInferior.imagen}}"/>
+    </li>
+    <li>
+        {{calzado.categoria}}
+        {{calzado.material}}
+        {{calzado.trama}}
+        <img src="{{calzado.imagen}}"/>
+    </li>
+    <li>
+        {{accesorioCuello.categoria}}
+        {{accesorioCuello.material}}
+        {{accesorioCuello.trama}}
+        <img src="{{accesorioCuello.imagen}}"/>
+    </li>
+    <li>
+        {{accesorioManos.categoria}}
+        {{accesorioManos.material}}
+        {{accesorioManos.trama}}
+        <img src="{{accesorioManos.imagen}}"/>
+    </li>
+</ul>
+{{/with}}
+<form action="/eventos/{{eventoId}}/sugerencias/{{sugerencia.id}}/estado?indice={{indice}}" method="post" >
+    <label for='estado'>Estado</label>
+    <select name="estado" id='estado'>
+        <option>Seleccione un estado</option>}
+        <option value="Aceptar">Aceptado</option>
+        <option value="Rechazar">Rechazado</option>
+    </select>
+    <input type="submit" value="Actualizar estado de sugerencia"></input>
+</form>
+
+</body>
+</html>

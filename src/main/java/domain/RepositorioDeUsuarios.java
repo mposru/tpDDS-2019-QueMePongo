@@ -1,6 +1,7 @@
 package domain;
 
 import domain.clima.Alerta;
+import domain.usuario.Calendario;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -28,4 +29,10 @@ public class RepositorioDeUsuarios {
     }
 
     public void agregarUsuarioTotal(Usuario usuario) { usuariosTotal.add(usuario); }
+
+    public Usuario findById(String id) {
+        // hack temporario
+        // todo: hacerlo bien
+        return new Usuario("1", new Calendario());
+    }
 }
