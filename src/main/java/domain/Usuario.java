@@ -269,6 +269,7 @@ public class Usuario {
         usuarios.add(this);
         Guardarropa g = new Guardarropa(usuarios, new Gratuito(3));
         Prenda remeraFutbol = new Prenda(TipoDePrenda.REMERA, Material.ALGODON, color, null, Trama.ESTAMPADO, g, false);
+        Prenda remeraFutbol2 = new Prenda(TipoDePrenda.BUZO, Material.ALGODON, color, null, Trama.ESTAMPADO, g, false);
         Prenda pollera = new Prenda(TipoDePrenda.POLLERA, Material.ALGODON, color, null, Trama.LISA, g, false);
         Prenda bandana = new Prenda(TipoDePrenda.PANUELO, Material.ALGODON, color, null, Trama.LISA, g, false);
         Prenda sinAccesorioManos = new Prenda(TipoDePrenda.ACCESORIO_VACIO_MANOS, Material.NINGUNO, color, null, Trama.LISA, g, false);
@@ -276,6 +277,7 @@ public class Usuario {
         Prenda ojotas = new Prenda(TipoDePrenda.CROCS, Material.GOMA, color, null, Trama.CUADROS, g, true);
 
         prendasSuperiores2.add(remeraFutbol);
+        prendasSuperiores2.add(remeraFutbol2);
         Atuendo primerAtuendo2 = new Atuendo(prendasSuperiores2, pollera, ojotas, bandana, sinAccesorioCuello, sinAccesorioManos);
         sugerencias.add(primerAtuendo2);
         this.guardarropas.forEach(guardarropa -> guardarropa.generarSugerencia(evento, sensibilidad).forEach(sugerencia -> sugerencias.add(sugerencia)));

@@ -4,63 +4,82 @@
     <link rel="stylesheet" href="../../../main.css"></link>
 </head>
 <body>
-<h1 class="titulo">
+<h3>
     Aceptación de sugerencias del evento {{nombreEvento}}
-</h1>
-{{#if noHayMasSugerencias}}
-Esta es la última sugerencia, por lo tanto se tomará como aceptada
-{{/if}}
+    {{#if noHayMasSugerencias}}
+        <small class="text-muted">Esta es la última sugerencia, por lo tanto se tomará como aceptada</small>
+    {{/if}}
+</h3>
 {{#with sugerencia}}
-<ul class="sugerencia">
-    <li>
+<dl class="row">
+    <dt class="col-sm-3">Accesorio</dt>
+    <dd class="col-sm-9">
         {{accesorio.categoria}}
         {{accesorio.material}}
         {{accesorio.trama}}
-        <img src="{{accesorio.imagen}}"/>
-    </li>
-    {{#each prendasSuperiores}}
-    <li>
+        <img src="{{accesorio.imagen}}" class="img-thumbnail"/>
+    </dd>
 
-        {{categoria}}
-        {{material}}
-        {{trama}}
-        <img src="{{imagen}}"/>
-    </li>
-    {{/each}}
-    <li>
+    <dt class="col-sm-3">Prendas Superiores</dt>
+    <dd class="col-sm-9">
+        <dl class="row">
+            {{#each prendasSuperiores}}
+                <dd class="col-sm-12">{{categoria}}
+                    {{material}}
+                    {{trama}}
+                    <img src="{{imagen}}" class="img-thumbnail"/>
+                </dd>
+            {{/each}}
+        </dl>
+    </dd>
+
+    <dt class="col-sm-3">Prenda Inferior</dt>
+    <dd class="col-sm-9">
         {{prendaInferior.categoria}}
         {{prendaInferior.material}}
         {{prendaInferior.trama}}
-        <img src="{{prendaInferior.imagen}}"/>
-    </li>
-    <li>
+        <img src="{{prendaInferior.imagen}}" class="img-thumbnail"/>
+    </dd>
+    <dt class="col-sm-3">Calzado</dt>
+    <dd class="col-sm-9">
         {{calzado.categoria}}
         {{calzado.material}}
         {{calzado.trama}}
-        <img src="{{calzado.imagen}}"/>
-    </li>
-    <li>
+        <img src="{{calzado.imagen}}" class="img-thumbnail"/>
+    </dd>
+    <dt class="col-sm-3">Accesorio Cuello</dt>
+    <dd class="col-sm-9">
         {{accesorioCuello.categoria}}
         {{accesorioCuello.material}}
         {{accesorioCuello.trama}}
-        <img src="{{accesorioCuello.imagen}}"/>
-    </li>
-    <li>
+        <img src="{{accesorioCuello.imagen}}" class="img-thumbnail"/>
+    </dd>
+    <dt class="col-sm-3">Accesorio Manos</dt>
+    <dd class="col-sm-9">
         {{accesorioManos.categoria}}
         {{accesorioManos.material}}
         {{accesorioManos.trama}}
-        <img src="{{accesorioManos.imagen}}"/>
-    </li>
-</ul>
+        <img src="{{accesorioManos.imagen}}" class="img-thumbnail"/>
+    </dd>
+</dl>
 {{/with}}
-<form action="/eventos/{{eventoId}}/sugerencias/{{sugerencia.id}}/estado?indice={{indice}}" method="post" >
-    <label for='estado'>Estado</label>
-    <select name="estado" id='estado'>
-        <option>Seleccione un estado</option>}
-        <option value="Aceptar">Aceptado</option>
-        <option value="Rechazar">Rechazado</option>
-    </select>
-    <input type="submit" value="Actualizar estado de sugerencia"></input>
+<form action="/eventos/{{eventoId}}/sugerencias/{{sugerencia.id}}/estado?indice={{indice}}" method="post"  class="form-inline">
+    <div class="form-group">
+        <label class="mb-2 mr-sm-2">Seleccione un estado para esta sugerencia</label>
+        <div class="form-check mb-2 mr-sm-2">
+            <input class="form-check-input" type="radio" name="estado" id="aceptar" value="Aceptar" checked>
+            <label class="form-check-label" for="aceptar">
+                Aceptar
+            </label>
+        </div>
+        <div class="form-check mb-2 mr-sm-2">
+            <input class="form-check-input" type="radio" name="estado" id="rechazar" value="Rechazar">
+            <label class="form-check-label" for="rechazar">
+                Rechazar
+            </label>
+        </div>
+    </div>
+    <input type="submit" value="Actualizar estado de sugerencia" class="btn btn-primary mb-2 mr-sm-2"></input>
 </form>
 
 </body>
