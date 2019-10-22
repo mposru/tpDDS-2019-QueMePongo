@@ -42,16 +42,16 @@ public class AtuendoTest {
         carlosLista.add(carlos);
         this.guardarropa = new Guardarropa(carlosLista, new Premium());
         this.color = new Color(1, 2, 3);
-        this.musculosa = new Prenda(TipoDePrenda.MUSCULOSA, Material.ALGODON, color, null, Trama.CUADROS, guardarropa, false);
-        this.blusa = new Prenda(TipoDePrenda.BLUSA, Material.ALGODON, color, null, Trama.CUADROS, guardarropa, false);
-        this.crocs = new Prenda(TipoDePrenda.CROCS, Material.GOMA, color, null, Trama.CUADROS, guardarropa, true);
-        this.zapatos = new Prenda(TipoDePrenda.ZAPATO, Material.CUERO, color, null, Trama.LISA, guardarropa, true);
-        this.shortDeJean = new Prenda(TipoDePrenda.SHORT, Material.JEAN, color, null, Trama.LISA, guardarropa, false);
-        this.pollera = new Prenda(TipoDePrenda.POLLERA, Material.JEAN, color, null, Trama.LISA, guardarropa, false);
-        this.pañuelo = new Prenda(TipoDePrenda.PANUELO, Material.ALGODON, color, null, Trama.LISA, guardarropa, false);
-        this.anteojos = new Prenda(TipoDePrenda.ANTEOJOS, Material.PLASTICO, color, null, Trama.LISA, guardarropa, false);
-        this.bufandaRoja = new Prenda(TipoDePrenda.BUFANDA, Material.LANA, color, null, Trama.LISA, guardarropa, false);
-        this.guantesCuero = new Prenda(TipoDePrenda.GUANTES, Material.CUERO, color, null, Trama.LISA, guardarropa, false);
+        this.musculosa = new Prenda(TipoDePrenda.MUSCULOSA, Material.ALGODON, color, null, Trama.CUADROS, guardarropa, false, "musculosa");
+        this.blusa = new Prenda(TipoDePrenda.BLUSA, Material.ALGODON, color, null, Trama.CUADROS, guardarropa, false, "blusa");
+        this.crocs = new Prenda(TipoDePrenda.CROCS, Material.GOMA, color, null, Trama.CUADROS, guardarropa, true, "crocs");
+        this.zapatos = new Prenda(TipoDePrenda.ZAPATO, Material.CUERO, color, null, Trama.LISA, guardarropa, true,"zapato de cuero");
+        this.shortDeJean = new Prenda(TipoDePrenda.SHORT, Material.JEAN, color, null, Trama.LISA, guardarropa, false,"short de jean");
+        this.pollera = new Prenda(TipoDePrenda.POLLERA, Material.JEAN, color, null, Trama.LISA, guardarropa, false,"pollera");
+        this.pañuelo = new Prenda(TipoDePrenda.PANUELO, Material.ALGODON, color, null, Trama.LISA, guardarropa, false, "pañuelo");
+        this.anteojos = new Prenda(TipoDePrenda.ANTEOJOS, Material.PLASTICO, color, null, Trama.LISA, guardarropa, false, "anteojos");
+        this.bufandaRoja = new Prenda(TipoDePrenda.BUFANDA, Material.LANA, color, null, Trama.LISA, guardarropa, false,"bufanda");
+        this.guantesCuero = new Prenda(TipoDePrenda.GUANTES, Material.CUERO, color, null, Trama.LISA, guardarropa, false,"guantes");
         this.superiores.add(musculosa);
         this.atuendoVerano = new Atuendo(superiores, shortDeJean, crocs, anteojos, bufandaRoja, guantesCuero);
     }

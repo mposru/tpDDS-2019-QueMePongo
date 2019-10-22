@@ -19,12 +19,11 @@ public class BorradorTest {
     private Borrador borradorZapatillas;
     private Trama trama;
     private Guardarropa guardarropa;
-    private double temperaturaMin;
-    private double temperaturaMax;
     private boolean esParaLluvia;
     private Material materialInvalido;
     private Usuario magdalena;
     private Calendario calendario;
+    private String nombre;
 
     @Before
     public void iniciarTest() {
@@ -33,9 +32,9 @@ public class BorradorTest {
         this.material = Material.CUERO;
         this.colorPrimario = new Color(20, 20, 30);
         this.trama = Trama.LISA;
-        this.temperaturaMin = 0;
-        this.temperaturaMax = 20;
         this.esParaLluvia = true;
+        this.nombre = "zapatillas converse";
+
         Set<Usuario> magdalenaLista = new HashSet<>();
         magdalenaLista.add(magdalena);
         this.guardarropa = new Guardarropa(magdalenaLista,new Premium());
@@ -52,6 +51,12 @@ public class BorradorTest {
         exception.expect(NullPointerException.class);
         exception.expectMessage("Debe ingresar un tipo de prenda");
         this.borradorZapatillas.definirTipo(null);
+    }
+    @Test
+    public void definirNombreDePrendaVacio() {
+        exception.expect(NullPointerException.class);
+        exception.expectMessage("Debe ingresar el nombre de la prenda");
+        this.borradorZapatillas.definirNombre(null);
     }
 
     @Test
@@ -133,7 +138,7 @@ public class BorradorTest {
     @Test
     public void crearPrendaConExito() {
         this.borradorZapatillas.definirTipo(this.tipoDePrenda).definirMaterial(this.material).definirColorPrimario(this.colorPrimario).definirColorPrimario(this.colorPrimario).definirGuardarropa(this.guardarropa);
-        Prenda prendaEsperada = new Prenda(this.tipoDePrenda, this.material, this.colorPrimario, null, this.trama, this.guardarropa, this.esParaLluvia);
+        Prenda prendaEsperada = new Prenda(this.tipoDePrenda, this.material, this.colorPrimario, null, this.trama, this.guardarropa, this.esParaLluvia, this.nombre );
         Assert.assertEquals(prendaEsperada.obtenerTipoDePrenda(),this.tipoDePrenda);
         Assert.assertEquals(prendaEsperada.obtenerColorPrimario(),this.colorPrimario);
         Assert.assertNull(prendaEsperada.obtenerColorSecundario());

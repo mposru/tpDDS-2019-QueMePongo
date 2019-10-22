@@ -14,7 +14,9 @@ public class Prenda {
     @Column(name = "idPrenda")
     private long id;
 
-    @ManyToOne (cascade =  CascadeType.ALL )
+    private String nombre;
+
+    @ManyToOne (cascade =  CascadeType.ALL)
     @JoinColumn(name = "idTipoDePrenda")
     private TipoDePrenda tipoDePrenda;
 
@@ -39,9 +41,9 @@ public class Prenda {
 
     private boolean esParaLluvia;
     private boolean disponibilidad = true; //toda prenda inicia disponible
-
+//to do: agregar el nombre de la prenda al constructor
     public Prenda(TipoDePrenda tipoDePrenda, Material material, Color colorPrimario, Color colorSecundario, Trama trama,
-                  Guardarropa guardarropa, boolean impermeable) {
+                  Guardarropa guardarropa, boolean impermeable, String nombre) {
         this.tipoDePrenda = tipoDePrenda;
         this.material = material;
         this.colorPrimario = colorPrimario;
@@ -50,6 +52,7 @@ public class Prenda {
         // esta bien esto?
         this.guardarropa = guardarropa;
         this.esParaLluvia = impermeable;
+        this.nombre = nombre;
     }
 
     public void cargarImagen(String path) throws IOException {
@@ -112,6 +115,14 @@ public class Prenda {
 
     public Imagen obtenerImagen() {
         return imagen;
+    }
+
+    public String getNombre() {
+        return nombre;
+    }
+
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
     }
 
     @Override
