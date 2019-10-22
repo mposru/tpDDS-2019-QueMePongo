@@ -77,9 +77,9 @@ public class GuardarropaTest {
     public void iniciarTest() {
 
         dia = LocalDate.of(2019,5,26);//Instant.ofEpochMilli(1559188800).atZone(ZoneId.systemDefault()).toLocalDate();
-        this.marta = new Usuario("", calendarioMarta);
-        this.flor = new Usuario("",calendarioFlor);
-        this.pepita = new Usuario("", calendarioPepita);
+        this.marta = new Usuario("", calendarioMarta, "marta123");
+        this.flor = new Usuario("",calendarioFlor, "flor123");
+        this.pepita = new Usuario("", calendarioPepita, "pepita124");
         Set<Usuario> usuariosConFlor = new HashSet<>();
         usuariosConFlor.add(flor);
         Set<Usuario> usuariosConMarta = new HashSet<>();

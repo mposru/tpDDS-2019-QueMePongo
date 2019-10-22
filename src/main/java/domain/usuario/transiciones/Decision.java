@@ -13,6 +13,7 @@ public abstract class Decision {
     @GeneratedValue
     @Id
     long id;
+
     @ManyToOne
     @JoinColumn(name = "atuendo_id")
     public Atuendo atuendo;

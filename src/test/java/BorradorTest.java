@@ -28,7 +28,7 @@ public class BorradorTest {
 
     @Before
     public void iniciarTest() {
-        this.magdalena = new Usuario("", calendario);
+        this.magdalena = new Usuario("", calendario, "contrasenialoca");
         this.tipoDePrenda = TipoDePrenda.ZAPATO;
         this.material = Material.CUERO;
         this.colorPrimario = new Color(20, 20, 30);

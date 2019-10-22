@@ -13,10 +13,11 @@ public class Calendario {
 
     @GeneratedValue
     @Id
+    @Column(name = "idCalendario")
     long id;
     
     @OneToMany
-    @JoinColumn(name = "evento_id")
+    @JoinColumn(name = "idEvento")
     List<Evento> eventos = new ArrayList<>();
 
     public void agregarEvento(Evento evento) {

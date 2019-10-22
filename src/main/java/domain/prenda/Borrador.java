@@ -52,16 +52,6 @@ public class Borrador  {
         return this;
     }
 
-    public Borrador definirTemperaturaMaxima(double temperaturaMax) {
-        this.temperaturaMax = requireNonNull(temperaturaMax, "Debe asignarle una temperatura maxima a la prenda");
-        return this;
-    }
-
-    public Borrador definirTemperaturaMinima(double temperaturaMin) {
-        this.temperaturaMin = requireNonNull(temperaturaMin, "Debe asignarle una temperatura minima a la prenda");
-        return this;
-    }
-
     public Borrador definirEsParaLLuvia(boolean esParaLluvia) {
         this.esParaLluvia = requireNonNull(esParaLluvia, "Debe asignarle si es impermeable a la prenda");
         return this;

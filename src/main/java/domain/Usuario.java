@@ -26,8 +26,11 @@ import static java.time.LocalDate.now;
 @Observable
 @Entity
 public class Usuario {
+
+
     @Id
     @GeneratedValue
+    @Column(name = "idUsuario")
     private long id;
 
     @ManyToMany
@@ -47,10 +50,12 @@ public class Usuario {
     @JoinColumn(name = "rechazado_id")
     private List<Atuendo> atuendosRechazados = new ArrayList<>();
 
+
     private Set<Notificador> notificadores = new HashSet<>();
 
     @OneToOne
     private Calendario calendario;
+
 
     private int tiempoDeAnticipacion = 0; // variable que indica con cuanto tiempo antes quiere que le llegue sugerencia sobre evento (en horas)
 
@@ -60,6 +65,18 @@ public class Usuario {
     @Embedded
     private Sensibilidad sensibilidad = new Sensibilidad();
 
+    public String getContrasenia() {
+        return contrasenia;
+    }
+
+    public void setContrasenia(String contrasenia) {
+        this.contrasenia = contrasenia;
+    }
+
+    private String contrasenia;
+
+
+
     //
     // variable que indique con cuanto tiempo antes quiere que le llegue sugerencia sobre evento
 
@@ -68,9 +85,10 @@ public class Usuario {
     // se le pide el proximo evento al user, se obtiene el clima de mismo
     // b. se genera sugerencia con ese clima
 
-    public Usuario(String numeroDeCelular,Calendario miCalendario) {
+    public Usuario(String numeroDeCelular,Calendario miCalendario,String contrasenia) {
         this.numeroDeCelular = numeroDeCelular;
         this.calendario = miCalendario;
+        this.contrasenia = contrasenia;
         RepositorioDeUsuarios.getInstance().agregarUsuarioTotal(this);
     }
 

@@ -3,35 +3,41 @@ package domain.usuario;
 import domain.clima.AccuWeather;
 import domain.clima.Clima;
 import domain.clima.Meteorologo;
-import org.uqbar.commons.model.Entity;
 import org.uqbar.commons.model.annotations.Observable;
 import org.uqbar.commons.model.annotations.Transactional;
 
-import javax.persistence.Enumerated;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.time.Duration;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 import static java.util.Objects.requireNonNull;
 
 @Transactional
 @Observable
-@org.hibernate.annotations.Entity
-public class Evento extends Entity {
+@Entity
+public class Evento extends org.uqbar.commons.model.Entity {
 
     @GeneratedValue
     @Id
+    @Column(name= "idEvento")
     long id;
 
+    @Column(name = "fecha")
     private LocalDateTime fecha;
+    @Column(name = "nombre")
     private String nombre;
+    @Column(name = "ubicacion")
     private String ubicacion;
+    @Column(name = "antelacionEnHoras")
     private Integer antelacionEnHoras = 1;
-    @Enumerated
+
+    @Column(name="periodo", nullable = false, length = 7 )
+    @Enumerated(value = EnumType.STRING)
     private Periodo tipoDeActualizacion;
+
+    @Column (name="tieneSugerencia")
     private Boolean tieneSugerencia = false;
+
     private Meteorologo meteorologo;
 
     public Evento(){

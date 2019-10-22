@@ -19,10 +19,11 @@ public class Guardarropa {
     private long id;
 
     @OneToMany
+    @JoinColumn(name = "accesorio_id")
     private Set<Prenda> accesorios = new HashSet<>();
 
     @OneToMany
-    @JoinColumn(name = "prenda_superiore_id")
+    @JoinColumn(name = "prenda_superior_id")
     private Set<Prenda> prendasSuperiores = new HashSet<>();
 
     @OneToMany

@@ -10,9 +10,11 @@ import java.util.Objects;
 public class Prenda {
     @Id
     @GeneratedValue
+    @Column(name = "idPrenda")
     private long id;
 
-    @ManyToOne
+    @ManyToOne (cascade =  CascadeType.ALL )
+    @JoinColumn(name = "idTipoDePrenda")
     private TipoDePrenda tipoDePrenda;
 
     @Enumerated

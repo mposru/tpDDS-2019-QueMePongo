@@ -14,6 +14,7 @@ public class TipoDePrenda {
 
     @GeneratedValue
     @Id
+    @Column(name = "idTipoDePrenda")
     private long id;
     private double temperaturaMax;
     private double temperaturaMin;
@@ -22,7 +23,7 @@ public class TipoDePrenda {
     private Categoria categoria;
 
     @OneToMany
-    @JoinColumn(name = "material")
+    @JoinColumn(name = "idMaterial")
     @Enumerated
     private List<Material> materialesValidos;
 
