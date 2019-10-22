@@ -2,7 +2,7 @@
 <html>
 <head>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-    <link rel="stylesheet" href="../../altaEvento.css">
+    <link rel="stylesheet" href="../../main.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
 
     <script src="https://cdn.jsdelivr.net/momentjs/2.14.1/moment.min.js"></script>
@@ -20,29 +20,34 @@
     <a class="navbar-brand" href="calendario">Calendario</a>
     <a class="navbar-brand" href="eventos">Eventos</a>
 </nav>
-<div class="form-style-10">
-    <h1>Nuevo Evento<span>Complete los siguientes campos y pulse "Crear" para dar de alta un evento</span></h1>
+<div class="content container container-table alta-evento">
+    <h3>Nuevo Evento</h3>
+    <h4>Complete los siguientes campos y pulse "Crear" para dar de alta un evento</h4>
     <form action="/evento" method="post">
-        <div class="inner-wrap">
-            <label>Descripción<input id="descripcion" type="text" name="descripcion"/></label>
-            <label>Ubicación<input id="ubicacion" type="text" name="ubicacion"/></label>
-            <label>Fecha</label>
+        <div class="form-group">
+            <label for="descripcion">Descripcion</label>
+            <input type="text" class="form-control" id="descripcion" name="descripcion" placeholder="Ingrese la descripción">
+        </div>
+        <div class="form-group">
+            <label for="ubicacion">Ubicacion</label>
+            <input type="text" class="form-control" id="ubicacion" name="ubicacion" placeholder="Ingrese la ubicación">
+        </div>
+        <div class="form-group">
+            <label for="fecha">Fecha</label>
             <div class='input-group date' id='datepicker'>
-                <input type='text' class="form-control" name="fecha"/>
+                <input type="text" class="form-control" id="fecha" name="fecha" placeholder="Elija una fecha">
                 <span class="input-group-addon">
                   <span class="glyphicon glyphicon-calendar"></span>
               </span>
-            </div>
-            <script>
-                $(function () {
-                  $('#datepicker').datetimepicker();
-                });
-            </script>
-        </div>
 
-        <div class="button-section">
-            <input type="submit" onclick="myFunction()" id="crear" name="crear" value="Crear"/>
+                <script>
+                    $(function () {
+                        $('#datepicker').datetimepicker();
+                    });
+                </script>
+            </div>
         </div>
+        <input type="submit" class="btn btn-primary" onclick="myFunction()" id="crear" name="crear" value="Crear"/>
         <script>
             function myFunction() {
                 var desc = document.querySelector('#descripcion');
@@ -52,7 +57,6 @@
                 if (desc.value === '' || ubicacion.value === '' || datepicker.value === '') {
                     alert("Debe completar todos los campos");
                 }
-
             }
         </script>
     </form>

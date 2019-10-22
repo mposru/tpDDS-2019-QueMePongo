@@ -16,7 +16,6 @@ public class Server {
         ControllerGuardarropas controllerGuardarropas = new ControllerGuardarropas();
         ControllerSesion controllerSesion = new ControllerSesion();
         ControllerCalendario controllerCalendario = new ControllerCalendario();
-        ControllerEvento controllerEvento = new ControllerEvento();
         ControllerEventos controllerEventos = new ControllerEventos();
 
         TemplateEngine engine = new HandlebarsTemplateEngine();
@@ -28,8 +27,8 @@ public class Server {
         Spark.post("/calendario/next", controllerCalendario::irAlMesSiguiente, engine);*/
         Spark.get("/calendario", controllerCalendario::mostrarCalendarioConEventos, engine);
         Spark.post("/calendario", controllerCalendario::mostrarCalendarioConEventos, engine);
-        Spark.get("/evento", controllerEvento::mostrar, engine);
-        Spark.post("/evento", controllerEvento::crearEvento, engine);
+        Spark.get("/evento", controllerEventos::mostrar, engine);
+        Spark.post("/evento", controllerEventos::crearEvento, engine);
         Spark.get("/eventos",controllerEventos ::mostrarEventos, engine);
         Spark.get("/eventos/:id/sugerencias/:indice",controllerEventos ::mostrarSugerencia, engine);
         Spark.post("/eventos/:id/sugerencias/:idSugerencia/estado",controllerEventos ::modificarEstadoSugerencia, engine);
