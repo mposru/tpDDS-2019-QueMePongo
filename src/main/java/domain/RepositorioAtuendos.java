@@ -18,7 +18,7 @@ public class RepositorioAtuendos {
         //return new Evento("UPD", "UTN", LocalDateTime.now(), Periodo.ANUAL, 456);
         Evento evento = RepositorioEventos.getInstance().findById("");
 
-        Usuario usuario = RepositorioDeUsuarios.getInstance().findById(id);
+        Usuario usuario = RepositorioDeUsuarios.getInstance().buscarUsuarioPorId(4);
 
         return usuario.obtenerSugerenciasDeEvento(evento).get(0);
     }

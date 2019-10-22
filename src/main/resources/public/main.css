@@ -1,6 +1,11 @@
 body {
     background-color: #dae0ff !important;
 }
+
+.content {
+    margin: 0 10px;
+}
+
 .titulo {
     /* font-family: fantasy; */
     color: #a74fe2;

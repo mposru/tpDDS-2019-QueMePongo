@@ -4,22 +4,28 @@
         <link rel="stylesheet" href="../../main.css">
     </head>
     <body>
-    <h3>
-        Elija un evento
-    </h3>
-    {{#if redirectSugerencias}}
-    <div>
-        Se aceptó la sugerencia con éxito
-    </div>
-    {{/if}}
-    <ul>
-        {{#each eventos}}
-        <li class="evento">
-            <a href="/eventos/{{id}}/sugerencias/0">
-            Nombre: {{nombre}} - Fecha: {{fecha}} - Ubicación: {{ubicacion}}
-            </a>
-        </li>
-        {{/each}}
-    </ul>
+        <nav class="navbar navbar-expand-lg navbar-light bg-light">
+            <a class="navbar-brand" href="calendario">Calendario</a>
+            <a class="navbar-brand" href="eventos">Eventos</a>
+        </nav>
+        <div class="content">
+            <h3>
+                Elija un evento
+            </h3>
+            {{#if redirectSugerencias}}
+            <div>
+                Se aceptó la sugerencia con éxito
+            </div>
+            {{/if}}
+            <ul>
+                {{#each eventos}}
+                <li class="evento">
+                    <a href="/eventos/{{id}}/sugerencias/0">
+                    Nombre: {{nombre}} - Fecha: {{fecha}} - Ubicación: {{ubicacion}}
+                    </a>
+                </li>
+                {{/each}}
+            </ul>
+        </div>
     </body>
 </html>
