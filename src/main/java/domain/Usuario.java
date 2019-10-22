@@ -37,8 +37,9 @@ public class Usuario {
     @JoinTable(name = "usuario_guardarropa",joinColumns = @JoinColumn(name="idUsuario"),inverseJoinColumns = @JoinColumn(name = "idGuardarropa"))
     private Set<Guardarropa> guardarropas = new HashSet<>();
 
-    @OneToMany
-    @JoinColumn(name = "decision_id")
+  /*  @OneToMany
+    @JoinColumn(name = "decision_id")*/
+     @Transient
     private LinkedList<Decision> decisiones = new LinkedList<>();
 
     private String numeroDeCelular;

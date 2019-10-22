@@ -7,6 +7,7 @@ import java.io.IOException;
 import java.util.Objects;
 
 @Entity
+@Table(name = "prenda")
 public class Prenda {
     @Id
     @GeneratedValue
@@ -17,7 +18,7 @@ public class Prenda {
     @JoinColumn(name = "idTipoDePrenda")
     private TipoDePrenda tipoDePrenda;
 
-    @Enumerated
+    @Enumerated (EnumType.STRING)
     private Material material;
 
     @Embedded
@@ -26,7 +27,7 @@ public class Prenda {
     @Embedded
     private Color colorSecundario;
 
-    @Enumerated
+    @Enumerated (EnumType.STRING)
     private Trama trama;
 
     //va la annotation?

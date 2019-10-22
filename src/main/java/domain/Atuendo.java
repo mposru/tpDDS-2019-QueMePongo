@@ -41,7 +41,7 @@ public class Atuendo {
     @JoinColumn(name = "accesorio_manos_id")
     private Prenda accesorioManos;
 
-    @ManyToOne
+    @Transient
     private EstadoAtuendo estado;
 
     public Atuendo(Set<Prenda> prendasSuperiores, Prenda prendaInferior, Prenda calzado, Prenda accesorio, Prenda accesorioCuello, Prenda accesorioManos) {
