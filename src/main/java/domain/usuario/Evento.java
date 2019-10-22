@@ -115,6 +115,7 @@ public class Evento {
     }
 
     public long getId() {
+        //todo: sacar hardcodeo
         return 6;
         //return id;
     }
