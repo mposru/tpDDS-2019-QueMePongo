@@ -40,6 +40,10 @@ public class Calendario {
         return eventos.stream().filter(evento -> evento.esProximo()).collect(Collectors.toList());
     }
 
+    public List<Evento> obtenerEventos() {
+        return eventos;
+    }
+
     public List<Evento> obtenerEventosEntreFechas(LocalDate fechaDesde, LocalDate fechaHasta) {
         return eventos.stream().filter((evento) -> evento.getFecha().toLocalDate().isAfter(fechaDesde) && evento.getFecha().toLocalDate().isBefore(fechaHasta)).collect(Collectors.toList());
     }

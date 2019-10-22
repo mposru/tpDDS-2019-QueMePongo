@@ -5,14 +5,21 @@ package domain;
 
 import java.time.LocalDateTime;
 import java.util.*;
+import java.util.stream.Collectors;
 
 import domain.clima.Clima;
+import domain.guardarropa.Gratuito;
 import domain.notificacion.Notificador;
 import domain.clima.Alerta;
+import domain.prenda.Color;
+import domain.prenda.Material;
 import domain.prenda.TipoDePrenda;
+import domain.prenda.Trama;
 import domain.usuario.*;
 import domain.usuario.transiciones.*;
 import exceptions.*;
+import org.uqbar.commons.model.annotations.Observable;
+import org.uqbar.commons.model.annotations.Transactional;
 
 import javax.persistence.*;
 
@@ -20,6 +27,8 @@ import static domain.clima.Alerta.GRANIZO;
 import static domain.clima.Alerta.LLUVIA;
 import static java.time.LocalDate.now;
 
+@Transactional
+@Observable
 @Entity
 public class Usuario {
     @Id
@@ -31,7 +40,7 @@ public class Usuario {
 
     @OneToMany
     @JoinColumn(name = "decision_id")
-    private Deque<Decision> decisiones = new LinkedList<>();
+    private LinkedList<Decision> decisiones = new LinkedList<>();
 
     private String numeroDeCelular;
 
@@ -71,27 +80,27 @@ public class Usuario {
     }
 
     public void calificarSensibilidadGeneral(CalificacionSensibilidad calificacionSensibilidad) {
-        this.sensibilidad.calificarSensibilidadGeneral(calificacionSensibilidad);
+        this.sensibilidad.calificarSensibilidad(calificacionSensibilidad, "general");
     }
 
     public void calificarSensibilidadEnManos(CalificacionSensibilidad calificacionSensibilidad) {
-        this.sensibilidad.calificarSensibilidadEnManos(calificacionSensibilidad);
+        this.sensibilidad.calificarSensibilidad(calificacionSensibilidad, "manos");
     }
 
     public void calificarSensibilidadEnCuello(CalificacionSensibilidad calificacionSensibilidad) {
-        this.sensibilidad.calificarSensibilidadEnCuello(calificacionSensibilidad);
+        this.sensibilidad.calificarSensibilidad(calificacionSensibilidad, "cuello");
     }
 
     public double getFactorSensibilidadGeneral() {
-        return this.sensibilidad.getFactorSensibilidadGeneral();
+        return this.sensibilidad.getFactorSensibilidad("general");
     }
 
     public double getFactorSensibilidadEnManos() {
-        return this.sensibilidad.getFactorSensibilidadEnManos();
+        return this.sensibilidad.getFactorSensibilidad("manos");
     }
 
     public double getFactorSensibilidadEnCuello() {
-        return this.sensibilidad.getFactorSensibilidadEnCuello();
+        return this.sensibilidad.getFactorSensibilidad("cuello");
     }
 
     public void generarSugerenciasParaProximoEvento() {
@@ -112,7 +121,7 @@ public class Usuario {
         this.atuendosSugeridosProximoEvento = new AtuendosSugeridosPorEvento(atuendosSugeridos, proximoEvento);
     }
 
-    public Deque<Decision> obtenerDecisiones() {
+    public List<Decision> obtenerDecisiones() {
         return this.decisiones;
     }
 
@@ -133,13 +142,13 @@ public class Usuario {
     public void aceptarAtuendo(Atuendo atuendo) {
         atuendo.aceptar();
         this.atuendosAceptados.add(atuendo); //validar que el atuendo no se pueda aceptar dos veces.
-        this.decisiones.push(new Aceptar(atuendo));
+        this.decisiones.addFirst(new Aceptar(atuendo));
     }
 
     public void rechazarAtuendo(Atuendo atuendo) {
         atuendo.rechazar();
         atuendosRechazados.add(atuendo); //validar que el atuendo no se pueda rechazar dos veces.
-        this.decisiones.push(new Rechazar(atuendo));
+        this.decisiones.addFirst(new Rechazar(atuendo));
     }
 
     public void calificarAtuendo(Atuendo atuendo, int nuevaCalificacion) {
@@ -148,9 +157,9 @@ public class Usuario {
         // se relaciona directamente con temperatura
         // calcular en base a una recta el factor de abrigo entre prenda y temperatura (excel recta)
         if (atuendo.estaCalificado()) {
-            this.decisiones.push(new Recalificar(atuendo));
+            this.decisiones.addFirst(new Recalificar(atuendo));
         } else {
-            this.decisiones.push(new Calificar(atuendo));
+            this.decisiones.addFirst(new Calificar(atuendo));
         }
     }
 
@@ -158,7 +167,7 @@ public class Usuario {
         if (decisiones.isEmpty()) {
             throw new PilaVaciaException("No hay decisiones por deshacer");
         }
-        this.decisiones.pop().deshacer(this);
+        this.decisiones.removeFirst().deshacer(this);
     }
 
     public void agregarEvento(String nombre, String ubicacion, LocalDateTime fecha, Periodo periodo, Integer antelacion) {
@@ -232,7 +241,7 @@ public class Usuario {
         if (alerta == LLUVIA) {
             return this.atuendosSugeridosProximoEvento.getAtuendosSugeridos().stream().noneMatch(atuendo -> atuendo.esAptoParaLluvia());
         } else {
-            return this.atuendosSugeridosProximoEvento.getAtuendosSugeridos().stream().noneMatch(atuendo -> atuendo.obtenerAccesorios().stream().anyMatch(acc -> acc.obtenerTipoDePrenda() == TipoDePrenda.CASCO));
+            return this.atuendosSugeridosProximoEvento.getAtuendosSugeridos().stream().noneMatch(atuendo -> atuendo.obtenerAccesorio().obtenerTipoDePrenda() == TipoDePrenda.CASCO);
         }
     }
 
@@ -251,6 +260,30 @@ public class Usuario {
         this.guardarropas.forEach(guardarropa -> guardarropa.generarSugerencia(evento, sensibilidad));
     }
 
+    public List<Atuendo> obtenerSugerenciasDeEvento(Evento evento) {
+        //todo: borrar
+        List<Atuendo> sugerencias = new ArrayList<>();
+        Set<Prenda> prendasSuperiores2 = new HashSet<>();
+        Color color = new Color(2,2,2);
+        Set<Usuario> usuarios = new HashSet<>();
+        usuarios.add(this);
+        Guardarropa g = new Guardarropa(usuarios, new Gratuito(3));
+        Prenda remeraFutbol = new Prenda(TipoDePrenda.REMERA, Material.ALGODON, color, null, Trama.ESTAMPADO, g, false);
+        Prenda remeraFutbol2 = new Prenda(TipoDePrenda.BUZO, Material.ALGODON, color, null, Trama.ESTAMPADO, g, false);
+        Prenda pollera = new Prenda(TipoDePrenda.POLLERA, Material.ALGODON, color, null, Trama.LISA, g, false);
+        Prenda bandana = new Prenda(TipoDePrenda.PANUELO, Material.ALGODON, color, null, Trama.LISA, g, false);
+        Prenda sinAccesorioManos = new Prenda(TipoDePrenda.ACCESORIO_VACIO_MANOS, Material.NINGUNO, color, null, Trama.LISA, g, false);
+        Prenda sinAccesorioCuello = new Prenda(TipoDePrenda.ACCESORIO_VACIO_CUELLO, Material.NINGUNO, color, null, Trama.LISA, g, false);
+        Prenda ojotas = new Prenda(TipoDePrenda.CROCS, Material.GOMA, color, null, Trama.CUADROS, g, true);
+
+        prendasSuperiores2.add(remeraFutbol);
+        prendasSuperiores2.add(remeraFutbol2);
+        Atuendo primerAtuendo2 = new Atuendo(prendasSuperiores2, pollera, ojotas, bandana, sinAccesorioCuello, sinAccesorioManos);
+        sugerencias.add(primerAtuendo2);
+        this.guardarropas.forEach(guardarropa -> guardarropa.generarSugerencia(evento, sensibilidad).forEach(sugerencia -> sugerencias.add(sugerencia)));
+        return sugerencias;
+    }
+
     public void agregarGuardarropa(Guardarropa guardarropa) {
         this.guardarropas.add(guardarropa);
     }
@@ -263,4 +296,7 @@ public class Usuario {
         return this.id;
     }
 
+    public List<Evento> obtenerEventos() {
+        return calendario.obtenerEventos().stream().sorted(Comparator.comparing(Evento::getFecha)).collect(Collectors.toList());
+    }
 }

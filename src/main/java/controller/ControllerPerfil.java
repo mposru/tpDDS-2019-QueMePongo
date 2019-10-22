@@ -1,8 +1,5 @@
 package controller;
 
-import domain.RepositorioDeUsuarios;
-import domain.Usuario;
-
 import java.util.HashMap;
 import java.util.Map;
 import spark.*;

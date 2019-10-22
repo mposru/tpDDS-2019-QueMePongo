@@ -7,7 +7,7 @@ import domain.Usuario;
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
 
-@DiscriminatorValue("RECH")
+@DiscriminatorValue("Rechazar")
 @Entity
 public class Rechazar extends Decision {
     public Rechazar(Atuendo atuendoRechazado) {

@@ -1,7 +1,6 @@
 body {
     background-color: #dae0ff !important;
 }
-
 .titulo {
     /* font-family: fantasy; */
     color: #a74fe2;
@@ -22,4 +21,12 @@ body {
 .detalles {
     display: inline-block;
     margin-left: 40px;
+}
+
+.evento {
+
+}
+
+.sugerencia {
+
 }

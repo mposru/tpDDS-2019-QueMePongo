@@ -49,8 +49,22 @@ public class Prenda {
         this.esParaLluvia = impermeable;
     }
 
+
+
     public void cargarImagen(String path) throws IOException {
         this.imagen = this.imagen.leerDeFileSystem(path);
+    }
+
+    public boolean esParteSuperior() {
+        return this.obtenerCategoria() == Categoria.PARTE_SUPERIOR_ABAJO
+                || this.obtenerCategoria() == Categoria.PARTE_SUPERIOR_MEDIO
+                || this.obtenerCategoria() == Categoria.PARTE_SUPERIOR_ARRIBA;
+    }
+
+    public boolean esAccesorioGeneral() {
+        return this.obtenerCategoria() == Categoria.ACCESORIO
+                || this.obtenerCategoria() == Categoria.ACCESORIO_CABEZA
+                || this.obtenerCategoria() == Categoria.ACCESORIO_PIES;
     }
 
     public double obtenerUnidadDeAbrigo() {
@@ -98,6 +112,28 @@ public class Prenda {
     public Imagen obtenerImagen() {
         return imagen;
     }
+
+    public Imagen getImagen() {
+        return imagen;
+    }
+
+    public Trama getTrama() {
+        return this.trama;
+    }
+
+    public Color getColorPrimario() {
+        return this.colorPrimario;
+    }
+
+    public Color getColorSecundario() {
+        return this.colorSecundario;
+    }
+
+    public Material getMaterial() {
+        return this.material;
+    }
+
+    public Categoria getCategoria() { return this.tipoDePrenda.obtenerCategoria(); }
 
     @Override
     public boolean equals(Object o) {

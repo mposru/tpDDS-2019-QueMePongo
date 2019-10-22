@@ -42,4 +42,5 @@ public class HandlebarsTemplateEngineBuilder {
 		withHelper("i18n", I18nHelper.i18n);
 		return this;
 	}
+
 }
