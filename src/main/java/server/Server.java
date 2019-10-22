@@ -29,8 +29,8 @@ public class Server {
         Spark.post("/calendario/next", controllerCalendario::irAlMesSiguiente, engine);*/
         Spark.get("/calendario", controllerCalendario::mostrarCalendarioConEventos, engine);
         Spark.post("/calendario", controllerCalendario::mostrarCalendarioConEventos, engine);
-        Spark.get("/usuarios/:id/calendario/evento", controllerEvento::mostrar, engine);
-        Spark.post("/usuarios/:id/calendario/evento", controllerEvento::crearEvento, engine);
+        Spark.get("/evento", controllerEvento::mostrar, engine);
+        Spark.post("/evento", controllerEvento::crearEvento, engine);
 
         DebugScreen.enableDebugScreen();
     }

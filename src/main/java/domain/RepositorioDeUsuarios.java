@@ -33,7 +33,7 @@ public class RepositorioDeUsuarios {
     public Usuario buscarUsuarioPorId(int id) {
         List<Usuario> usuariosEncontrados = usuarios.stream().filter(usuario -> usuario.getId() == id).collect(Collectors.toList());
         if(usuariosEncontrados.isEmpty()) {
-            throw new RuntimeException("No se encontró ningun usuario con ese Id");
+            return null;
         }
         else {
             return usuariosEncontrados.get(0);

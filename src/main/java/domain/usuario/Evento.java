@@ -10,6 +10,7 @@ import org.uqbar.commons.model.annotations.Transactional;
 import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import java.awt.*;
 import java.time.Duration;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -112,4 +113,5 @@ public class Evento extends Entity {
         // todo: poner bien el dia
        return meteorologo.obtenerClima(fecha.toLocalDate());
     }
+
 }

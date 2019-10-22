@@ -1,25 +1,57 @@
+<!DOCTYPE html>
 <html>
-    <head>
-        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-        <link rel="stylesheet" href="../../main.css">
-    </head>
-    <body>
+<head>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" href="../../altaEvento.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
 
-        <h1>Crear evento</h1>
-        <p>Complete los siguientes campos para crear un evento</p>
+    <script src="https://cdn.jsdelivr.net/momentjs/2.14.1/moment.min.js"></script>
 
-        <form action="/usuarios/1/calendario/evento">
-            Descripción:
-            <input type="text" name="nombre">
-            <br><br>
-            Ubicación:
-            <input type="text" name="ubicacion">
-            <br><br>
-            Fecha:
-            <input type="datetime-local" name="fecha">
-            <br><br>
-            <input type="submit" value="Crear">
-        </form>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
 
-    </body>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.37/js/bootstrap-datetimepicker.min.js"></script>
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.37/css/bootstrap-datetimepicker.min.css">
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+</head>
+<body>
+<div class="form-style-10">
+    <h1>Nuevo Evento<span>Complete los siguientes campos y pulse "Crear" para dar de alta un evento</span></h1>
+    <form action="/evento" method="post">
+        <div class="inner-wrap">
+            <label>Descripción<input id="descripcion" type="text" name="descripcion"/></label>
+            <label>Ubicación<input id="ubicacion" type="text" name="ubicacion"/></label>
+            <label>Fecha</label>
+            <div class='input-group date' id='datepicker'>
+                <input type='text' class="form-control" name="fecha"/>
+                <span class="input-group-addon">
+                  <span class="glyphicon glyphicon-calendar"></span>
+              </span>
+            </div>
+            <script>
+                $(function () {
+                  $('#datepicker').datetimepicker();
+                });
+            </script>
+        </div>
+
+        <div class="button-section">
+            <input type="submit" onclick="myFunction()" id="crear" name="crear" value="Crear"/>
+        </div>
+        <script>
+            function myFunction() {
+                var desc = document.querySelector('#descripcion');
+                var ubicacion = document.querySelector('#ubicacion');
+                var datepicker = document.querySelector('#datepicker');
+
+                if (desc.value === '' || ubicacion.value === '' || datepicker.value === '') {
+                    alert("Debe completar todos los campos");
+                }
+
+            }
+        </script>
+    </form>
+</div>
+</body>
 </html>
