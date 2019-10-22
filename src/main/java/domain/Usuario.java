@@ -34,6 +34,7 @@ public class Usuario {
     private long id;
 
     @ManyToMany
+    @JoinTable(name = "usuario_guardarropa",joinColumns = @JoinColumn(name="idUsuario"),inverseJoinColumns = @JoinColumn(name = "idGuardarropa"))
     private Set<Guardarropa> guardarropas = new HashSet<>();
 
     @OneToMany
@@ -50,10 +51,18 @@ public class Usuario {
     @JoinColumn(name = "rechazado_id")
     private List<Atuendo> atuendosRechazados = new ArrayList<>();
 
-
+    @Transient
     private Set<Notificador> notificadores = new HashSet<>();
 
-    @OneToOne
+    public void setNumeroDeCelular(String numeroDeCelular) {
+        this.numeroDeCelular = numeroDeCelular;
+    }
+
+    public void setCalendario(Calendario calendario) {
+        this.calendario = calendario;
+    }
+
+    @OneToOne (cascade = CascadeType.ALL) //si borro el usuario me borra su calendario
     private Calendario calendario;
 
 
@@ -85,6 +94,7 @@ public class Usuario {
     // se le pide el proximo evento al user, se obtiene el clima de mismo
     // b. se genera sugerencia con ese clima
 
+    public Usuario() {} // solo para JPA
     public Usuario(String numeroDeCelular,Calendario miCalendario,String contrasenia) {
         this.numeroDeCelular = numeroDeCelular;
         this.calendario = miCalendario;

@@ -1,3 +1,4 @@
+/*
 package domain.arena;
 
 import domain.usuario.Evento;
@@ -12,7 +13,8 @@ public class Fixture {
         Evento inscripcion2doCuatri = new Evento("Inscripcion2doCuatri", "UTN", LocalDateTime.of(2019, 07, 3, 14, 00, 00), Periodo.NINGUNO, 1);
         Evento vacaciones = new Evento("Vacaciones", "Mendoza", LocalDateTime.of(2019, 07, 4, 14, 00, 00), Periodo.NINGUNO, 1);
 
-        /*
+        */
+/*
         Calendario calendarioDaiu = new Calendario();
         Calendario calendarioDiego = new Calendario();
         calendarioDaiu.agregarEvento(vacaciones);
@@ -26,7 +28,9 @@ public class Fixture {
 
         RepositorioDeUsuarios.getInstance().agregarUsuario(daiu);
         RepositorioDeUsuarios.getInstance().agregarUsuario(diego);
-        */
+        *//*
+
     }
 }
 
+*/

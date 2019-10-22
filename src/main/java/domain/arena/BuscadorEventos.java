@@ -1,5 +1,5 @@
 package domain.arena;
-
+/*
 import domain.usuario.Evento;
 import org.springframework.cglib.core.Local;
 import org.uqbar.commons.applicationContext.ApplicationContext;
@@ -91,3 +91,6 @@ public class BuscadorEventos {
         this.anioHasta = anioHasta;
     }
 }
+
+
+ */

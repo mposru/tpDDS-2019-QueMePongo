@@ -9,35 +9,33 @@ import org.uqbar.commons.model.annotations.Transactional;
 import javax.persistence.*;
 import java.time.Duration;
 import java.time.LocalDateTime;
+import java.util.Calendar;
 
 import static java.util.Objects.requireNonNull;
 
-@Transactional
-@Observable
 @Entity
-public class Evento extends org.uqbar.commons.model.Entity {
+@Table(name = "evento")
+public class Evento {
 
     @GeneratedValue
     @Id
     @Column(name= "idEvento")
     long id;
 
-    @Column(name = "fecha")
+
     private LocalDateTime fecha;
-    @Column(name = "nombre")
     private String nombre;
-    @Column(name = "ubicacion")
     private String ubicacion;
-    @Column(name = "antelacionEnHoras")
     private Integer antelacionEnHoras = 1;
 
-    @Column(name="periodo", nullable = false, length = 7 )
+    @Column(name="periodo", nullable = false, length = 8 )
     @Enumerated(value = EnumType.STRING)
     private Periodo tipoDeActualizacion;
 
-    @Column (name="tieneSugerencia")
     private Boolean tieneSugerencia = false;
 
+    @Transient
+    //TODO sacar de acá al meteorologo, no va en evento
     private Meteorologo meteorologo;
 
     public Evento(){
@@ -118,4 +116,40 @@ public class Evento extends org.uqbar.commons.model.Entity {
         // todo: poner bien el dia
        return meteorologo.obtenerClima(fecha.toLocalDate());
     }
+    public long getId() {
+        return id;
+    }
+
+    public void setId(long id) {
+        this.id = id;
+    }
+
+    public void setFecha(LocalDateTime fecha) {
+        this.fecha = fecha;
+    }
+
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
+    }
+
+    public void setUbicacion(String ubicacion) {
+        this.ubicacion = ubicacion;
+    }
+
+    public Integer getAntelacionEnHoras() {
+        return antelacionEnHoras;
+    }
+
+    public void setAntelacionEnHoras(Integer antelacionEnHoras) {
+        this.antelacionEnHoras = antelacionEnHoras;
+    }
+
+    public Periodo getTipoDeActualizacion() {
+        return tipoDeActualizacion;
+    }
+
+    public void setTipoDeActualizacion(Periodo tipoDeActualizacion) {
+        this.tipoDeActualizacion = tipoDeActualizacion;
+    }
+
 }

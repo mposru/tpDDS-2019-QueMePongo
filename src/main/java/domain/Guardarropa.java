@@ -14,6 +14,10 @@ import domain.guardarropa.TipoDeGuardarropa;
 import static java.util.Objects.requireNonNull;
 @Entity
 public class Guardarropa {
+    public long getId() {
+        return id;
+    }
+
     @Id
     @GeneratedValue
     private long id;
@@ -34,7 +38,8 @@ public class Guardarropa {
     @JoinColumn(name = "calzado_id")
     private Set<Prenda> calzados = new HashSet<>();
 
-    @ManyToMany
+    @ManyToMany(mappedBy = "usuario")
+
     private Set<Usuario> usuarios;
 
     private TipoDeGuardarropa tipoDeGuardarropa;

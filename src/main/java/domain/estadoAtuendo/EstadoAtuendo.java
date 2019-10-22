@@ -4,15 +4,15 @@ import domain.Atuendo;
 
 import javax.persistence.*;
 
-@DiscriminatorColumn(name = "estado")
+/*@DiscriminatorColumn(name = "estado")
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
-@Entity
+@Entity*/
 public abstract class EstadoAtuendo {
-    @GeneratedValue
-    @Id
+   /* @GeneratedValue
+    @Id*/
     long id;
-    @ManyToOne
-    @JoinColumn(name = "atuendo_id")
+ /*   @ManyToOne
+    @JoinColumn(name = "atuendo_id")*/
     public Atuendo atuendo;
     public abstract void aceptar();
     public abstract void rechazar();

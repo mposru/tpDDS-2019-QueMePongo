@@ -19,6 +19,7 @@ public class Atuendo {
 
     @GeneratedValue
     @Id
+    @Column(name = "idAtuendo")
     long id;
 
     @OneToOne

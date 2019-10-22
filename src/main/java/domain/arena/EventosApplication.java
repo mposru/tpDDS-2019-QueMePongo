@@ -1,3 +1,4 @@
+/*
 package domain.arena;
 
 import domain.RepositorioDeUsuarios;
@@ -17,4 +18,4 @@ public class EventosApplication extends Application {
     protected Window<?> createMainWindow() {
         ApplicationContext.getInstance().configureSingleton(Evento.class, new RepositorioEventos());
         return new BuscarEventosWindow(this ); }
-}
+}*/

@@ -1,5 +1,5 @@
 package domain.arena;
-
+/*
 import domain.usuario.Evento;
 import domain.usuario.Periodo;
 import org.apache.commons.collections15.Predicate;
@@ -12,7 +12,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @Observable
-public class RepositorioEventos extends CollectionBasedRepo<Evento> {
+public class RepositorioEventos extends CollectionBasedRepo<> {
     private static RepositorioEventos instance = new RepositorioEventos();
 
     public static RepositorioEventos repositorioEventos() {
@@ -52,3 +52,4 @@ public class RepositorioEventos extends CollectionBasedRepo<Evento> {
         return null;
     }
 }
+*/

@@ -7,9 +7,10 @@ import domain.Usuario;
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
 
-@DiscriminatorValue("Recalificar")
-@Entity
+/*@DiscriminatorValue("Recalificar")
+@Entity*/
 public class Recalificar extends Decision {
+
     private int calificacionAnterior;
 
     public Recalificar(Atuendo atuendoRecalificado) {

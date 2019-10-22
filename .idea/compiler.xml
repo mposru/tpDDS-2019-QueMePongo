@@ -7,6 +7,7 @@
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
         <module name="QueMePongo" />
+        <module name="2019-vi-no-group-08" />
       </profile>
     </annotationProcessing>
   </component>
