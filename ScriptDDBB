@@ -1,0 +1,274 @@
+-- version 4.6.6deb5
+-- https://www.phpmyadmin.net/
+--
+-- Host: localhost:3306
+-- Generation Time: Oct 23, 2019 at 12:31 AM
+-- Server version: 5.7.27
+-- PHP Version: 7.2.19-0ubuntu0.19.04.2
+
+SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
+SET time_zone = "+00:00";
+
+
+/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
+/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
+/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
+/*!40101 SET NAMES utf8mb4 */;
+
+--
+-- Database: `quemepongo`
+--
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `atuendo`
+--
+
+CREATE TABLE `atuendo` (
+  `idAtuendo` int(11) NOT NULL,
+  `nombre` varchar(40) DEFAULT NULL,
+  `idPrendaInferior` int(11) NOT NULL,
+  `idCalzado` int(11) NOT NULL,
+  `idAccesorio` int(11) NOT NULL,
+  `idAccesorioManos` int(11) DEFAULT NULL,
+  `idAccesorioCuello` int(11) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `calendario`
+--
+
+CREATE TABLE `calendario` (
+  `idCalendario` int(11) NOT NULL,
+  `nombre` varchar(40) DEFAULT NULL,
+  `idUsuario` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `evento`
+--
+
+CREATE TABLE `evento` (
+  `idEvento` int(11) NOT NULL,
+  `fecha` datetime NOT NULL,
+  `nombre` varchar(50) NOT NULL,
+  `ubicacion` varchar(50) NOT NULL,
+  `antelacionEnHoras` int(11) DEFAULT NULL,
+  `periodo` varchar(8) NOT NULL,
+  `tieneSugerencia` tinyint(1) DEFAULT NULL,
+  `idCalendario` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `guardarropa`
+--
+
+CREATE TABLE `guardarropa` (
+  `idGuardarropa` int(11) NOT NULL,
+  `tipoDeGuardarropa` varchar(40) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `prenda`
+--
+
+CREATE TABLE `prenda` (
+  `id_prenda` int(11) NOT NULL,
+  `nombre` varchar(100) NOT NULL,
+  `material` varchar(40) NOT NULL,
+  `idTipoDePrenda` int(11) NOT NULL,
+  `trama` varchar(50) DEFAULT NULL,
+  `idGuardarropa` int(11) NOT NULL,
+  `imagen` blob,
+  `esParaLluvia` tinyint(1) DEFAULT NULL,
+  `disponibilidad` tinyint(1) DEFAULT NULL,
+  `rojo` int(11) NOT NULL,
+  `verde` int(11) NOT NULL,
+  `azul` int(11) NOT NULL,
+  `rojo_1` int(11) DEFAULT NULL,
+  `verde_1` int(11) DEFAULT NULL,
+  `azul_1` int(11) DEFAULT NULL,
+  `idAtuendo` int(11) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `tipoDePrenda`
+--
+
+CREATE TABLE `tipoDePrenda` (
+  `idTipoDePrenda` int(11) NOT NULL,
+  `temperaturaMax` double NOT NULL,
+  `temperaturaMin` double NOT NULL,
+  `categoria` varchar(40) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `usuario`
+--
+
+CREATE TABLE `usuario` (
+  `IdUsuario` int(11) NOT NULL,
+  `nombreDeUSuario` varchar(40) NOT NULL,
+  `contrasenia` varchar(40) NOT NULL,
+  `numeroDeCelular` varchar(20) DEFAULT NULL,
+  `tiempoDeAnticipacion` int(11) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `usuario_guardarropa`
+--
+
+CREATE TABLE `usuario_guardarropa` (
+  `idGuardarropa` int(11) NOT NULL,
+  `IdUsuario` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Indexes for dumped tables
+--
+
+--
+-- Indexes for table `atuendo`
+--
+ALTER TABLE `atuendo`
+  ADD PRIMARY KEY (`idAtuendo`),
+  ADD KEY `atuendo_FK` (`idPrendaInferior`),
+  ADD KEY `atuendo_FK_1` (`idCalzado`),
+  ADD KEY `atuendo_FK_2` (`idAccesorio`),
+  ADD KEY `atuendo_FK_3` (`idAccesorioManos`);
+
+--
+-- Indexes for table `calendario`
+--
+ALTER TABLE `calendario`
+  ADD PRIMARY KEY (`idCalendario`),
+  ADD KEY `calendario_FK` (`idUsuario`);
+
+--
+-- Indexes for table `evento`
+--
+ALTER TABLE `evento`
+  ADD PRIMARY KEY (`idEvento`),
+  ADD KEY `evento_FK` (`idCalendario`);
+
+--
+-- Indexes for table `guardarropa`
+--
+ALTER TABLE `guardarropa`
+  ADD PRIMARY KEY (`idGuardarropa`);
+
+--
+-- Indexes for table `prenda`
+--
+ALTER TABLE `prenda`
+  ADD PRIMARY KEY (`id_prenda`),
+  ADD KEY `prenda_FK_1` (`idGuardarropa`),
+  ADD KEY `prenda_FK_2` (`idTipoDePrenda`),
+  ADD KEY `prenda_FK_3` (`idAtuendo`);
+
+--
+-- Indexes for table `tipoDePrenda`
+--
+ALTER TABLE `tipoDePrenda`
+  ADD PRIMARY KEY (`idTipoDePrenda`);
+
+--
+-- Indexes for table `usuario`
+--
+ALTER TABLE `usuario`
+  ADD PRIMARY KEY (`IdUsuario`);
+
+--
+-- Indexes for table `usuario_guardarropa`
+--
+ALTER TABLE `usuario_guardarropa`
+  ADD PRIMARY KEY (`idGuardarropa`,`IdUsuario`),
+  ADD KEY `usuario_guardarropa_FK_1` (`IdUsuario`);
+
+--
+-- AUTO_INCREMENT for dumped tables
+--
+
+--
+-- AUTO_INCREMENT for table `evento`
+--
+ALTER TABLE `evento`
+  MODIFY `idEvento` int(11) NOT NULL AUTO_INCREMENT;
+--
+-- AUTO_INCREMENT for table `guardarropa`
+--
+ALTER TABLE `guardarropa`
+  MODIFY `idGuardarropa` int(11) NOT NULL AUTO_INCREMENT;
+--
+-- AUTO_INCREMENT for table `prenda`
+--
+ALTER TABLE `prenda`
+  MODIFY `id_prenda` int(11) NOT NULL AUTO_INCREMENT;
+--
+-- AUTO_INCREMENT for table `tipoDePrenda`
+--
+ALTER TABLE `tipoDePrenda`
+  MODIFY `idTipoDePrenda` int(11) NOT NULL AUTO_INCREMENT;
+--
+-- AUTO_INCREMENT for table `usuario`
+--
+ALTER TABLE `usuario`
+  MODIFY `IdUsuario` int(11) NOT NULL AUTO_INCREMENT;
+--
+-- Constraints for dumped tables
+--
+
+--
+-- Constraints for table `atuendo`
+--
+ALTER TABLE `atuendo`
+  ADD CONSTRAINT `atuendo_FK` FOREIGN KEY (`idPrendaInferior`) REFERENCES `prenda` (`id_prenda`),
+  ADD CONSTRAINT `atuendo_FK_1` FOREIGN KEY (`idCalzado`) REFERENCES `prenda` (`id_prenda`),
+  ADD CONSTRAINT `atuendo_FK_2` FOREIGN KEY (`idAccesorio`) REFERENCES `prenda` (`id_prenda`),
+  ADD CONSTRAINT `atuendo_FK_3` FOREIGN KEY (`idAccesorioManos`) REFERENCES `prenda` (`id_prenda`);
+
+--
+-- Constraints for table `calendario`
+--
+ALTER TABLE `calendario`
+  ADD CONSTRAINT `calendario_FK` FOREIGN KEY (`idUsuario`) REFERENCES `usuario` (`IdUsuario`);
+
+--
+-- Constraints for table `evento`
+--
+ALTER TABLE `evento`
+  ADD CONSTRAINT `evento_FK` FOREIGN KEY (`idCalendario`) REFERENCES `calendario` (`idCalendario`);
+
+--
+-- Constraints for table `prenda`
+--
+ALTER TABLE `prenda`
+  ADD CONSTRAINT `prenda_FK` FOREIGN KEY (`idGuardarropa`) REFERENCES `guardarropa` (`idGuardarropa`),
+  ADD CONSTRAINT `prenda_FK_2` FOREIGN KEY (`idTipoDePrenda`) REFERENCES `tipoDePrenda` (`idTipoDePrenda`),
+  ADD CONSTRAINT `prenda_FK_3` FOREIGN KEY (`idAtuendo`) REFERENCES `atuendo` (`idAtuendo`);
+
+--
+-- Constraints for table `usuario_guardarropa`
+--
+ALTER TABLE `usuario_guardarropa`
+  ADD CONSTRAINT `usuario_guardarropa_FK` FOREIGN KEY (`idGuardarropa`) REFERENCES `guardarropa` (`idGuardarropa`),
+  ADD CONSTRAINT `usuario_guardarropa_FK_1` FOREIGN KEY (`IdUsuario`) REFERENCES `usuario` (`IdUsuario`);
+
+/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
+/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
+/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;

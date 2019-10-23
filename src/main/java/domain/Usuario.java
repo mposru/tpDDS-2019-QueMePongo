@@ -39,13 +39,14 @@ public class Usuario {
 
   /*  @OneToMany
     @JoinColumn(name = "decision_id")*/
-     @Transient
+  @Transient
     private LinkedList<Decision> decisiones = new LinkedList<>();
 
     private String numeroDeCelular;
 
     @OneToMany
-    @JoinColumn(name = "aceptado_id")
+    @JoinTable(name="atuendo")
+    @JoinColumn(name = "estado")
     private List<Atuendo> atuendosAceptados = new ArrayList<>();
 
     @OneToMany

@@ -67,7 +67,7 @@ public class Atuendo {
     }
 
     private void setearAtuendoEnPrendasSuperiores() {
-        prendasSuperiores.forEach(prenda -> prenda.setAtuendo(this));
+        this.prendasSuperiores.forEach(prenda -> prenda.setAtuendo(this));
     }
 
     private void validarPrenda(Set<Prenda> prendasSuperiores, Prenda prendaInferior,
