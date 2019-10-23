@@ -22,23 +22,32 @@ public class Atuendo {
     @Column(name = "idAtuendo")
     long id;
 
+    public String getNombre() {
+        return nombre;
+    }
+
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
+    }
+
+    private String nombre;
+
     @OneToOne
-    @JoinColumn(name = "accesorio_id")
+    @JoinColumn(name = "idAccesorio")
     private Prenda accesorio;
     @OneToMany
-    @JoinColumn(name = "prendas_superiores_id")
     private Set<Prenda> prendasSuperiores = new HashSet<>();
     @OneToOne
-    @JoinColumn(name = "prenda_inferior_id")
+    @JoinColumn(name = "idPrendaInferior")
     private Prenda prendaInferior;
     @OneToOne
-    @JoinColumn(name = "calzado_id")
+    @JoinColumn(name = "idCalzado")
     private Prenda calzado;
     @OneToOne
-    @JoinColumn(name = "accesorio_cuello_id")
+    @JoinColumn(name = "idAccesorioCuello")
     private Prenda accesorioCuello;
     @OneToOne
-    @JoinColumn(name = "accesorio_manos_id")
+    @JoinColumn(name = "idAccesorioManos")
     private Prenda accesorioManos;
 
     @Transient

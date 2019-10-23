@@ -22,9 +22,7 @@ public class TipoDePrenda {
     @Enumerated(EnumType.STRING)
     private Categoria categoria;
 
-    @OneToMany
-    @JoinColumn(name = "idMaterial")
-    @Enumerated
+    @Transient
     private List<Material> materialesValidos;
 
     public static final TipoDePrenda ZAPATO = new TipoDePrenda(Categoria.CALZADO, Arrays.asList(Material.CUERO), 35, -5);

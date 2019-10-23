@@ -16,7 +16,7 @@ public class Prenda {
 
     private String nombre;
 
-    @ManyToOne (cascade =  CascadeType.ALL)
+    @ManyToOne
     @JoinColumn(name = "idTipoDePrenda")
     private TipoDePrenda tipoDePrenda;
 
@@ -26,14 +26,15 @@ public class Prenda {
     @Embedded
     private Color colorPrimario;
 
-    @Embedded
+   // @Embedded
+    @Transient // lo dejo asi para probar solamente
     private Color colorSecundario;
 
     @Enumerated (EnumType.STRING)
     private Trama trama;
 
-    //va la annotation?
-    // guardamos guardarropa_id
+    @ManyToOne
+    @Column(name = "idGuardarropa")
     private Guardarropa guardarropa;
 
     @Embedded

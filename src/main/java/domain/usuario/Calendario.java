@@ -11,10 +11,13 @@ import java.util.stream.Collectors;
 @Entity
 public class Calendario {
 
+
     @GeneratedValue
     @Id
     @Column(name = "idCalendario")
     long id;
+
+    String nombre;
     
     @OneToMany
     @JoinColumn(name = "idEvento")
@@ -44,4 +47,13 @@ public class Calendario {
     public List<Evento> obtenerEventosEntreFechas(LocalDate fechaDesde, LocalDate fechaHasta) {
         return eventos.stream().filter((evento) -> evento.getFecha().toLocalDate().isAfter(fechaDesde) && evento.getFecha().toLocalDate().isBefore(fechaHasta)).collect(Collectors.toList());
     }
+
+    public String getNombre() {
+        return nombre;
+    }
+
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
+    }
+
 }
