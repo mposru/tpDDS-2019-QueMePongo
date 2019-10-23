@@ -65,19 +65,19 @@ public class Guardarropa {
         return (this.prendasSuperiores.size() + this.prendasInferiores.size() + this.accesorios.size() + this.calzados.size());
     }
 
-    public Set<Prenda> obtenerPrendasSuperiores() {
+    public Set<Prenda> getPrendasSuperiores() {
         return prendasSuperiores;
     }
 
-    public Set<Prenda> obtenerPrendasInferiores() {
+    public Set<Prenda> getPrendasInferiores() {
         return prendasInferiores;
     }
 
-    public Set<Prenda> obtenerCalzados() {
+    public Set<Prenda> getCalzados() {
         return calzados;
     }
 
-    public Set<Prenda> obtenerAccesorios() {
+    public Set<Prenda> getAccesorios() {
         return accesorios;
     }
 
@@ -196,10 +196,10 @@ public class Guardarropa {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Guardarropa guardarropa = (Guardarropa) o;
-        return Objects.equals(prendasInferiores, guardarropa.obtenerPrendasInferiores()) &&
-                Objects.equals(prendasSuperiores, guardarropa.obtenerPrendasSuperiores()) &&
-                Objects.equals(calzados, guardarropa.obtenerCalzados()) &&
-                Objects.equals(accesorios, guardarropa.obtenerAccesorios()) &&
+        return Objects.equals(prendasInferiores, guardarropa.getPrendasInferiores()) &&
+                Objects.equals(prendasSuperiores, guardarropa.getPrendasSuperiores()) &&
+                Objects.equals(calzados, guardarropa.getCalzados()) &&
+                Objects.equals(accesorios, guardarropa.getAccesorios()) &&
                 Objects.equals(usuarios, guardarropa.obtenerUsuarios());
     }
 
