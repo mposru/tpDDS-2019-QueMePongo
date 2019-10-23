@@ -36,7 +36,6 @@ public class Atuendo {
     @JoinColumn(name = "idAccesorio")
     private Prenda accesorio;
     @OneToMany (cascade = CascadeType.ALL, mappedBy = "atuendo")
-    @JoinColumn(name="idPrendaSuperior")
     private Set<Prenda> prendasSuperiores = new HashSet<>();
     @OneToOne
     @JoinColumn(name = "idPrendaInferior")

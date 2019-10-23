@@ -38,9 +38,9 @@ public class Guardarropa {
     @JoinColumn(name = "calzado_id")
     private Set<Prenda> calzados = new HashSet<>();
 
-    @ManyToMany(mappedBy = "usuario")
-
+    @ManyToMany(mappedBy = "usuarios")
     private Set<Usuario> usuarios;
+
 
     private TipoDeGuardarropa tipoDeGuardarropa;
 

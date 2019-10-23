@@ -34,7 +34,6 @@ public class Prenda {
     private Trama trama;
 
     @ManyToOne
-    @Column(name = "idGuardarropa")
     private Guardarropa guardarropa;
 
     @Embedded
@@ -49,7 +48,6 @@ public class Prenda {
     }
 
     @ManyToOne()
-    @Column(name = "idAtuendo")
     private Atuendo atuendo;
 
 
