@@ -35,7 +35,8 @@ public class Atuendo {
     @OneToOne
     @JoinColumn(name = "idAccesorio")
     private Prenda accesorio;
-    @OneToMany
+    @OneToMany (cascade = CascadeType.ALL, mappedBy = "atuendo")
+    @JoinColumn(name="idPrendaSuperior")
     private Set<Prenda> prendasSuperiores = new HashSet<>();
     @OneToOne
     @JoinColumn(name = "idPrendaInferior")
@@ -61,7 +62,12 @@ public class Atuendo {
         this.calzado = calzado;
         this.accesorioCuello = accesorioCuello;
         this.accesorioManos = accesorioManos;
-        this.estado = new Nuevo(this); //todo atuendo nace en estado nuevo.
+        this.estado = new Nuevo(this); //el atuendo nace en estado nuevo.
+        this.setearAtuendoEnPrendasSuperiores();
+    }
+
+    private void setearAtuendoEnPrendasSuperiores() {
+        prendasSuperiores.forEach(prenda -> prenda.setAtuendo(this));
     }
 
     private void validarPrenda(Set<Prenda> prendasSuperiores, Prenda prendaInferior,

@@ -40,9 +40,22 @@ public class Prenda {
     @Embedded
     private Imagen imagen;
 
+    public Atuendo getAtuendo() {
+        return atuendo;
+    }
+
+    public void setAtuendo(Atuendo atuendo) {
+        this.atuendo = atuendo;
+    }
+
+    @ManyToOne()
+    @Column(name = "idAtuendo")
+    private Atuendo atuendo;
+
+
     private boolean esParaLluvia;
     private boolean disponibilidad = true; //toda prenda inicia disponible
-//to do: agregar el nombre de la prenda al constructor
+    //todo: agregar el nombre de la prenda al constructor
     public Prenda(TipoDePrenda tipoDePrenda, Material material, Color colorPrimario, Color colorSecundario, Trama trama,
                   Guardarropa guardarropa, boolean impermeable, String nombre) {
         this.tipoDePrenda = tipoDePrenda;
