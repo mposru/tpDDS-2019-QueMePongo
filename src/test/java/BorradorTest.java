@@ -133,7 +133,7 @@ public class BorradorTest {
     @Test
     public void crearPrendaConExito() {
         this.borradorZapatillas.definirTipo(this.tipoDePrenda).definirMaterial(this.material).definirColorPrimario(this.colorPrimario).definirColorPrimario(this.colorPrimario).definirGuardarropa(this.guardarropa);
-        Prenda prendaEsperada = new Prenda(this.tipoDePrenda, this.material, this.colorPrimario, null, this.trama, this.guardarropa, this.esParaLluvia);
+        Prenda prendaEsperada = new Prenda("PrendaEsperada",this.tipoDePrenda, this.material, this.colorPrimario, null, this.trama, this.guardarropa, this.esParaLluvia);
         Assert.assertEquals(prendaEsperada.obtenerTipoDePrenda(),this.tipoDePrenda);
         Assert.assertEquals(prendaEsperada.obtenerColorPrimario(),this.colorPrimario);
         Assert.assertNull(prendaEsperada.obtenerColorSecundario());

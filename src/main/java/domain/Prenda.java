@@ -34,11 +34,16 @@ public class Prenda {
     @Embedded
     private Imagen imagen;
 
+    private String nombrePrenda;
+
     private boolean esParaLluvia;
     private boolean disponibilidad = true; //toda prenda inicia disponible
 
-    public Prenda(TipoDePrenda tipoDePrenda, Material material, Color colorPrimario, Color colorSecundario, Trama trama,
+    private String nombreMaterial;
+
+    public Prenda(String nombreDePrenda,TipoDePrenda tipoDePrenda, Material material, Color colorPrimario, Color colorSecundario, Trama trama,
                   Guardarropa guardarropa, boolean impermeable) {
+        this.nombrePrenda = nombreDePrenda;
         this.tipoDePrenda = tipoDePrenda;
         this.material = material;
         this.colorPrimario = colorPrimario;
@@ -88,6 +93,9 @@ public class Prenda {
     public TipoDePrenda obtenerTipoDePrenda() {
         return this.tipoDePrenda;
     }
+    public String getTipoDePrenda(){
+        return this.tipoDePrenda.toString();
+    }
 
     public Categoria obtenerCategoria() { return this.tipoDePrenda.obtenerCategoria(); }
 
@@ -128,5 +136,12 @@ public class Prenda {
                 Objects.equals(imagen, prenda.obtenerImagen())*/;
     }
 
+    public String getNombreMaterial() {
+        return material.toString();
+    }
+
+    public String getNombrePrenda() {
+        return nombrePrenda;
+    }
 }
 

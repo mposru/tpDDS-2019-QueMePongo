@@ -92,36 +92,36 @@ public class GuardarropaTest {
         this.guardarropaCompartido = new Guardarropa("GuardaropaUsuario",usuarios,new Premium());
 
         this.color = new Color(1, 2, 3);
-        this.pantalonPolar = new Prenda(TipoDePrenda.PANTALON, Material.ALGODON, color, null, Trama.CUADROS, guardarropa, false);
-        this.botasDeNieve = new Prenda(TipoDePrenda.BOTAS_NIEVE, Material.ALGODON, color, null, Trama.CUADROS, guardarropa, false);
-        this.musculosa = new Prenda(TipoDePrenda.MUSCULOSA, Material.ALGODON, color, null, Trama.LISA, guardarropa,  false);
-        this.blusa = new Prenda(TipoDePrenda.BLUSA, Material.ALGODON, color, null, Trama.CUADROS, guardarropa, false);
-        this.campera = new Prenda(TipoDePrenda.CAMPERA, Material.ALGODON, color, null, Trama.CUADROS, guardarropa, false);
-        this.buzo = new Prenda(TipoDePrenda.BUZO, Material.ALGODON, color, null, Trama.CUADROS, guardarropa, false);
-        this.zapatillas = new Prenda(TipoDePrenda.ZAPATILLAS, Material.ALGODON, color, null, Trama.CUADROS, guardarropa, false);
-        this.crocs = new Prenda(TipoDePrenda.CROCS, Material.GOMA, color, null, Trama.CUADROS, guardarropa, true);
-        this.ojotas = new Prenda(TipoDePrenda.CROCS, Material.GOMA, color, null, Trama.CUADROS, guardarropa, true);
-        this.pantalon = new Prenda(TipoDePrenda.PANTALON, Material.ALGODON, color, null, Trama.CUADROS, guardarropa, true);
-        this.zapatos = new Prenda(TipoDePrenda.ZAPATO, Material.CUERO, color, null, Trama.LISA, guardarropa, true);
-        this.shortDeJean = new Prenda(TipoDePrenda.SHORT, Material.JEAN, color, null, Trama.LISA, guardarropa, false);
-        this.pollera = new Prenda(TipoDePrenda.POLLERA, Material.ALGODON, color, null, Trama.LISA, guardarropa, false);
-        this.pañuelo = new Prenda(TipoDePrenda.PANUELO, Material.ALGODON, color, null, Trama.LISA, guardarropa, false);
-        this.bandana = new Prenda(TipoDePrenda.PANUELO, Material.ALGODON, color, null, Trama.LISA, guardarropa, false);
-        this.gorro = new Prenda(TipoDePrenda.GORRO, Material.LANA, color, null, Trama.LISA, guardarropa, false);
-        this.anteojos = new Prenda(TipoDePrenda.ANTEOJOS, Material.PLASTICO, color, null, Trama.LISA, guardarropa, false);
-        this.prendaVacia = new Prenda(TipoDePrenda.NINGUNO_SUPERIOR, Material.NINGUNO, new Color(0, 0, 0), null, Trama.NINGUNO, guardarropa, false);
-        this.otraPrendaVacia = new Prenda(TipoDePrenda.NINGUNO_SUPERIOR, Material.NINGUNO, new Color(0, 0, 0), null, Trama.NINGUNO, guardarropa, false);
-        this.sinAccesorioManos = new Prenda(TipoDePrenda.ACCESORIO_VACIO_MANOS, Material.NINGUNO, color, null, Trama.LISA, guardarropa, false);
-        this.sinAccesorioCuello = new Prenda(TipoDePrenda.ACCESORIO_VACIO_CUELLO, Material.NINGUNO, color, null, Trama.LISA, guardarropa, false);
-        this.sinAccesorioManos2 = new Prenda(TipoDePrenda.ACCESORIO_VACIO_MANOS, Material.NINGUNO, color, null, Trama.LISA, guardarropa, false);
-        this.sinAccesorioCuello2 = new Prenda(TipoDePrenda.ACCESORIO_VACIO_CUELLO, Material.NINGUNO, color, null, Trama.LISA, guardarropa, false);
+        this.pantalonPolar = new Prenda("nombre",TipoDePrenda.PANTALON, Material.ALGODON, color, null, Trama.CUADROS, guardarropa, false);
+        this.botasDeNieve = new Prenda("nombre",TipoDePrenda.BOTAS_NIEVE, Material.ALGODON, color, null, Trama.CUADROS, guardarropa, false);
+        this.musculosa = new Prenda("nombre",TipoDePrenda.MUSCULOSA, Material.ALGODON, color, null, Trama.LISA, guardarropa,  false);
+        this.blusa = new Prenda("nombre",TipoDePrenda.BLUSA, Material.ALGODON, color, null, Trama.CUADROS, guardarropa, false);
+        this.campera = new Prenda("nombre",TipoDePrenda.CAMPERA, Material.ALGODON, color, null, Trama.CUADROS, guardarropa, false);
+        this.buzo = new Prenda("nombre",TipoDePrenda.BUZO, Material.ALGODON, color, null, Trama.CUADROS, guardarropa, false);
+        this.zapatillas = new Prenda("nombre",TipoDePrenda.ZAPATILLAS, Material.ALGODON, color, null, Trama.CUADROS, guardarropa, false);
+        this.crocs = new Prenda("nombre",TipoDePrenda.CROCS, Material.GOMA, color, null, Trama.CUADROS, guardarropa, true);
+        this.ojotas = new Prenda("nombre",TipoDePrenda.CROCS, Material.GOMA, color, null, Trama.CUADROS, guardarropa, true);
+        this.pantalon = new Prenda("nombre",TipoDePrenda.PANTALON, Material.ALGODON, color, null, Trama.CUADROS, guardarropa, true);
+        this.zapatos = new Prenda("nombre",TipoDePrenda.ZAPATO, Material.CUERO, color, null, Trama.LISA, guardarropa, true);
+        this.shortDeJean = new Prenda("nombre",TipoDePrenda.SHORT, Material.JEAN, color, null, Trama.LISA, guardarropa, false);
+        this.pollera = new Prenda("nombre",TipoDePrenda.POLLERA, Material.ALGODON, color, null, Trama.LISA, guardarropa, false);
+        this.pañuelo = new Prenda("nombre",TipoDePrenda.PANUELO, Material.ALGODON, color, null, Trama.LISA, guardarropa, false);
+        this.bandana = new Prenda("nombre",TipoDePrenda.PANUELO, Material.ALGODON, color, null, Trama.LISA, guardarropa, false);
+        this.gorro = new Prenda("nombre",TipoDePrenda.GORRO, Material.LANA, color, null, Trama.LISA, guardarropa, false);
+        this.anteojos = new Prenda("nombre",TipoDePrenda.ANTEOJOS, Material.PLASTICO, color, null, Trama.LISA, guardarropa, false);
+        this.prendaVacia = new Prenda("nombre",TipoDePrenda.NINGUNO_SUPERIOR, Material.NINGUNO, new Color(0, 0, 0), null, Trama.NINGUNO, guardarropa, false);
+        this.otraPrendaVacia = new Prenda("nombre",TipoDePrenda.NINGUNO_SUPERIOR, Material.NINGUNO, new Color(0, 0, 0), null, Trama.NINGUNO, guardarropa, false);
+        this.sinAccesorioManos = new Prenda("nombre",TipoDePrenda.ACCESORIO_VACIO_MANOS, Material.NINGUNO, color, null, Trama.LISA, guardarropa, false);
+        this.sinAccesorioCuello = new Prenda("nombre",TipoDePrenda.ACCESORIO_VACIO_CUELLO, Material.NINGUNO, color, null, Trama.LISA, guardarropa, false);
+        this.sinAccesorioManos2 = new Prenda("nombre",TipoDePrenda.ACCESORIO_VACIO_MANOS, Material.NINGUNO, color, null, Trama.LISA, guardarropa, false);
+        this.sinAccesorioCuello2 = new Prenda("nombre",TipoDePrenda.ACCESORIO_VACIO_CUELLO, Material.NINGUNO, color, null, Trama.LISA, guardarropa, false);
         //De guardarropa limitado
-        this.remeraFutbol = new Prenda(TipoDePrenda.REMERA, Material.ALGODON, color, null, Trama.ESTAMPADO, guardarropaLimitado, false);
-        this.camperaDeportiva = new Prenda(TipoDePrenda.CAMPERA, Material.ALGODON, color, null, Trama.LISA, guardarropaLimitado, false);
-        this.botines = new Prenda(TipoDePrenda.ZAPATO, Material.CUERO, color, null, Trama.LISA, guardarropaLimitado, false);
-        this.shortDeFutbol = new Prenda(TipoDePrenda.SHORT, Material.POLYESTER, color, null, Trama.RAYADA, guardarropaLimitado, false);
-        this.mediasDeFutbol = new Prenda(TipoDePrenda.MEDIAS, Material.POLYESTER, color, null, Trama.CUADROS, guardarropaLimitado, false);
-        this.canillera = new Prenda(TipoDePrenda.CANILLERA, Material.PLASTICO, color, null, Trama.LISA, guardarropaLimitado, false);
+        this.remeraFutbol = new Prenda("nombre",TipoDePrenda.REMERA, Material.ALGODON, color, null, Trama.ESTAMPADO, guardarropaLimitado, false);
+        this.camperaDeportiva = new Prenda("nombre",TipoDePrenda.CAMPERA, Material.ALGODON, color, null, Trama.LISA, guardarropaLimitado, false);
+        this.botines = new Prenda("nombre",TipoDePrenda.ZAPATO, Material.CUERO, color, null, Trama.LISA, guardarropaLimitado, false);
+        this.shortDeFutbol = new Prenda("nombre",TipoDePrenda.SHORT, Material.POLYESTER, color, null, Trama.RAYADA, guardarropaLimitado, false);
+        this.mediasDeFutbol = new Prenda("nombre",TipoDePrenda.MEDIAS, Material.POLYESTER, color, null, Trama.CUADROS, guardarropaLimitado, false);
+        this.canillera = new Prenda("nombre",TipoDePrenda.CANILLERA, Material.PLASTICO, color, null, Trama.LISA, guardarropaLimitado, false);
         // mockeo clima
         this.accuWeather = Mockito.spy(new AccuWeather());
         doReturn(jsonClimaAbrigoBasico).when(this.accuWeather).getJsonClima();
@@ -169,7 +169,7 @@ public class GuardarropaTest {
                             sugerenciaEsperada.obtenerAccesorioCuello().equals(sugerencia.obtenerAccesorioCuello())
             );
             Assert.assertTrue(coincide);
-            //prendasSuperiores.retainAll(sugerencia.obtenerPrendasSuperiores());
+            //prendasSuperiores.retainAll(sugerencia.getPrendasSuperiores());
             Assert.assertTrue(sugerencia.obtenerPrendasSuperiores().size() == 1);
         });
         Assert.assertEquals(sugerenciasEsperadas.size(), sugerencias.size());
@@ -204,7 +204,7 @@ public class GuardarropaTest {
                             sugerenciaEsperada.obtenerAccesorioManos().equals(sugerencia.obtenerAccesorioManos()) &&
                             sugerenciaEsperada.obtenerAccesorioCuello().equals(sugerencia.obtenerAccesorioCuello())
             );
-            //prendasSuperiores.retainAll(sugerencia.obtenerPrendasSuperiores());
+            //prendasSuperiores.retainAll(sugerencia.getPrendasSuperiores());
             //Assert.assertTrue(prendasSuperiores.size() == 3);
             Assert.assertTrue(coincide);
             Assert.assertTrue(sugerencia.obtenerPrendasSuperiores().stream().allMatch(prenda -> prendasSuperiores.contains(prenda)));
@@ -257,27 +257,27 @@ public class GuardarropaTest {
     public void guardarPartesSuperiores() {
         this.guardarropa.guardarPrenda(this.musculosa);
         this.guardarropa.guardarPrenda(this.blusa);
-        Assert.assertTrue(this.guardarropa.obtenerPrendasSuperiores().contains(this.musculosa));
-        Assert.assertTrue(this.guardarropa.obtenerPrendasSuperiores().contains(this.blusa));
-        Assert.assertEquals(2, this.guardarropa.obtenerPrendasSuperiores().size());
+        Assert.assertTrue(this.guardarropa.getPrendasSuperiores().contains(this.musculosa));
+        Assert.assertTrue(this.guardarropa.getPrendasSuperiores().contains(this.blusa));
+        Assert.assertEquals(2, this.guardarropa.getPrendasSuperiores().size());
     }
 
     @Test
     public void guardarPartesInferiores() {
         this.guardarropa.guardarPrenda(this.shortDeJean);
         this.guardarropa.guardarPrenda(this.pollera);
-        Assert.assertTrue(this.guardarropa.obtenerPrendasInferiores().contains(this.shortDeJean));
-        Assert.assertTrue(this.guardarropa.obtenerPrendasInferiores().contains(this.pollera));
-        Assert.assertEquals(2, this.guardarropa.obtenerPrendasInferiores().size());
+        Assert.assertTrue(this.guardarropa.getPrendasInferiores().contains(this.shortDeJean));
+        Assert.assertTrue(this.guardarropa.getPrendasInferiores().contains(this.pollera));
+        Assert.assertEquals(2, this.guardarropa.getPrendasInferiores().size());
     }
 
     @Test
     public void guardarCalzados() {
         this.guardarropa.guardarPrenda(this.crocs);
         this.guardarropa.guardarPrenda(this.zapatos);
-        Assert.assertTrue(this.guardarropa.obtenerCalzados().contains(this.crocs));
-        Assert.assertTrue(this.guardarropa.obtenerCalzados().contains(this.zapatos));
-        Assert.assertEquals(2, this.guardarropa.obtenerCalzados().size());
+        Assert.assertTrue(this.guardarropa.getCalzados().contains(this.crocs));
+        Assert.assertTrue(this.guardarropa.getCalzados().contains(this.zapatos));
+        Assert.assertEquals(2, this.guardarropa.getCalzados().size());
     }
 
 
@@ -285,9 +285,9 @@ public class GuardarropaTest {
     public void guardarAccesorios() {
         this.guardarropa.guardarPrenda(this.pañuelo);
         this.guardarropa.guardarPrenda(this.anteojos);
-        Assert.assertTrue(this.guardarropa.obtenerAccesorios().contains(this.pañuelo));
-        Assert.assertTrue(this.guardarropa.obtenerAccesorios().contains(this.anteojos));
-        Assert.assertEquals(2, this.guardarropa.obtenerAccesorios().size());
+        Assert.assertTrue(this.guardarropa.getAccesorios().contains(this.pañuelo));
+        Assert.assertTrue(this.guardarropa.getAccesorios().contains(this.anteojos));
+        Assert.assertEquals(2, this.guardarropa.getAccesorios().size());
     }
 
     @Test
