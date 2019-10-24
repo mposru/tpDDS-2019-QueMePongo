@@ -10,13 +10,16 @@ import static java.util.Objects.isNull;
 import static java.util.Objects.requireNonNull;
 
 @Entity
+@Table(name = "tipo_prenda")
 public class TipoDePrenda {
 
     @GeneratedValue
     @Id
-    @Column(name = "idTipoDePrenda")
+    @Column(name = "tipo_prenda_id",columnDefinition = "int(11) NOT NULL")
     private long id;
+    @Column(name = "temperatura_max")
     private double temperaturaMax;
+    @Column(name = "temperatura_min")
     private double temperaturaMin;
 
     @Enumerated(EnumType.STRING)

@@ -11,13 +11,13 @@ import java.util.Objects;
 public class Prenda {
     @Id
     @GeneratedValue
-    @Column(name = "idPrenda")
+    @Column(name = "prenda_id",columnDefinition = "int(11) NOT NULL")
     private long id;
 
     private String nombre;
 
     @ManyToOne
-    @JoinColumn(name = "idTipoDePrenda")
+    @JoinColumn(name = "tipo_prenda_id",columnDefinition = "int(11) NOT NULL")
     private TipoDePrenda tipoDePrenda;
 
     @Enumerated (EnumType.STRING)
@@ -33,24 +33,21 @@ public class Prenda {
     @Enumerated (EnumType.STRING)
     private Trama trama;
 
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "guardarropa_id")
     private Guardarropa guardarropa;
 
-    @Embedded
+    /*@OneToOne
+    @JoinColumn(name = "imagen_id")*/
+    @Transient
     private Imagen imagen;
 
-    public Atuendo getAtuendo() {
-        return atuendo;
-    }
 
-    public void setAtuendo(Atuendo atuendo) {
-        this.atuendo = atuendo;
-    }
-
-    @ManyToOne()
+ //   @ManyToOne(cascade=CascadeType.ALL)
+    @Transient
     private Atuendo atuendo;
 
-
+    @Column(name="impermeable")
     private boolean esParaLluvia;
     private boolean disponibilidad = true; //toda prenda inicia disponible
     //todo: agregar el nombre de la prenda al constructor
@@ -61,7 +58,6 @@ public class Prenda {
         this.colorPrimario = colorPrimario;
         this.colorSecundario = colorSecundario;
         this.trama = trama;
-        // esta bien esto?
         this.guardarropa = guardarropa;
         this.esParaLluvia = impermeable;
         this.nombre = nombre;
@@ -135,6 +131,14 @@ public class Prenda {
 
     public void setNombre(String nombre) {
         this.nombre = nombre;
+    }
+
+    public Atuendo getAtuendo() {
+        return atuendo;
+    }
+
+    public void setAtuendo(Atuendo atuendo) {
+        this.atuendo = atuendo;
     }
 
     @Override

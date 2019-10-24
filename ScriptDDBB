@@ -1,95 +1,154 @@
--- version 4.6.6deb5
--- https://www.phpmyadmin.net/
+-- MySQL dump 10.13  Distrib 5.7.27, for Linux (x86_64)
 --
--- Host: localhost:3306
--- Generation Time: Oct 23, 2019 at 12:31 AM
--- Server version: 5.7.27
--- PHP Version: 7.2.19-0ubuntu0.19.04.2
-
-SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
-SET time_zone = "+00:00";
-
+-- Host: localhost    Database: quemepongo
+-- ------------------------------------------------------
+-- Server version	5.7.27
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
 /*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
-/*!40101 SET NAMES utf8mb4 */;
-
---
--- Database: `quemepongo`
---
-
--- --------------------------------------------------------
+/*!40101 SET NAMES utf8 */;
+/*!40103 SET @OLD_TIME_ZONE=@@TIME_ZONE */;
+/*!40103 SET TIME_ZONE='+00:00' */;
+/*!40014 SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0 */;
+/*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
+/*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
+/*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 --
 -- Table structure for table `atuendo`
 --
 
+DROP TABLE IF EXISTS `atuendo`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `atuendo` (
-  `idAtuendo` int(11) NOT NULL,
+  `atuendo_id` int(11) NOT NULL,
   `nombre` varchar(40) DEFAULT NULL,
-  `idPrendaInferior` int(11) NOT NULL,
-  `idCalzado` int(11) NOT NULL,
-  `idAccesorio` int(11) NOT NULL,
-  `idAccesorioManos` int(11) DEFAULT NULL,
-  `idAccesorioCuello` int(11) DEFAULT NULL
+  `prenda_inferior_id` int(11) NOT NULL,
+  `calzado_id` int(11) NOT NULL,
+  `accesorio_id` int(11) NOT NULL,
+  `accesorio_manos_id` int(11) DEFAULT NULL,
+  `accesorio_cuello_id` int(11) DEFAULT NULL,
+  PRIMARY KEY (`atuendo_id`),
+  KEY `atuendo_FK` (`prenda_inferior_id`),
+  KEY `atuendo_FK_1` (`calzado_id`),
+  KEY `atuendo_FK_2` (`accesorio_id`),
+  KEY `atuendo_FK_3` (`accesorio_manos_id`),
+  KEY `accesorio_cuello_id` (`accesorio_cuello_id`),
+  CONSTRAINT `accesorio_FK` FOREIGN KEY (`accesorio_id`) REFERENCES `prenda` (`prenda_id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT `accesorio_cuello_id` FOREIGN KEY (`accesorio_cuello_id`) REFERENCES `atuendo` (`atuendo_id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT `accesorio_mano_FK` FOREIGN KEY (`accesorio_manos_id`) REFERENCES `prenda` (`prenda_id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT `calzado_FK` FOREIGN KEY (`calzado_id`) REFERENCES `prenda` (`prenda_id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT `prenda_inferior_FK` FOREIGN KEY (`prenda_inferior_id`) REFERENCES `prenda` (`prenda_id`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
 
--- --------------------------------------------------------
+--
+-- Dumping data for table `atuendo`
+--
+
+LOCK TABLES `atuendo` WRITE;
+/*!40000 ALTER TABLE `atuendo` DISABLE KEYS */;
+/*!40000 ALTER TABLE `atuendo` ENABLE KEYS */;
+UNLOCK TABLES;
 
 --
 -- Table structure for table `calendario`
 --
 
+DROP TABLE IF EXISTS `calendario`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `calendario` (
-  `idCalendario` int(11) NOT NULL,
+  `calendario_id` int(11) NOT NULL AUTO_INCREMENT,
   `nombre` varchar(40) DEFAULT NULL,
-  `idUsuario` int(11) NOT NULL
+  `usuario_id` int(11) NOT NULL,
+  PRIMARY KEY (`calendario_id`),
+  KEY `usuario_FK` (`usuario_id`),
+  CONSTRAINT `usuario_FK` FOREIGN KEY (`usuario_id`) REFERENCES `usuario` (`usuario_id`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
 
--- --------------------------------------------------------
+--
+-- Dumping data for table `calendario`
+--
+
+LOCK TABLES `calendario` WRITE;
+/*!40000 ALTER TABLE `calendario` DISABLE KEYS */;
+/*!40000 ALTER TABLE `calendario` ENABLE KEYS */;
+UNLOCK TABLES;
 
 --
 -- Table structure for table `evento`
 --
 
+DROP TABLE IF EXISTS `evento`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `evento` (
-  `idEvento` int(11) NOT NULL,
-  `fecha` datetime NOT NULL,
+  `evento_id` int(11) NOT NULL AUTO_INCREMENT,
+  `fecha` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   `nombre` varchar(50) NOT NULL,
   `ubicacion` varchar(50) NOT NULL,
-  `antelacionEnHoras` int(11) DEFAULT NULL,
+  `antelacion_horas` int(11) DEFAULT NULL,
   `periodo` varchar(8) NOT NULL,
-  `tieneSugerencia` tinyint(1) DEFAULT NULL,
-  `idCalendario` int(11) NOT NULL
+  `tiene_sugerencia` tinyint(1) DEFAULT NULL,
+  `calendario_id` int(11) NOT NULL,
+  PRIMARY KEY (`evento_id`),
+  KEY `calendario_FK` (`calendario_id`),
+  CONSTRAINT `calendario_FK` FOREIGN KEY (`calendario_id`) REFERENCES `calendario` (`calendario_id`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
 
--- --------------------------------------------------------
+--
+-- Dumping data for table `evento`
+--
+
+LOCK TABLES `evento` WRITE;
+/*!40000 ALTER TABLE `evento` DISABLE KEYS */;
+/*!40000 ALTER TABLE `evento` ENABLE KEYS */;
+UNLOCK TABLES;
 
 --
 -- Table structure for table `guardarropa`
 --
 
+DROP TABLE IF EXISTS `guardarropa`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `guardarropa` (
-  `idGuardarropa` int(11) NOT NULL,
-  `tipoDeGuardarropa` varchar(40) NOT NULL
+  `guardarropa_id` int(11) NOT NULL AUTO_INCREMENT,
+  `tipo_guardarropa` varchar(40) NOT NULL,
+  PRIMARY KEY (`guardarropa_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
 
--- --------------------------------------------------------
+--
+-- Dumping data for table `guardarropa`
+--
+
+LOCK TABLES `guardarropa` WRITE;
+/*!40000 ALTER TABLE `guardarropa` DISABLE KEYS */;
+/*!40000 ALTER TABLE `guardarropa` ENABLE KEYS */;
+UNLOCK TABLES;
 
 --
 -- Table structure for table `prenda`
 --
 
+DROP TABLE IF EXISTS `prenda`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `prenda` (
-  `id_prenda` int(11) NOT NULL,
+  `prenda_id` int(11) NOT NULL AUTO_INCREMENT,
   `nombre` varchar(100) NOT NULL,
   `material` varchar(40) NOT NULL,
-  `idTipoDePrenda` int(11) NOT NULL,
+  `tipo_prenda_id` int(11) NOT NULL,
   `trama` varchar(50) DEFAULT NULL,
-  `idGuardarropa` int(11) NOT NULL,
+  `guardarropa_id` int(11) NOT NULL,
   `imagen` blob,
-  `esParaLluvia` tinyint(1) DEFAULT NULL,
+  `impermeable` tinyint(1) DEFAULT NULL,
   `disponibilidad` tinyint(1) DEFAULT NULL,
   `rojo` int(11) NOT NULL,
   `verde` int(11) NOT NULL,
@@ -97,178 +156,110 @@ CREATE TABLE `prenda` (
   `rojo_1` int(11) DEFAULT NULL,
   `verde_1` int(11) DEFAULT NULL,
   `azul_1` int(11) DEFAULT NULL,
-  `idAtuendo` int(11) DEFAULT NULL
+  `atuendo_id` int(11) DEFAULT NULL,
+  PRIMARY KEY (`prenda_id`),
+  KEY `atuendo_FK` (`atuendo_id`),
+  CONSTRAINT `atuendo_FK` FOREIGN KEY (`atuendo_id`) REFERENCES `atuendo` (`atuendo_id`) ON DELETE SET NULL ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
--- --------------------------------------------------------
+/*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Table structure for table `tipoDePrenda`
+-- Dumping data for table `prenda`
 --
 
-CREATE TABLE `tipoDePrenda` (
-  `idTipoDePrenda` int(11) NOT NULL,
-  `temperaturaMax` double NOT NULL,
-  `temperaturaMin` double NOT NULL,
-  `categoria` varchar(40) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+LOCK TABLES `prenda` WRITE;
+/*!40000 ALTER TABLE `prenda` DISABLE KEYS */;
+/*!40000 ALTER TABLE `prenda` ENABLE KEYS */;
+UNLOCK TABLES;
 
--- --------------------------------------------------------
+--
+-- Table structure for table `tipo_prenda`
+--
+
+DROP TABLE IF EXISTS `tipo_prenda`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `tipo_prenda` (
+  `tipo_prenda_id` int(11) NOT NULL AUTO_INCREMENT,
+  `temperatura_max` double NOT NULL,
+  `temperatura_min` double NOT NULL,
+  `categoria` varchar(40) DEFAULT NULL,
+  PRIMARY KEY (`tipo_prenda_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `tipo_prenda`
+--
+
+LOCK TABLES `tipo_prenda` WRITE;
+/*!40000 ALTER TABLE `tipo_prenda` DISABLE KEYS */;
+/*!40000 ALTER TABLE `tipo_prenda` ENABLE KEYS */;
+UNLOCK TABLES;
 
 --
 -- Table structure for table `usuario`
 --
 
+DROP TABLE IF EXISTS `usuario`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `usuario` (
-  `IdUsuario` int(11) NOT NULL,
-  `nombreDeUSuario` varchar(40) NOT NULL,
+  `usuario_id` int(11) NOT NULL AUTO_INCREMENT,
+  `nombre_usuario` varchar(40) NOT NULL,
   `contrasenia` varchar(40) NOT NULL,
-  `numeroDeCelular` varchar(20) DEFAULT NULL,
-  `tiempoDeAnticipacion` int(11) DEFAULT NULL
+  `numero_celular` varchar(20) DEFAULT NULL,
+  `tiempo_anticipacion` int(11) DEFAULT NULL,
+  PRIMARY KEY (`usuario_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
 
--- --------------------------------------------------------
+--
+-- Dumping data for table `usuario`
+--
+
+LOCK TABLES `usuario` WRITE;
+/*!40000 ALTER TABLE `usuario` DISABLE KEYS */;
+/*!40000 ALTER TABLE `usuario` ENABLE KEYS */;
+UNLOCK TABLES;
 
 --
 -- Table structure for table `usuario_guardarropa`
 --
 
+DROP TABLE IF EXISTS `usuario_guardarropa`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `usuario_guardarropa` (
-  `idGuardarropa` int(11) NOT NULL,
-  `IdUsuario` int(11) NOT NULL
+  `guardarropa_id` int(11) NOT NULL,
+  `usuario_id` int(11) NOT NULL,
+  PRIMARY KEY (`guardarropa_id`,`usuario_id`),
+  KEY `usuario_guardarropa_FK_1` (`usuario_id`),
+  CONSTRAINT `usuario_guardarropa_FK` FOREIGN KEY (`guardarropa_id`) REFERENCES `guardarropa` (`guardarropa_id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT `usuario_guardarropa_FK_1` FOREIGN KEY (`usuario_id`) REFERENCES `usuario` (`usuario_id`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Indexes for dumped tables
+-- Dumping data for table `usuario_guardarropa`
 --
 
---
--- Indexes for table `atuendo`
---
-ALTER TABLE `atuendo`
-  ADD PRIMARY KEY (`idAtuendo`),
-  ADD KEY `atuendo_FK` (`idPrendaInferior`),
-  ADD KEY `atuendo_FK_1` (`idCalzado`),
-  ADD KEY `atuendo_FK_2` (`idAccesorio`),
-  ADD KEY `atuendo_FK_3` (`idAccesorioManos`);
+LOCK TABLES `usuario_guardarropa` WRITE;
+/*!40000 ALTER TABLE `usuario_guardarropa` DISABLE KEYS */;
+/*!40000 ALTER TABLE `usuario_guardarropa` ENABLE KEYS */;
+UNLOCK TABLES;
 
 --
--- Indexes for table `calendario`
+-- Dumping routines for database 'quemepongo'
 --
-ALTER TABLE `calendario`
-  ADD PRIMARY KEY (`idCalendario`),
-  ADD KEY `calendario_FK` (`idUsuario`);
+/*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
---
--- Indexes for table `evento`
---
-ALTER TABLE `evento`
-  ADD PRIMARY KEY (`idEvento`),
-  ADD KEY `evento_FK` (`idCalendario`);
-
---
--- Indexes for table `guardarropa`
---
-ALTER TABLE `guardarropa`
-  ADD PRIMARY KEY (`idGuardarropa`);
-
---
--- Indexes for table `prenda`
---
-ALTER TABLE `prenda`
-  ADD PRIMARY KEY (`id_prenda`),
-  ADD KEY `prenda_FK_1` (`idGuardarropa`),
-  ADD KEY `prenda_FK_2` (`idTipoDePrenda`),
-  ADD KEY `prenda_FK_3` (`idAtuendo`);
-
---
--- Indexes for table `tipoDePrenda`
---
-ALTER TABLE `tipoDePrenda`
-  ADD PRIMARY KEY (`idTipoDePrenda`);
-
---
--- Indexes for table `usuario`
---
-ALTER TABLE `usuario`
-  ADD PRIMARY KEY (`IdUsuario`);
-
---
--- Indexes for table `usuario_guardarropa`
---
-ALTER TABLE `usuario_guardarropa`
-  ADD PRIMARY KEY (`idGuardarropa`,`IdUsuario`),
-  ADD KEY `usuario_guardarropa_FK_1` (`IdUsuario`);
-
---
--- AUTO_INCREMENT for dumped tables
---
-
---
--- AUTO_INCREMENT for table `evento`
---
-ALTER TABLE `evento`
-  MODIFY `idEvento` int(11) NOT NULL AUTO_INCREMENT;
---
--- AUTO_INCREMENT for table `guardarropa`
---
-ALTER TABLE `guardarropa`
-  MODIFY `idGuardarropa` int(11) NOT NULL AUTO_INCREMENT;
---
--- AUTO_INCREMENT for table `prenda`
---
-ALTER TABLE `prenda`
-  MODIFY `id_prenda` int(11) NOT NULL AUTO_INCREMENT;
---
--- AUTO_INCREMENT for table `tipoDePrenda`
---
-ALTER TABLE `tipoDePrenda`
-  MODIFY `idTipoDePrenda` int(11) NOT NULL AUTO_INCREMENT;
---
--- AUTO_INCREMENT for table `usuario`
---
-ALTER TABLE `usuario`
-  MODIFY `IdUsuario` int(11) NOT NULL AUTO_INCREMENT;
---
--- Constraints for dumped tables
---
-
---
--- Constraints for table `atuendo`
---
-ALTER TABLE `atuendo`
-  ADD CONSTRAINT `atuendo_FK` FOREIGN KEY (`idPrendaInferior`) REFERENCES `prenda` (`id_prenda`),
-  ADD CONSTRAINT `atuendo_FK_1` FOREIGN KEY (`idCalzado`) REFERENCES `prenda` (`id_prenda`),
-  ADD CONSTRAINT `atuendo_FK_2` FOREIGN KEY (`idAccesorio`) REFERENCES `prenda` (`id_prenda`),
-  ADD CONSTRAINT `atuendo_FK_3` FOREIGN KEY (`idAccesorioManos`) REFERENCES `prenda` (`id_prenda`);
-
---
--- Constraints for table `calendario`
---
-ALTER TABLE `calendario`
-  ADD CONSTRAINT `calendario_FK` FOREIGN KEY (`idUsuario`) REFERENCES `usuario` (`IdUsuario`);
-
---
--- Constraints for table `evento`
---
-ALTER TABLE `evento`
-  ADD CONSTRAINT `evento_FK` FOREIGN KEY (`idCalendario`) REFERENCES `calendario` (`idCalendario`);
-
---
--- Constraints for table `prenda`
---
-ALTER TABLE `prenda`
-  ADD CONSTRAINT `prenda_FK` FOREIGN KEY (`idGuardarropa`) REFERENCES `guardarropa` (`idGuardarropa`),
-  ADD CONSTRAINT `prenda_FK_2` FOREIGN KEY (`idTipoDePrenda`) REFERENCES `tipoDePrenda` (`idTipoDePrenda`),
-  ADD CONSTRAINT `prenda_FK_3` FOREIGN KEY (`idAtuendo`) REFERENCES `atuendo` (`idAtuendo`);
-
---
--- Constraints for table `usuario_guardarropa`
---
-ALTER TABLE `usuario_guardarropa`
-  ADD CONSTRAINT `usuario_guardarropa_FK` FOREIGN KEY (`idGuardarropa`) REFERENCES `guardarropa` (`idGuardarropa`),
-  ADD CONSTRAINT `usuario_guardarropa_FK_1` FOREIGN KEY (`IdUsuario`) REFERENCES `usuario` (`IdUsuario`);
-
+/*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
+/*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;
+/*!40014 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS */;
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
+/*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
+
+-- Dump completed on 2019-10-24 14:43:05

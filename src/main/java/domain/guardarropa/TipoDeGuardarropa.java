@@ -5,9 +5,9 @@ import javax.persistence.Entity;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
 
-@Entity
+/*@Entity
 @DiscriminatorColumn(name = "tipo")
-@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
+@Inheritance(strategy = InheritanceType.SINGLE_TABLE)*/
 public abstract class TipoDeGuardarropa {
 
 

@@ -2,13 +2,18 @@ package domain.prenda;
 
 import javax.imageio.ImageIO;
 import javax.persistence.Embeddable;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 
-@Embeddable
+
 public class Imagen {
+
+    private long id;
 
     private int ancho = 900;
     private int alto = 900;

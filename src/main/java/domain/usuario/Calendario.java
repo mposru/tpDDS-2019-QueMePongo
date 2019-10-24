@@ -9,18 +9,19 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @Entity
+@Table(name = "calendario")
 public class Calendario {
 
 
     @GeneratedValue
     @Id
-    @Column(name = "idCalendario")
+    @Column(name = "calendario_id", columnDefinition = "int(11) NOT NULL")
     long id;
 
     String nombre;
     
-    @OneToMany
-    @JoinColumn(name = "idEvento")
+    @OneToMany (cascade = CascadeType.ALL)
+    @JoinColumn(name = "evento_id")
     List<Evento> eventos = new ArrayList<>();
 
     public void agregarEvento(Evento evento) {

@@ -2,7 +2,6 @@ package domain.guardarropa;
 
 import javax.persistence.DiscriminatorValue;
 
-@DiscriminatorValue("Premium")
 public class Premium extends TipoDeGuardarropa {
 
     private int limiteDePrendas=0;

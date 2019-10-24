@@ -25,55 +25,56 @@ import static java.time.LocalDate.now;
 @Transactional
 @Observable
 @Entity
+@Table(name = "usuario")
 public class Usuario {
 
 
     @Id
     @GeneratedValue
-    @Column(name = "idUsuario")
+    @Column(name = "usuario_id",columnDefinition = "int(11) NOT NULL")
     private long id;
 
     @ManyToMany
-    @JoinTable(name = "usuario_guardarropa",joinColumns = @JoinColumn(name="idUsuario"),inverseJoinColumns = @JoinColumn(name = "idGuardarropa"))
+    @JoinTable(name = "usuario_guardarropa",joinColumns = @JoinColumn(name="usuario_id"),inverseJoinColumns = @JoinColumn(name = "guardarropa_id"))
     private Set<Guardarropa> guardarropas = new HashSet<>();
 
   /*  @OneToMany
     @JoinColumn(name = "decision_id")*/
-  @Transient
+    @Transient
     private LinkedList<Decision> decisiones = new LinkedList<>();
-
+    @Column(name = "numero_celular")
     private String numeroDeCelular;
 
-    @OneToMany
+   /* @OneToMany
     @JoinTable(name="atuendo")
-    @JoinColumn(name = "estado")
+    @JoinColumn(name = "atuendo_id",columnDefinition = "int(11) NOT NULL")*/
+   @Transient
     private List<Atuendo> atuendosAceptados = new ArrayList<>();
 
-    @OneToMany
-    @JoinColumn(name = "rechazado_id")
+  /*  @OneToMany
+    @JoinTable(name="atuendo")
+    @JoinColumn(name = "atuendo_id",columnDefinition = "int(11) NOT NULL")*/
+  @Transient
     private List<Atuendo> atuendosRechazados = new ArrayList<>();
 
     @Transient
     private Set<Notificador> notificadores = new HashSet<>();
 
-    public void setNumeroDeCelular(String numeroDeCelular) {
-        this.numeroDeCelular = numeroDeCelular;
-    }
-
-    public void setCalendario(Calendario calendario) {
-        this.calendario = calendario;
-    }
-
-    @OneToOne (cascade = CascadeType.ALL) //si borro el usuario me borra su calendario
+   @OneToOne (cascade = CascadeType.ALL) //si borro el usuario me borra su calendario
+   @JoinColumn(name = "calendario_id")
     private Calendario calendario;
 
+    @Column(name = "nombre_usuario")
+    private String nombreUsuario;
 
+   @Column(name = "tiempo_anticipacion")
     private int tiempoDeAnticipacion = 0; // variable que indica con cuanto tiempo antes quiere que le llegue sugerencia sobre evento (en horas)
 
-    @OneToOne
+    @Transient
     private AtuendosSugeridosPorEvento atuendosSugeridosProximoEvento = new AtuendosSugeridosPorEvento(new ArrayList<Atuendo>(), new Evento("", "", LocalDateTime.now(), Periodo.NINGUNO, 0));
     // agregado de sensibilidades en las partes del cuerpo. Hacemos una escala que va de 1 a 10 (1 para muy friolento hasta 10 para muy caluroso)
-    @Embedded
+
+    @Transient
     private Sensibilidad sensibilidad = new Sensibilidad();
 
     public String getContrasenia() {
@@ -126,6 +127,13 @@ public class Usuario {
 
     public double getFactorSensibilidadEnCuello() {
         return this.sensibilidad.getFactorSensibilidad("cuello");
+    }
+    public void setNumeroDeCelular(String numeroDeCelular) {
+        this.numeroDeCelular = numeroDeCelular;
+    }
+
+    public void setCalendario(Calendario calendario) {
+        this.calendario = calendario;
     }
 
     public void generarSugerenciasParaProximoEvento() {
@@ -287,6 +295,14 @@ public class Usuario {
 
     public void agregarGuardarropa(Guardarropa guardarropa) {
         this.guardarropas.add(guardarropa);
+    }
+
+    public String getNombreUsuario() {
+        return nombreUsuario;
+    }
+
+    public void setNombreUsuario(String nombreUsuario) {
+        this.nombreUsuario = nombreUsuario;
     }
 
     public void setTiempoDeAnticipacion(int tiempoDeAnticipacion) {

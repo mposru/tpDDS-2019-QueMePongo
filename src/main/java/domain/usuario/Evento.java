@@ -1,5 +1,6 @@
 package domain.usuario;
 
+import com.mysql.cj.protocol.ColumnDefinition;
 import domain.clima.AccuWeather;
 import domain.clima.Clima;
 import domain.clima.Meteorologo;
@@ -9,7 +10,6 @@ import org.uqbar.commons.model.annotations.Transactional;
 import javax.persistence.*;
 import java.time.Duration;
 import java.time.LocalDateTime;
-import java.util.Calendar;
 
 import static java.util.Objects.requireNonNull;
 
@@ -19,20 +19,23 @@ public class Evento {
 
     @GeneratedValue
     @Id
-    @Column(name= "idEvento")
+    @Column(name= "evento_id", columnDefinition = "int(11) NOT NULL")
     long id;
-
-
+    @Transient
     private LocalDateTime fecha;
     private String nombre;
     private String ubicacion;
+    @Column(name="antelacion_horas")
     private Integer antelacionEnHoras = 1;
 
     @Column(name="periodo", nullable = false, length = 8 )
     @Enumerated(value = EnumType.STRING)
     private Periodo tipoDeActualizacion;
 
+    @Column(name = "tiene_sugerencia")
     private Boolean tieneSugerencia = false;
+
+
 
     @Transient
     //TODO sacar de acá al meteorologo, no va en evento

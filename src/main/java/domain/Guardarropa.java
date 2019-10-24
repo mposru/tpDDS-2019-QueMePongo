@@ -13,35 +13,35 @@ import domain.guardarropa.TipoDeGuardarropa;
 
 import static java.util.Objects.requireNonNull;
 @Entity
+@Table(name = "guardarropa")
 public class Guardarropa {
-    public long getId() {
-        return id;
-    }
+
 
     @Id
     @GeneratedValue
+    @Column(name = "guardarropa_id",columnDefinition = "int(11) NOT NULL")
     private long id;
 
     @OneToMany
-    @JoinColumn(name = "accesorio_id")
-    private Set<Prenda> accesorios = new HashSet<>();
-
-    @OneToMany
-    @JoinColumn(name = "prenda_superior_id")
+    @JoinColumn(name = "prenda_id")
     private Set<Prenda> prendasSuperiores = new HashSet<>();
 
     @OneToMany
-    @JoinColumn(name = "prenda_inferior_id")
+    @JoinColumn(name = "prenda_id")
+    private Set<Prenda> accesorios = new HashSet<>();
+
+    @OneToMany
+    @JoinColumn(name = "prenda_id")
     private Set<Prenda> prendasInferiores = new HashSet<>();
 
     @OneToMany
-    @JoinColumn(name = "calzado_id")
+    @JoinColumn(name = "prenda_id")
     private Set<Prenda> calzados = new HashSet<>();
 
-    @ManyToMany(mappedBy = "usuarios")
+    @ManyToMany (mappedBy = "guardarropas")
     private Set<Usuario> usuarios;
 
-
+    @Transient
     private TipoDeGuardarropa tipoDeGuardarropa;
 
     public Guardarropa(Set<Usuario> usuarios, TipoDeGuardarropa tipoDeGuardarropa) {
@@ -58,6 +58,9 @@ public class Guardarropa {
 
     public int getlimiteDePrendas() {
         return this.tipoDeGuardarropa.getLimiteDePrendas();
+    }
+    public long getId() {
+        return id;
     }
 
     public void cambiarTipoDeGuardarropa(TipoDeGuardarropa tipoDeGuardarropa) {

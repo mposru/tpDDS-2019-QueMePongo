@@ -15,39 +15,46 @@ import java.util.Set;
 import static domain.prenda.Categoria.*;
 
 @Entity
+@Table(name = "atuendo")
 public class Atuendo {
 
     @GeneratedValue
     @Id
-    @Column(name = "idAtuendo")
+    @Column(name = "atuendo_id",columnDefinition = "int(11) NOT NULL")
     long id;
-
-    public String getNombre() {
-        return nombre;
-    }
-
-    public void setNombre(String nombre) {
-        this.nombre = nombre;
-    }
 
     private String nombre;
 
-    @OneToOne
-    @JoinColumn(name = "idAccesorio")
-    private Prenda accesorio;
-    @OneToMany (cascade = CascadeType.ALL, mappedBy = "atuendo")
+/*    @OneToMany (cascade = CascadeType.ALL)
+    @JoinTable(name="prenda")*/
+    @Transient
     private Set<Prenda> prendasSuperiores = new HashSet<>();
+
+
     @OneToOne
-    @JoinColumn(name = "idPrendaInferior")
+   // @JoinTable(name="prenda")
+    @JoinColumn(name = "accesorio_id",columnDefinition = "int(11) NOT NULL")
+    private Prenda accesorio;
+
+
+    @OneToOne
+  //  @JoinTable(name="prenda")
+    @JoinColumn(name = "prenda_inferior_id",columnDefinition = "int(11) NOT NULL")
     private Prenda prendaInferior;
+
     @OneToOne
-    @JoinColumn(name = "idCalzado")
+  //  @JoinTable(name="prenda")
+    @JoinColumn(name = "calzado_id",columnDefinition = "int(11) NOT NULL")
     private Prenda calzado;
+
     @OneToOne
-    @JoinColumn(name = "idAccesorioCuello")
+ //   @JoinTable(name="prenda")
+    @JoinColumn(name = "accesorio_cuello_id",columnDefinition = "int(11) NOT NULL")
     private Prenda accesorioCuello;
+
     @OneToOne
-    @JoinColumn(name = "idAccesorioManos")
+//    @JoinTable(name="prenda")
+    @JoinColumn(name = "accesorio_manos_id",columnDefinition = "int(11) NOT NULL")
     private Prenda accesorioManos;
 
     @Transient
@@ -64,6 +71,7 @@ public class Atuendo {
         this.estado = new Nuevo(this); //el atuendo nace en estado nuevo.
         this.setearAtuendoEnPrendasSuperiores();
     }
+
 
     private void setearAtuendoEnPrendasSuperiores() {
         this.prendasSuperiores.forEach(prenda -> prenda.setAtuendo(this));
@@ -205,7 +213,6 @@ public class Atuendo {
                 && this.accesorioCuello.obtenerSiEsParaLluvia()
                 && this.accesorioManos.obtenerSiEsParaLluvia());
     }
-
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;

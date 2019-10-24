@@ -4,7 +4,6 @@ import javax.persistence.DiscriminatorValue;
 
 import static java.util.Objects.requireNonNull;
 
-@DiscriminatorValue("Gratuito")
 public class Gratuito extends TipoDeGuardarropa {
 
     private int limiteDePrendas;
