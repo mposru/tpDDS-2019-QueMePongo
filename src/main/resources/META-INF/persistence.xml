@@ -11,6 +11,9 @@
         <class>domain.Usuario</class>
         <class>domain.Guardarropa</class>
         <class>domain.usuario.Calendario</class>
+        <class>domain.Prenda</class>
+
+
 
 
         <properties>
