@@ -45,9 +45,9 @@ Guardarropa --> TipoDeGuardarropa
 Premium --|> TipoDeGuardarropa
 Gratuito --|> TipoDeGuardarropa
 Atuendo --> "*" Prenda :prendasSuperiores
-Atuendo --> "*" Prenda :prendasInferiores
-Atuendo --> "*" Prenda :accesorios
-Atuendo --> "*" Prenda :calzados
+Atuendo --> Prenda :prendasInferiores
+Atuendo --> Prenda :accesorios
+Atuendo --> Prenda :calzados
 Atuendo --> EstadoAtuendo
 Nuevo --|> EstadoAtuendo
 Aceptado --|> EstadoAtuendo
