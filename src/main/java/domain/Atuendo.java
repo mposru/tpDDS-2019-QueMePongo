@@ -23,38 +23,38 @@ public class Atuendo {
     @Column(name = "atuendo_id",columnDefinition = "int(11) NOT NULL")
     long id;
 
-    private String nombre;
+   private String nombre;
 
-/*    @OneToMany (cascade = CascadeType.ALL)
-    @JoinTable(name="prenda")*/
-    @Transient
+    @OneToMany (cascade = CascadeType.ALL)
+  //  @JoinTable(name="prenda")
+    @JoinColumn(name = "atuendo_id", columnDefinition = "int(11) NOT NULL")
     private Set<Prenda> prendasSuperiores = new HashSet<>();
 
 
-    @OneToOne
-   // @JoinTable(name="prenda")
-    @JoinColumn(name = "accesorio_id",columnDefinition = "int(11) NOT NULL")
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinTable(name="prenda")
+    @JoinColumn(name = "atuendo_id", columnDefinition = "int(11) NOT NULL")
     private Prenda accesorio;
 
 
-    @OneToOne
-  //  @JoinTable(name="prenda")
-    @JoinColumn(name = "prenda_inferior_id",columnDefinition = "int(11) NOT NULL")
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinTable(name="prenda")
+    @JoinColumn(name = "atuendo_id", table = "prenda",columnDefinition = "int(11) NOT NULL")
     private Prenda prendaInferior;
 
-    @OneToOne
-  //  @JoinTable(name="prenda")
-    @JoinColumn(name = "calzado_id",columnDefinition = "int(11) NOT NULL")
+    @OneToOne(cascade = CascadeType.ALL)
+   // @JoinTable(name="prenda")
+    @JoinColumn(name = "atuendo_id", columnDefinition = "int(11) NOT NULL")
     private Prenda calzado;
 
-    @OneToOne
- //   @JoinTable(name="prenda")
-    @JoinColumn(name = "accesorio_cuello_id",columnDefinition = "int(11) NOT NULL")
+    @OneToOne(cascade = CascadeType.ALL)
+   // @JoinTable(name="prenda")
+    @JoinColumn(name = "atuendo_id", columnDefinition = "int(11) NOT NULL")
     private Prenda accesorioCuello;
 
-    @OneToOne
-//    @JoinTable(name="prenda")
-    @JoinColumn(name = "accesorio_manos_id",columnDefinition = "int(11) NOT NULL")
+    @OneToOne(cascade = CascadeType.ALL)
+    // @JoinTable(name="prenda")
+    @JoinColumn(name = "atuendo_id", columnDefinition = "int(11) NOT NULL")
     private Prenda accesorioManos;
 
     @Transient
@@ -195,6 +195,14 @@ public class Atuendo {
     public void rechazar() {
         this.estado.rechazar();
         this.cambiarDisponibilidadPrendas(true);
+    }
+
+    public String getNombre() {
+        return nombre;
+    }
+
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
     }
 
     public void cambiarEstado(EstadoAtuendo estado) {

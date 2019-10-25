@@ -27,7 +27,7 @@ CREATE TABLE `atuendo` (
   `nombre` varchar(40) DEFAULT NULL,
   `prenda_inferior_id` int(11) NOT NULL,
   `calzado_id` int(11) NOT NULL,
-  `accesorio_id` int(11) NOT NULL,
+  `accesorio_id` int(11) DEFAULT NULL,
   `accesorio_manos_id` int(11) DEFAULT NULL,
   `accesorio_cuello_id` int(11) DEFAULT NULL,
   PRIMARY KEY (`atuendo_id`),
@@ -63,11 +63,11 @@ DROP TABLE IF EXISTS `calendario`;
 CREATE TABLE `calendario` (
   `calendario_id` int(11) NOT NULL AUTO_INCREMENT,
   `nombre` varchar(40) DEFAULT NULL,
-  `usuario_id` int(11) NOT NULL,
+  `usuario_id` int(11) DEFAULT NULL,
   PRIMARY KEY (`calendario_id`),
   KEY `usuario_FK` (`usuario_id`),
   CONSTRAINT `usuario_FK` FOREIGN KEY (`usuario_id`) REFERENCES `usuario` (`usuario_id`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=36 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -76,6 +76,7 @@ CREATE TABLE `calendario` (
 
 LOCK TABLES `calendario` WRITE;
 /*!40000 ALTER TABLE `calendario` DISABLE KEYS */;
+INSERT INTO `calendario` VALUES (1,'calendarioLaboral',NULL),(2,'Vacaciones norte de Argentina',NULL),(3,'calendarioLaboral',NULL),(4,'Vacaciones norte de Argentina',NULL),(5,'calendarioLaboral',NULL),(6,'Vacaciones norte de Argentina',NULL),(7,'calendarioLaboral',NULL),(8,'Vacaciones norte de Argentina',NULL),(9,'calendarioLaboral',NULL),(10,'Vacaciones norte de Argentina',NULL),(11,'calendarioLaboral',NULL),(12,'Vacaciones norte de Argentina',NULL),(13,'calendarioLaboral',NULL),(14,'Vacaciones norte de Argentina',NULL),(15,'calendarioLaboral',NULL),(16,'Vacaciones norte de Argentina',NULL),(17,'calendarioLaboral',NULL),(18,'Vacaciones norte de Argentina',NULL),(19,'calendarioLaboral',NULL),(20,'Vacaciones norte de Argentina',NULL),(21,'calendarioLaboral',NULL),(22,'Vacaciones norte de Argentina',NULL),(23,'calendarioLaboral',NULL),(24,'Vacaciones norte de Argentina',NULL),(25,'calendarioLaboral',NULL),(26,'Vacaciones norte de Argentina',NULL),(27,'calendarioLaboral',NULL),(28,'Vacaciones norte de Argentina',NULL),(29,'calendarioLaboral',NULL),(30,'Vacaciones norte de Argentina',NULL),(31,'calendarioLaboral',NULL),(32,'Vacaciones norte de Argentina',NULL),(33,'calendarioLaboral',NULL),(34,'Vacaciones norte de Argentina',NULL),(35,'calendarioLaboral',NULL);
 /*!40000 ALTER TABLE `calendario` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -94,11 +95,11 @@ CREATE TABLE `evento` (
   `antelacion_horas` int(11) DEFAULT NULL,
   `periodo` varchar(8) NOT NULL,
   `tiene_sugerencia` tinyint(1) DEFAULT NULL,
-  `calendario_id` int(11) NOT NULL,
+  `calendario_id` int(11) DEFAULT NULL,
   PRIMARY KEY (`evento_id`),
   KEY `calendario_FK` (`calendario_id`),
   CONSTRAINT `calendario_FK` FOREIGN KEY (`calendario_id`) REFERENCES `calendario` (`calendario_id`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=23 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -107,6 +108,7 @@ CREATE TABLE `evento` (
 
 LOCK TABLES `evento` WRITE;
 /*!40000 ALTER TABLE `evento` DISABLE KEYS */;
+INSERT INTO `evento` VALUES (1,'2019-10-24 20:01:16','Partido Boca-River','La Boca',2,'NINGUNO',0,NULL),(2,'2019-10-24 20:05:34','Partido Boca-River','La Boca',2,'NINGUNO',0,NULL),(3,'2019-10-24 20:09:46','Partido Boca-River','La Boca',2,'NINGUNO',0,NULL),(4,'2019-10-24 20:15:22','Partido Boca-River','La Boca',2,'NINGUNO',0,NULL),(5,'2019-10-24 20:17:17','Partido Boca-River','La Boca',2,'NINGUNO',0,NULL),(6,'2019-10-24 20:26:28','Partido Boca-River','La Boca',2,'NINGUNO',0,NULL),(7,'2019-10-24 20:38:17','Partido Boca-River','La Boca',2,'NINGUNO',0,NULL),(8,'2019-10-24 20:39:56','Partido Boca-River','La Boca',2,'NINGUNO',0,NULL),(9,'2019-10-24 20:40:53','Partido Boca-River','La Boca',2,'NINGUNO',0,NULL),(10,'2019-10-24 20:42:58','Partido Boca-River','La Boca',2,'NINGUNO',0,NULL),(11,'2019-10-24 21:01:45','Partido Boca-River','La Boca',2,'NINGUNO',0,NULL),(12,'2019-10-24 21:07:05','Partido Boca-River','La Boca',2,'NINGUNO',0,NULL),(13,'2019-10-24 21:08:38','Partido Boca-River','La Boca',2,'NINGUNO',0,NULL),(14,'2019-10-24 21:32:57','Partido Boca-River','La Boca',2,'NINGUNO',0,NULL),(15,'2019-10-24 21:35:20','Partido Boca-River','La Boca',2,'NINGUNO',0,NULL),(16,'2019-10-24 21:36:27','Partido Boca-River','La Boca',2,'NINGUNO',0,NULL),(17,'2019-10-24 21:38:05','Partido Boca-River','La Boca',2,'NINGUNO',0,NULL),(18,'2019-10-24 21:43:47','Partido Boca-River','La Boca',2,'NINGUNO',0,NULL),(19,'2019-10-24 23:54:59','Partido Boca-River','La Boca',2,'NINGUNO',0,NULL),(20,'2019-10-25 00:10:52','Partido Boca-River','La Boca',2,'NINGUNO',0,NULL),(21,'2019-10-25 00:11:52','Partido Boca-River','La Boca',2,'NINGUNO',0,NULL),(22,'2019-10-25 00:12:47','Partido Boca-River','La Boca',2,'NINGUNO',0,NULL);
 /*!40000 ALTER TABLE `evento` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -119,9 +121,9 @@ DROP TABLE IF EXISTS `guardarropa`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `guardarropa` (
   `guardarropa_id` int(11) NOT NULL AUTO_INCREMENT,
-  `tipo_guardarropa` varchar(40) NOT NULL,
+  `tipo_guardarropa` varchar(40) DEFAULT NULL,
   PRIMARY KEY (`guardarropa_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=29 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -130,6 +132,7 @@ CREATE TABLE `guardarropa` (
 
 LOCK TABLES `guardarropa` WRITE;
 /*!40000 ALTER TABLE `guardarropa` DISABLE KEYS */;
+INSERT INTO `guardarropa` VALUES (1,NULL),(2,NULL),(4,NULL),(6,NULL),(8,NULL),(10,NULL),(12,NULL),(14,NULL),(16,NULL),(18,NULL),(20,NULL),(22,NULL),(24,NULL),(26,NULL),(28,NULL);
 /*!40000 ALTER TABLE `guardarropa` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -144,23 +147,23 @@ CREATE TABLE `prenda` (
   `prenda_id` int(11) NOT NULL AUTO_INCREMENT,
   `nombre` varchar(100) NOT NULL,
   `material` varchar(40) NOT NULL,
-  `tipo_prenda_id` int(11) NOT NULL,
+  `tipo_prenda_id` int(11) DEFAULT NULL,
   `trama` varchar(50) DEFAULT NULL,
-  `guardarropa_id` int(11) NOT NULL,
   `imagen` blob,
   `impermeable` tinyint(1) DEFAULT NULL,
   `disponibilidad` tinyint(1) DEFAULT NULL,
-  `rojo` int(11) NOT NULL,
-  `verde` int(11) NOT NULL,
-  `azul` int(11) NOT NULL,
+  `rojo` int(11) DEFAULT NULL,
+  `verde` int(11) DEFAULT NULL,
+  `azul` int(11) DEFAULT NULL,
   `rojo_1` int(11) DEFAULT NULL,
   `verde_1` int(11) DEFAULT NULL,
   `azul_1` int(11) DEFAULT NULL,
+  `guardarropa_id` int(11) DEFAULT NULL,
   `atuendo_id` int(11) DEFAULT NULL,
   PRIMARY KEY (`prenda_id`),
   KEY `atuendo_FK` (`atuendo_id`),
   CONSTRAINT `atuendo_FK` FOREIGN KEY (`atuendo_id`) REFERENCES `atuendo` (`atuendo_id`) ON DELETE SET NULL ON UPDATE CASCADE
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -185,7 +188,7 @@ CREATE TABLE `tipo_prenda` (
   `temperatura_min` double NOT NULL,
   `categoria` varchar(40) DEFAULT NULL,
   PRIMARY KEY (`tipo_prenda_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -194,6 +197,7 @@ CREATE TABLE `tipo_prenda` (
 
 LOCK TABLES `tipo_prenda` WRITE;
 /*!40000 ALTER TABLE `tipo_prenda` DISABLE KEYS */;
+INSERT INTO `tipo_prenda` VALUES (1,40,18,'CALZADO'),(2,40,18,'CALZADO'),(3,40,18,'CALZADO'),(4,40,18,'CALZADO'),(5,40,18,'CALZADO');
 /*!40000 ALTER TABLE `tipo_prenda` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -210,8 +214,9 @@ CREATE TABLE `usuario` (
   `contrasenia` varchar(40) NOT NULL,
   `numero_celular` varchar(20) DEFAULT NULL,
   `tiempo_anticipacion` int(11) DEFAULT NULL,
+  `calendario_id` int(11) DEFAULT NULL,
   PRIMARY KEY (`usuario_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=21 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -220,6 +225,7 @@ CREATE TABLE `usuario` (
 
 LOCK TABLES `usuario` WRITE;
 /*!40000 ALTER TABLE `usuario` DISABLE KEYS */;
+INSERT INTO `usuario` VALUES (1,'alexis','1234','+15847777',0,NULL),(2,'messi','1234','+54911651651',0,NULL),(3,'alexis','1234','+54911651651',0,NULL),(4,'alexis','1234','+54911651651',0,2),(5,'alexis','1234','+54911651651',0,4),(6,'alexis','1234','+54911651651',0,6),(7,'alexis','1234','+54911651651',0,8),(8,'alexis','1234','+54911651651',0,10),(9,'alexis','1234','+54911651651',0,12),(10,'alexis','1234','+54911651651',0,14),(11,'alexis','1234','+54911651651',0,16),(12,'alexis','1234','+54911651651',0,18),(13,'alexis','1234','+54911651651',0,20),(14,'alexis','1234','+54911651651',0,22),(15,'alexis','1234','+54911651651',0,24),(16,'alexis','1234','+54911651651',0,26),(17,'alexis','1234','+54911651651',0,28),(18,'alexis','1234','+54911651651',0,30),(19,'alexis','1234','+54911651651',0,32),(20,'alexis','1234','+54911651651',0,34);
 /*!40000 ALTER TABLE `usuario` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -262,4 +268,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2019-10-24 14:43:05
+-- Dump completed on 2019-10-24 21:15:04
