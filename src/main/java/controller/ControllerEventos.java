@@ -32,15 +32,10 @@ public class ControllerEventos {
 
     public ModelAndView mostrarEventos(Request req, Response res) {
         Map<String, Object> model = new HashMap<>();
-        String id = req.cookie("uid");
-        List<Evento> eventos = RepositorioDeUsuarios.getInstance().buscarUsuarioPorId(Integer.valueOf(id)).obtenerEventos();
-
         //todo: temporal
-        eventos = new LinkedList<>();
-        eventos.add(RepositorioEventos.getInstance().findById("2"));
-        //
+        Usuario usuario = RepositorioDeUsuarios.getInstance().buscarUsuarioPorId(Integer.parseInt(req.cookie("uid")));
         model.put("redirectSugerencias", Boolean.valueOf(req.queryParams("redirectSugerencias")));
-        model.put("eventos", eventos);
+        model.put("eventos", usuario.obtenerEventos());
         return new ModelAndView(model, "eventos.hbs");
     }
 
