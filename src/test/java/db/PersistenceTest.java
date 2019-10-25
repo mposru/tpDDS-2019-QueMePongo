@@ -260,13 +260,8 @@ public class PersistenceTest {
     @Test
     public void levantarUsuarioDeBBDDyModificarNombre() {
         EntityManager em = emf.createEntityManager();
-<<<<<<< HEAD
+
         Usuario usuario = em.find(Usuario.class,38L);
-=======
-        //Evento evento = em.find(Evento.class,Long.valueOf(1));
-        //evento.getFecha();
-        Usuario usuario = em.find(Usuario.class,2L);
->>>>>>> 340125d4b4ae5e72fce042269d680cf9a358e3b9
         usuario.setNombreUsuario("messi");
         try {
             manager.getTransaction().begin();
