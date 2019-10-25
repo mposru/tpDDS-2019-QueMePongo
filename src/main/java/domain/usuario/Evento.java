@@ -1,6 +1,7 @@
 package domain.usuario;
 
 import com.mysql.cj.protocol.ColumnDefinition;
+import domain.LocalDateTimeConverter;
 import domain.clima.AccuWeather;
 import domain.clima.Clima;
 import domain.clima.Meteorologo;
@@ -21,10 +22,17 @@ public class Evento {
     @Id
     @Column(name= "evento_id", columnDefinition = "int(11) NOT NULL")
     long id;
-    @Transient
+
+   // @Transient
+    @Convert(converter = LocalDateTimeConverter.class)
     private LocalDateTime fecha;
+
+    @Column(name="nombre")
     private String nombre;
+
+    @Column(name="ubicacion")
     private String ubicacion;
+
     @Column(name="antelacion_horas")
     private Integer antelacionEnHoras = 1;
 

@@ -19,6 +19,7 @@ import org.junit.rules.ExpectedException;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.Arrays;
 import java.util.HashSet;
@@ -58,7 +59,7 @@ public class PersistenceTest {
     public void iniciarTest() {
         this.emf = Persistence.createEntityManagerFactory("quemepongo");
         this.manager = emf.createEntityManager();
-        this.fechaPartido = LocalDateTime.of(2019,10,22,21,30,0);
+        this.fechaPartido = LocalDateTime.now();//LocalDateTime.of(2019,10,22,21,30,0);
         //LocalDateTime.of(2019,10,22,21,30,0)
         this.alexis = new Usuario("+54911651651",null,"1234");
         this.alexis.setNombreUsuario("alexis");
@@ -259,7 +260,13 @@ public class PersistenceTest {
     @Test
     public void levantarUsuarioDeBBDDyModificarNombre() {
         EntityManager em = emf.createEntityManager();
+<<<<<<< HEAD
         Usuario usuario = em.find(Usuario.class,38L);
+=======
+        //Evento evento = em.find(Evento.class,Long.valueOf(1));
+        //evento.getFecha();
+        Usuario usuario = em.find(Usuario.class,2L);
+>>>>>>> 340125d4b4ae5e72fce042269d680cf9a358e3b9
         usuario.setNombreUsuario("messi");
         try {
             manager.getTransaction().begin();
