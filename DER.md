@@ -11,10 +11,24 @@ entity Prenda  {
 --
 (FK) id_guardarropa
 (FK) id_atuendo
+(FK) id_tipoDePrenda
+(FK) id_color_primario
+(FK) id_color_secundario
+
+}
+
+entity Color {
+  (PK) id_color
+  --
+  descripcion
 }
 
 entity Usuario {
 (PK) id_usuario
+--
+  nombreDeUsuario
+  numeroDeCelular
+  contrasenia
 
 }
 entity Usuario_Guardarropa {
@@ -81,5 +95,7 @@ Prenda }o--|| TipoDePrenda
 AtuendoSugeridoPorEvento ||--|{ Atuendo
 Usuario ||--o| AtuendoSugeridoPorEvento
 AtuendoSugeridoPorEvento |o--|| Evento
+Color ||--o{ Prenda: "color primario"
+Color |o--o{ Prenda: "color secundario"
 
 @enduml

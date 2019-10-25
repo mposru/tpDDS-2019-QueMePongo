@@ -1,3 +1,25 @@
+body {
+    background-color: #dae0ff !important;
+}
+
+.content {
+    margin: 0 10px;
+}
+
+.alta-evento {
+    width: 50%;
+}
+
+.titulo {
+    /* font-family: fantasy; */
+    color: #a74fe2;
+    background-color: #f1defa;
+    justify-content: center;
+    display: flex;
+    height: 70px;
+    /* text-align: center; */
+}
+
 .prenda {
     border: 1px solid gray;
     margin: 20px;
@@ -40,4 +62,12 @@
         -moz-column-count: 5;
         column-count: 5;
     }
+}
+
+.evento {
+
+}
+
+.sugerencia {
+
 }

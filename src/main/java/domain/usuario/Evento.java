@@ -1,37 +1,59 @@
 package domain.usuario;
 
+import com.mysql.cj.protocol.ColumnDefinition;
+import domain.LocalDateTimeConverter;
 import domain.clima.AccuWeather;
 import domain.clima.Clima;
 import domain.clima.Meteorologo;
-import org.uqbar.commons.model.Entity;
 import org.uqbar.commons.model.annotations.Observable;
 import org.uqbar.commons.model.annotations.Transactional;
 
+import javax.persistence.*;
+import javax.persistence.Entity;
 import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import java.awt.*;
 import java.time.Duration;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 import static java.util.Objects.requireNonNull;
 
 @Transactional
 @Observable
-@org.hibernate.annotations.Entity
-public class Evento extends Entity {
+@Entity
+@Table(name = "evento")
+public class Evento {
 
     @GeneratedValue
     @Id
+    @Column(name= "evento_id", columnDefinition = "int(11) NOT NULL")
     long id;
 
+   // @Transient
+    @Convert(converter = LocalDateTimeConverter.class)
     private LocalDateTime fecha;
+
+    @Column(name="nombre")
     private String nombre;
+
+    @Column(name="ubicacion")
     private String ubicacion;
+
+    @Column(name="antelacion_horas")
     private Integer antelacionEnHoras = 1;
-    @Enumerated
+
+    @Column(name="periodo", nullable = false, length = 8 )
+    @Enumerated(value = EnumType.STRING)
     private Periodo tipoDeActualizacion;
+
+    @Column(name = "tiene_sugerencia")
     private Boolean tieneSugerencia = false;
+
+
+
+    @Transient
+    //TODO sacar de acá al meteorologo, no va en evento
     private Meteorologo meteorologo;
 
     public Evento(){
@@ -42,6 +64,7 @@ public class Evento extends Entity {
         this.ubicacion = requireNonNull(ubicacion, "Debe ingresar una ubicación para el evento");
         this.antelacionEnHoras = requireNonNull(antelacionEnHoras,"Debe ingresar la antelacion del evento");
         this.tipoDeActualizacion=requireNonNull(tipoDeActualizacion,"Debe ingresar el tipo de periodicidad");
+        this.id = 3;
     }
 
     public void setearMeteorologo(Meteorologo meteorologo) {
@@ -112,4 +135,40 @@ public class Evento extends Entity {
         // todo: poner bien el dia
        return meteorologo.obtenerClima(fecha.toLocalDate());
     }
+    public long getId() {
+        return id;
+    }
+
+    public void setId(long id) {
+        this.id = id;
+    }
+
+    public void setFecha(LocalDateTime fecha) {
+        this.fecha = fecha;
+    }
+
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
+    }
+
+    public void setUbicacion(String ubicacion) {
+        this.ubicacion = ubicacion;
+    }
+
+    public Integer getAntelacionEnHoras() {
+        return antelacionEnHoras;
+    }
+
+    public void setAntelacionEnHoras(Integer antelacionEnHoras) {
+        this.antelacionEnHoras = antelacionEnHoras;
+    }
+
+    public Periodo getTipoDeActualizacion() {
+        return tipoDeActualizacion;
+    }
+
+    public void setTipoDeActualizacion(Periodo tipoDeActualizacion) {
+        this.tipoDeActualizacion = tipoDeActualizacion;
+    }
+
 }

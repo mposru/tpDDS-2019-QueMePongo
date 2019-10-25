@@ -22,6 +22,11 @@ public class Borrador  {
         return this;
     }
 
+    public Borrador definirNombre(String nombre) {
+        this.nombrePrenda = requireNonNull(nombre, "Debe ingresar el nombre de la prenda");
+        return this;
+    }
+
     public Borrador definirMaterial(Material material) {
         requireNonNull(material, "Debe ingresar un material");
         requireNonNull(tipoDePrenda, "Debe definir el tipo de prenda antes de definir el material");
@@ -53,16 +58,6 @@ public class Borrador  {
         return this;
     }
 
-    public Borrador definirTemperaturaMaxima(double temperaturaMax) {
-        this.temperaturaMax = requireNonNull(temperaturaMax, "Debe asignarle una temperatura maxima a la prenda");
-        return this;
-    }
-
-    public Borrador definirTemperaturaMinima(double temperaturaMin) {
-        this.temperaturaMin = requireNonNull(temperaturaMin, "Debe asignarle una temperatura minima a la prenda");
-        return this;
-    }
-
     public Borrador definirEsParaLLuvia(boolean esParaLluvia) {
         this.esParaLluvia = requireNonNull(esParaLluvia, "Debe asignarle si es impermeable a la prenda");
         return this;
@@ -79,8 +74,6 @@ public class Borrador  {
         requireNonNull(material, "El material es obligatorio");
         requireNonNull(colorPrimario, "El color es obligatorio");
         requireNonNull(guardarropa, "El guardarropa es obligatorio");
-        requireNonNull(temperaturaMax, "Debe asignarle una temperatura maxima a la prenda");
-        requireNonNull(temperaturaMin, "Debe asignarle una temperatura minima a la prenda");
         requireNonNull(esParaLluvia, "Debe asignarle si es impermeable a la prenda");
         Prenda prenda = new Prenda("Prenda",tipoDePrenda, material, colorPrimario, colorSecundario, trama, guardarropa, esParaLluvia);
         return prenda;

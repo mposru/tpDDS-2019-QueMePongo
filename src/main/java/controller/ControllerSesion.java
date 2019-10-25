@@ -13,7 +13,7 @@ public class ControllerSesion {
     public ModelAndView crear(Request req, Response res) {
         //Usuario usuario = RepoUsuario.buscarPorNombre(req.params("user"))
         //si no existe excepciom
-        Usuario usuario = new Usuario("1534522454", new Calendario());
+        //Usuario usuario = new Usuario("1534522454", new Calendario());
         //usuario.validarContraseña(req.queryParams("pass"));
 
         //NUNCA GUARDAR UN ID DE USUARIO EN UNA COOKIE EN TEXTO PLANOOOOOO

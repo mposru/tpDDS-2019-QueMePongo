@@ -15,32 +15,49 @@ import java.util.Set;
 import static domain.prenda.Categoria.*;
 
 @Entity
+@Table(name = "atuendo")
 public class Atuendo {
 
     @GeneratedValue
     @Id
+    @Column(name = "atuendo_id",columnDefinition = "int(11) NOT NULL")
     long id;
 
-    @OneToOne
-    @JoinColumn(name = "accesorio_id")
-    private Prenda accesorio;
-    @OneToMany
-    @JoinColumn(name = "prendas_superiores_id")
+   private String nombre;
+
+    @OneToMany (cascade = CascadeType.ALL)
+  //  @JoinTable(name="prenda")
+    @JoinColumn(name = "atuendo_id", columnDefinition = "int(11) NOT NULL")
     private Set<Prenda> prendasSuperiores = new HashSet<>();
-    @OneToOne
-    @JoinColumn(name = "prenda_inferior_id")
+
+
+    @OneToOne(cascade = CascadeType.ALL)
+  //  @JoinTable(name="prenda")
+    @JoinColumn(name = "atuendo_id", columnDefinition = "int(11) NOT NULL")
+    private Prenda accesorio;
+
+
+    @OneToOne(cascade = CascadeType.ALL)
+ //   @JoinTable(name="prenda")
+    @JoinColumn(name = "atuendo_id",columnDefinition = "int(11) NOT NULL")
     private Prenda prendaInferior;
-    @OneToOne
-    @JoinColumn(name = "calzado_id")
+
+    @OneToOne(cascade = CascadeType.ALL)
+   // @JoinTable(name="prenda")
+    @JoinColumn(name = "atuendo_id", columnDefinition = "int(11) NOT NULL")
     private Prenda calzado;
-    @OneToOne
-    @JoinColumn(name = "accesorio_cuello_id")
+
+    @OneToOne(cascade = CascadeType.ALL)
+   // @JoinTable(name="prenda")
+    @JoinColumn(name = "atuendo_id", columnDefinition = "int(11) NOT NULL")
     private Prenda accesorioCuello;
-    @OneToOne
-    @JoinColumn(name = "accesorio_manos_id")
+
+    @OneToOne(cascade = CascadeType.ALL)
+    // @JoinTable(name="prenda")
+    @JoinColumn(name = "atuendo_id", columnDefinition = "int(11) NOT NULL")
     private Prenda accesorioManos;
 
-    @ManyToOne
+    @Transient
     private EstadoAtuendo estado;
 
     public Atuendo(Set<Prenda> prendasSuperiores, Prenda prendaInferior, Prenda calzado, Prenda accesorio, Prenda accesorioCuello, Prenda accesorioManos) {
@@ -51,7 +68,24 @@ public class Atuendo {
         this.calzado = calzado;
         this.accesorioCuello = accesorioCuello;
         this.accesorioManos = accesorioManos;
-        this.estado = new Nuevo(this); //todo atuendo nace en estado nuevo.
+        this.estado = new Nuevo(this); //el atuendo nace en estado nuevo.
+        this.setearAtuendoEnPrendasSuperiores();
+    }
+
+
+    private void setearAtuendoEnPrendasSuperiores() {
+        this.prendasSuperiores.forEach(prenda -> prenda.setAtuendo(this));
+        this.prendaInferior.setAtuendo(this);
+        this.calzado.setAtuendo(this);
+        if (this.accesorio!= null) {
+            this.accesorio.setAtuendo(this);
+        }
+        if (this.accesorio!= null) {
+            this.accesorioCuello.setAtuendo(this);
+        }
+        if (this.accesorio!= null) {
+            this.accesorioManos.setAtuendo(this);
+        }
     }
 
     private void validarPrenda(Set<Prenda> prendasSuperiores, Prenda prendaInferior,
@@ -145,6 +179,30 @@ public class Atuendo {
         return accesorioManos;
     }
 
+    public Set<Prenda> getPrendasSuperiores() {
+        return prendasSuperiores;
+    }
+
+    public Prenda getPrendaInferior() {
+        return prendaInferior;
+    }
+
+    public Prenda getAccesorio() {
+        return accesorio;
+    }
+
+    public Prenda getCalzado() {
+        return calzado;
+    }
+
+    public Prenda getAccesorioCuello() {
+        return accesorioCuello;
+    }
+
+    public Prenda getAccesorioManos() {
+        return accesorioManos;
+    }
+
     public EstadoAtuendo obtenerEstadoAtuendo() { return this.estado; }
 
     public int obtenerCalificacionAnterior() {return this.estado.obtenerCalificacionAnterior();}
@@ -174,6 +232,14 @@ public class Atuendo {
         this.cambiarDisponibilidadPrendas(true);
     }
 
+    public String getNombre() {
+        return nombre;
+    }
+
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
+    }
+
     public void cambiarEstado(EstadoAtuendo estado) {
         this.estado = estado;
     }
@@ -189,6 +255,10 @@ public class Atuendo {
                 && this.calzado.obtenerSiEsParaLluvia()
                 && this.accesorioCuello.obtenerSiEsParaLluvia()
                 && this.accesorioManos.obtenerSiEsParaLluvia());
+    }
+
+    public long getId() {
+        return id;
     }
 
     @Override

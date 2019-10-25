@@ -1,5 +1,7 @@
 package domain.guardarropa;
 
+import javax.persistence.DiscriminatorValue;
+
 import static java.util.Objects.requireNonNull;
 
 public class Gratuito extends TipoDeGuardarropa {

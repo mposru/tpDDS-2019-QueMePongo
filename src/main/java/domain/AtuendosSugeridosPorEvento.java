@@ -5,18 +5,17 @@ import domain.usuario.Evento;
 import javax.persistence.*;
 import java.util.List;
 
-@Entity
+
+
 public class AtuendosSugeridosPorEvento {
 
-    @GeneratedValue
-    @Id
+
     long id;
 
-    @OneToMany
-    @JoinColumn(name = "atuendo_sugerido_id")
+
     List<Atuendo> atuendosSugeridos;
 
-    @OneToOne
+
     Evento evento;
 
     public AtuendosSugeridosPorEvento(List<Atuendo> atuendosSugeridos, Evento evento) {

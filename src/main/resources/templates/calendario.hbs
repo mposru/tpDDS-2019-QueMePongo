@@ -1,0 +1,71 @@
+<html>
+    <head>
+        <link rel="stylesheet" href="../../main.css">
+        <link rel="stylesheet" href="../../calendario.css">
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+        <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
+    </head>
+    <body>
+        <nav class="navbar navbar-expand-lg navbar-light bg-light">
+            <a class="navbar-brand" href="calendario">Calendario</a>
+            <a class="navbar-brand" href="eventos">Eventos</a>
+        </nav>
+        <div class="month">
+            <form id="formMonth" method="post">
+                <ul>
+                    <li class="prev">
+                        <input id="mesAnterior" type="submit" formaction="/calendario?action=mesAnterior" value="&#10094;"/>
+                    </li>
+                    <li class="next">
+                        <input id="mesSiguiente" type="submit" formaction="/calendario?action=mesSiguiente" value="&#10095;"/>
+                    </li>
+                    <li class="mes">
+                        <h3>{{mes}}</h3>
+                        <h4><span style="font-size:18px">{{anio}}</span></h4>
+                    </li>
+                </ul>
+            </form>
+        </div>
+
+        <ul class="weekdays">
+            <li>Domingo</li>
+            <li>Lunes</li>
+            <li>Martes</li>
+            <li>Miércoles</li>
+            <li>Jueves</li>
+            <li>Viernes</li>
+            <li>Sábado</li>
+        </ul>
+
+        <ul class="days">
+            {{#each diasDelMes}}
+                {{#if esDiaDemas}}
+                    <li style="border-style: none; transform: translateY(40px);"></li>
+                {{/if}}
+                {{#if noEsDiaDemas}}
+                    <li>
+                        <h6 id="numeroDia">{{numeroDeDia}}</h6>
+                            <div id="eventos">
+                            {{#each eventos}}
+                                <div id="evento">
+                                    {{nombre}} en {{ubicacion}}
+                                </div>
+                                <script>
+                                    var eventos = document.querySelectorAll("#evento");
+                                    for(i = 0; i < eventos.length; i++) {
+                                        eventos[i].style.backgroundColor = "hsla(" + ~~(360 * Math.random()) + "," +"70%,"+"80%,1)";
+                                    }
+                                </script>
+                            {{/each}}
+                        </div>
+                    </li>
+                {{/if}}
+            {{/each}}
+        </ul>
+
+        <form action="/evento" method="get">
+            <button id="nuevoEvento" type="submit" class="btn btn-lg btn-primary btn-circle"><i class="fa fa-plus"></i></button>
+        </form>
+
+    </body>
+</html>

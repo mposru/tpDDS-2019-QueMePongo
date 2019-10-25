@@ -10,20 +10,25 @@ import static java.util.Objects.isNull;
 import static java.util.Objects.requireNonNull;
 
 @Entity
+@Table(name = "tipo_prenda")
 public class TipoDePrenda {
 
     @GeneratedValue
     @Id
+    @Column(name = "tipo_prenda_id",columnDefinition = "int(11) NOT NULL")
     private long id;
+    @Column(name = "temperatura_max")
     private double temperaturaMax;
+    @Column(name = "temperatura_min")
     private double temperaturaMin;
 
     @Enumerated(EnumType.STRING)
     private Categoria categoria;
 
-    @OneToMany
-    @JoinColumn(name = "material")
-    @Enumerated
+    @Column(name="nombre_tipo_prenda")
+    private String nombreTipoPrenda;
+
+    @Transient
     private List<Material> materialesValidos;
 
     public static final TipoDePrenda ZAPATO = new TipoDePrenda(Categoria.CALZADO, Arrays.asList(Material.CUERO), 35, -5);
@@ -94,6 +99,14 @@ public class TipoDePrenda {
 
     public List<Material> obtenerMaterialesValidos() {
         return materialesValidos;
+    }
+
+    public String getNombreTipoPrenda() {
+        return nombreTipoPrenda;
+    }
+
+    public void setNombreTipoPrenda(String nombreTipoPrenda) {
+        this.nombreTipoPrenda = nombreTipoPrenda;
     }
 
     @Override

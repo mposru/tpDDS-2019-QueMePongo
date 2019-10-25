@@ -7,40 +7,54 @@ import java.io.IOException;
 import java.util.Objects;
 
 @Entity
+@Table(name = "prenda")
 public class Prenda {
     @Id
     @GeneratedValue
+    @Column(name = "prenda_id",columnDefinition = "int(11) NOT NULL")
     private long id;
 
-    @ManyToOne
+    private String nombrePrenda;
+
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "tipo_prenda_id",columnDefinition = "int(11) NOT NULL")
     private TipoDePrenda tipoDePrenda;
 
-    @Enumerated
+    @Enumerated (EnumType.STRING)
     private Material material;
 
     @Embedded
     private Color colorPrimario;
 
-    @Embedded
+   // @Embedded
+    @Transient // lo dejo asi para probar solamente
     private Color colorSecundario;
 
-    @Enumerated
+    @Enumerated (EnumType.STRING)
     private Trama trama;
 
-    //va la annotation?
-    // guardamos guardarropa_id
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "guardarropa_id")
     private Guardarropa guardarropa;
 
-    @Embedded
+    /*@OneToOne
+    @JoinColumn(name = "imagen_id")*/
+    @Transient
     private Imagen imagen;
 
-    private String nombrePrenda;
 
+    @ManyToOne(cascade=CascadeType.ALL)
+    @JoinColumn(name = "atuendo_id")
+    private Atuendo atuendo;
+
+
+    @Column(name="impermeable")
     private boolean esParaLluvia;
     private boolean disponibilidad = true; //toda prenda inicia disponible
 
     private String nombreMaterial;
 
+    //todo: agregar el nombre de la prenda al constructor
     public Prenda(String nombreDePrenda,TipoDePrenda tipoDePrenda, Material material, Color colorPrimario, Color colorSecundario, Trama trama,
                   Guardarropa guardarropa, boolean impermeable) {
         this.nombrePrenda = nombreDePrenda;
@@ -49,10 +63,11 @@ public class Prenda {
         this.colorPrimario = colorPrimario;
         this.colorSecundario = colorSecundario;
         this.trama = trama;
-        // esta bien esto?
         this.guardarropa = guardarropa;
         this.esParaLluvia = impermeable;
     }
+
+
 
     public void cargarImagen(String path) throws IOException {
         this.imagen = this.imagen.leerDeFileSystem(path);
@@ -118,6 +133,44 @@ public class Prenda {
     public Imagen obtenerImagen() {
         return imagen;
     }
+
+    public String getNombre() {
+        return nombrePrenda;
+    }
+
+    public void setNombre(String nombre) {
+        this.nombrePrenda = nombre;
+    }
+
+    public Atuendo getAtuendo() {
+        return atuendo;
+    }
+
+    public void setAtuendo(Atuendo atuendo) {
+        this.atuendo = atuendo;
+    }
+
+    public Imagen getImagen() {
+        return imagen;
+    }
+
+    public Trama getTrama() {
+        return this.trama;
+    }
+
+    public Color getColorPrimario() {
+        return this.colorPrimario;
+    }
+
+    public Color getColorSecundario() {
+        return this.colorSecundario;
+    }
+
+    public Material getMaterial() {
+        return this.material;
+    }
+
+    public Categoria getCategoria() { return this.tipoDePrenda.obtenerCategoria(); }
 
     @Override
     public boolean equals(Object o) {

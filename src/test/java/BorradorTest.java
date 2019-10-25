@@ -19,23 +19,22 @@ public class BorradorTest {
     private Borrador borradorZapatillas;
     private Trama trama;
     private Guardarropa guardarropa;
-    private double temperaturaMin;
-    private double temperaturaMax;
     private boolean esParaLluvia;
     private Material materialInvalido;
     private Usuario magdalena;
     private Calendario calendario;
+    private String nombre;
 
     @Before
     public void iniciarTest() {
-        this.magdalena = new Usuario("", calendario);
+        this.magdalena = new Usuario("", calendario, "contrasenialoca");
         this.tipoDePrenda = TipoDePrenda.ZAPATO;
         this.material = Material.CUERO;
         this.colorPrimario = new Color(20, 20, 30);
         this.trama = Trama.LISA;
-        this.temperaturaMin = 0;
-        this.temperaturaMax = 20;
         this.esParaLluvia = true;
+        this.nombre = "zapatillas converse";
+
         Set<Usuario> magdalenaLista = new HashSet<>();
         magdalenaLista.add(magdalena);
         this.guardarropa = new Guardarropa("GuardarropaMagdalena",magdalenaLista,new Premium());
@@ -52,6 +51,12 @@ public class BorradorTest {
         exception.expect(NullPointerException.class);
         exception.expectMessage("Debe ingresar un tipo de prenda");
         this.borradorZapatillas.definirTipo(null);
+    }
+    @Test
+    public void definirNombreDePrendaVacio() {
+        exception.expect(NullPointerException.class);
+        exception.expectMessage("Debe ingresar el nombre de la prenda");
+        this.borradorZapatillas.definirNombre(null);
     }
 
     @Test

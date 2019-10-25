@@ -9,13 +9,18 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @Entity
+@Table(name = "calendario")
 public class Calendario {
+
 
     @GeneratedValue
     @Id
+    @Column(name = "calendario_id", columnDefinition = "int(11) NOT NULL")
     long id;
+
+    String nombre;
     
-    @OneToMany
+    @OneToMany (cascade = CascadeType.ALL)
     @JoinColumn(name = "evento_id")
     List<Evento> eventos = new ArrayList<>();
 
@@ -24,7 +29,7 @@ public class Calendario {
     }
 
     public List<Evento> obtenerEventosPorFecha(LocalDate fecha) {
-        return eventos.stream().filter(evento -> evento.getFecha().toLocalDate() == fecha).collect(Collectors.toList());
+        return eventos.stream().filter(evento -> evento.getFecha().toLocalDate().isEqual(fecha)).collect(Collectors.toList());
     }
 
     public Evento obtenerProximoEvento() {
@@ -40,7 +45,20 @@ public class Calendario {
         return eventos.stream().filter(evento -> evento.esProximo()).collect(Collectors.toList());
     }
 
+    public List<Evento> obtenerEventos() {
+        return eventos;
+    }
+
     public List<Evento> obtenerEventosEntreFechas(LocalDate fechaDesde, LocalDate fechaHasta) {
         return eventos.stream().filter((evento) -> evento.getFecha().toLocalDate().isAfter(fechaDesde) && evento.getFecha().toLocalDate().isBefore(fechaHasta)).collect(Collectors.toList());
     }
+
+    public String getNombre() {
+        return nombre;
+    }
+
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
+    }
+
 }

@@ -1,11 +1,12 @@
 package domain.prenda;
 
 import javax.persistence.Embeddable;
+import javax.persistence.Transient;
 import java.util.Objects;
 
 @Embeddable
 public class Color {
-
+    @Transient
     private int rojo, verde, azul;
 
     public Color(int rojo, int verde, int azul) {

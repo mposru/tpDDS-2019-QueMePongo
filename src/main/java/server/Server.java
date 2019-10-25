@@ -1,9 +1,6 @@
 package server;
 
-import controller.ControllerGuardarropas;
-import controller.ControllerPerfil;
-import controller.ControllerPrendasGuardarropa;
-import controller.ControllerSesion;
+import controller.*;
 import spark.Spark;
 import spark.TemplateEngine;
 import spark.debug.DebugScreen;
@@ -15,17 +12,27 @@ public class Server {
         Spark.port(9000);
         Spark.staticFileLocation("/public");
         Spark.init();
+
         ControllerGuardarropas controllerGuardarropas = new ControllerGuardarropas();
         ControllerPrendasGuardarropa controllerPrendasGuardarropa = new ControllerPrendasGuardarropa();
         ControllerSesion controllerSesion = new ControllerSesion();
-        ControllerPerfil controllerPerfil = new ControllerPerfil();
+        ControllerCalendario controllerCalendario = new ControllerCalendario();
+        ControllerEventos controllerEventos = new ControllerEventos();
 
         TemplateEngine engine = new HandlebarsTemplateEngine();
         Spark.get("/guardarropas",controllerGuardarropas::guardarropas, engine);
         Spark.get("/prendas",controllerPrendasGuardarropa::prendas, engine);
         Spark.get("/login",controllerSesion::mostrarLogin, engine);
-        Spark.post("/login",controllerPerfil::mostrar, engine);
-
+        Spark.post("/login",controllerSesion::crear, engine);
+        /*Spark.post("/calendario/prev", controllerCalendario::irAlMesAnterior, engine);
+        Spark.post("/calendario/next", controllerCalendario::irAlMesSiguiente, engine);*/
+        Spark.get("/calendario", controllerCalendario::mostrarCalendarioConEventos, engine);
+        Spark.post("/calendario", controllerCalendario::mostrarCalendarioConEventos, engine);
+        Spark.get("/evento", controllerEventos::mostrar, engine);
+        Spark.post("/evento", controllerEventos::crearEvento, engine);
+        Spark.get("/eventos",controllerEventos ::mostrarEventos, engine);
+        Spark.get("/eventos/:id/sugerencias/:indice",controllerEventos ::mostrarSugerencia, engine);
+        Spark.post("/eventos/:id/sugerencias/:idSugerencia/estado",controllerEventos ::modificarEstadoSugerencia, engine);
 
         DebugScreen.enableDebugScreen();
     }

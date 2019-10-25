@@ -1,5 +1,7 @@
 package domain.guardarropa;
 
+import javax.persistence.DiscriminatorValue;
+
 public class Premium extends TipoDeGuardarropa {
 
     private int limiteDePrendas=0;
