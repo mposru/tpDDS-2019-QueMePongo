@@ -238,7 +238,7 @@ public class PersistenceTest {
     @Test
     public void levantarUsuarioDeBBDDyModificarCelular() {
         EntityManager em = emf.createEntityManager();
-        Usuario usuario = em.find(Usuario.class,1L);
+        Usuario usuario = em.find(Usuario.class,38L);
         usuario.setNumeroDeCelular("+15847777");
         try {
             manager.getTransaction().begin();
@@ -259,7 +259,7 @@ public class PersistenceTest {
     @Test
     public void levantarUsuarioDeBBDDyModificarNombre() {
         EntityManager em = emf.createEntityManager();
-        Usuario usuario = em.find(Usuario.class,2L);
+        Usuario usuario = em.find(Usuario.class,38L);
         usuario.setNombreUsuario("messi");
         try {
             manager.getTransaction().begin();

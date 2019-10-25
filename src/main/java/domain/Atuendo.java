@@ -32,14 +32,14 @@ public class Atuendo {
 
 
     @OneToOne(cascade = CascadeType.ALL)
-    @JoinTable(name="prenda")
+  //  @JoinTable(name="prenda")
     @JoinColumn(name = "atuendo_id", columnDefinition = "int(11) NOT NULL")
     private Prenda accesorio;
 
 
     @OneToOne(cascade = CascadeType.ALL)
-    @JoinTable(name="prenda")
-    @JoinColumn(name = "atuendo_id", table = "prenda",columnDefinition = "int(11) NOT NULL")
+ //   @JoinTable(name="prenda")
+    @JoinColumn(name = "atuendo_id",columnDefinition = "int(11) NOT NULL")
     private Prenda prendaInferior;
 
     @OneToOne(cascade = CascadeType.ALL)
@@ -75,6 +75,17 @@ public class Atuendo {
 
     private void setearAtuendoEnPrendasSuperiores() {
         this.prendasSuperiores.forEach(prenda -> prenda.setAtuendo(this));
+        this.prendaInferior.setAtuendo(this);
+        this.calzado.setAtuendo(this);
+        if (this.accesorio!= null) {
+            this.accesorio.setAtuendo(this);
+        }
+        if (this.accesorio!= null) {
+            this.accesorioCuello.setAtuendo(this);
+        }
+        if (this.accesorio!= null) {
+            this.accesorioManos.setAtuendo(this);
+        }
     }
 
     private void validarPrenda(Set<Prenda> prendasSuperiores, Prenda prendaInferior,

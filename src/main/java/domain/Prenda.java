@@ -43,9 +43,10 @@ public class Prenda {
     private Imagen imagen;
 
 
- //   @ManyToOne(cascade=CascadeType.ALL)
-    @Transient
+    @ManyToOne(cascade=CascadeType.ALL)
+    @JoinColumn(name = "atuendo_id")
     private Atuendo atuendo;
+
 
     @Column(name="impermeable")
     private boolean esParaLluvia;
