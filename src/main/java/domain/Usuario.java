@@ -5,6 +5,7 @@ package domain;
 
 import java.time.LocalDateTime;
 import java.util.*;
+import java.util.stream.Collectors;
 
 import domain.clima.Clima;
 import domain.notificacion.Notificador;
@@ -59,6 +60,7 @@ public class Usuario {
     // agregado de sensibilidades en las partes del cuerpo. Hacemos una escala que va de 1 a 10 (1 para muy friolento hasta 10 para muy caluroso)
     @Embedded
     private Sensibilidad sensibilidad = new Sensibilidad();
+
 
     //
     // variable que indique con cuanto tiempo antes quiere que le llegue sugerencia sobre evento
@@ -129,7 +131,7 @@ public class Usuario {
     }
 
 
-    public Set<Guardarropa> obtenerGuardarropas() {
+    public Set<Guardarropa> getGuardarropas() {
         return this.guardarropas;
     }
 
@@ -266,4 +268,17 @@ public class Usuario {
     public long getId() {
         return id;
     }
+
+    public Guardarropa buscarGuardarropaPorNombre(String nombre){
+        List<Guardarropa> guardarropaEncontrados = guardarropas.stream()
+                .filter(guardarropa -> guardarropa.getNombreGuardarropa().equals(nombre))
+                .collect(Collectors.toList());
+        if(guardarropaEncontrados.isEmpty()) {
+            return null;
+        }
+        else {
+            return guardarropaEncontrados.get(0);
+        }
+    }
+
 }

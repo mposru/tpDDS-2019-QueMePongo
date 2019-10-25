@@ -5,12 +5,11 @@
     </head>
     <body>
         <h1>
-            Guardarropas de:
-<!--            Nombre del usuario logeado{{ nombreGuardarropa }}-->
+            Mis Guardarropas
         </h1>
         {{#each}}
             <div class="guardarropa">
-                <form method="get" action="/prendas?guardarropa={{nombreGuardarropa}}">
+                <form method="get" action="/prendas">
                     <input type="submit" name="guardarropas" value="{{nombreGuardarropa}}" class="btn btn-info"/>
                 </form>
             </div>

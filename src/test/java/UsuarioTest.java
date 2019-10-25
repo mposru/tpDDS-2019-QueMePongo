@@ -409,14 +409,14 @@ public class UsuarioTest {
         Prenda otraPrendaVacia = new Prenda(TipoDePrenda.NINGUNO_SUPERIOR, Material.NINGUNO, new Color(0,0, 0), null, Trama.NINGUNO, guardarropaDeMarina,  false);
 
         nana.agregarGuardarropa(guardarropaDeMarina);
-        nana.obtenerGuardarropas().forEach(guardarropa -> guardarropa.guardarPrenda(musculosa));
-        nana.obtenerGuardarropas().forEach(guardarropa -> guardarropa.guardarPrenda(crocs));
-        nana.obtenerGuardarropas().forEach(guardarropa -> guardarropa.guardarPrenda(shortDeJean));
-        nana.obtenerGuardarropas().forEach(guardarropa -> guardarropa.guardarPrenda(pollera));
-        nana.obtenerGuardarropas().forEach(guardarropa -> guardarropa.guardarPrenda(pañuelo));
-        nana.obtenerGuardarropas().forEach(guardarropa -> guardarropa.guardarPrenda(anteojos));
+        nana.getGuardarropas().forEach(guardarropa -> guardarropa.guardarPrenda(musculosa));
+        nana.getGuardarropas().forEach(guardarropa -> guardarropa.guardarPrenda(crocs));
+        nana.getGuardarropas().forEach(guardarropa -> guardarropa.guardarPrenda(shortDeJean));
+        nana.getGuardarropas().forEach(guardarropa -> guardarropa.guardarPrenda(pollera));
+        nana.getGuardarropas().forEach(guardarropa -> guardarropa.guardarPrenda(pañuelo));
+        nana.getGuardarropas().forEach(guardarropa -> guardarropa.guardarPrenda(anteojos));
 
-        nana.obtenerGuardarropas().forEach(guardarropa -> guardarropa.definirMeteorologo(accuWeather));
+        nana.getGuardarropas().forEach(guardarropa -> guardarropa.definirMeteorologo(accuWeather));
         nana.generarSugerenciasParaProximoEvento();
         AtuendosSugeridosPorEvento sugerenciasProximoEvento = nana.obtenerAtuendosSugeridosProximoEvento();
         List<Atuendo> sugerencias = sugerenciasProximoEvento.getAtuendosSugeridos();

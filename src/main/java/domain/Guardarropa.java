@@ -40,6 +40,7 @@ public class Guardarropa {
 
     private TipoDeGuardarropa tipoDeGuardarropa;
 
+
     public Guardarropa(String nombreGuardarropa, Set<Usuario> usuarios, TipoDeGuardarropa tipoDeGuardarropa) {
         this.nombreGuardarropa = requireNonNull(nombreGuardarropa, "Debe ingresar un nombre para el guardarropa");
         this.usuarios = requireNonNull(usuarios, "Debe ingresar un conjunto de usuarios");
@@ -65,9 +66,7 @@ public class Guardarropa {
         return (this.prendasSuperiores.size() + this.prendasInferiores.size() + this.accesorios.size() + this.calzados.size());
     }
 
-    public Set<Prenda> getPrendasSuperiores() {
-        return prendasSuperiores;
-    }
+    public Set<Prenda> getPrendasSuperiores() { return prendasSuperiores; }
 
     public Set<Prenda> getPrendasInferiores() {
         return prendasInferiores;
@@ -208,11 +207,9 @@ public class Guardarropa {
         return nombreGuardarropa;
     }
 
-    public void setNombreGuardarropa(String nombreGuardarropa) {
-        this.nombreGuardarropa = nombreGuardarropa;
-    }
-
     public long getId() {
         return id;
     }
+
+
 }

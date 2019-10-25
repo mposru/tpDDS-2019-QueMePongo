@@ -3,6 +3,11 @@ package controller;
 import domain.*;
 import domain.guardarropa.Gratuito;
 import domain.guardarropa.Premium;
+import domain.prenda.Color;
+import domain.prenda.Material;
+import domain.prenda.TipoDePrenda;
+import domain.prenda.Trama;
+import domain.usuario.Calendario;
 import spark.ModelAndView;
 import spark.Request;
 import spark.Response;
@@ -10,44 +15,45 @@ import spark.Response;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 public class ControllerGuardarropas {
     public ModelAndView guardarropas(Request req, Response res) {
-//        Usuario usuarioPrueba = this.crear();
-        List<Guardarropa> guardarropas = new ArrayList<>();
-        Guardarropa guardarropa1 = new Guardarropa("Guardarropa1",new HashSet<>(),new Premium());
-        Guardarropa guardarropa2 = new Guardarropa("Guardarropa2",new HashSet<>(),new Gratuito(2));
-        guardarropas.add(guardarropa1);
-        guardarropas.add(guardarropa2);
+        Usuario usuarioPrueba = this.crear();
+        res.cookie("uid","0");
 
-        return new ModelAndView(guardarropas, "guardarropasII.hbs");
+        return new ModelAndView(usuarioPrueba.getGuardarropas(), "guardarropasII.hbs");
     }
 
 
-//    public Usuario crear() {
-//        Calendario calendarioMerlin = new Calendario();
-//        Usuario merlin = new Usuario( "1543333322", calendarioMerlin);
-//
-//        Set<Usuario> merlinLista = new HashSet<>();
-//        merlinLista.add(merlin);
-//
-//        Guardarropa guardarropaDeMerlin = new Guardarropa("Guardarropa1",merlinLista,new Premium());
-//
-//        Prenda pantalon = new Prenda(TipoDePrenda.PANTALON, Material.ALGODON, new Color(1,2,3), null, Trama.CUADROS, guardarropaDeMerlin, true);
-//        Prenda zapatos = new Prenda(TipoDePrenda.ZAPATO, Material.CUERO, new Color(1,2,3), null, Trama.LISA, guardarropaDeMerlin, true);
-//        Prenda shortDeJean = new Prenda(TipoDePrenda.SHORT, Material.JEAN, new Color(1,2,3), null, Trama.LISA, guardarropaDeMerlin, false);
-//        Prenda pollera = new Prenda(TipoDePrenda.POLLERA, Material.ALGODON, new Color(1,2,3), null, Trama.LISA, guardarropaDeMerlin, false);
-//        Prenda pañuelo = new Prenda(TipoDePrenda.PANUELO, Material.ALGODON, new Color(1,2,3), null, Trama.LISA, guardarropaDeMerlin, false);
-//
-//        guardarropaDeMerlin.guardarPrenda(pantalon);
-//        guardarropaDeMerlin.guardarPrenda(zapatos);
-//        guardarropaDeMerlin.guardarPrenda(shortDeJean);
-//        guardarropaDeMerlin.guardarPrenda(pollera);
-//        guardarropaDeMerlin.guardarPrenda(pañuelo);
-//
-//        merlin.agregarGuardarropa(guardarropaDeMerlin);
-//
-//        return merlin;
-//    }
+    public Usuario crear() {
+
+        Usuario usuario = new Usuario( "1543333322", new Calendario());
+
+        Set<Usuario> usuariosLista = new HashSet<>();
+        usuariosLista.add(usuario);
+
+        Guardarropa guardarropa1 = new Guardarropa("Guardarropa1",new HashSet<>(),new Premium());
+        Guardarropa guardarropa2 = new Guardarropa("Guardarropa2",new HashSet<>(),new Gratuito(2));
+
+
+        Prenda pantalon = new Prenda("Pantalon",TipoDePrenda.PANTALON, Material.ALGODON, new Color(1,2,3), null, Trama.CUADROS, guardarropa1, true);
+        Prenda zapatos = new Prenda("Zapatos",TipoDePrenda.ZAPATO, Material.CUERO, new Color(1,2,3), null, Trama.LISA, guardarropa1, true);
+        Prenda shortDeJean = new Prenda("ShortDeJean", TipoDePrenda.SHORT, Material.JEAN, new Color(1,2,3), null, Trama.LISA, guardarropa1, false);
+        Prenda pollera = new Prenda("Pollera", TipoDePrenda.POLLERA, Material.ALGODON, new Color(1,2,3), null, Trama.LISA, guardarropa2, false);
+        Prenda pañuelo = new Prenda("Pañuelo",TipoDePrenda.PANUELO, Material.ALGODON, new Color(1,2,3), null, Trama.LISA, guardarropa2, false);
+
+        guardarropa1.guardarPrenda(pantalon);
+        guardarropa1.guardarPrenda(zapatos);
+        guardarropa1.guardarPrenda(shortDeJean);
+        guardarropa2.guardarPrenda(pollera);
+        guardarropa2.guardarPrenda(pañuelo);
+
+        usuario.agregarGuardarropa(guardarropa2);
+        usuario.agregarGuardarropa(guardarropa1);
+
+        RepositorioDeUsuarios.getInstance().agregarUsuario(usuario);
+        return usuario;
+    }
 
 }

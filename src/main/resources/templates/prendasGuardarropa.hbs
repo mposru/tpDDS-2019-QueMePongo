@@ -2,16 +2,23 @@
 <head>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <link rel="stylesheet" href="../../main.css">
+    <style>
+        .h2, h2 {
+            font-size: 2rem;
+            background-color: rgba(0,0,0,.075);
+        }
+    </style>
 </head>
 <body>
     <h1>
         Nombre: {{ nombreGuardarropa }}
     </h1>
 
+
     <h2>
         Prendas Superiores
     </h2>
-    <div class="card-columns">
+    <div class="card-columns" >
         {{#each prendasSuperiores}}
             <div class="card text-white bg-success mb-3" style="max-width: 18rem;">
                 <img src="/remera.png"  class="rounded-sm" alt="left">
