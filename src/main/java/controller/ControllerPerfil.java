@@ -11,4 +11,8 @@ public class ControllerPerfil {
         model.put("id", id);
         return new ModelAndView(model, "perfil.hbs"); //Info del usuario logeado
     }
+    public ModelAndView seleccion(Request req, Response res) {
+        res.redirect("/altaDePrenda");
+        return null;
+    }
 }

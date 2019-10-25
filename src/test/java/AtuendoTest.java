@@ -37,7 +37,7 @@ public class AtuendoTest {
 
     @Before
     public void iniciarTest() {
-        this.carlos = new Usuario("1534544344", calendario, "carlos123");
+        this.carlos = new Usuario("1534544344", calendario, "carlos123","","");
         Set<Usuario> carlosLista = new HashSet<>();
         carlosLista.add(carlos);
         this.guardarropa = new Guardarropa(carlosLista, new Premium());

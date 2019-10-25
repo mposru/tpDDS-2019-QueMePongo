@@ -1,0 +1,312 @@
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+<link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<!DOCTYPE html><html lang='es' class=''>
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script type="text/javascript">
+        function Colores(){
+        ShowSelected();
+        if(document.getElementById('verde1').value == '' || document.getElementById('azul1').value == '' || document.getElementById('rojo1').value == ''||document.getElementById('temM').value==''||document.getElementById('temN').value==''){
+        window.alert("Cuidado que no lleno todos los campos");
+        }
+        else if(Number(document.getElementById('temN').value)>Number(document.getElementById('temM').value)){
+        window.alert("Cuidado con las temperaturas");
+        }
+        }
+        function Guardarropa(){
+        if(document.getElementById('num').value==''){
+        window.alert("Cuidado que no coloco el id del guardarropa");
+        document
+        }
+        Colores();
+        ShowSelected();
+        }
+        function Comprobar() {
+        Guardarropa();
+        if(document.getElementById('verde1').value != '' && document.getElementById('azul1').value == '' && document.getElementById('rojo1').value != '' && document.getElementById('num').value!=''){
+        windows.alert("Se esta verificando la prenda");
+        document.getElementById("form1").action = "/altaDePrenda";
+        document.getElementById("form1").method = "POST";
+        }
+        }
+        function ShowSelected(){
+            document.getElementById("verde1C").value = document.getElementById("verde1").value;
+            document.getElementById("azul1C").value = document.getElementById("azul1").value;
+            document.getElementById("rojo2C").value = document.getElementById("rojo2").value;
+            document.getElementById("verde2C").value = document.getElementById("verde2").value;
+            document.getElementById("azul2C").value = document.getElementById("azul2").value;
+            document.getElementById("rojo1C").value = document.getElementById("rojo1").value;
+            document.getElementById("tipoDeMaterial").value = document.getElementById("tipoDeP").value;
+            document.getElementById("tipoDeTrama").value = document.getElementById("tipoDeT").value;
+            document.getElementById("tipoDePrenda").value = document.getElementById("catPrenda").value;
+            document.getElementById("numC").value = document.getElementById("num").value;
+            document.getElementById("temMC").value = document.getElementById("temM").value;
+            document.getElementById("temNC").value = document.getElementById("temN").value;
+        }
+    </script>
+
+    <style>
+	 body {
+    margin-top:30px;
+    }
+    .stepwizard-step p {
+    margin-top: 0px;
+    color:#666;
+    }
+    .stepwizard-row {
+    display: table-row;
+    }
+    .stepwizard {
+    display: table;
+    width: 100%;
+    position: relative;
+    }
+    .stepwizard-step button[disabled] {
+    /*opacity: 1 !important;
+    filter: alpha(opacity=100) !important;*/
+    }
+    .stepwizard .btn.disabled, .stepwizard .btn[disabled], .stepwizard fieldset[disabled] .btn {
+    opacity:1 !important;
+    color:#bbb;
+    }
+    .stepwizard-row:before {
+    top: 14px;
+    bottom: 0;
+    position: absolute;
+    content:" ";
+    width: 100%;
+    height: 1px;
+    background-color: #ccc;
+    z-index: 0;
+}
+.stepwizard-step {
+    display: table-cell;
+    text-align: center;
+    position: relative;
+}
+.btn-circle {
+    width: 30px;
+    height: 30px;
+    text-align: center;
+    padding: 6px 0;
+    font-size: 12px;
+    line-height: 1.428571429;
+    border-radius: 15px;
+}
+	</style>
+</head>
+<body>
+<div class="container">
+    <div class="stepwizard">
+        <div class="stepwizard-row setup-panel">
+            <div class="stepwizard-step col-xs-3">
+                <a href="#step-1" type="button" class="btn btn-success btn-circle">1</a>
+                <p><small>Seleccion de numerica</small></p>
+            </div>
+            <div class="stepwizard-step col-xs-3">
+                <a href="#step-2" type="button" class="btn btn-default btn-circle" onclick="Colores();" disabled="disabled">2</a>
+                <p><small>Definicion de prenda</small></p>
+            </div>
+            <div class="stepwizard-step col-xs-3">
+                <a href="#step-3" type="button" class="btn btn-default btn-circle" onclick="Colores();" disabled="disabled">3</a>
+                <p><small>Seleccionar guardarropa</small></p>
+            </div>
+            <div class="stepwizard-step col-xs-3">
+                <a href="#step-4" type="button" class="btn btn-default btn-circle" onclick="Guardarropa();" disabled="disabled">4</a>
+                <p><small>Confirmar</small></p>
+            </div>
+        </div>
+    </div>
+
+    <form role="form" action="/perfil" method="GET">
+        <div class="panel panel-primary setup-content" id="step-1">
+            <div class="panel-heading">
+                <h3 class="panel-title">Seleccion de colores</h3>
+            </div>
+            <div class="panel-body">
+                <div class="form-group">
+                    <label class="control-label">Color Primario</label>
+                    <p>Rojo: <input type="number" min="0" max="300" id="rojo1" required="required"> Verde: <input type="number" min="0" max="300" id="verde1" required="required"> Azul: <input type="number"  min="0" max="300" id="azul1" required="required"></p>
+                </div>
+                <div class="form-group">
+                    <label class="control-label">Color Secundario</label>
+                    <p>Rojo: <input type="number"  id="rojo2" min="0" max="300" required="required"> Verde: <input type="number" id="verde2"  min="0" max="300" required="required"> Azul: <input type="number" id="azul2" min="0" max="300" required="required"></p>
+                </div>
+                <div class="form-group">
+                    <label class="control-label">Temperatura Maxima</label>
+                    <p>Max: <input type="number" min="0" max="100" id="temM" required="required"> </p>
+                </div>
+                <div class="form-group">
+                    <label class="control-label">Temperatura Minima</label>
+                    <p>Max: <input type="number" min="0" max="100" id="temN" required="required"> </p>
+                </div>
+                <button class="btn btn-primary nextBtn pull-right" type="button" onclick="Colores();">Proximo</button>
+            </div>
+        </div>
+
+
+        <div class="panel panel-primary setup-content" id="step-2">
+            <div class="panel-heading">
+                <h3 class="panel-title">Definicion de prenda</h3>
+            </div>
+            <div class="panel-body">
+                <div class="form-group">
+                    <label class="control-label">Seleccionar Tipo de Prenda: </label>
+                    <select name="tipoDePrenda" id="catPrenda">
+
+                        <option selected>{{cat0}}</option>
+                        <option>{{cat1}}</option>
+                        <option>{{cat2}}</option>
+                        <option>{{cat3}}</option>
+                        <option>{{cat4}}</option>
+                        <option>{{cat5}}</option>
+                        <option>{{cat6}}</option>
+                        <option>{{cat7}}</option>
+                        <option>{{cat8}}</option>
+                        <option>{{cat9}}</option>
+                        <option>{{cat10}}</option>
+                        <option>{{cat11}}</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label class="control-label">Seleccionar Tipo de Material De La Prenda: </label>
+                    <select name="tipoDePrenda" id="tipoDeP">
+                        <option selected>{{mat0}}</option>
+                        <option>{{mat1}}</option>
+                        <option>{{mat2}}</option>
+                        <option>{{mat3}}</option>
+                        <option>{{mat4}}</option>
+                        <option>{{mat5}}</option>
+                        <option>{{mat6}}</option>
+                        <option>{{mat7}}</option>
+                        <option>{{mat8}}</option>
+                        <option>{{mat9}}</option>
+                        <option>{{mat10}}</option>
+                        <option>{{mat11}}</option>
+                        <option>{{mat12}}</option>
+                        <option>{{mat13}}</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label class="control-label">Seleccionar Tipo de Trama De La Prenda: </label>
+                    <select name="tipoDeTrama" id="tipoDeT">
+                        <option selected>{{tra0}}</option>
+                        <option>{{tra1}}</option>
+                        <option>{{tra2}}</option>
+                        <option>{{tra3}}</option>
+                        <option>{{tra4}}</option>
+                        <option>{{tra5}}</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label class="control-label">Seleccionar si es para lluvia: </label>
+                    <select name="resLLuvia" id="resLLuvia">
+                        <option selected>true</option>
+                        <option>false</option>
+                    </select>
+                </div>
+                <button class="btn btn-primary nextBtn pull-right" type="button" onclick="Tipos();">Proximo</button>
+            </div>
+        </div>
+
+        <div class="panel panel-primary setup-content" id="step-3">
+            <div class="panel-heading">
+                <h3 class="panel-title">Elegir Guardarropa</h3>
+            </div>
+            <div class="panel-body">
+                <div class="form-group">
+                    <label class="control-label">Ponga el id de su guardarropa</label>
+                    <p>Id: <input type="number"  id="num" min="0" max="300" required="required"></p>
+                </div>
+                <button class="btn btn-primary nextBtn pull-right" type="button" onclick="Guardarropa();">Proximo</button>
+            </div>
+        </div>
+
+        <div class="panel panel-primary setup-content" id="step-4">
+            <div class="panel-heading">
+                <h3 class="panel-title">Confirmacion</h3>
+            </div>
+            <div class="panel-body">
+                <div class="form-group">
+                    <label class="control-label">Color Primario</label>
+                    <p>Rojo: <input type="number" name="rojo1C" id="rojo1C" disabled></p><p> Verde: <input type="number" name="verde1C" id="verde1C" disabled></p><p> Azul: <input type="number" name="azul1C" id="azul1C" disabled></p>
+                </div>
+                <div class="form-group">
+                    <label class="control-label">Color Secundario</label>
+                    <p>Rojo: <input type="number" name="rojo2C" id="rojo2C" disabled></p><p> Verde: <input type="number" name="verde2C" id="verde2C" disabled></p><p> Azul: <input type="number" name="azul2C" id="azul2C" disabled></p>
+                </div>
+                <div class="form-group">
+                    <label class="control-label">Tipo De Prenda</label>
+                    <p>Tipo: <input name="tipoDePrenda" id="tipoDePrenda" disabled> </p>
+                </div>
+                <div>
+                    <label class="control-label">Tipo De Material De Prenda</label>
+                    <p>Tipo: <input name="tipoDeMaterial" id="tipoDeMaterial" disabled> </p>
+                </div>
+                <div>
+                    <label class="control-label">Tipo De Trama De Prenda</label>
+                    <p>Tipo: <input name="tipoDeTrama" id="tipoDeTrama" disabled> </p>
+                </div>
+                <div>
+                    <label class="control-label">Guardarropa</label>
+                    <p>Id: <input name="numC" id="numC" disabled> </p>
+                </div>
+                <div>
+                    <label class="control-label">Temp Min</label>
+                    <p>Min: <input name="numC" id="temNC" disabled> °C</p>
+                </div>
+                <div>
+                    <label class="control-label">Temp Max</label>
+                    <p>Max: <input name="numC" id="temMC" disabled> °C</p>
+                </div>
+                <button class="btn btn-success pull-right" type="submit" onclick="Comprobar();">Finalizar</button>
+            </div>
+        </div>
+    </form>
+</div>
+
+<script>
+	$(document).ready(function () {
+    var navListItems = $('div.setup-panel div a'),
+        allWells = $('.setup-content'),
+        allNextBtn = $('.nextBtn');
+
+    allWells.hide();
+
+    navListItems.click(function (e) {
+        e.preventDefault();
+        var $target = $($(this).attr('href')),
+            $item = $(this);
+
+        if (!$item.hasClass('disabled')) {
+            navListItems.removeClass('btn-success').addClass('btn-default');
+            $item.addClass('btn-success');
+            allWells.hide();
+            $target.show();
+            $target.find('input:eq(0)').focus();
+        }
+    });
+
+    allNextBtn.click(function () {
+        var curStep = $(this).closest(".setup-content"),
+            curStepBtn = curStep.attr("id"),
+            nextStepWizard = $('div.setup-panel div a[href="#' + curStepBtn + '"]').parent().next().children("a"),
+            curInputs = curStep.find("input[type='text'],input[type='url']"),
+            isValid = true;
+
+        $(".form-group").removeClass("has-error");
+        for (var i = 0; i < curInputs.length; i++) {
+            if (!curInputs[i].validity.valid) {
+                isValid = false;
+                $(curInputs[i]).closest(".form-group").addClass("has-error");
+            }
+        }
+
+        if (isValid) nextStepWizard.removeAttr('disabled').trigger('click');
+    });
+
+    $('div.setup-panel div a.btn-success').trigger('click');
+});
+</script>
+</body>
