@@ -1,5 +1,6 @@
 package db;
 
+import domain.Atuendo;
 import domain.Guardarropa;
 import domain.Prenda;
 import domain.Usuario;
@@ -38,6 +39,21 @@ public class PersistenceTest {
     private TipoDePrenda remeraDeportiva;
     private TipoDePrenda pollera;
 
+
+    private Atuendo atuendoVerano;
+    private Prenda musculosa;
+    private Prenda blusa;
+    private Prenda zapatos;
+    private Prenda shortDeJean;
+    private Prenda anteojos;
+    private Prenda bufandaRoja;
+    private Prenda guantesCuero;
+    private Color color;
+    private Usuario carlos;
+    private Prenda polleraDeJean;
+    private Set<Prenda> superiores = new HashSet<>();
+
+
     @Before
     public void iniciarTest() {
         this.emf = Persistence.createEntityManagerFactory("quemepongo");
@@ -57,10 +73,14 @@ public class PersistenceTest {
         usuariosConFlor.add(alexis);
 
         this.remeraDeportiva = new TipoDePrenda(Categoria.PARTE_SUPERIOR_ABAJO, Arrays.asList(Material.POLYESTER), 30, 20);
+        this.remeraDeportiva.setNombreTipoPrenda("remera deportiva");
         this.crocs = new TipoDePrenda(Categoria.CALZADO, Arrays.asList(Material.GOMA), 40, 18);
+        this.crocs.setNombreTipoPrenda("crocs y ojotas");
         this.pollera = new TipoDePrenda(Categoria.PARTE_INFERIOR, Arrays.asList(Material.JEAN), 40, 18);
-
+        this.pollera.setNombreTipoPrenda("Pollera");
         this.guardarropa = new Guardarropa(usuariosConFlor,new Premium());
+
+        //creo las ojotas a partir del borrador
         this.ojotasHavaianasBorrador = new Borrador();
         this.ojotasHavaianasBorrador.definirNombre("ojotas havaianas");
         this.ojotasHavaianasBorrador.definirColorPrimario(new Color(10,86,88));
@@ -70,10 +90,40 @@ public class PersistenceTest {
         this.ojotasHavaianasBorrador.definirEsParaLLuvia(true);
         this.ojotasHavaianasBorrador.definirGuardarropa(guardarropa);
         this.ojotasHavaianas =  ojotasHavaianasBorrador.crearPrenda();
+
+        // para el atuendo
+        this.musculosa = new Prenda(TipoDePrenda.MUSCULOSA, Material.ALGODON, color, null, Trama.CUADROS, guardarropa, false, "musculosa");
+        this.blusa = new Prenda(TipoDePrenda.BLUSA, Material.ALGODON, color, null, Trama.CUADROS, guardarropa, false, "blusa");
+        this.zapatos = new Prenda(TipoDePrenda.ZAPATO, Material.CUERO, color, null, Trama.LISA, guardarropa, true,"zapato de cuero");
+        this.shortDeJean = new Prenda(TipoDePrenda.SHORT, Material.JEAN, color, null, Trama.LISA, guardarropa, false,"short de jean");
+        this.polleraDeJean = new Prenda(TipoDePrenda.POLLERA, Material.JEAN, color, null, Trama.LISA, guardarropa, false,"pollera");
+        this.anteojos = new Prenda(TipoDePrenda.ANTEOJOS, Material.PLASTICO, color, null, Trama.LISA, guardarropa, false, "anteojos");
+        this.bufandaRoja = new Prenda(TipoDePrenda.BUFANDA, Material.LANA, color, null, Trama.LISA, guardarropa, false,"bufanda");
+        this.guantesCuero = new Prenda(TipoDePrenda.GUANTES, Material.CUERO, color, null, Trama.LISA, guardarropa, false,"guantes");
+        this.superiores.add(musculosa);
+        this.atuendoVerano = new Atuendo(superiores, shortDeJean, ojotasHavaianas, anteojos, bufandaRoja, guantesCuero);
+        this.atuendoVerano.setNombre("atuendo veraniego");
     }
 
     @Rule
     public ExpectedException exception = ExpectedException.none();
+
+    @Test
+    public void persistirUsuario() {
+        try {
+            manager.getTransaction().begin();
+            manager.persist(alexis);
+            manager.getTransaction().commit();
+            manager.flush();
+        }
+        catch (Exception e) {
+            e.printStackTrace();
+        }
+        finally {
+            manager.close();
+        }
+
+    }
 
 
 
@@ -94,6 +144,23 @@ public class PersistenceTest {
         }
 
     }
+    @Test
+    public void persistirAtuendoConSusPrendas() {
+        try {
+            manager.getTransaction().begin();
+            manager.persist(atuendoVerano);
+            manager.getTransaction().commit();
+            manager.flush();
+        }
+        catch (Exception e) {
+            e.printStackTrace();
+        }
+        finally {
+            manager.close();
+        }
+
+    }
+
 
     @Test
     public void persistirTipoDePrenda() {
@@ -150,22 +217,6 @@ public class PersistenceTest {
     }
 
 
-    @Test
-    public void persistirUsuario() {
-        try {
-            manager.getTransaction().begin();
-            manager.persist(alexis);
-            manager.getTransaction().commit();
-            manager.flush();
-        }
-        catch (Exception e) {
-            e.printStackTrace();
-        }
-        finally {
-            manager.close();
-        }
-
-    }
 
     @Test
     public void persistirCalendario() {

@@ -16,7 +16,7 @@ public class Prenda {
 
     private String nombre;
 
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "tipo_prenda_id",columnDefinition = "int(11) NOT NULL")
     private TipoDePrenda tipoDePrenda;
 

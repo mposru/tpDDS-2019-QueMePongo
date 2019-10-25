@@ -25,6 +25,9 @@ public class TipoDePrenda {
     @Enumerated(EnumType.STRING)
     private Categoria categoria;
 
+    @Column(name="nombre_tipo_prenda")
+    private String nombreTipoPrenda;
+
     @Transient
     private List<Material> materialesValidos;
 
@@ -96,6 +99,14 @@ public class TipoDePrenda {
 
     public List<Material> obtenerMaterialesValidos() {
         return materialesValidos;
+    }
+
+    public String getNombreTipoPrenda() {
+        return nombreTipoPrenda;
+    }
+
+    public void setNombreTipoPrenda(String nombreTipoPrenda) {
+        this.nombreTipoPrenda = nombreTipoPrenda;
     }
 
     @Override
