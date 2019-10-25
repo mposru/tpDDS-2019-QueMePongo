@@ -81,7 +81,7 @@ public class ControllerCalendario {
     }
 
     public Usuario crearUsuario() {
-        Usuario usuario = new Usuario("1534522454", new Calendario(), "");
+        Usuario usuario = new Usuario("1534522454", new Calendario(),"123abc","email","nombre");
         usuario.getCalendario()
                 .agregarEvento(new Evento("Parcial Fisica", "UTN",
                         LocalDateTime.of(2019, 10, 14, 17, 50, 30),

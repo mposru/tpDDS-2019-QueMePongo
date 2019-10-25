@@ -28,7 +28,7 @@ public class ControllerGuardarropas {
 
     public Usuario crear() {
 
-        Usuario usuario = new Usuario( "1543333322", new Calendario(),"abc123");
+        Usuario usuario = new Usuario( "1543333322", new Calendario(),"abc123","email","nombre");
 
         Set<Usuario> usuariosLista = new HashSet<>();
         usuariosLista.add(usuario);

@@ -61,7 +61,7 @@ public class PersistenceTest {
         this.manager = emf.createEntityManager();
         this.fechaPartido = LocalDateTime.now();//LocalDateTime.of(2019,10,22,21,30,0);
         //LocalDateTime.of(2019,10,22,21,30,0)
-        this.alexis = new Usuario("+54911651651",null,"1234");
+        this.alexis = new Usuario("+54911651651",null,"1234","email","nombre");
         this.alexis.setNombreUsuario("alexis");
 
         this.eventoPersistente = new Evento("Partido Boca-River","La Boca",fechaPartido , Periodo.NINGUNO,2);

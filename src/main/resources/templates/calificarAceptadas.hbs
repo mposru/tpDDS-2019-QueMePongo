@@ -1,0 +1,23 @@
+<html>
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" href="../../main.css">
+</head>
+<body>
+<form action="/calificarAceptadas" action="POST">
+<h1>
+    {{#each prendasAceptados}}
+    <div class="prenda">
+        <div class="detalles">
+            <h2>id de  Prenda: {{id}}</h2>
+            <p>Max: <input type="number" min="0" max="100" id="{{id}}" required="required"> </p>
+        </div>
+    </div>
+    {{/each}}
+    <p><button type="submit" name="cerrarSesion" onclick="Sesion();">Finalizar</button></p>
+</h1>
+<input type="submit">
+</form>
+</body>
+</html>

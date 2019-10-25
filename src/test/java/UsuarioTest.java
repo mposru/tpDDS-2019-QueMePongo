@@ -304,8 +304,8 @@ public class UsuarioTest {
         this.calendarioNana = new Calendario();
         this.calendarioMerlin = new Calendario();
         this.accuWeather = Mockito.spy(new AccuWeather());
-        this.merlin = new Usuario( "1543333322", calendarioMerlin,"contraseniaLoca");
-        this.maria = new Usuario("1543333322",calendarioMaria, "contraseniaLoca");
+        this.merlin = new Usuario( "1543333322", calendarioMerlin,"contraseniaLoca","","");
+        this.maria = new Usuario("1543333322",calendarioMaria, "contraseniaLoca","","");
         Set<Usuario> merlinLista = new HashSet<>();
         merlinLista.add(merlin);
         Set<Usuario> mariaLista = new HashSet<>();
@@ -326,7 +326,7 @@ public class UsuarioTest {
         Set<Prenda> superiores = new HashSet<>();
         superiores.add(musculosa);
         this.atuendoVerano = new Atuendo(superiores, shortDeJean, crocs, anteojos, chalina, ningunAccesorioManos);
-        this.nana = new Usuario( "1534433333",calendarioNana,"Contrasenia123");
+        this.nana = new Usuario( "1534433333",calendarioNana,"Contrasenia123","","");
         doReturn(jsonClima).when(accuWeather).getJsonClima();
     }
 
