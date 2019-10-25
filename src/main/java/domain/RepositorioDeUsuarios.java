@@ -1,6 +1,8 @@
 package domain;
 
 
+import exceptions.NoExisteUsuarioException;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -35,5 +37,13 @@ public class RepositorioDeUsuarios {
         else {
             return usuariosEncontrados.get(0);
         }
+    }
+
+    public  Usuario buscarPorIdentificador(String identificador) {
+        Usuario usuario = usuariosTotal.stream()
+                .filter(usuarioAux -> identificador.equals(usuarioAux.getNombre())||identificador.equals(usuarioAux.getEmail()))
+                .findAny()
+                .orElseThrow(()->new NoExisteUsuarioException("No existe usuario con el nombre indicado"));
+        return usuario;
     }
 }
