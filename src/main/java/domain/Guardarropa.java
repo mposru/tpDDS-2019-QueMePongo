@@ -211,4 +211,8 @@ public class Guardarropa {
     public void setNombreGuardarropa(String nombreGuardarropa) {
         this.nombreGuardarropa = nombreGuardarropa;
     }
+
+    public long getId() {
+        return id;
+    }
 }

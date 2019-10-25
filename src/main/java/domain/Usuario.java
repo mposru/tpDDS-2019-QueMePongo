@@ -262,4 +262,8 @@ public class Usuario {
     public void setTiempoDeAnticipacion(int tiempoDeAnticipacion) {
         this.tiempoDeAnticipacion = tiempoDeAnticipacion;
     }
+
+    public long getId() {
+        return id;
+    }
 }

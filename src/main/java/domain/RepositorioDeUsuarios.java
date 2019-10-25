@@ -28,4 +28,14 @@ public class RepositorioDeUsuarios {
     }
 
     public void agregarUsuarioTotal(Usuario usuario) { usuariosTotal.add(usuario); }
+
+    public Usuario buscarUsuarioPorId(int id) {
+        List<Usuario> usuariosEncontrados = usuarios.stream().filter(usuario -> usuario.getId() == id).collect(Collectors.toList());
+        if(usuariosEncontrados.isEmpty()) {
+            return null;
+        }
+        else {
+            return usuariosEncontrados.get(0);
+        }
+    }
 }

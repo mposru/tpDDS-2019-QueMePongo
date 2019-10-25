@@ -8,13 +8,11 @@
             Guardarropas de:
 <!--            Nombre del usuario logeado{{ nombreGuardarropa }}-->
         </h1>
-        {{#each guardarropa}}
+        {{#each}}
             <div class="guardarropa">
-                <img src="/guardarropaModelo.jpg" alt="guardarropaModelo" />
-                <div class="detalles">
-                    <h2>{{nombreGuardarropa}}</h2>
-                    {{ color }}
-                </div>
+                <form method="get" action="/prendas?guardarropa={{nombreGuardarropa}}">
+                    <input type="submit" name="guardarropas" value="{{nombreGuardarropa}}" class="btn btn-info"/>
+                </form>
             </div>
         {{/each}}
     </body>
