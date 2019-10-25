@@ -299,7 +299,25 @@ public class Usuario {
     }
 
     public List<Atuendo> obtenerSugerenciasDeEvento(Evento evento) {
+        //todo: borrar
         List<Atuendo> sugerencias = new ArrayList<>();
+        Set<Prenda> prendasSuperiores2 = new HashSet<>();
+        Color color = new Color(2,2,2);
+        Set<Usuario> usuarios = new HashSet<>();
+        usuarios.add(this);
+        Guardarropa g = new Guardarropa(usuarios, new Gratuito(3));
+        Prenda remeraFutbol = new Prenda(TipoDePrenda.REMERA, Material.ALGODON, color, color, Trama.ESTAMPADO, g, false, "");
+        Prenda remeraFutbol2 = new Prenda(TipoDePrenda.BUZO, Material.ALGODON, color, color, Trama.ESTAMPADO, g, false, "");
+        Prenda pollera = new Prenda(TipoDePrenda.POLLERA, Material.ALGODON, color, color, Trama.LISA, g, false, "");
+        Prenda bandana = new Prenda(TipoDePrenda.PANUELO, Material.ALGODON, color, color, Trama.LISA, g, false, "");
+        Prenda sinAccesorioManos = new Prenda(TipoDePrenda.ACCESORIO_VACIO_MANOS, Material.NINGUNO, color, color, Trama.LISA, g, false, "");
+        Prenda sinAccesorioCuello = new Prenda(TipoDePrenda.ACCESORIO_VACIO_CUELLO, Material.NINGUNO, color, color, Trama.LISA, g, false, "");
+        Prenda ojotas = new Prenda(TipoDePrenda.CROCS, Material.GOMA, color, color, Trama.CUADROS, g, true, "");
+
+        prendasSuperiores2.add(remeraFutbol);
+        prendasSuperiores2.add(remeraFutbol2);
+        Atuendo primerAtuendo2 = new Atuendo(prendasSuperiores2, pollera, ojotas, bandana, sinAccesorioCuello, sinAccesorioManos);
+        sugerencias.add(primerAtuendo2);
         this.guardarropas.forEach(guardarropa -> guardarropa.generarSugerencia(evento, sensibilidad).forEach(sugerencia -> sugerencias.add(sugerencia)));
         return sugerencias;
     }

@@ -20,8 +20,8 @@ public class Calendario {
 
     String nombre;
     
-    @OneToMany (cascade = CascadeType.ALL)
-    @JoinColumn(name = "evento_id")
+    @ManyToMany (cascade = CascadeType.ALL)
+    @JoinTable(name = "calendario_evento",joinColumns = @JoinColumn(name="calendario_id"),inverseJoinColumns = @JoinColumn(name = "evento_id"))
     List<Evento> eventos = new ArrayList<>();
 
     public void agregarEvento(Evento evento) {

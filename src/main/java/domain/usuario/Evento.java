@@ -1,8 +1,6 @@
 package domain.usuario;
 
-import com.mysql.cj.protocol.ColumnDefinition;
 import domain.LocalDateTimeConverter;
-import domain.clima.AccuWeather;
 import domain.clima.Clima;
 import domain.clima.Meteorologo;
 import org.uqbar.commons.model.annotations.Observable;
@@ -13,7 +11,6 @@ import javax.persistence.Entity;
 import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-import java.awt.*;
 import java.time.Duration;
 import java.time.LocalDateTime;
 
@@ -49,8 +46,6 @@ public class Evento {
 
     @Column(name = "tiene_sugerencia")
     private Boolean tieneSugerencia = false;
-
-
 
     @Transient
     //TODO sacar de acá al meteorologo, no va en evento
