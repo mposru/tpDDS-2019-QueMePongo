@@ -29,7 +29,7 @@ public class Calendario {
     }
 
     public List<Evento> obtenerEventosPorFecha(LocalDate fecha) {
-        return eventos.stream().filter(evento -> evento.getFecha().toLocalDate() == fecha).collect(Collectors.toList());
+        return eventos.stream().filter(evento -> evento.getFecha().toLocalDate().isEqual(fecha)).collect(Collectors.toList());
     }
 
     public Evento obtenerProximoEvento() {
@@ -43,6 +43,10 @@ public class Calendario {
 
     public List<Evento> eventosProximos(){
         return eventos.stream().filter(evento -> evento.esProximo()).collect(Collectors.toList());
+    }
+
+    public List<Evento> obtenerEventos() {
+        return eventos;
     }
 
     public List<Evento> obtenerEventosEntreFechas(LocalDate fechaDesde, LocalDate fechaHasta) {

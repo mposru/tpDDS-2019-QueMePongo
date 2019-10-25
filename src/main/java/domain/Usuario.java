@@ -5,11 +5,16 @@ package domain;
 
 import java.time.LocalDateTime;
 import java.util.*;
+import java.util.stream.Collectors;
 
 import domain.clima.Clima;
+import domain.guardarropa.Gratuito;
 import domain.notificacion.Notificador;
 import domain.clima.Alerta;
+import domain.prenda.Color;
+import domain.prenda.Material;
 import domain.prenda.TipoDePrenda;
+import domain.prenda.Trama;
 import domain.usuario.*;
 import domain.usuario.transiciones.*;
 import exceptions.*;
@@ -293,6 +298,12 @@ public class Usuario {
         this.guardarropas.forEach(guardarropa -> guardarropa.generarSugerencia(evento, sensibilidad));
     }
 
+    public List<Atuendo> obtenerSugerenciasDeEvento(Evento evento) {
+        List<Atuendo> sugerencias = new ArrayList<>();
+        this.guardarropas.forEach(guardarropa -> guardarropa.generarSugerencia(evento, sensibilidad).forEach(sugerencia -> sugerencias.add(sugerencia)));
+        return sugerencias;
+    }
+
     public void agregarGuardarropa(Guardarropa guardarropa) {
         this.guardarropas.add(guardarropa);
     }
@@ -307,5 +318,13 @@ public class Usuario {
 
     public void setTiempoDeAnticipacion(int tiempoDeAnticipacion) {
         this.tiempoDeAnticipacion = tiempoDeAnticipacion;
+    }
+
+    public long getId() {
+        return this.id;
+    }
+
+    public List<Evento> obtenerEventos() {
+        return calendario.obtenerEventos().stream().sorted(Comparator.comparing(Evento::getFecha)).collect(Collectors.toList());
     }
 }
