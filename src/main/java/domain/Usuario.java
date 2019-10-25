@@ -62,7 +62,7 @@ public class Usuario {
 
    @OneToOne (cascade = CascadeType.ALL) //si borro el usuario me borra su calendario
    @JoinColumn(name = "calendario_id")
-    private Calendario calendario;
+   private Calendario calendario;
 
     @Column(name = "nombre_usuario")
     private String nombreUsuario;

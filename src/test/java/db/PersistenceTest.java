@@ -18,6 +18,7 @@ import org.junit.rules.ExpectedException;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.HashSet;
 import java.util.Set;
@@ -39,7 +40,7 @@ public class PersistenceTest {
     public void iniciarTest() {
         this.emf = Persistence.createEntityManagerFactory("quemepongo");
         this.manager = emf.createEntityManager();
-        this.fechaPartido = LocalDateTime.of(2019,10,22,21,30,0);
+        this.fechaPartido = LocalDateTime.now();//LocalDateTime.of(2019,10,22,21,30,0);
         //LocalDateTime.of(2019,10,22,21,30,0)
         this.alexis = new Usuario("+54911651651",null,"1234");
         this.alexis.setNombreUsuario("alexis");
@@ -162,7 +163,9 @@ public class PersistenceTest {
     @Test
     public void levantarUsuarioDeBBDD() {
         EntityManager em = emf.createEntityManager();
-        Usuario usuario = em.find(Usuario.class,1L);
+        Usuario usuario = em.find(Usuario.class,Long.valueOf(1));
+        Evento evento = em.find(Evento.class,Long.valueOf(1));
+        evento.getFecha();
         System.out.println("El usuario 1 de la base es: "+usuario.getNombreUsuario());
 
 
