@@ -22,20 +22,16 @@ public class Guardarropa {
     @Column(name = "guardarropa_id",columnDefinition = "int(11) NOT NULL")
     private long id;
 
-    @OneToMany
-    @JoinColumn(name = "prenda_id")
+    @OneToMany(mappedBy = "guardarropa")
     private Set<Prenda> prendasSuperiores = new HashSet<>();
 
-    @OneToMany
-    @JoinColumn(name = "prenda_id")
+    @OneToMany(mappedBy = "guardarropa")
     private Set<Prenda> accesorios = new HashSet<>();
 
-    @OneToMany
-    @JoinColumn(name = "prenda_id")
+    @OneToMany(mappedBy = "guardarropa")
     private Set<Prenda> prendasInferiores = new HashSet<>();
 
-    @OneToMany
-    @JoinColumn(name = "prenda_id")
+    @OneToMany(mappedBy = "guardarropa")
     private Set<Prenda> calzados = new HashSet<>();
 
     @ManyToMany (mappedBy = "guardarropas")
@@ -46,6 +42,7 @@ public class Guardarropa {
     @Transient
     private TipoDeGuardarropa tipoDeGuardarropa;
 
+    public Guardarropa(){}
 
     public Guardarropa(String nombreGuardarropa, Set<Usuario> usuarios, TipoDeGuardarropa tipoDeGuardarropa) {
         this.nombreGuardarropa = requireNonNull(nombreGuardarropa, "Debe ingresar un nombre para el guardarropa");

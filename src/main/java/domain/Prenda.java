@@ -50,8 +50,12 @@ public class Prenda {
     private boolean esParaLluvia;
     private boolean disponibilidad = true; //toda prenda inicia disponible
 
+
     @Transient
     private String nombreMaterial;
+
+    public Prenda(){}
+
 
     //todo: agregar el nombre de la prenda al constructor
     public Prenda(String nombreDePrenda,TipoDePrenda tipoDePrenda, Material material, Color colorPrimario, Color colorSecundario, Trama trama,
