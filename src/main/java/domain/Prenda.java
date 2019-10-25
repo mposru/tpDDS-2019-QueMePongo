@@ -13,7 +13,7 @@ public class Prenda {
     @GeneratedValue
     @Column(name = "prenda_id",columnDefinition = "int(11) NOT NULL")
     private long id;
-
+    @Column(name = "nombre")
     private String nombrePrenda;
 
     @ManyToOne(cascade = CascadeType.ALL)
@@ -50,6 +50,7 @@ public class Prenda {
     private boolean esParaLluvia;
     private boolean disponibilidad = true; //toda prenda inicia disponible
 
+    @Transient
     private String nombreMaterial;
 
     //todo: agregar el nombre de la prenda al constructor

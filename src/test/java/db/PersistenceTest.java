@@ -1,9 +1,6 @@
 package db;
 
-import domain.Atuendo;
-import domain.Guardarropa;
-import domain.Prenda;
-import domain.Usuario;
+import domain.*;
 import domain.guardarropa.Gratuito;
 import domain.guardarropa.Premium;
 import domain.prenda.*;
@@ -53,6 +50,7 @@ public class PersistenceTest {
     private Usuario carlos;
     private Prenda polleraDeJean;
     private Set<Prenda> superiores = new HashSet<>();
+    private Set<Usuario> usuariosConFlor = new HashSet<>();
 
 
     @Before
@@ -61,17 +59,14 @@ public class PersistenceTest {
         this.manager = emf.createEntityManager();
         this.fechaPartido = LocalDateTime.now();//LocalDateTime.of(2019,10,22,21,30,0);
         //LocalDateTime.of(2019,10,22,21,30,0)
-        this.alexis = new Usuario("+54911651651",null,"1234","email","nombre");
-        this.alexis.setNombreUsuario("alexis");
-
+        this.alexis = new Usuario("+54911651651",null,"1234","alexis.dona@gmail.com","Alexis");
         this.eventoPersistente = new Evento("Partido Boca-River","La Boca",fechaPartido , Periodo.NINGUNO,2);
         this.calendario = new Calendario();
         this.calendario.setNombre("calendarioLaboral");
         this.calendarioVacaciones = new Calendario();
         this.calendarioVacaciones.setNombre("Vacaciones norte de Argentina");
         this.alexis.setCalendario(calendarioVacaciones);
-        Set<Usuario> usuariosConFlor = new HashSet<>();
-        usuariosConFlor.add(alexis);
+        this.usuariosConFlor.add(alexis);
 
         this.remeraDeportiva = new TipoDePrenda(Categoria.PARTE_SUPERIOR_ABAJO, Arrays.asList(Material.POLYESTER), 30, 20);
         this.remeraDeportiva.setNombreTipoPrenda("remera deportiva");
@@ -80,6 +75,7 @@ public class PersistenceTest {
         this.pollera = new TipoDePrenda(Categoria.PARTE_INFERIOR, Arrays.asList(Material.JEAN), 40, 18);
         this.pollera.setNombreTipoPrenda("Pollera");
         this.guardarropa = new Guardarropa("GuardarropaFlor",usuariosConFlor,new Premium());
+        this.guardarropa.setNombreGuardarropa("guardarropa formal");
 
         //creo las ojotas a partir del borrador
         this.ojotasHavaianasBorrador = new Borrador();

@@ -49,8 +49,10 @@ public class Usuario {
     private LinkedList<Decision> decisiones = new LinkedList<>();
     @Column(name = "numero_celular")
     private String numeroDeCelular;
+    @Column(name = "nombre_usuario")
     private String nombre;
     private String email;
+    @Column(name = "contrasenia")
     private String contraseniaHash;
 
    /* @OneToMany
@@ -72,9 +74,6 @@ public class Usuario {
    @JoinColumn(name = "calendario_id")
    private Calendario calendario;
 
-    @Column(name = "nombre_usuario")
-    private String nombreUsuario;
-
    @Column(name = "tiempo_anticipacion")
     private int tiempoDeAnticipacion = 0; // variable que indica con cuanto tiempo antes quiere que le llegue sugerencia sobre evento (en horas)
 
@@ -86,14 +85,14 @@ public class Usuario {
     private Sensibilidad sensibilidad = new Sensibilidad();
 
     public String getContrasenia() {
-        return contrasenia;
+        return contraseniaHash;
     }
 
     public void setContrasenia(String contrasenia) {
-        this.contrasenia = contrasenia;
+        this.contraseniaHash = contrasenia;
     }
 
-    private String contrasenia;
+  //  private String contrasenia;
 
 
 
@@ -109,7 +108,7 @@ public class Usuario {
     public Usuario(String numeroDeCelular,Calendario miCalendario,String contrasenia,String email, String nombre) {
         this.numeroDeCelular = numeroDeCelular;
         this.calendario = miCalendario;
-        this.contrasenia = contrasenia;
+        this.contraseniaHash = contrasenia;
         this.email=email;
         this.contraseniaHash = SHA1.getInstance().convertirConHash(contrasenia);
         this.nombre = nombre;
@@ -325,11 +324,11 @@ public class Usuario {
     }
 
     public String getNombreUsuario() {
-        return nombreUsuario;
+        return nombre;
     }
 
     public void setNombreUsuario(String nombreUsuario) {
-        this.nombreUsuario = nombreUsuario;
+        this.nombre = nombreUsuario;
     }
 
     public void setTiempoDeAnticipacion(int tiempoDeAnticipacion) {

@@ -215,5 +215,8 @@ public class Guardarropa {
     public String getNombreGuardarropa() {
         return nombreGuardarropa;
     }
+    public void setNombreGuardarropa(String nombreGuardarropa) {
+        this.nombreGuardarropa = nombreGuardarropa;
+    }
 
 }
