@@ -19,6 +19,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 import java.time.LocalDateTime;
+import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -33,7 +34,9 @@ public class PersistenceTest {
     private Borrador ojotasHavaianasBorrador;
     private Guardarropa guardarropa;
     private Prenda ojotasHavaianas;
-
+    private TipoDePrenda crocs;
+    private TipoDePrenda remeraDeportiva;
+    private TipoDePrenda pollera;
 
     @Before
     public void iniciarTest() {
@@ -53,11 +56,15 @@ public class PersistenceTest {
         Set<Usuario> usuariosConFlor = new HashSet<>();
         usuariosConFlor.add(alexis);
 
+        this.remeraDeportiva = new TipoDePrenda(Categoria.PARTE_SUPERIOR_ABAJO, Arrays.asList(Material.POLYESTER), 30, 20);
+        this.crocs = new TipoDePrenda(Categoria.CALZADO, Arrays.asList(Material.GOMA), 40, 18);
+        this.pollera = new TipoDePrenda(Categoria.PARTE_INFERIOR, Arrays.asList(Material.JEAN), 40, 18);
+
         this.guardarropa = new Guardarropa(usuariosConFlor,new Premium());
         this.ojotasHavaianasBorrador = new Borrador();
         this.ojotasHavaianasBorrador.definirNombre("ojotas havaianas");
         this.ojotasHavaianasBorrador.definirColorPrimario(new Color(10,86,88));
-        this.ojotasHavaianasBorrador.definirTipo(TipoDePrenda.CROCS);
+        this.ojotasHavaianasBorrador.definirTipo(this.crocs);
         this.ojotasHavaianasBorrador.definirMaterial(Material.GOMA);
         this.ojotasHavaianasBorrador.definirTrama(Trama.NINGUNO);
         this.ojotasHavaianasBorrador.definirEsParaLLuvia(true);
@@ -87,6 +94,24 @@ public class PersistenceTest {
         }
 
     }
+
+    @Test
+    public void persistirTipoDePrenda() {
+        try {
+            manager.getTransaction().begin();
+            manager.persist(crocs);
+            manager.getTransaction().commit();
+            manager.flush();
+        }
+        catch (Exception e) {
+            e.printStackTrace();
+        }
+        finally {
+            manager.close();
+        }
+
+    }
+
 
     @Test
     public void persistirPrenda() {
@@ -160,12 +185,45 @@ public class PersistenceTest {
     }
 
     @Test
-    public void levantarUsuarioDeBBDD() {
+    public void levantarUsuarioDeBBDDyModificarCelular() {
         EntityManager em = emf.createEntityManager();
         Usuario usuario = em.find(Usuario.class,1L);
-        System.out.println("El usuario 1 de la base es: "+usuario.getNombreUsuario());
+        usuario.setNumeroDeCelular("+15847777");
+        try {
+            manager.getTransaction().begin();
+            manager.merge(usuario);
+            manager.getTransaction().commit();
+        }
+        catch (Exception e) {
+            manager.getTransaction().rollback();
+            e.printStackTrace();
+        }
+        finally {
+            manager.close();
+        }
 
 
     }
 
+    @Test
+    public void levantarUsuarioDeBBDDyModificarNombre() {
+        EntityManager em = emf.createEntityManager();
+        Usuario usuario = em.find(Usuario.class,2L);
+        usuario.setNombreUsuario("messi");
+        try {
+            manager.getTransaction().begin();
+            manager.merge(usuario);
+            manager.getTransaction().commit();
+         //   manager.flush();
+        }
+        catch (Exception e) {
+            manager.getTransaction().rollback();
+            e.printStackTrace();
+        }
+        finally {
+            manager.close();
+        }
+
+
+    }
 }
