@@ -9,11 +9,18 @@ import org.uqbar.commons.model.annotations.Observable;
 import org.uqbar.commons.model.annotations.Transactional;
 
 import javax.persistence.*;
+import javax.persistence.Entity;
+import javax.persistence.Enumerated;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import java.awt.*;
 import java.time.Duration;
 import java.time.LocalDateTime;
 
 import static java.util.Objects.requireNonNull;
 
+@Transactional
+@Observable
 @Entity
 @Table(name = "evento")
 public class Evento {
@@ -57,6 +64,7 @@ public class Evento {
         this.ubicacion = requireNonNull(ubicacion, "Debe ingresar una ubicación para el evento");
         this.antelacionEnHoras = requireNonNull(antelacionEnHoras,"Debe ingresar la antelacion del evento");
         this.tipoDeActualizacion=requireNonNull(tipoDeActualizacion,"Debe ingresar el tipo de periodicidad");
+        this.id = 3;
     }
 
     public void setearMeteorologo(Meteorologo meteorologo) {

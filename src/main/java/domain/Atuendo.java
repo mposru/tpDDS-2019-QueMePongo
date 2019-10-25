@@ -179,6 +179,30 @@ public class Atuendo {
         return accesorioManos;
     }
 
+    public Set<Prenda> getPrendasSuperiores() {
+        return prendasSuperiores;
+    }
+
+    public Prenda getPrendaInferior() {
+        return prendaInferior;
+    }
+
+    public Prenda getAccesorio() {
+        return accesorio;
+    }
+
+    public Prenda getCalzado() {
+        return calzado;
+    }
+
+    public Prenda getAccesorioCuello() {
+        return accesorioCuello;
+    }
+
+    public Prenda getAccesorioManos() {
+        return accesorioManos;
+    }
+
     public EstadoAtuendo obtenerEstadoAtuendo() { return this.estado; }
 
     public int obtenerCalificacionAnterior() {return this.estado.obtenerCalificacionAnterior();}
@@ -232,6 +256,11 @@ public class Atuendo {
                 && this.accesorioCuello.obtenerSiEsParaLluvia()
                 && this.accesorioManos.obtenerSiEsParaLluvia());
     }
+
+    public long getId() {
+        return id;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
