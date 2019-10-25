@@ -7,8 +7,8 @@ import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
 import java.util.Objects;
 
-/*@DiscriminatorValue("Nuevo")
-@Entity*/
+@DiscriminatorValue("Nuevo")
+@Entity
 public class Nuevo extends EstadoAtuendo {
     public Nuevo (Atuendo atuendo) {
         this.atuendo = atuendo;
