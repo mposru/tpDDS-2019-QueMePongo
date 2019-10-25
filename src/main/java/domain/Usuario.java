@@ -172,7 +172,7 @@ public class Usuario {
     }
 
 
-    public Set<Guardarropa> obtenerGuardarropas() {
+    public Set<Guardarropa> getGuardarropas() {
         return this.guardarropas;
     }
 
@@ -327,4 +327,17 @@ public class Usuario {
     public List<Evento> obtenerEventos() {
         return calendario.obtenerEventos().stream().sorted(Comparator.comparing(Evento::getFecha)).collect(Collectors.toList());
     }
+
+    public Guardarropa buscarGuardarropaPorNombre(String nombre){
+        List<Guardarropa> guardarropaEncontrados = guardarropas.stream()
+                .filter(guardarropa -> guardarropa.getNombreGuardarropa().equals(nombre))
+                .collect(Collectors.toList());
+        if(guardarropaEncontrados.isEmpty()) {
+            return null;
+        }
+        else {
+            return guardarropaEncontrados.get(0);
+        }
+    }
+
 }

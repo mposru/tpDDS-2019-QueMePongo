@@ -14,13 +14,14 @@ public class Server {
         Spark.init();
 
         ControllerGuardarropas controllerGuardarropas = new ControllerGuardarropas();
+        ControllerPrendasGuardarropa controllerPrendasGuardarropa = new ControllerPrendasGuardarropa();
         ControllerSesion controllerSesion = new ControllerSesion();
         ControllerCalendario controllerCalendario = new ControllerCalendario();
         ControllerEventos controllerEventos = new ControllerEventos();
 
         TemplateEngine engine = new HandlebarsTemplateEngine();
-
-        Spark.get("/guardarropa/prendas",controllerGuardarropas::prendas, engine);
+        Spark.get("/guardarropas",controllerGuardarropas::guardarropas, engine);
+        Spark.get("/prendas",controllerPrendasGuardarropa::prendas, engine);
         Spark.get("/login",controllerSesion::mostrarLogin, engine);
         Spark.post("/login",controllerSesion::crear, engine);
         /*Spark.post("/calendario/prev", controllerCalendario::irAlMesAnterior, engine);

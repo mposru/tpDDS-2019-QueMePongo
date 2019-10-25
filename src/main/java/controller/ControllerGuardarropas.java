@@ -1,32 +1,59 @@
 package controller;
 
-import domain.Guardarropa;
-import domain.RepositorioGuardarropas;
-import domain.Usuario;
+import domain.*;
+import domain.guardarropa.Gratuito;
+import domain.guardarropa.Premium;
+import domain.prenda.Color;
+import domain.prenda.Material;
+import domain.prenda.TipoDePrenda;
+import domain.prenda.Trama;
 import domain.usuario.Calendario;
 import spark.ModelAndView;
 import spark.Request;
 import spark.Response;
 
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
+
 public class ControllerGuardarropas {
-    public ModelAndView prendas(Request req, Response res) {
-        Guardarropa guardarropas =
-                RepositorioGuardarropas.instance()
-                        .findByUsuario(new Usuario("1534522454", new Calendario(), ""));
+    public ModelAndView guardarropas(Request req, Response res) {
+        Usuario usuarioPrueba = this.crear();
+        res.cookie("uid","0");
 
-        return new ModelAndView(guardarropas, "guardarropas.hbs");
+        return new ModelAndView(usuarioPrueba.getGuardarropas(), "guardarropasII.hbs");
     }
 
-/*    //en la clase usuario
 
-    private String passHash; //no se puede guardar una pass encriptada
-    // no se puede tampoco guardarla encriptada
-    // hay que guardar un hash
+    public Usuario crear() {
 
-    public void validarContrasenia(string pass) {
-        if(!this.passHash.equals(hash(pass)) {
-            //tiro excepcion de constraseña invalida
-        }
+        Usuario usuario = new Usuario( "1543333322", new Calendario(),"abc123");
+
+        Set<Usuario> usuariosLista = new HashSet<>();
+        usuariosLista.add(usuario);
+
+        Guardarropa guardarropa1 = new Guardarropa("Guardarropa1",new HashSet<>(),new Premium());
+        Guardarropa guardarropa2 = new Guardarropa("Guardarropa2",new HashSet<>(),new Gratuito(2));
+
+
+        Prenda pantalon = new Prenda("Pantalon",TipoDePrenda.PANTALON, Material.ALGODON, new Color(1,2,3), null, Trama.CUADROS, guardarropa1, true);
+        Prenda zapatos = new Prenda("Zapatos",TipoDePrenda.ZAPATO, Material.CUERO, new Color(1,2,3), null, Trama.LISA, guardarropa1, true);
+        Prenda shortDeJean = new Prenda("ShortDeJean", TipoDePrenda.SHORT, Material.JEAN, new Color(1,2,3), null, Trama.LISA, guardarropa1, false);
+        Prenda pollera = new Prenda("Pollera", TipoDePrenda.POLLERA, Material.ALGODON, new Color(1,2,3), null, Trama.LISA, guardarropa2, false);
+        Prenda pañuelo = new Prenda("Pañuelo",TipoDePrenda.PANUELO, Material.ALGODON, new Color(1,2,3), null, Trama.LISA, guardarropa2, false);
+
+        guardarropa1.guardarPrenda(pantalon);
+        guardarropa1.guardarPrenda(zapatos);
+        guardarropa1.guardarPrenda(shortDeJean);
+        guardarropa2.guardarPrenda(pollera);
+        guardarropa2.guardarPrenda(pañuelo);
+
+        usuario.agregarGuardarropa(guardarropa2);
+        usuario.agregarGuardarropa(guardarropa1);
+
+        RepositorioDeUsuarios.getInstance().agregarUsuario(usuario);
+        return usuario;
     }
-*/
+
 }

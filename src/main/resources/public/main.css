@@ -23,13 +23,45 @@ body {
 .prenda {
     border: 1px solid gray;
     margin: 20px;
-    max-width: 400px;
+    max-width: 100px;
     padding: 20px;
 }
 
 .detalles {
     display: inline-block;
-    margin-left: 40px;
+    margin-left: 60px;
+}
+
+@media (min-width: 34em) {
+    .card-columns {
+        -webkit-column-count: 2;
+        -moz-column-count: 2;
+        column-count: 2;
+    }
+}
+
+@media (min-width: 48em) {
+    .card-columns {
+        -webkit-column-count: 3;
+        -moz-column-count: 3;
+        column-count: 3;
+    }
+}
+
+@media (min-width: 62em) {
+    .card-columns {
+        -webkit-column-count: 4;
+        -moz-column-count: 4;
+        column-count: 4;
+    }
+}
+
+@media (min-width: 75em) {
+    .card-columns {
+        -webkit-column-count: 5;
+        -moz-column-count: 5;
+        column-count: 5;
+    }
 }
 
 .evento {

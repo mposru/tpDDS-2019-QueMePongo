@@ -40,18 +40,18 @@ public class AtuendoTest {
         this.carlos = new Usuario("1534544344", calendario, "carlos123");
         Set<Usuario> carlosLista = new HashSet<>();
         carlosLista.add(carlos);
-        this.guardarropa = new Guardarropa(carlosLista, new Premium());
+        this.guardarropa = new Guardarropa("GuardarropaCarlos",carlosLista, new Premium());
         this.color = new Color(1, 2, 3);
-        this.musculosa = new Prenda(TipoDePrenda.MUSCULOSA, Material.ALGODON, color, null, Trama.CUADROS, guardarropa, false, "musculosa");
-        this.blusa = new Prenda(TipoDePrenda.BLUSA, Material.ALGODON, color, null, Trama.CUADROS, guardarropa, false, "blusa");
-        this.crocs = new Prenda(TipoDePrenda.CROCS, Material.GOMA, color, null, Trama.CUADROS, guardarropa, true, "crocs");
-        this.zapatos = new Prenda(TipoDePrenda.ZAPATO, Material.CUERO, color, null, Trama.LISA, guardarropa, true,"zapato de cuero");
-        this.shortDeJean = new Prenda(TipoDePrenda.SHORT, Material.JEAN, color, null, Trama.LISA, guardarropa, false,"short de jean");
-        this.pollera = new Prenda(TipoDePrenda.POLLERA, Material.JEAN, color, null, Trama.LISA, guardarropa, false,"pollera");
-        this.pañuelo = new Prenda(TipoDePrenda.PANUELO, Material.ALGODON, color, null, Trama.LISA, guardarropa, false, "pañuelo");
-        this.anteojos = new Prenda(TipoDePrenda.ANTEOJOS, Material.PLASTICO, color, null, Trama.LISA, guardarropa, false, "anteojos");
-        this.bufandaRoja = new Prenda(TipoDePrenda.BUFANDA, Material.LANA, color, null, Trama.LISA, guardarropa, false,"bufanda");
-        this.guantesCuero = new Prenda(TipoDePrenda.GUANTES, Material.CUERO, color, null, Trama.LISA, guardarropa, false,"guantes");
+        this.musculosa = new Prenda("Musculosa",TipoDePrenda.MUSCULOSA, Material.ALGODON, color, null, Trama.CUADROS, guardarropa, false);
+        this.blusa = new Prenda("Blusa",TipoDePrenda.BLUSA, Material.ALGODON, color, null, Trama.CUADROS, guardarropa, false);
+        this.crocs = new Prenda("Crocs",TipoDePrenda.CROCS, Material.GOMA, color, null, Trama.CUADROS, guardarropa, true);
+        this.zapatos = new Prenda("Zapatos",TipoDePrenda.ZAPATO, Material.CUERO, color, null, Trama.LISA, guardarropa, true);
+        this.shortDeJean = new Prenda("Short",TipoDePrenda.SHORT, Material.JEAN, color, null, Trama.LISA, guardarropa, false);
+        this.pollera = new Prenda("Pollera",TipoDePrenda.POLLERA, Material.JEAN, color, null, Trama.LISA, guardarropa, false);
+        this.pañuelo = new Prenda("Panuelo",TipoDePrenda.PANUELO, Material.ALGODON, color, null, Trama.LISA, guardarropa, false);
+        this.anteojos = new Prenda("Anteojos",TipoDePrenda.ANTEOJOS, Material.PLASTICO, color, null, Trama.LISA, guardarropa, false);
+        this.bufandaRoja = new Prenda("BufandaRoja",TipoDePrenda.BUFANDA, Material.LANA, color, null, Trama.LISA, guardarropa, false);
+        this.guantesCuero = new Prenda("Guantes",TipoDePrenda.GUANTES, Material.CUERO, color, null, Trama.LISA, guardarropa, false);
         this.superiores.add(musculosa);
         this.atuendoVerano = new Atuendo(superiores, shortDeJean, crocs, anteojos, bufandaRoja, guantesCuero);
     }
@@ -152,7 +152,7 @@ public class AtuendoTest {
     @Test
     public void validarAtuendo() {
         exception.expect(PrendaInvalidaException.class);
-        exception.expectMessage("Una/s de las prendas superiores no es válida. La prenda inferior no es válida. La prenda de tipo calzado no es válida. La prenda accesorio no es válida. ");
+        exception.expectMessage("Una/s de las guardarropas superiores no es válida. La prenda inferior no es válida. La prenda de tipo calzado no es válida. La prenda accesorio no es válida. ");
         Set<Prenda> partesInferiores = new HashSet<>();
         partesInferiores.add(pollera);
 
