@@ -19,10 +19,11 @@ import java.util.Set;
 
 public class ControllerGuardarropas {
     public ModelAndView guardarropas(Request req, Response res) {
-        Usuario usuarioPrueba = this.crear();
-        res.cookie("uid","0");
-
-        return new ModelAndView(usuarioPrueba.getGuardarropas(), "guardarropasII.hbs");
+        //Usuario usuarioPrueba = this.crear();
+        //res.cookie("uid","0");
+        String usuarioId = req.cookie("uid");
+        Usuario usuario = RepositorioDeUsuarios.getInstance().buscarUsuarioPorId(Integer.parseInt(usuarioId));
+        return new ModelAndView(usuario.getGuardarropas(), "guardarropasII.hbs");
     }
 
 
