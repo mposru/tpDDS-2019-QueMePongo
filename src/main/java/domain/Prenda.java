@@ -14,7 +14,7 @@ public class Prenda {
     @Column(name = "prenda_id",columnDefinition = "int(11) NOT NULL")
     private long id;
 
-    private String nombre;
+    private String nombrePrenda;
 
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "tipo_prenda_id",columnDefinition = "int(11) NOT NULL")
@@ -49,9 +49,13 @@ public class Prenda {
     @Column(name="impermeable")
     private boolean esParaLluvia;
     private boolean disponibilidad = true; //toda prenda inicia disponible
+
+    private String nombreMaterial;
+
     //todo: agregar el nombre de la prenda al constructor
-    public Prenda(TipoDePrenda tipoDePrenda, Material material, Color colorPrimario, Color colorSecundario, Trama trama,
-                  Guardarropa guardarropa, boolean impermeable, String nombre) {
+    public Prenda(String nombreDePrenda,TipoDePrenda tipoDePrenda, Material material, Color colorPrimario, Color colorSecundario, Trama trama,
+                  Guardarropa guardarropa, boolean impermeable) {
+        this.nombrePrenda = nombreDePrenda;
         this.tipoDePrenda = tipoDePrenda;
         this.material = material;
         this.colorPrimario = colorPrimario;
@@ -59,7 +63,6 @@ public class Prenda {
         this.trama = trama;
         this.guardarropa = guardarropa;
         this.esParaLluvia = impermeable;
-        this.nombre = nombre;
     }
 
 
@@ -103,6 +106,9 @@ public class Prenda {
     public TipoDePrenda obtenerTipoDePrenda() {
         return this.tipoDePrenda;
     }
+    public String getTipoDePrenda(){
+        return this.tipoDePrenda.toString();
+    }
 
     public Categoria obtenerCategoria() { return this.tipoDePrenda.obtenerCategoria(); }
 
@@ -127,11 +133,11 @@ public class Prenda {
     }
 
     public String getNombre() {
-        return nombre;
+        return nombrePrenda;
     }
 
     public void setNombre(String nombre) {
-        this.nombre = nombre;
+        this.nombrePrenda = nombre;
     }
 
     public Atuendo getAtuendo() {
@@ -181,5 +187,12 @@ public class Prenda {
                 Objects.equals(imagen, prenda.obtenerImagen())*/;
     }
 
+    public String getNombreMaterial() {
+        return material.toString();
+    }
+
+    public String getNombrePrenda() {
+        return nombrePrenda;
+    }
 }
 

@@ -61,7 +61,7 @@ public class PersistenceTest {
         this.manager = emf.createEntityManager();
         this.fechaPartido = LocalDateTime.now();//LocalDateTime.of(2019,10,22,21,30,0);
         //LocalDateTime.of(2019,10,22,21,30,0)
-        this.alexis = new Usuario("+54911651651",null,"1234");
+        this.alexis = new Usuario("+54911651651",null,"1234","email","nombre");
         this.alexis.setNombreUsuario("alexis");
 
         this.eventoPersistente = new Evento("Partido Boca-River","La Boca",fechaPartido , Periodo.NINGUNO,2);
@@ -79,7 +79,7 @@ public class PersistenceTest {
         this.crocs.setNombreTipoPrenda("crocs y ojotas");
         this.pollera = new TipoDePrenda(Categoria.PARTE_INFERIOR, Arrays.asList(Material.JEAN), 40, 18);
         this.pollera.setNombreTipoPrenda("Pollera");
-        this.guardarropa = new Guardarropa(usuariosConFlor,new Premium());
+        this.guardarropa = new Guardarropa("GuardarropaFlor",usuariosConFlor,new Premium());
 
         //creo las ojotas a partir del borrador
         this.ojotasHavaianasBorrador = new Borrador();
@@ -93,14 +93,14 @@ public class PersistenceTest {
         this.ojotasHavaianas =  ojotasHavaianasBorrador.crearPrenda();
 
         // para el atuendo
-        this.musculosa = new Prenda(TipoDePrenda.MUSCULOSA, Material.ALGODON, color, null, Trama.CUADROS, guardarropa, false, "musculosa");
-        this.blusa = new Prenda(TipoDePrenda.BLUSA, Material.ALGODON, color, null, Trama.CUADROS, guardarropa, false, "blusa");
-        this.zapatos = new Prenda(TipoDePrenda.ZAPATO, Material.CUERO, color, null, Trama.LISA, guardarropa, true,"zapato de cuero");
-        this.shortDeJean = new Prenda(TipoDePrenda.SHORT, Material.JEAN, color, null, Trama.LISA, guardarropa, false,"short de jean");
-        this.polleraDeJean = new Prenda(TipoDePrenda.POLLERA, Material.JEAN, color, null, Trama.LISA, guardarropa, false,"pollera");
-        this.anteojos = new Prenda(TipoDePrenda.ANTEOJOS, Material.PLASTICO, color, null, Trama.LISA, guardarropa, false, "anteojos");
-        this.bufandaRoja = new Prenda(TipoDePrenda.BUFANDA, Material.LANA, color, null, Trama.LISA, guardarropa, false,"bufanda");
-        this.guantesCuero = new Prenda(TipoDePrenda.GUANTES, Material.CUERO, color, null, Trama.LISA, guardarropa, false,"guantes");
+        this.musculosa = new Prenda("Musculosa",TipoDePrenda.MUSCULOSA, Material.ALGODON, color, null, Trama.CUADROS, guardarropa, false);
+        this.blusa = new Prenda("Blusa",TipoDePrenda.BLUSA, Material.ALGODON, color, null, Trama.CUADROS, guardarropa, false);
+        this.zapatos = new Prenda("Zapato",TipoDePrenda.ZAPATO, Material.CUERO, color, null, Trama.LISA, guardarropa, true);
+        this.shortDeJean = new Prenda("ShortDeJean",TipoDePrenda.SHORT, Material.JEAN, color, null, Trama.LISA, guardarropa, false);
+        this.polleraDeJean = new Prenda("PolleraDeJean",TipoDePrenda.POLLERA, Material.JEAN, color, null, Trama.LISA, guardarropa, false);
+        this.anteojos = new Prenda("Anteojos",TipoDePrenda.ANTEOJOS, Material.PLASTICO, color, null, Trama.LISA, guardarropa, false);
+        this.bufandaRoja = new Prenda("BufandaRoja",TipoDePrenda.BUFANDA, Material.LANA, color, null, Trama.LISA, guardarropa, false);
+        this.guantesCuero = new Prenda("GuantesDeCuero",TipoDePrenda.GUANTES, Material.CUERO, color, null, Trama.LISA, guardarropa, false);
         this.superiores.add(musculosa);
         this.atuendoVerano = new Atuendo(superiores, shortDeJean, ojotasHavaianas, anteojos, bufandaRoja, guantesCuero);
         this.atuendoVerano.setNombre("atuendo veraniego");

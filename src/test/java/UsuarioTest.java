@@ -304,29 +304,29 @@ public class UsuarioTest {
         this.calendarioNana = new Calendario();
         this.calendarioMerlin = new Calendario();
         this.accuWeather = Mockito.spy(new AccuWeather());
-        this.merlin = new Usuario( "1543333322", calendarioMerlin,"contraseniaLoca");
-        this.maria = new Usuario("1543333322",calendarioMaria, "contraseniaLoca");
+        this.merlin = new Usuario( "1543333322", calendarioMerlin,"contraseniaLoca","","");
+        this.maria = new Usuario("1543333322",calendarioMaria, "contraseniaLoca","","");
         Set<Usuario> merlinLista = new HashSet<>();
         merlinLista.add(merlin);
         Set<Usuario> mariaLista = new HashSet<>();
         mariaLista.add(maria);
-        this.guardarropaDeMerlin = new Guardarropa(merlinLista,new Gratuito(5));
-        this.guardarropaDeMaria = new Guardarropa(mariaLista,new Premium());
+        this.guardarropaDeMerlin = new Guardarropa("GuardarropaMerlin",merlinLista,new Gratuito(5));
+        this.guardarropaDeMaria = new Guardarropa("GuardarropaMaria",mariaLista,new Premium());
         this.color = new Color(1, 2, 3);
-        this.musculosa = new Prenda(TipoDePrenda.MUSCULOSA, Material.ALGODON, color, null, Trama.CUADROS, guardarropaDeMerlin,false, "musculosa");
-        this.blusa = new Prenda(TipoDePrenda.BLUSA, Material.ALGODON, color, null, Trama.CUADROS, guardarropaDeMerlin,false,"blusa");
-        this.crocs = new Prenda(TipoDePrenda.CROCS, Material.GOMA, color, null, Trama.CUADROS, guardarropaDeMerlin,false,"crocs");
-        this.zapatos = new Prenda(TipoDePrenda.ZAPATO, Material.CUERO, color, null, Trama.LISA, guardarropaDeMerlin,false,"zapatos");
-        this.shortDeJean = new Prenda(TipoDePrenda.SHORT, Material.JEAN, color, null, Trama.LISA, guardarropaDeMerlin,false,"short de jean");
-        this.pollera = new Prenda(TipoDePrenda.POLLERA, Material.JEAN, color, null, Trama.LISA, guardarropaDeMerlin,false,"pollera");
-        this.pañuelo = new Prenda(TipoDePrenda.PANUELO, Material.ALGODON, color, null, Trama.LISA, guardarropaDeMerlin,false,"pañuelo");
-        this.anteojos = new Prenda(TipoDePrenda.ANTEOJOS, Material.PLASTICO, color, null, Trama.LISA, guardarropaDeMerlin,false,"anteojos");
-        this.chalina = new Prenda(TipoDePrenda.CHALINA, Material.SEDA, color, null, Trama.LISA, guardarropaDeMerlin, true,"chalina");
-        this.ningunAccesorioManos = new Prenda(TipoDePrenda.ACCESORIO_VACIO_MANOS, Material.NINGUNO, color, null, Trama.LISA, guardarropaDeMerlin, true,"");
+        this.musculosa = new Prenda("Musculosa",TipoDePrenda.MUSCULOSA, Material.ALGODON, color, null, Trama.CUADROS, guardarropaDeMerlin,false);
+        this.blusa = new Prenda("Blusa",TipoDePrenda.BLUSA, Material.ALGODON, color, null, Trama.CUADROS, guardarropaDeMerlin,false);
+        this.crocs = new Prenda("Crocs",TipoDePrenda.CROCS, Material.GOMA, color, null, Trama.CUADROS, guardarropaDeMerlin,false);
+        this.zapatos = new Prenda("Zapatos",TipoDePrenda.ZAPATO, Material.CUERO, color, null, Trama.LISA, guardarropaDeMerlin,false);
+        this.shortDeJean = new Prenda("ShortDeJean",TipoDePrenda.SHORT, Material.JEAN, color, null, Trama.LISA, guardarropaDeMerlin,false);
+        this.pollera = new Prenda("Pollera",TipoDePrenda.POLLERA, Material.JEAN, color, null, Trama.LISA, guardarropaDeMerlin,false);
+        this.pañuelo = new Prenda("Pañuelo",TipoDePrenda.PANUELO, Material.ALGODON, color, null, Trama.LISA, guardarropaDeMerlin,false);
+        this.anteojos = new Prenda("Anteojos",TipoDePrenda.ANTEOJOS, Material.PLASTICO, color, null, Trama.LISA, guardarropaDeMerlin,false);
+        this.chalina = new Prenda("Chalina",TipoDePrenda.CHALINA, Material.SEDA, color, null, Trama.LISA, guardarropaDeMerlin, true);
+        this.ningunAccesorioManos = new Prenda("Nada",TipoDePrenda.ACCESORIO_VACIO_MANOS, Material.NINGUNO, color, null, Trama.LISA, guardarropaDeMerlin, true);
         Set<Prenda> superiores = new HashSet<>();
         superiores.add(musculosa);
         this.atuendoVerano = new Atuendo(superiores, shortDeJean, crocs, anteojos, chalina, ningunAccesorioManos);
-        this.nana = new Usuario( "1534433333",calendarioNana,"Contrasenia123");
+        this.nana = new Usuario( "1534433333",calendarioNana,"Contrasenia123","","");
         doReturn(jsonClima).when(accuWeather).getJsonClima();
     }
 
@@ -409,14 +409,14 @@ public class UsuarioTest {
         Prenda otraPrendaVacia = new Prenda(TipoDePrenda.NINGUNO_SUPERIOR, Material.NINGUNO, new Color(0,0, 0), null, Trama.NINGUNO, guardarropaDeMarina,  false);
 
         nana.agregarGuardarropa(guardarropaDeMarina);
-        nana.obtenerGuardarropas().forEach(guardarropa -> guardarropa.guardarPrenda(musculosa));
-        nana.obtenerGuardarropas().forEach(guardarropa -> guardarropa.guardarPrenda(crocs));
-        nana.obtenerGuardarropas().forEach(guardarropa -> guardarropa.guardarPrenda(shortDeJean));
-        nana.obtenerGuardarropas().forEach(guardarropa -> guardarropa.guardarPrenda(pollera));
-        nana.obtenerGuardarropas().forEach(guardarropa -> guardarropa.guardarPrenda(pañuelo));
-        nana.obtenerGuardarropas().forEach(guardarropa -> guardarropa.guardarPrenda(anteojos));
+        nana.getGuardarropas().forEach(guardarropa -> guardarropa.guardarPrenda(musculosa));
+        nana.getGuardarropas().forEach(guardarropa -> guardarropa.guardarPrenda(crocs));
+        nana.getGuardarropas().forEach(guardarropa -> guardarropa.guardarPrenda(shortDeJean));
+        nana.getGuardarropas().forEach(guardarropa -> guardarropa.guardarPrenda(pollera));
+        nana.getGuardarropas().forEach(guardarropa -> guardarropa.guardarPrenda(pañuelo));
+        nana.getGuardarropas().forEach(guardarropa -> guardarropa.guardarPrenda(anteojos));
 
-        nana.obtenerGuardarropas().forEach(guardarropa -> guardarropa.definirMeteorologo(accuWeather));
+        nana.getGuardarropas().forEach(guardarropa -> guardarropa.definirMeteorologo(accuWeather));
         nana.generarSugerenciasParaProximoEvento();
         AtuendosSugeridosPorEvento sugerenciasProximoEvento = nana.obtenerAtuendosSugeridosProximoEvento();
         List<Atuendo> sugerencias = sugerenciasProximoEvento.getAtuendosSugeridos();
@@ -435,7 +435,7 @@ public class UsuarioTest {
                             sugerenciaEsperada.obtenerPrendaInferior() == sugerencia.obtenerPrendaInferior()
             );
             Assert.assertTrue(coincide);
-            Assert.assertTrue(sugerencia.obtenerPrendasSuperiores().size() == 3);
+            Assert.assertTrue(sugerencia.getPrendasSuperiores().size() == 3);
         });
         Assert.assertEquals(sugerenciasEsperadas.size(), sugerencias.size());
         Assert.assertEquals("Evento 2", nana.getCalendario().obtenerProximoEvento().getNombre());
@@ -485,10 +485,10 @@ public class UsuarioTest {
 */
     @Test
     public void noSeDebeResugerirPorqueTieneParaguasYAnuncianLLuvia(){
-        Prenda musculosa = new Prenda(TipoDePrenda.MUSCULOSA, Material.ALGODON, color, null, Trama.LISA, guardarropaDeMarina,false,"musculosa");
-        Prenda crocs = new Prenda(TipoDePrenda.CROCS, Material.GOMA, color, null, Trama.CUADROS, guardarropaDeMarina,true,"crocs");
-        Prenda shortDeJean = new Prenda(TipoDePrenda.SHORT, Material.JEAN, color, null, Trama.LISA, guardarropaDeMarina,false,"short de jean");
-        Prenda paraguas = new Prenda(TipoDePrenda.PARAGUAS, Material.PLASTICO, color, null, Trama.LISA, guardarropaDeMarina,true,"paraguas");
+        Prenda musculosa = new Prenda("Musculosa",TipoDePrenda.MUSCULOSA, Material.ALGODON, color, null, Trama.LISA, guardarropaDeMarina,false);
+        Prenda crocs = new Prenda("Crocs",TipoDePrenda.CROCS, Material.GOMA, color, null, Trama.CUADROS, guardarropaDeMarina,true);
+        Prenda shortDeJean = new Prenda("ShortDeJean",TipoDePrenda.SHORT, Material.JEAN, color, null, Trama.LISA, guardarropaDeMarina,false);
+        Prenda paraguas = new Prenda("Paraguas",TipoDePrenda.PARAGUAS, Material.PLASTICO, color, null, Trama.LISA, guardarropaDeMarina,true);
         Set<Prenda> prendasSuperiores = new HashSet<>();
         prendasSuperiores.add(musculosa);
         nana.obtenerAtuendosSugeridosProximoEvento().agregarAtuendo(new Atuendo(prendasSuperiores, shortDeJean, crocs, paraguas, this.chalina, this.ningunAccesorioManos));
@@ -497,11 +497,11 @@ public class UsuarioTest {
 
     @Test
     public void noSeDebeResugerirPorqueTieneRompeVientosYBotas() {
-        Prenda remera = new Prenda(TipoDePrenda.REMERA, Material.ALGODON, color, null, Trama.LISA, guardarropaDeMarina,false, "remera");
-        Prenda rompevientos = new Prenda(TipoDePrenda.CAMPERA, Material.NINGUNO, color, null, Trama.LISA, guardarropaDeMarina,true, "campera");
-        Prenda botas = new Prenda(TipoDePrenda.BOTAS, Material.GOMA, color, null, Trama.CUADROS, guardarropaDeMarina,true,"botas");
-        Prenda jean = new Prenda(TipoDePrenda.PANTALON, Material.JEAN, color, null, Trama.LISA, guardarropaDeMarina,true, "pantalon de jean");
-        Prenda pañuelo = new Prenda(TipoDePrenda.PANUELO, Material.PLASTICO, color, null, Trama.LISA, guardarropaDeMarina,false, "pañuelo");
+        Prenda remera = new Prenda("Remera",TipoDePrenda.REMERA, Material.ALGODON, color, null, Trama.LISA, guardarropaDeMarina,false);
+        Prenda rompevientos = new Prenda("Rompevientos",TipoDePrenda.CAMPERA, Material.NINGUNO, color, null, Trama.LISA, guardarropaDeMarina,true);
+        Prenda botas = new Prenda("Botas",TipoDePrenda.BOTAS, Material.GOMA, color, null, Trama.CUADROS, guardarropaDeMarina,true);
+        Prenda jean = new Prenda("Jean",TipoDePrenda.PANTALON, Material.JEAN, color, null, Trama.LISA, guardarropaDeMarina,true);
+        Prenda pañuelo = new Prenda("Pañuelo",TipoDePrenda.PANUELO, Material.PLASTICO, color, null, Trama.LISA, guardarropaDeMarina,false);
         Set<Prenda> prendasSuperiores = new HashSet<>();
         prendasSuperiores.add(remera);
         prendasSuperiores.add(rompevientos);
@@ -511,10 +511,10 @@ public class UsuarioTest {
 
     @Test
     public void noSeDebeResugerirPorqueTieneCasco() {
-        Prenda musculosa = new Prenda(TipoDePrenda.MUSCULOSA, Material.ALGODON, color, null, Trama.LISA, guardarropaDeMarina,false, "musculosa");
-        Prenda crocs = new Prenda(TipoDePrenda.CROCS, Material.GOMA, color, null, Trama.CUADROS, guardarropaDeMarina,true,"crocs");
-        Prenda shortDeJean = new Prenda(TipoDePrenda.SHORT, Material.JEAN, color, null, Trama.LISA, guardarropaDeMarina,false, "short de jean");
-        Prenda casco = new Prenda(TipoDePrenda.CASCO, Material.PLASTICO, color, null, Trama.LISA, guardarropaDeMarina,true, "casco");
+        Prenda musculosa = new Prenda("Musculosa",TipoDePrenda.MUSCULOSA, Material.ALGODON, color, null, Trama.LISA, guardarropaDeMarina,false);
+        Prenda crocs = new Prenda("Crocs",TipoDePrenda.CROCS, Material.GOMA, color, null, Trama.CUADROS, guardarropaDeMarina,true);
+        Prenda shortDeJean = new Prenda("Short",TipoDePrenda.SHORT, Material.JEAN, color, null, Trama.LISA, guardarropaDeMarina,false);
+        Prenda casco = new Prenda("Casco",TipoDePrenda.CASCO, Material.PLASTICO, color, null, Trama.LISA, guardarropaDeMarina,true);
         Set<Prenda> prendasSuperiores = new HashSet<>();
         prendasSuperiores.add(musculosa);
         nana.obtenerAtuendosSugeridosProximoEvento().agregarAtuendo(new Atuendo(prendasSuperiores, shortDeJean, crocs, casco, this.chalina, this.ningunAccesorioManos));

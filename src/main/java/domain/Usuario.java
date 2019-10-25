@@ -49,6 +49,9 @@ public class Usuario {
     private LinkedList<Decision> decisiones = new LinkedList<>();
     @Column(name = "numero_celular")
     private String numeroDeCelular;
+    private String nombre;
+    private String email;
+    private String contraseniaHash;
 
    /* @OneToMany
     @JoinTable(name="atuendo")
@@ -103,12 +106,25 @@ public class Usuario {
     // b. se genera sugerencia con ese clima
 
     public Usuario() {} // solo para JPA
-    public Usuario(String numeroDeCelular,Calendario miCalendario,String contrasenia) {
+    public Usuario(String numeroDeCelular,Calendario miCalendario,String contrasenia,String email, String nombre) {
         this.numeroDeCelular = numeroDeCelular;
         this.calendario = miCalendario;
         this.contrasenia = contrasenia;
+        this.email=email;
+        this.contraseniaHash = SHA1.getInstance().convertirConHash(contrasenia);
+        this.nombre = nombre;
         RepositorioDeUsuarios.getInstance().agregarUsuarioTotal(this);
     }
+
+    public void validarContraseniaHash(String contrasenia){
+        if(!this.contraseniaHash.equals(contrasenia)){
+            throw  new ContraseniaInvalidaException("Contraseña invalida");
+        }
+    }
+
+    public String getNombre() { return this.nombre; }
+
+    public String getEmail() { return this.email; }
 
     public void calificarSensibilidadGeneral(CalificacionSensibilidad calificacionSensibilidad) {
         this.sensibilidad.calificarSensibilidad(calificacionSensibilidad, "general");
@@ -172,7 +188,7 @@ public class Usuario {
     }
 
 
-    public Set<Guardarropa> obtenerGuardarropas() {
+    public Set<Guardarropa> getGuardarropas() {
         return this.guardarropas;
     }
 
@@ -344,5 +360,25 @@ public class Usuario {
 
     public List<Evento> obtenerEventos() {
         return calendario.obtenerEventos().stream().sorted(Comparator.comparing(Evento::getFecha)).collect(Collectors.toList());
+    }
+
+    public Guardarropa buscarGuardarropaPorNombre(String nombre){
+        List<Guardarropa> guardarropaEncontrados = guardarropas.stream()
+                .filter(guardarropa -> guardarropa.getNombreGuardarropa().equals(nombre))
+                .collect(Collectors.toList());
+        if(guardarropaEncontrados.isEmpty()) {
+            return null;
+        }
+        else {
+            return guardarropaEncontrados.get(0);
+        }
+    }
+
+
+    public Guardarropa verificarSiIdDeGuardarropa(String id){
+        return this.guardarropas.stream()
+                .filter(guardarropaAux->Integer.parseInt(id)==guardarropaAux.getId())
+                .findAny()
+                .orElseThrow(()->new NoExisteGuardarropaException("El id Guardarropa no exite en el usuario"));
     }
 }
