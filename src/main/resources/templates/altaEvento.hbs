@@ -50,7 +50,7 @@
         </div>
         <input type="submit" class="btn btn-primary" onclick="myFunction()" id="crear" name="crear" value="Crear"/>
         <script>
-            function myFunction() {
+            function myFunction(e) {
                 var desc = document.querySelector('#descripcion');
                 var ubicacion = document.querySelector('#ubicacion');
                 var datepicker = document.querySelector('#datepicker');
@@ -58,6 +58,8 @@
                 if (desc.value === '' || ubicacion.value === '' || datepicker.value === '') {
                     alert("Debe completar todos los campos");
                 }
+                e.preventDefault();
+                e.stopImmediatePropagation();
             }
         </script>
     </form>

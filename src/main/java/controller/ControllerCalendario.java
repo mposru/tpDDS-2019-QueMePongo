@@ -32,6 +32,8 @@ public class ControllerCalendario {
             usuario = crearUsuario();
         }
 
+        req.session().attribute("uid", 0);
+
         res.cookie("uid", "0");
 
         CalendarioSpark calendarioSpark = new CalendarioSpark();

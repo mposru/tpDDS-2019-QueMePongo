@@ -4,7 +4,12 @@ import domain.RepositorioDeUsuarios;
 import domain.SHA1;
 import domain.Usuario;
 import domain.usuario.Calendario;
+import domain.usuario.Evento;
 import spark.*;
+
+import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
+import javax.persistence.Persistence;
 
 public class ControllerSesion {
 
@@ -18,9 +23,9 @@ public class ControllerSesion {
         //Usuario usuario = new Usuario("1534522454", new Calendario());
         //usuario.validarContraseña(req.queryParams("pass"));
 
-        //Usuario usuarie = new Usuario("",new Calendario() ,"foo", "foo", "foo@foo");
+        Usuario usuario = new Usuario("",new Calendario() ,"foo", "foo", "foo@foo");
         //RepositorioDeUsuarios.getInstance().agregarUsuario(usuarie);
-        Usuario usuario = RepositorioDeUsuarios.getInstance().buscarPorIdentificador(req.queryParams("user"));
+        //Usuario usuario = RepositorioDeUsuarios.getInstance().buscarPorIdentificador(req.queryParams("user"));
         String contraseñaHash= SHA1.getInstance().convertirConHash(req.queryParams("pass"));
         usuario.validarContraseniaHash(contraseñaHash);
         //NUNCA GUARDAR UN ID DE USUARIO EN UNA COOKIE EN TEXTO PLANOOOOOO

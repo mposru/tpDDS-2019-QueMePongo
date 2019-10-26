@@ -19,7 +19,7 @@ public class ControllerEventos {
 
         EntityManagerFactory emf = Persistence.createEntityManagerFactory("quemepongo");
         EntityManager em = emf.createEntityManager();
-        Evento evento = em.find(Evento.class,Long.valueOf(req.params(":id")));
+        Evento evento = em.find(Evento.class,Long.valueOf(req.params("id")));
 
         Usuario usuario = em.find(Usuario.class,Long.valueOf(req.cookie("uid")));
 

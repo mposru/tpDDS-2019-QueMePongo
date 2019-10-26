@@ -51,12 +51,7 @@
                                 <div id="evento">
                                     {{nombre}} en {{ubicacion}}
                                 </div>
-                                <script>
-                                    var eventos = document.querySelectorAll("#evento");
-                                    for(i = 0; i < eventos.length; i++) {
-                                        eventos[i].style.backgroundColor = "hsla(" + ~~(360 * Math.random()) + "," +"70%,"+"80%,1)";
-                                    }
-                                </script>
+
                             {{/each}}
                         </div>
                     </li>
@@ -67,6 +62,11 @@
         <form action="/evento" method="get">
             <button id="nuevoEvento" type="submit" class="btn btn-lg btn-primary btn-circle"><i class="fa fa-plus"></i></button>
         </form>
-
+        <script>
+            var eventos = document.querySelectorAll("#evento");
+            for(i = 0; i < eventos.length; i++) {
+                eventos[i].style.backgroundColor = "hsla(" + ~~(360 * Math.random()) + "," +"70%,"+"80%,1)";
+            }
+        </script>
     </body>
 </html>

@@ -29,7 +29,7 @@ public class Server {
         Spark.get("/calificarAceptadas",controllerCalificarAceptadas::mostrarAceptadas,engine);
         Spark.get("/altaDePrenda",controllerAltaDePrenda::mostrarAltaDePrenda,engine);
         Spark.post("/altaDePrenda",controllerAltaDePrenda::seleccionAltaDePrenda,engine);
-        Spark.post("/perfil",controllerPerfil::seleccion,engine);
+        Spark.get("/perfil",controllerPerfil::mostrar,engine);
         Spark.get("/login",controllerSesion::mostrarLogin, engine);
         Spark.post("/login",controllerSesion::crear, engine);
         /*Spark.post("/calendario/prev", controllerCalendario::irAlMesAnterior, engine);
