@@ -1,6 +1,7 @@
 package domain.usuario;
 
 import domain.LocalDateTimeConverter;
+import domain.clima.AccuWeather;
 import domain.clima.Clima;
 import domain.clima.DarkSky;
 import domain.clima.Meteorologo;
@@ -50,7 +51,7 @@ public class Evento {
 
     @Transient
     //TODO sacar de acá al meteorologo, no va en evento
-    private Meteorologo meteorologo = new DarkSky();
+    private Meteorologo meteorologo = new AccuWeather();
 
     public Evento(){
     }
