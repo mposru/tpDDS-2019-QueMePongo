@@ -71,6 +71,8 @@ public class TipoDePrenda {
     public static final TipoDePrenda ACCESORIO_VACIO_CUELLO = new TipoDePrenda(Categoria.ACCESORIO_CUELLO, Arrays.asList(Material.NINGUNO), 0, -50);
     public static final TipoDePrenda GORRO = new TipoDePrenda(Categoria.ACCESORIO, Arrays.asList(Material.LANA), 10, -10);
 
+    public TipoDePrenda(){}
+
     public TipoDePrenda(Categoria categoria, List<Material> materialesValidos, double temperaturaMax, double temperaturaMin) {
         this.categoria = requireNonNull(categoria, "La categoría es obligatoria");
         this.materialesValidos = requireNonNull(materialesValidos, "Los materiales son obligatorios");

@@ -2,6 +2,7 @@ package domain.usuario;
 
 import domain.LocalDateTimeConverter;
 import domain.clima.Clima;
+import domain.clima.DarkSky;
 import domain.clima.Meteorologo;
 import org.uqbar.commons.model.annotations.Observable;
 import org.uqbar.commons.model.annotations.Transactional;
@@ -49,7 +50,7 @@ public class Evento {
 
     @Transient
     //TODO sacar de acá al meteorologo, no va en evento
-    private Meteorologo meteorologo;
+    private Meteorologo meteorologo = new DarkSky();
 
     public Evento(){
     }
