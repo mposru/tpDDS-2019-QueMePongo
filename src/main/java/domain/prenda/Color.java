@@ -6,7 +6,7 @@ import java.util.Objects;
 
 @Embeddable
 public class Color {
-    @Transient
+
     private int rojo, verde, azul;
 
     public Color(int rojo, int verde, int azul) {
@@ -14,6 +14,7 @@ public class Color {
         this.verde = verde;
         this.azul = azul;
     }
+    public Color() {}
 
     public int obtenerRojo() {
         return rojo;

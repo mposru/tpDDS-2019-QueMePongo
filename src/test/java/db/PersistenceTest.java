@@ -47,6 +47,7 @@ public class PersistenceTest {
     private Prenda bufandaRoja;
     private Prenda guantesCuero;
     private Color color;
+    private Color colorSecundario;
     private Usuario carlos;
     private Prenda polleraDeJean;
     private Set<Prenda> superiores = new HashSet<>();
@@ -67,6 +68,8 @@ public class PersistenceTest {
         this.calendarioVacaciones.setNombre("Vacaciones norte de Argentina");
         this.alexis.setCalendario(calendarioVacaciones);
         this.usuariosConFlor.add(alexis);
+        this.color = new Color(10,11,12);
+        this.colorSecundario = new Color (82,16,88);
 
         this.remeraDeportiva = new TipoDePrenda(Categoria.PARTE_SUPERIOR_ABAJO, Arrays.asList(Material.POLYESTER), 30, 20);
         this.remeraDeportiva.setNombreTipoPrenda("remera deportiva");
@@ -81,6 +84,7 @@ public class PersistenceTest {
         this.ojotasHavaianasBorrador = new Borrador();
         this.ojotasHavaianasBorrador.definirNombre("ojotas havaianas");
         this.ojotasHavaianasBorrador.definirColorPrimario(new Color(10,86,88));
+        this.ojotasHavaianasBorrador.definirColorSecundario(colorSecundario);
         this.ojotasHavaianasBorrador.definirTipo(this.crocs);
         this.ojotasHavaianasBorrador.definirMaterial(Material.GOMA);
         this.ojotasHavaianasBorrador.definirTrama(Trama.NINGUNO);

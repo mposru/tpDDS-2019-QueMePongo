@@ -36,10 +36,16 @@ public class Guardarropa {
 
     @ManyToMany (mappedBy = "guardarropas")
     private Set<Usuario> usuarios;
-
+    @Column(name = "nombre_guardarropa")
     private String nombreGuardarropa;
 
-    @Transient
+    @Embedded
+    @AttributeOverrides({
+            @AttributeOverride(name = "tipo_guardarropa",
+                    column = @Column(name = "tipo_guardarropa")),
+            @AttributeOverride(name = "limite_prendas",
+                    column = @Column(name = "limite_prendas"))
+    })
     private TipoDeGuardarropa tipoDeGuardarropa;
 
     public Guardarropa(){}

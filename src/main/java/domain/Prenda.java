@@ -24,10 +24,26 @@ public class Prenda {
     private Material material;
 
     @Embedded
+    @AttributeOverrides({
+            @AttributeOverride(name="rojo",
+                    column=@Column(name="rojo_primario")),
+            @AttributeOverride(name="verde",
+                    column=@Column(name="verde_primario")),
+            @AttributeOverride(name="azul",
+                    column=@Column(name="azul_primario"))
+    })
     private Color colorPrimario;
 
-   // @Embedded
-    @Transient // lo dejo asi para probar solamente
+    @Embedded
+    @AttributeOverrides({
+            @AttributeOverride(name="rojo",
+                    column=@Column(name="rojo_secundario")),
+            @AttributeOverride(name="verde",
+                    column=@Column(name="verde_secundario")),
+            @AttributeOverride(name="azul",
+                    column=@Column(name="azul_secundario"))
+    })
+
     private Color colorSecundario;
 
     @Enumerated (EnumType.STRING)

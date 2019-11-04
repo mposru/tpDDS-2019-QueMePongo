@@ -75,7 +75,7 @@ public class Borrador  {
         requireNonNull(colorPrimario, "El color es obligatorio");
         requireNonNull(guardarropa, "El guardarropa es obligatorio");
         requireNonNull(esParaLluvia, "Debe asignarle si es impermeable a la prenda");
-        Prenda prenda = new Prenda("Prenda",tipoDePrenda, material, colorPrimario, colorSecundario, trama, guardarropa, esParaLluvia);
+        Prenda prenda = new Prenda(nombrePrenda,tipoDePrenda, material, colorPrimario, colorSecundario, trama, guardarropa, esParaLluvia);
         return prenda;
     }
 }
