@@ -67,6 +67,7 @@ public class PersistenceTest {
         this.calendarioVacaciones = new Calendario();
         this.calendarioVacaciones.setNombre("Vacaciones norte de Argentina");
         this.alexis.setCalendario(calendarioVacaciones);
+        this.alexis.setCalendario(calendario);
         this.usuariosConFlor.add(alexis);
         this.color = new Color(10,11,12);
         this.colorSecundario = new Color (82,16,88);
@@ -132,8 +133,8 @@ public class PersistenceTest {
     public void persistirEvento() {
         try {
             manager.getTransaction().begin();
-          //  System.out.println("La fecha hora del evento es: "+ eventoPersistente.getFecha());
-            manager.persist(eventoPersistente);
+            System.out.println("La fecha hora del evento es: "+ eventoPersistente.getFecha());
+            manager.merge(eventoPersistente);
             manager.getTransaction().commit();
             manager.flush();
         }
@@ -185,7 +186,6 @@ public class PersistenceTest {
     public void persistirPrenda() {
         try {
             manager.getTransaction().begin();
-            //  System.out.println("La fecha hora del evento es: "+ eventoPersistente.getFecha());
             manager.persist(ojotasHavaianas);
             manager.getTransaction().commit();
             manager.flush();
@@ -203,7 +203,6 @@ public class PersistenceTest {
     public void persistirGuardarropa() {
         try {
             manager.getTransaction().begin();
-            //  System.out.println("La fecha hora del evento es: "+ eventoPersistente.getFecha());
             manager.persist(guardarropa);
             manager.getTransaction().commit();
             manager.flush();

@@ -7,7 +7,7 @@ import java.io.IOException;
 import java.util.Objects;
 
 @Entity
-@Table(name = "prenda")
+@Table(name = "prendas")
 public class Prenda {
     @Id
     @GeneratedValue
@@ -58,7 +58,8 @@ public class Prenda {
     @Transient
     private Imagen imagen;
 
-    @ManyToOne(cascade=CascadeType.ALL)
+    @ManyToMany(cascade=CascadeType.ALL)
+    @JoinTable(name = "prendas_atuendos")
     @JoinColumn(name = "atuendo_id")
     private Atuendo atuendo;
 

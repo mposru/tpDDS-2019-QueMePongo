@@ -49,8 +49,11 @@ public class Usuario {
     private LinkedList<Decision> decisiones = new LinkedList<>();
     @Column(name = "numero_celular")
     private String numeroDeCelular;
-    @Column(name = "nombre_usuario")
+    @Column(name = "nombre")
     private String nombre;
+
+    private String apellido;
+
     private String email;
     @Column(name = "contrasenia")
     private String contraseniaHash;
@@ -92,10 +95,6 @@ public class Usuario {
         this.contraseniaHash = contrasenia;
     }
 
-  //  private String contrasenia;
-
-
-
     //
     // variable que indique con cuanto tiempo antes quiere que le llegue sugerencia sobre evento
 
@@ -112,6 +111,7 @@ public class Usuario {
         this.email=email;
         this.contraseniaHash = SHA1.getInstance().convertirConHash(contrasenia);
         this.nombre = nombre;
+
         RepositorioDeUsuarios.getInstance().agregarUsuarioTotal(this);
     }
 
