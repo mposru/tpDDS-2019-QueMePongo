@@ -34,8 +34,8 @@ public class ControllerGuardarropas {
         Set<Usuario> usuariosLista = new HashSet<>();
         usuariosLista.add(usuario);
 
-        Guardarropa guardarropa1 = new Guardarropa("GuardarropaInvierno",new HashSet<>(),new Premium());
-        Guardarropa guardarropa2 = new Guardarropa("GuardarropaVerano",new HashSet<>(),new Gratuito(10));
+        Guardarropa guardarropa1 = new Guardarropa("GuardarropaInvierno",new HashSet<>(),0);
+        Guardarropa guardarropa2 = new Guardarropa("GuardarropaVerano",new HashSet<>(),10);
 
 
         Prenda zapatos = new Prenda("Zapatos",TipoDePrenda.ZAPATO, Material.CUERO, new Color(1,2,3), null, Trama.LISA, guardarropa1, true);

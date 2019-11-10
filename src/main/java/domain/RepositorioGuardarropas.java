@@ -28,7 +28,7 @@ public class RepositorioGuardarropas {
         Set<Usuario> listaDeUsuarios = new HashSet<>();
         listaDeUsuarios.add(usuario);
 
-        Guardarropa guardarropas = new Guardarropa("Blabla",listaDeUsuarios, new Premium());
+        Guardarropa guardarropas = new Guardarropa("Blabla",listaDeUsuarios, 0);
         Prenda musculosa = new Prenda("Musculosa",TipoDePrenda.MUSCULOSA, Material.ALGODON, new Color(100,200,300), null, Trama.CUADROS, guardarropas,false);
         Prenda buzo = new Prenda("Buzo",TipoDePrenda.BUZO, Material.ALGODON, new Color(1,2,3), null, Trama.CUADROS, guardarropas, false);
         Prenda shortDeJean = new Prenda("ShortDeJean",TipoDePrenda.SHORT, Material.JEAN, new Color(300,0,300), null, Trama.LISA, guardarropas,false);

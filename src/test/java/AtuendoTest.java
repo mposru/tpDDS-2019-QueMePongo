@@ -40,7 +40,7 @@ public class AtuendoTest {
         this.carlos = new Usuario("1534544344", calendario, "carlos123","","");
         Set<Usuario> carlosLista = new HashSet<>();
         carlosLista.add(carlos);
-        this.guardarropa = new Guardarropa("GuardarropaCarlos",carlosLista, new Premium());
+        this.guardarropa = new Guardarropa("GuardarropaCarlos",carlosLista,0);
         this.color = new Color(1, 2, 3);
         this.musculosa = new Prenda("Musculosa",TipoDePrenda.MUSCULOSA, Material.ALGODON, color, null, Trama.CUADROS, guardarropa, false);
         this.blusa = new Prenda("Blusa",TipoDePrenda.BLUSA, Material.ALGODON, color, null, Trama.CUADROS, guardarropa, false);

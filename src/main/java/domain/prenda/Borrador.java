@@ -63,10 +63,6 @@ public class Borrador  {
         return this;
     }
 
-    public Borrador definirNombrePrenda(String nombrePrenda) {
-        this.nombrePrenda = requireNonNull(nombrePrenda, "Debe asignarle un nombre a la prenda");
-        return this;
-    }
 
     public Prenda crearPrenda() {
         requireNonNull(nombrePrenda,"El nombre de prenda es obligatorio");

@@ -310,8 +310,8 @@ public class UsuarioTest {
         merlinLista.add(merlin);
         Set<Usuario> mariaLista = new HashSet<>();
         mariaLista.add(maria);
-        this.guardarropaDeMerlin = new Guardarropa("GuardarropaMerlin",merlinLista,new Gratuito(5));
-        this.guardarropaDeMaria = new Guardarropa("GuardarropaMaria",mariaLista,new Premium());
+        this.guardarropaDeMerlin = new Guardarropa("GuardarropaMerlin",merlinLista,5);
+        this.guardarropaDeMaria = new Guardarropa("GuardarropaMaria",mariaLista,0);
         this.color = new Color(1, 2, 3);
         this.musculosa = new Prenda("Musculosa",TipoDePrenda.MUSCULOSA, Material.ALGODON, color, null, Trama.CUADROS, guardarropaDeMerlin,false);
         this.blusa = new Prenda("Blusa",TipoDePrenda.BLUSA, Material.ALGODON, color, null, Trama.CUADROS, guardarropaDeMerlin,false);

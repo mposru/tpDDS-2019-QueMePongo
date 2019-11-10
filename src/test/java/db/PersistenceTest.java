@@ -78,7 +78,7 @@ public class PersistenceTest {
         this.crocs.setNombreTipoPrenda("crocs y ojotas");
         this.pollera = new TipoDePrenda(Categoria.PARTE_INFERIOR, Arrays.asList(Material.JEAN), 40, 18);
         this.pollera.setNombreTipoPrenda("Pollera");
-        this.guardarropa = new Guardarropa("GuardarropaFlor",usuariosConFlor,new Premium());
+        this.guardarropa = new Guardarropa("GuardarropaFlor",usuariosConFlor,0);
         this.guardarropa.setNombreGuardarropa("guardarropa formal");
 
         //creo las ojotas a partir del borrador

@@ -21,7 +21,8 @@ public class Guardarropa {
     @GeneratedValue
     @Column(name = "guardarropa_id",columnDefinition = "int(11) NOT NULL")
     private long id;
-
+    @Column(name = "limite_prendas")
+    private int limitePrendas=0;
     @OneToMany(mappedBy = "guardarropa")
     private Set<Prenda> prendasSuperiores = new HashSet<>();
 
@@ -39,40 +40,33 @@ public class Guardarropa {
     @Column(name = "nombre_guardarropa")
     private String nombreGuardarropa;
 
-    @Embedded
-    @AttributeOverrides({
-            @AttributeOverride(name = "tipo_guardarropa",
-                    column = @Column(name = "tipo_guardarropa")),
-            @AttributeOverride(name = "limite_prendas",
-                    column = @Column(name = "limite_prendas"))
-    })
-    private TipoDeGuardarropa tipoDeGuardarropa;
 
     public Guardarropa(){}
 
-    public Guardarropa(String nombreGuardarropa, Set<Usuario> usuarios, TipoDeGuardarropa tipoDeGuardarropa) {
+    public Guardarropa(String nombreGuardarropa, Set<Usuario> usuarios, int limitePrendas) {
         this.nombreGuardarropa = requireNonNull(nombreGuardarropa, "Debe ingresar un nombre para el guardarropa");
         this.usuarios = requireNonNull(usuarios, "Debe ingresar un conjunto de usuarios");
-        this.tipoDeGuardarropa = requireNonNull(tipoDeGuardarropa,"Debe ingresar el tipo de guardarropa");
+        this.limitePrendas = limitePrendas;
     }
-    public void setLimiteDePrendas(int limiteDePrendas) {
-        this.tipoDeGuardarropa.setLimiteDePrendas(limiteDePrendas);
+
+    public void setLimiteDePrendas(int limitePrendas) {
+        if (this.obtenerCantidadDePrendas() > limitePrendas) {
+            throw new SuperaLimiteDePrendasException("El nuevo límite de prendas es menor que la cantidad de prendas del guardarropa.\n Cantidad de prendas: "+this.obtenerCantidadDePrendas());
+        }
+        this.limitePrendas = limitePrendas;
     }
 
     public boolean tieneLimiteDePrendas() {
-        return this.tipoDeGuardarropa.tieneLimiteDePrendas();
+        return this.limitePrendas>0;
     }
 
     public int getlimiteDePrendas() {
-        return this.tipoDeGuardarropa.getLimiteDePrendas();
+        return this.limitePrendas;
     }
     public long getId() {
         return id;
     }
 
-    public void cambiarTipoDeGuardarropa(TipoDeGuardarropa tipoDeGuardarropa) {
-        this.tipoDeGuardarropa = tipoDeGuardarropa;
-    }
 
     public int obtenerCantidadDePrendas() {
         return (this.prendasSuperiores.size() + this.prendasInferiores.size() + this.accesorios.size() + this.calzados.size());
