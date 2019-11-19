@@ -15,7 +15,7 @@ import java.util.Set;
 import static domain.prenda.Categoria.*;
 
 @Entity
-@Table(name = "atuendo")
+@Table(name = "atuendos")
 public class Atuendo {
 
     @GeneratedValue
@@ -26,34 +26,29 @@ public class Atuendo {
    private String nombre;
 
     @OneToMany (cascade = CascadeType.ALL)
-  //  @JoinTable(name="prenda")
+   // @JoinTable(name = "prendas_atuendos")
     @JoinColumn(name = "atuendo_id", columnDefinition = "int(11) NOT NULL")
     private Set<Prenda> prendasSuperiores = new HashSet<>();
 
 
     @OneToOne(cascade = CascadeType.ALL)
-  //  @JoinTable(name="prenda")
     @JoinColumn(name = "atuendo_id", columnDefinition = "int(11) NOT NULL")
     private Prenda accesorio;
 
 
     @OneToOne(cascade = CascadeType.ALL)
- //   @JoinTable(name="prenda")
     @JoinColumn(name = "atuendo_id",columnDefinition = "int(11) NOT NULL")
     private Prenda prendaInferior;
 
     @OneToOne(cascade = CascadeType.ALL)
-   // @JoinTable(name="prenda")
     @JoinColumn(name = "atuendo_id", columnDefinition = "int(11) NOT NULL")
     private Prenda calzado;
 
     @OneToOne(cascade = CascadeType.ALL)
-   // @JoinTable(name="prenda")
     @JoinColumn(name = "atuendo_id", columnDefinition = "int(11) NOT NULL")
     private Prenda accesorioCuello;
 
     @OneToOne(cascade = CascadeType.ALL)
-    // @JoinTable(name="prenda")
     @JoinColumn(name = "atuendo_id", columnDefinition = "int(11) NOT NULL")
     private Prenda accesorioManos;
 

@@ -16,6 +16,7 @@ import org.junit.rules.ExpectedException;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
+import java.io.IOException;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.Arrays;
@@ -28,7 +29,6 @@ public class PersistenceTest {
     private Evento eventoPersistente;
     private LocalDateTime fechaPartido;
     private Usuario alexis;
-    private Calendario calendario;
     private Calendario calendarioVacaciones;
     private Borrador ojotasHavaianasBorrador;
     private Guardarropa guardarropa;
@@ -36,8 +36,7 @@ public class PersistenceTest {
     private TipoDePrenda crocs;
     private TipoDePrenda remeraDeportiva;
     private TipoDePrenda pollera;
-
-
+    private Imagen imagen;
     private Atuendo atuendoVerano;
     private Prenda musculosa;
     private Prenda blusa;
@@ -55,29 +54,28 @@ public class PersistenceTest {
 
 
     @Before
-    public void iniciarTest() {
+    public void iniciarTest() throws IOException {
         this.emf = Persistence.createEntityManagerFactory("quemepongo");
         this.manager = emf.createEntityManager();
-        this.fechaPartido = LocalDateTime.now();//LocalDateTime.of(2019,10,22,21,30,0);
+        this.fechaPartido = LocalDateTime.of(2019,10,22,21,30,0);
         //LocalDateTime.of(2019,10,22,21,30,0)
-        this.alexis = new Usuario("+54911651651",null,"1234","alexis.dona@gmail.com","Alexis");
+        System.out.println(fechaPartido);
         this.eventoPersistente = new Evento("Partido Boca-River","La Boca",fechaPartido , Periodo.NINGUNO,2);
-        this.calendario = new Calendario();
-        this.calendario.setNombre("calendarioLaboral");
+        this.imagen = new Imagen();
+        this.imagen.leerDeFileSystem("src/imagenes/ojotas.png");
+       // this.ojotasHavaianas.cargarImagen(imagen);
         this.calendarioVacaciones = new Calendario();
         this.calendarioVacaciones.setNombre("Vacaciones norte de Argentina");
-        this.alexis.setCalendario(calendarioVacaciones);
-        this.alexis.setCalendario(calendario);
+        this.alexis = new Usuario("+54911651651",calendarioVacaciones,"1234","alexis.dona@gmail.com","Alexis","Dona");
+        this.alexis.agregarEvento(eventoPersistente);
         this.usuariosConFlor.add(alexis);
         this.color = new Color(10,11,12);
         this.colorSecundario = new Color (82,16,88);
 
-        this.remeraDeportiva = new TipoDePrenda(Categoria.PARTE_SUPERIOR_ABAJO, Arrays.asList(Material.POLYESTER), 30, 20);
-        this.remeraDeportiva.setNombreTipoPrenda("remera deportiva");
-        this.crocs = new TipoDePrenda(Categoria.CALZADO, Arrays.asList(Material.GOMA), 40, 18);
-        this.crocs.setNombreTipoPrenda("crocs y ojotas");
-        this.pollera = new TipoDePrenda(Categoria.PARTE_INFERIOR, Arrays.asList(Material.JEAN), 40, 18);
-        this.pollera.setNombreTipoPrenda("Pollera");
+
+        this.remeraDeportiva = new TipoDePrenda(Categoria.PARTE_SUPERIOR_ABAJO, Arrays.asList(Material.POLYESTER), 30, 20, "Remera deportiva");
+        this.crocs = new TipoDePrenda(Categoria.CALZADO, Arrays.asList(Material.GOMA), 40, 18, "Crocs");
+        this.pollera = new TipoDePrenda(Categoria.PARTE_INFERIOR, Arrays.asList(Material.JEAN), 40, 18,"Pollera");
         this.guardarropa = new Guardarropa("GuardarropaFlor",usuariosConFlor,0);
         this.guardarropa.setNombreGuardarropa("guardarropa formal");
 
@@ -129,64 +127,12 @@ public class PersistenceTest {
 
 
 
-    @Test
-    public void persistirEvento() {
-        try {
-            manager.getTransaction().begin();
-            System.out.println("La fecha hora del evento es: "+ eventoPersistente.getFecha());
-            manager.merge(eventoPersistente);
-            manager.getTransaction().commit();
-            manager.flush();
-        }
-        catch (Exception e) {
-            e.printStackTrace();
-        }
-        finally {
-            manager.close();
-        }
 
-    }
     @Test
     public void persistirAtuendoConSusPrendas() {
         try {
             manager.getTransaction().begin();
             manager.persist(atuendoVerano);
-            manager.getTransaction().commit();
-            manager.flush();
-        }
-        catch (Exception e) {
-            e.printStackTrace();
-        }
-        finally {
-            manager.close();
-        }
-
-    }
-
-
-    @Test
-    public void persistirTipoDePrenda() {
-        try {
-            manager.getTransaction().begin();
-            manager.persist(crocs);
-            manager.getTransaction().commit();
-            manager.flush();
-        }
-        catch (Exception e) {
-            e.printStackTrace();
-        }
-        finally {
-            manager.close();
-        }
-
-    }
-
-
-    @Test
-    public void persistirPrenda() {
-        try {
-            manager.getTransaction().begin();
-            manager.persist(ojotasHavaianas);
             manager.getTransaction().commit();
             manager.flush();
         }
@@ -218,22 +164,7 @@ public class PersistenceTest {
 
 
 
-    @Test
-    public void persistirCalendario() {
-        try {
-            manager.getTransaction().begin();
-            manager.persist(calendario);
-            manager.getTransaction().commit();
-            manager.flush();
-        }
-        catch (Exception e) {
-            e.printStackTrace();
-        }
-        finally {
-            manager.close();
-        }
 
-    }
 
     @Test
     public void levantarUsuarioDeBBDDyModificarCelular() {

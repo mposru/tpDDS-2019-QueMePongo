@@ -15,6 +15,7 @@ public class ImagenTest {
     @Test
     public void seGuardaConAltoIndicado() throws IOException {
         imagen.leerDeFileSystem("src/imagenes/ojotas.png");
+      //  System.out.println(imagen.getArchivo());
         Assert.assertEquals(imagen.getAlto(), imagen.getImagen().getHeight());
     }
 

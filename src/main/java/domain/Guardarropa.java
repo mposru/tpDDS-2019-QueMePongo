@@ -13,7 +13,7 @@ import domain.guardarropa.TipoDeGuardarropa;
 
 import static java.util.Objects.requireNonNull;
 @Entity
-@Table(name = "guardarropa")
+@Table(name = "guardarropas")
 public class Guardarropa {
 
 

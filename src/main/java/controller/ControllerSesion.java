@@ -23,7 +23,7 @@ public class ControllerSesion {
         //Usuario usuario = new Usuario("1534522454", new Calendario());
         //usuario.validarContraseña(req.queryParams("pass"));
 
-        Usuario usuario = new Usuario("",new Calendario() ,"foo", "foo", "foo@foo");
+        Usuario usuario = new Usuario("",new Calendario() ,"foo", "foo", "foo@foo","apellido");
         //RepositorioDeUsuarios.getInstance().agregarUsuario(usuarie);
         //Usuario usuario = RepositorioDeUsuarios.getInstance().buscarPorIdentificador(req.queryParams("user"));
         String contraseñaHash= SHA1.getInstance().convertirConHash(req.queryParams("pass"));

@@ -30,7 +30,7 @@ public class TipoDePrendaTest {
         this.categoria = null;
         exception.expect(NullPointerException.class);
         exception.expectMessage("La categoría es obligatoria");
-        this.tipoDePrenda = new TipoDePrenda(this.categoria, this.materiales,25,10);
+        this.tipoDePrenda = new TipoDePrenda(this.categoria, this.materiales,25,10, "Tipo de prenda");
     }
 
     @Test
@@ -39,14 +39,14 @@ public class TipoDePrendaTest {
         this.categoria = Categoria.CALZADO;
         exception.expect(NullPointerException.class);
         exception.expectMessage("Los materiales son obligatorios");
-        this.tipoDePrenda = new TipoDePrenda(this.categoria, this.materiales,25,10);
+        this.tipoDePrenda = new TipoDePrenda(this.categoria, this.materiales,25,10, "zapatos");
     }
 
     @Test
     public void deberiaSerMaterialValidoParaTipo() {
         this.materiales.add(Material.ORO);
         this.categoria = Categoria.CALZADO;
-        this.tipoDePrenda = new TipoDePrenda(this.categoria, this.materiales,25,10);
+        this.tipoDePrenda = new TipoDePrenda(this.categoria, this.materiales,25,10,"Tipo inválido");
         exception.expect(MaterialInvalidoException.class);
         exception.expectMessage("El material no es permitido en el tipo de prenda");
         this.tipoDePrenda.validarMaterial(Material.ALGODON);
@@ -56,14 +56,14 @@ public class TipoDePrendaTest {
     public void tipoDePrendaConExito() {
         this.materiales.add(Material.ORO);
         this.categoria = Categoria.ACCESORIO;
-        this.tipoDePrenda = new TipoDePrenda(this.categoria, this.materiales,25,10);
+        this.tipoDePrenda = new TipoDePrenda(this.categoria, this.materiales,25,10,"Cadena");
     }
 
     @Test
     public void unidadesDeAbrigoDeUnJean() {
         this.materiales.add(Material.JEAN);
         this.categoria = Categoria.PARTE_INFERIOR;
-        this.pantalonJean = new TipoDePrenda(this.categoria, this.materiales,25,0);
+        this.pantalonJean = new TipoDePrenda(this.categoria, this.materiales,25,0,"Pantalón");
         double unidadDeAbrigo = 18.75;
         Assert.assertTrue(this.pantalonJean.obtenerUnidadDeAbrigo()==unidadDeAbrigo);
     }

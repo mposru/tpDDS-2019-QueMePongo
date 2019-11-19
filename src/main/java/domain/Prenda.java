@@ -4,7 +4,9 @@ import domain.prenda.*;
 
 import javax.persistence.*;
 import java.io.IOException;
+import java.util.HashSet;
 import java.util.Objects;
+import java.util.Set;
 
 @Entity
 @Table(name = "prendas")
@@ -55,21 +57,20 @@ public class Prenda {
 
     /*@OneToOne
     @JoinColumn(name = "imagen_id")*/
-    @Transient
-    private Imagen imagen;
 
-    @ManyToMany(cascade=CascadeType.ALL)
+    @OneToMany
+    @JoinColumn(name = "prenda_id")
+    private Set<Imagen> imagenes = new HashSet<>();
+
+/*    @ManyToMany(cascade=CascadeType.ALL)
     @JoinTable(name = "prendas_atuendos")
-    @JoinColumn(name = "atuendo_id")
-    private Atuendo atuendo;
+    @JoinColumn(name="prenda_id")*/
+    @Transient
+    private Set<Atuendo> atuendos = new HashSet<>();
 
     @Column(name="impermeable")
     private boolean esParaLluvia;
     private boolean disponibilidad = true; //toda prenda inicia disponible
-
-
-    @Transient
-    private String nombreMaterial;
 
     public Prenda(){}
 
@@ -89,8 +90,8 @@ public class Prenda {
 
 
 
-    public void cargarImagen(String path) throws IOException {
-        this.imagen = this.imagen.leerDeFileSystem(path);
+    public void cargarImagen(Imagen imagen) throws IOException {
+        this.imagenes.add(imagen);
     }
 
     public boolean esParteSuperior() {
@@ -150,8 +151,8 @@ public class Prenda {
 
     public void setDisponibilidad(boolean disponibilidad) { this.disponibilidad = disponibilidad; }
 
-    public Imagen obtenerImagen() {
-        return imagen;
+    public Set<Imagen> getImagenes() {
+        return this.imagenes;
     }
 
     public String getNombre() {
@@ -162,17 +163,15 @@ public class Prenda {
         this.nombrePrenda = nombre;
     }
 
-    public Atuendo getAtuendo() {
-        return atuendo;
+    public Set<Atuendo>getAtuendos() {
+        return atuendos;
     }
 
     public void setAtuendo(Atuendo atuendo) {
-        this.atuendo = atuendo;
+        atuendos.add(atuendo);
     }
 
-    public Imagen getImagen() {
-        return imagen;
-    }
+
 
     public Trama getTrama() {
         return this.trama;

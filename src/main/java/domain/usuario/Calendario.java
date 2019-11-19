@@ -8,20 +8,16 @@ import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
 
-@Entity
-@Table(name = "calendario")
+
 public class Calendario {
 
 
-    @GeneratedValue
-    @Id
-    @Column(name = "calendario_id", columnDefinition = "int(11) NOT NULL")
+
     long id;
 
     String nombre;
     
-    @ManyToMany (cascade = CascadeType.ALL)
-    @JoinTable(name = "calendario_evento",joinColumns = @JoinColumn(name="calendario_id"),inverseJoinColumns = @JoinColumn(name = "evento_id"))
+
     List<Evento> eventos = new ArrayList<>();
 
     public void agregarEvento(Evento evento) {

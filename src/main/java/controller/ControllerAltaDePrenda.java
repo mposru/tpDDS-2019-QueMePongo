@@ -47,7 +47,8 @@ public class ControllerAltaDePrenda {
         borrador.definirMaterial(Material.valueOf(req.queryParams("tipoDeMaterial")));
         List<Material> materiales=new LinkedSet<>();
         materiales.add(Material.valueOf(req.queryParams("tipoDeMaterial")));
-        TipoDePrenda tipoDePrenda=new TipoDePrenda(Categoria.valueOf(req.queryParams("tipoDePrenda")),materiales,Integer.parseInt(req.queryParams("temMC")),Integer.parseInt(req.queryParams("temNC")));
+        //TODO modificar en el constructor el nombre del tipo de prenda por el que debe ir, está harcodeado.
+        TipoDePrenda tipoDePrenda=new TipoDePrenda(Categoria.valueOf(req.queryParams("tipoDePrenda")),materiales,Integer.parseInt(req.queryParams("temMC")),Integer.parseInt(req.queryParams("temNC")),"Nombre de Tipo de prenda");
         borrador.definirTipo(tipoDePrenda);
         borrador.definirTrama(Trama.valueOf(req.queryParams("tipoDeTrama")));
         borrador.definirGuardarropa(guardarropa);

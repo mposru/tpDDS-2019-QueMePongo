@@ -1,29 +1,28 @@
 @startuml
 
-entity Guardarropa  {
+entity guardarropas  {
   (PK) id_guardarropa
   --
   tipo_guardarropa
 }
 
-entity Prenda  {
+entity prendas {
 (PK) id_prenda
 --
 (FK) id_guardarropa
 (FK) id_atuendo
 (FK) id_tipoDePrenda
-(FK) id_color_primario
-(FK) id_color_secundario
-
+  rojo_primario
+  verde_primario
+  azul_primario
+  rojo_secundario
+  verde_secundario
+  azul_secundario
 }
 
-entity Color {
-  (PK) id_color
-  --
-  descripcion
-}
 
-entity Usuario {
+
+entity usuarios {
 (PK) id_usuario
 --
   nombreDeUsuario
@@ -31,49 +30,44 @@ entity Usuario {
   contrasenia
 
 }
-entity Usuario_Guardarropa {
+entity usuarios_guardarropas {
 (PK) id_usuario
 (PK) id_guardarropa
 
 }
 
-entity Decision {
+entity decisiones {
 (PK) id_decision
 --
 (FK) id_usuario
 }
-entity AtuendoAceptado {
+entity atuendos_aceptados {
 (PK) id_aceptado
 --
 (FK) id_usuario
 }
-entity AtuendoRechazado {
+entity atuendos_rechazados {
 (PK) id_rechazado
 --
 (FK) id_usuario
 }
 
-entity Calendario {
-(PK) id_calendario
---
-(FK) id_usuario
-}
 
-entity Atuendo {
+entity atuendos {
 (PK) id_atuendo
 
 }
-entity Evento {
+entity eventos {
   (PK) id_evento
   --
   (FK) id_calendario
 }
 
-entity TipoDePrenda {
+entity tipo_prendas {
 (PK) id_tipoDePrenda
 }
 
-entity AtuendoSugeridoPorEvento {
+entity atuendos_sugeridos_eventos {
 (PK) id_atuendo_sugerido
 (PK) id_atuendo
 --
@@ -81,21 +75,20 @@ entity AtuendoSugeridoPorEvento {
 }
 
 
-Guardarropa ||--o{ Prenda
-Guardarropa ||--|{ Usuario_Guardarropa
-Usuario ||--|{ Usuario_Guardarropa
-Usuario ||--o{ Decision
-Usuario ||--o{ AtuendoAceptado
-Usuario ||--o{ AtuendoRechazado
-Usuario ||--|| Calendario
-Atuendo |o--|{ Prenda
+guardarropas ||--o{ prendas
+guardarropas ||--|{ usuarios_guardarropas
+usuarios ||--|{ usuarios_guardarropas
+usuarios ||--o{ decisiones
+usuarios ||--o{ atuendos_aceptados
+usuarios ||--o{ atuendos_rechazados
+atuendos ||--o{ atuendos_prendas
+prendas ||--o{ atuendos_prendas
+usuarios ||--|{ eventos
 
-Calendario ||--o{ Evento
-Prenda }o--|| TipoDePrenda
-AtuendoSugeridoPorEvento ||--|{ Atuendo
-Usuario ||--o| AtuendoSugeridoPorEvento
-AtuendoSugeridoPorEvento |o--|| Evento
-Color ||--o{ Prenda: "color primario"
-Color |o--o{ Prenda: "color secundario"
+prendas }o--|| tipo_prendas
+atuendos_sugeridos_eventos }o--|| atuendos
+usuarios ||--o{ atuendos_sugeridos_eventos
+atuendos_sugeridos_eventos |o--|| eventos
+
 
 @enduml

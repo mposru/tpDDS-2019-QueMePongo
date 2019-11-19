@@ -30,7 +30,7 @@ import static java.time.LocalDate.now;
 @Transactional
 @Observable
 @Entity
-@Table(name = "usuario")
+@Table(name = "usuarios")
 public class Usuario {
 
 
@@ -40,10 +40,14 @@ public class Usuario {
     private long id;
 
     @ManyToMany
-    @JoinTable(name = "usuario_guardarropa",joinColumns = @JoinColumn(name="usuario_id"),inverseJoinColumns = @JoinColumn(name = "guardarropa_id"))
+    @JoinTable(name = "usuarios_guardarropas",joinColumns = @JoinColumn(name="usuario_id"),inverseJoinColumns = @JoinColumn(name = "guardarropa_id"))
     private Set<Guardarropa> guardarropas = new HashSet<>();
 
-  /*  @OneToMany
+    @OneToMany(cascade = CascadeType.ALL)
+    @JoinColumn(name = "usuario_id",columnDefinition = "int(11) NOT NULL")
+    private Set<Evento> eventos = new HashSet<>();
+
+    /*  @OneToMany
     @JoinColumn(name = "decision_id")*/
     @Transient
     private LinkedList<Decision> decisiones = new LinkedList<>();
@@ -73,8 +77,7 @@ public class Usuario {
     @Transient
     private Set<Notificador> notificadores = new HashSet<>();
 
-   @OneToOne (cascade = CascadeType.ALL) //si borro el usuario me borra su calendario
-   @JoinColumn(name = "calendario_id")
+    @Transient
    private Calendario calendario;
 
    @Column(name = "tiempo_anticipacion")
@@ -104,13 +107,14 @@ public class Usuario {
     // b. se genera sugerencia con ese clima
 
     public Usuario() {} // solo para JPA
-    public Usuario(String numeroDeCelular,Calendario miCalendario,String contrasenia,String email, String nombre) {
+    public Usuario(String numeroDeCelular,Calendario miCalendario,String contrasenia,String email, String nombre,String apellido) {
         this.numeroDeCelular = numeroDeCelular;
         this.calendario = miCalendario;
         this.contraseniaHash = contrasenia;
         this.email=email;
         this.contraseniaHash = SHA1.getInstance().convertirConHash(contrasenia);
         this.nombre = nombre;
+        this.apellido = apellido;
 
         RepositorioDeUsuarios.getInstance().agregarUsuarioTotal(this);
     }
@@ -223,9 +227,9 @@ public class Usuario {
         this.decisiones.removeFirst().deshacer(this);
     }
 
-    public void agregarEvento(String nombre, String ubicacion, LocalDateTime fecha, Periodo periodo, Integer antelacion) {
-        Evento nuevoEvento = new Evento(nombre, ubicacion, fecha, periodo, antelacion);
-        this.calendario.agregarEvento(nuevoEvento);
+    public void agregarEvento(Evento evento) {
+        this.eventos.add(evento);
+        this.calendario.agregarEvento(evento);
     }
 
     public void validarEventoDia() {

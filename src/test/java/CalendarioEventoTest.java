@@ -23,7 +23,7 @@ public class CalendarioEventoTest {
     @Before
     public void iniciarTest() {
         this.calendario = new Calendario();
-        this.nana = new Usuario( "1534433333", calendario, "nana123","","");
+        this.nana = new Usuario( "1534433333", calendario, "nana123","","",null);
         this.fecha = LocalDateTime.of(2019, 5, 29, 17, 50, 30);
         this.nombre = "Ir a caminar";
         this.ubicacion = "UTN";
@@ -94,7 +94,7 @@ public class CalendarioEventoTest {
 
     @Test
     public void hayEventoProximo(){
-        Usuario usuario=new Usuario("011145454545", calendario,"nana123","","");
+        Usuario usuario=new Usuario("011145454545", calendario,"nana123","","",null);
         Evento evento=new Evento("Robar","BA", LocalDateTime.now().plusHours(1), Periodo.DIARIO,1);
         usuario.getCalendario().agregarEvento(evento);
         Assert.assertEquals(true,usuario.getCalendario().eventosProximos().size()>0);
@@ -102,7 +102,7 @@ public class CalendarioEventoTest {
 
     @Test
     public void noHayEventoProximo(){
-        Usuario usuario=new Usuario("01154545412", calendario, "usuario123","","");
+        Usuario usuario=new Usuario("01154545412", calendario, "usuario123","","",null);
         this.evento=new Evento(this.nombre,this.ubicacion,LocalDateTime.now().plusDays(1),Periodo.NINGUNO,10);
         usuario.getCalendario().agregarEvento(evento);
         Assert.assertEquals(false,usuario.getCalendario().eventosProximos().size()>0);

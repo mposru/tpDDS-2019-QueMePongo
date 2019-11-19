@@ -21,7 +21,7 @@ import static java.util.Objects.requireNonNull;
 @Transactional
 @Observable
 @Entity
-@Table(name = "evento")
+@Table(name = "eventos")
 public class Evento {
 
     @GeneratedValue
@@ -33,10 +33,8 @@ public class Evento {
     @Convert(converter = LocalDateTimeConverter.class)
     private LocalDateTime fecha;
 
-    @Column(name="nombre")
     private String nombre;
 
-    @Column(name="ubicacion")
     private String ubicacion;
 
     @Column(name="antelacion_horas")
@@ -61,7 +59,6 @@ public class Evento {
         this.ubicacion = requireNonNull(ubicacion, "Debe ingresar una ubicación para el evento");
         this.antelacionEnHoras = requireNonNull(antelacionEnHoras,"Debe ingresar la antelacion del evento");
         this.tipoDeActualizacion=requireNonNull(tipoDeActualizacion,"Debe ingresar el tipo de periodicidad");
-        this.id = 3;
     }
 
     public void setearMeteorologo(Meteorologo meteorologo) {
