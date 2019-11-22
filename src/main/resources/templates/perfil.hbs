@@ -48,20 +48,18 @@
 <body>
 <form id="form1">
     <div class="card">
-        <p class="title" style="color:black;">"Que Me Pongo"</p>
-        <label class="usuario" id="usuario">Bienvenido Usuario {{id}}</label>
-        <p><button name="cerrarSesion" onclick="Sesion();">Cerrar Sesion</button></p>
-        <p><button name="altaDePrenda" onclick="AltaPrenda();">Alta de Prenda</button></p>
+        <p class="title" style="color:black;">"Qué Me Pongo"</p>
+        <label class="usuario" id="usuario">Bienvenido {{nombre}} {{apellido}} !! </label>
+        <p><button name="cerrarSesion" onclick="cerrarSesion();" >Cerrar Sesión</button></p>
+        <p><button name="guardarropa" onclick="listarGuardarropa();" >Mis guardarropas</button></p>
     </div>
 </form>
 <script>
-        function AltaPrenda(){
-            document.getElementById("form1").action = "/altaDePrenda";
+        function listarGuardarropa(){
+            document.getElementById("form1").action = "/guardarropas";
             document.getElementById("form1").method = "GET";
         }
-    </script>
-<script>
-        function Sesion(){
+        function cerrarSesion(){
             document.getElementById("form1").action = "/login";
             document.getElementById("form1").method = "GET";
         }

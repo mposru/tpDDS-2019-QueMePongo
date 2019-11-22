@@ -56,6 +56,10 @@ public class Usuario {
     @Column(name = "nombre")
     private String nombre;
 
+    public String getApellido() {
+        return apellido;
+    }
+
     private String apellido;
 
     private String email;
@@ -85,7 +89,6 @@ public class Usuario {
 
     @Transient
     private AtuendosSugeridosPorEvento atuendosSugeridosProximoEvento = new AtuendosSugeridosPorEvento(new ArrayList<Atuendo>(), new Evento("", "", LocalDateTime.now(), Periodo.NINGUNO, 0));
-    // agregado de sensibilidades en las partes del cuerpo. Hacemos una escala que va de 1 a 10 (1 para muy friolento hasta 10 para muy caluroso)
 
     @Transient
     private Sensibilidad sensibilidad = new Sensibilidad();
@@ -110,7 +113,6 @@ public class Usuario {
     public Usuario(String numeroDeCelular,Calendario miCalendario,String contrasenia,String email, String nombre,String apellido) {
         this.numeroDeCelular = numeroDeCelular;
         this.calendario = miCalendario;
-        this.contraseniaHash = contrasenia;
         this.email=email;
         this.contraseniaHash = SHA1.getInstance().convertirConHash(contrasenia);
         this.nombre = nombre;
@@ -121,11 +123,9 @@ public class Usuario {
 
     public void validarContraseniaHash(String contrasenia){
         if(!this.contraseniaHash.equals(contrasenia)){
-            throw  new ContraseniaInvalidaException("Contraseña invalida");
+            throw  new ContraseniaInvalidaException("Contraseña inválida");
         }
     }
-
-    public String getNombre() { return this.nombre; }
 
     public String getEmail() { return this.email; }
 
@@ -238,7 +238,9 @@ public class Usuario {
             throw new NoHayEventoCercanoException("No hay ningún evento para hoy");
         }
     }
-
+    public long getId() {
+        return this.id;
+    }
     public String getNumeroDeCelular() {
         return numeroDeCelular;
     }
@@ -339,9 +341,6 @@ public class Usuario {
         this.tiempoDeAnticipacion = tiempoDeAnticipacion;
     }
 
-    public long getId() {
-        return this.id;
-    }
 
     public List<Evento> obtenerEventos() {
         return calendario.obtenerEventos().stream().sorted(Comparator.comparing(Evento::getFecha)).collect(Collectors.toList());

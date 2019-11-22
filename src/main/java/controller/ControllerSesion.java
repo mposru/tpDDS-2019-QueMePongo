@@ -10,28 +10,50 @@ import spark.*;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
+import javax.persistence.Query;
+import java.util.List;
 
 public class ControllerSesion {
 
+    private EntityManager manager;
+    private EntityManagerFactory emf;
+    private Usuario usuarioLogin;
+
+
+
     public ModelAndView mostrarLogin(Request req, Response res) {
+
         return new ModelAndView(null, "login.hbs");
     }
 
     public ModelAndView crear(Request req, Response res) {
-        //Usuario usuario = RepoUsuario.buscarPorNombre(req.params("user"))
-        //si no existe excepciom
-        //Usuario usuario = new Usuario("1534522454", new Calendario());
-        //usuario.validarContraseña(req.queryParams("pass"));
 
-        Usuario usuario = new Usuario("",new Calendario() ,"foo", "foo", "foo@foo","apellido");
-        //RepositorioDeUsuarios.getInstance().agregarUsuario(usuarie);
-        //Usuario usuario = RepositorioDeUsuarios.getInstance().buscarPorIdentificador(req.queryParams("user"));
-        String contraseñaHash= SHA1.getInstance().convertirConHash(req.queryParams("pass"));
-        usuario.validarContraseniaHash(contraseñaHash);
-        //NUNCA GUARDAR UN ID DE USUARIO EN UNA COOKIE EN TEXTO PLANOOOOOO
-        //res.cookie("uid", usuario.getId()) // escribo aca
-        // otra forma (java ya soluciona) req.session()...
-        //redirigir al perfil
+        this.emf = Persistence.createEntityManagerFactory("quemepongo");
+        this.manager = emf.createEntityManager();
+        Query query = manager.createQuery("select a from Usuario a"); //levantamos la lista de usuarios de la BBDD
+        List<Usuario> usuarios = query.getResultList(); //Guardamos los usuarios en una lista
+        usuarios.forEach(usuario->RepositorioDeUsuarios.getInstance().agregarUsuario(usuario)); //Agregamos todos los usuarios al repositorio
+
+        usuarioLogin = RepositorioDeUsuarios.getInstance().buscarUsuarioPorEmail(req.queryParams("user"));
+
+
+        String contraseniaHasheada = SHA1.getInstance().convertirConHash(req.queryParams("pass"));
+        usuarioLogin.validarContraseniaHash(contraseniaHasheada);
+
+        System.out.println(req.queryParams("user"));
+
+        req.session().attribute("user",usuarioLogin.getEmail());
+        req.session().attribute("uid", usuarioLogin.getId());
+        req.session().attribute("nombre",usuarioLogin.getNombreUsuario());
+        req.session().attribute("apellido",usuarioLogin.getApellido());
+
+        System.out.println(req.session().attribute("user").toString());
+    //    System.out.println(req.session().attribute("uid"));
+        System.out.println(req.session().attribute("nombre").toString());
+        System.out.println(req.session().attribute("apellido").toString());
+
+
+
         res.redirect("/perfil");
         return null;
     }

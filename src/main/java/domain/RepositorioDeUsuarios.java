@@ -39,9 +39,19 @@ public class RepositorioDeUsuarios {
         }
     }
 
+    public Usuario buscarUsuarioPorEmail(String email) {
+        List<Usuario> usuariosEncontrados = usuarios.stream().filter(usuario -> usuario.getEmail().equals(email)).collect(Collectors.toList());
+        if(usuariosEncontrados.isEmpty()) {
+            throw new NoExisteUsuarioException("El usuario no existe en el repositorio");
+        }
+        else {
+            return usuariosEncontrados.get(0);
+        }
+    }
+
     public  Usuario buscarPorIdentificador(String identificador) {
         Usuario usuario = usuariosTotal.stream()
-                .filter(usuarioAux -> identificador.equals(usuarioAux.getNombre())||identificador.equals(usuarioAux.getEmail()))
+                .filter(usuarioAux -> identificador.equals(usuarioAux.getNombreUsuario())||identificador.equals(usuarioAux.getEmail()))
                 .findAny()
                 .orElseThrow(()->new NoExisteUsuarioException("No existe usuario con el nombre indicado"));
         return usuario;

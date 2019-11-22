@@ -1,8 +1,6 @@
 package controller;
 
 import domain.*;
-import domain.guardarropa.Gratuito;
-import domain.guardarropa.Premium;
 import domain.prenda.Color;
 import domain.prenda.Material;
 import domain.prenda.TipoDePrenda;
@@ -19,10 +17,9 @@ import java.util.Set;
 
 public class ControllerGuardarropas {
     public ModelAndView guardarropas(Request req, Response res) {
-        //Usuario usuarioPrueba = this.crear();
-        //res.cookie("uid","0");
-        String usuarioId = req.cookie("uid");
-        Usuario usuario = RepositorioDeUsuarios.getInstance().buscarUsuarioPorId(Integer.parseInt(usuarioId));
+
+        Usuario usuario = RepositorioDeUsuarios.getInstance().buscarUsuarioPorEmail(req.session().attribute("user"));
+
         return new ModelAndView(usuario.getGuardarropas(), "guardarropasII.hbs");
     }
 
