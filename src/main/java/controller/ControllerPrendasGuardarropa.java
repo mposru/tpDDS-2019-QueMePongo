@@ -12,7 +12,7 @@ import spark.Response;
 public class ControllerPrendasGuardarropa {
     public ModelAndView prendas(Request req, Response res) {
 
-        Usuario usuario = RepositorioDeUsuarios.getInstance().buscarUsuarioPorId(Integer.parseInt(req.cookie("uid")));
+        Usuario usuario = RepositorioDeUsuarios.getInstance().buscarUsuarioPorEmail(req.session().attribute("user"));
         String nombreGuardarropa = req.queryParams("guardarropas");
 
         return new ModelAndView(usuario.buscarGuardarropaPorNombre(nombreGuardarropa), "prendasGuardarropa.hbs");

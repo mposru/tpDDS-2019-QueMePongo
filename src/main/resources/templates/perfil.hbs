@@ -7,7 +7,8 @@
 <!-- Latest compiled and minified JavaScript -->
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
 <!------ Include the above in your HEAD tag ---------->
-<!DOCTYPE html><html lang='es' class=''>
+<!DOCTYPE html>
+<html lang='es' class=''>
 <head>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <style class="cp-pen-styles">
@@ -45,23 +46,33 @@
         }
     </style>
 </head>
-<body>
+
 <form id="form1">
     <div class="card">
         <p class="title" style="color:black;">"Qué Me Pongo"</p>
-        <label class="usuario" id="usuario">Bienvenido {{nombre}} {{apellido}} !! </label>
-        <p><button name="cerrarSesion" onclick="cerrarSesion();" >Cerrar Sesión</button></p>
+        <label class="usuario" id="usuario">Bienvenido {{nombre}} {{apellido}}< !! </label>
+        <p><button name="cerrarSesion" onclick="cerrarSesion();">Cerrar Sesión</button></p>
         <p><button name="guardarropa" onclick="listarGuardarropa();" >Mis guardarropas</button></p>
+        <p><button name="calendario" onclick="mostrarCalendario();" >Mi Calendario</button></p>
     </div>
 </form>
 <script>
-        function listarGuardarropa(){
+        function listarGuardarropa() {
             document.getElementById("form1").action = "/guardarropas";
             document.getElementById("form1").method = "GET";
         }
-        function cerrarSesion(){
+
+        function cerrarSesion() {
+            alert("entra en cerrar sesion");
             document.getElementById("form1").action = "/login";
             document.getElementById("form1").method = "GET";
+
         }
-    </script>
+
+        function mostrarCalendario(){
+            document.getElementById("form1").action = "/calendario";
+            document.getElementById("form1").method = "GET";
+        }
+</script>
 </body>
+</html>

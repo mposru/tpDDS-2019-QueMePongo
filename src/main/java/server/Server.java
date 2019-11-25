@@ -31,7 +31,7 @@ public class Server {
         Spark.post("/altaDePrenda",controllerAltaDePrenda::seleccionAltaDePrenda,engine);
         Spark.get("/perfil",controllerPerfil::mostrar,engine);
         Spark.get("/login",controllerSesion ::mostrarLogin, engine);
-        Spark.post("/login",controllerSesion::crear, engine);
+        Spark.post("/login",controllerSesion::iniciarSesion, engine);
         /*Spark.post("/calendario/prev", controllerCalendario::irAlMesAnterior, engine);
         Spark.post("/calendario/next", controllerCalendario::irAlMesSiguiente, engine);*/
         Spark.get("/calendario", controllerCalendario::mostrarCalendarioConEventos, engine);

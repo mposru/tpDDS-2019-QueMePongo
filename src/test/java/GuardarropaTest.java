@@ -84,12 +84,12 @@ public class GuardarropaTest {
         usuariosConFlor.add(flor);
         Set<Usuario> usuariosConMarta = new HashSet<>();
         usuariosConMarta.add(marta);
-        this.guardarropa = new Guardarropa("GuardarropaFlor",usuariosConFlor,0);
-        this.guardarropaLimitado = new Guardarropa("GuardarropaMarta",usuariosConMarta,5);
+        this.guardarropa = new Guardarropa("GuardarropaFlor",0);
+        this.guardarropaLimitado = new Guardarropa("GuardarropaMarta",5);
         Set<Usuario> usuarios = new HashSet<>();
         usuarios.add(flor);
         usuarios.add(pepita);
-        this.guardarropaCompartido = new Guardarropa("GuardaropaUsuario",usuarios,0);
+        this.guardarropaCompartido = new Guardarropa("GuardaropaUsuario",0);
 
         this.color = new Color(1, 2, 3);
         this.pantalonPolar = new Prenda("nombre",TipoDePrenda.PANTALON, Material.ALGODON, color, null, Trama.CUADROS, guardarropa, false);

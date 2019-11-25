@@ -36,17 +36,22 @@ public class Guardarropa {
     private Set<Prenda> calzados = new HashSet<>();
 
     @ManyToMany (mappedBy = "guardarropas")
-    private Set<Usuario> usuarios;
+    private Set<Usuario> usuarios = new HashSet<>();
+
     @Column(name = "nombre_guardarropa")
     private String nombreGuardarropa;
 
 
     public Guardarropa(){}
 
-    public Guardarropa(String nombreGuardarropa, Set<Usuario> usuarios, int limitePrendas) {
+    public Guardarropa(String nombreGuardarropa,  int limitePrendas) {
         this.nombreGuardarropa = requireNonNull(nombreGuardarropa, "Debe ingresar un nombre para el guardarropa");
-        this.usuarios = requireNonNull(usuarios, "Debe ingresar un conjunto de usuarios");
         this.limitePrendas = limitePrendas;
+    }
+
+    public void agregarUsuario(Usuario usuario) {
+        System.out.println("agrega a: "+usuario.getNombreUsuario());
+        this.usuarios.add(usuario);
     }
 
     public void setLimiteDePrendas(int limitePrendas) {

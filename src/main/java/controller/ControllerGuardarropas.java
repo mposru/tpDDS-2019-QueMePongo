@@ -18,7 +18,11 @@ import java.util.Set;
 public class ControllerGuardarropas {
     public ModelAndView guardarropas(Request req, Response res) {
 
+
         Usuario usuario = RepositorioDeUsuarios.getInstance().buscarUsuarioPorEmail(req.session().attribute("user"));
+//        System.out.println("En guardarropas: "+usuario.getEmail());
+//        System.out.println("En guardarropas: "+usuario.getGuardarropas().size());
+
 
         return new ModelAndView(usuario.getGuardarropas(), "guardarropasII.hbs");
     }
@@ -31,8 +35,8 @@ public class ControllerGuardarropas {
         Set<Usuario> usuariosLista = new HashSet<>();
         usuariosLista.add(usuario);
 
-        Guardarropa guardarropa1 = new Guardarropa("GuardarropaInvierno",new HashSet<>(),0);
-        Guardarropa guardarropa2 = new Guardarropa("GuardarropaVerano",new HashSet<>(),10);
+        Guardarropa guardarropa1 = new Guardarropa("GuardarropaInvierno",0);
+        Guardarropa guardarropa2 = new Guardarropa("GuardarropaVerano",10);
 
 
         Prenda zapatos = new Prenda("Zapatos",TipoDePrenda.ZAPATO, Material.CUERO, new Color(1,2,3), null, Trama.LISA, guardarropa1, true);

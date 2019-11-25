@@ -37,7 +37,7 @@ public class BorradorTest {
 
         Set<Usuario> magdalenaLista = new HashSet<>();
         magdalenaLista.add(magdalena);
-        this.guardarropa = new Guardarropa("GuardarropaMagdalena",magdalenaLista,0);
+        this.guardarropa = new Guardarropa("GuardarropaMagdalena",0);
         //creamos un borrador sin definirle el tipoDePrenda, material, trama y guardarropa
         this.borradorZapatillas = new Borrador();
         this.materialInvalido = Material.JEAN;

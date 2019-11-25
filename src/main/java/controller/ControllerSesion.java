@@ -18,7 +18,8 @@ public class ControllerSesion {
     private EntityManager manager;
     private EntityManagerFactory emf;
     private Usuario usuarioLogin;
-
+    private boolean flagError= false;
+    private String mensaje = "";
 
 
     public ModelAndView mostrarLogin(Request req, Response res) {
@@ -26,35 +27,52 @@ public class ControllerSesion {
         return new ModelAndView(null, "login.hbs");
     }
 
-    public ModelAndView crear(Request req, Response res) {
+    public ModelAndView iniciarSesion(Request req, Response res) {
 
         this.emf = Persistence.createEntityManagerFactory("quemepongo");
         this.manager = emf.createEntityManager();
         Query query = manager.createQuery("select a from Usuario a"); //levantamos la lista de usuarios de la BBDD
         List<Usuario> usuarios = query.getResultList(); //Guardamos los usuarios en una lista
+        System.out.println("cantidad de usuarios en la base: "+usuarios.size());
         usuarios.forEach(usuario->RepositorioDeUsuarios.getInstance().agregarUsuario(usuario)); //Agregamos todos los usuarios al repositorio
 
-        usuarioLogin = RepositorioDeUsuarios.getInstance().buscarUsuarioPorEmail(req.queryParams("user"));
-
+        usuarios.forEach(usuario->System.out.println("email usuario: "+ usuario.getEmail()));
+        System.out.println("Repositorio de usuarios "+RepositorioDeUsuarios.getInstance().getUsuarios());
+        try {
+            usuarioLogin = RepositorioDeUsuarios.getInstance().buscarUsuarioPorEmail(req.queryParams("user"));
+        }
+        catch (Exception e)
+        {
+            mensaje += " "+e.getMessage();
+            flagError = true;
+        }
 
         String contraseniaHasheada = SHA1.getInstance().convertirConHash(req.queryParams("pass"));
-        usuarioLogin.validarContraseniaHash(contraseniaHasheada);
+        try {
+            usuarioLogin.validarContraseniaHash(contraseniaHasheada);
+        }
+        catch (Exception e) {
+            flagError = true;
+            mensaje += " "+  e.getMessage();
+        }
+     //   System.out.println("Mensajes de error: "+mensaje);
 
-        System.out.println(req.queryParams("user"));
+      //  System.out.println(req.queryParams("user"));
 
         req.session().attribute("user",usuarioLogin.getEmail());
         req.session().attribute("uid", usuarioLogin.getId());
         req.session().attribute("nombre",usuarioLogin.getNombreUsuario());
         req.session().attribute("apellido",usuarioLogin.getApellido());
 
-        System.out.println(req.session().attribute("user").toString());
-    //    System.out.println(req.session().attribute("uid"));
-        System.out.println(req.session().attribute("nombre").toString());
-        System.out.println(req.session().attribute("apellido").toString());
+//        System.out.println(req.session().attribute("user").toString());
+//        System.out.println(req.session().attribute("uid").toString());
+//        System.out.println(req.session().attribute("nombre").toString());
+//        System.out.println(req.session().attribute("apellido").toString());
 
 
-
-        res.redirect("/perfil");
+        if (!flagError) {
+            res.redirect("/perfil");
+        }
         return null;
     }
 

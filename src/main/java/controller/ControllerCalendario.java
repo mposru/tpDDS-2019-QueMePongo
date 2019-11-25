@@ -27,14 +27,10 @@ public class ControllerCalendario {
     private boolean primeraCarga = true;
 
     public ModelAndView mostrarCalendarioConEventos(Request req, Response res) {
-        Usuario usuario = RepositorioDeUsuarios.getInstance().buscarUsuarioPorId(0);
+        Usuario usuario = RepositorioDeUsuarios.getInstance().buscarUsuarioPorEmail(req.session().attribute("user"));
         if(usuario == null) {
             usuario = crearUsuario();
         }
-
-        req.session().attribute("uid", 0);
-
-        res.cookie("uid", "0");
 
         CalendarioSpark calendarioSpark = new CalendarioSpark();
 
@@ -182,8 +178,8 @@ public class ControllerCalendario {
         Set<Usuario> usuariosLista = new HashSet<>();
         usuariosLista.add(usuario);
 
-        Guardarropa guardarropa1 = new Guardarropa("GuardarropaInvierno",new HashSet<>(),0);
-        Guardarropa guardarropa2 = new Guardarropa("GuardarropaVerano",new HashSet<>(),10);
+        Guardarropa guardarropa1 = new Guardarropa("GuardarropaInvierno",0);
+        Guardarropa guardarropa2 = new Guardarropa("GuardarropaVerano",10);
 
 
         Prenda zapatos = new Prenda("Zapatos", TipoDePrenda.ZAPATO, Material.CUERO, new Color(1,2,3), null, Trama.LISA, guardarropa1, true);
@@ -273,7 +269,10 @@ public class ControllerCalendario {
                 dias.add(0, diaDemas);
             }
         }
+        System.out.println("dias es: "+dias);
         return dias;
+
+
     }
 
 }

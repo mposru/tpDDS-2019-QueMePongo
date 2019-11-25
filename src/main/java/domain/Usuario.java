@@ -39,7 +39,7 @@ public class Usuario {
     @Column(name = "usuario_id",columnDefinition = "int(11) NOT NULL")
     private long id;
 
-    @ManyToMany
+    @ManyToMany (cascade = CascadeType.ALL)
     @JoinTable(name = "usuarios_guardarropas",joinColumns = @JoinColumn(name="usuario_id"),inverseJoinColumns = @JoinColumn(name = "guardarropa_id"))
     private Set<Guardarropa> guardarropas = new HashSet<>();
 
@@ -75,7 +75,7 @@ public class Usuario {
   /*  @OneToMany
     @JoinTable(name="atuendo")
     @JoinColumn(name = "atuendo_id",columnDefinition = "int(11) NOT NULL")*/
-  @Transient
+   @Transient
     private List<Atuendo> atuendosRechazados = new ArrayList<>();
 
     @Transient
@@ -359,7 +359,7 @@ public class Usuario {
     }
 
 
-    public Guardarropa verificarSiIdDeGuardarropa(String id){
+    public Guardarropa verificarSiIdDeGuardarropa(String id) {
         return this.guardarropas.stream()
                 .filter(guardarropaAux->Integer.parseInt(id)==guardarropaAux.getId())
                 .findAny()
