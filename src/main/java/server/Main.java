@@ -6,11 +6,23 @@ import spark.TemplateEngine;
 import spark.debug.DebugScreen;
 import spark.template.handlebars.HandlebarsTemplateEngine;
 
-public class Server {
+public class Main {
+    static int getHerokuAssignedPort() {
+        ProcessBuilder processBuilder = new ProcessBuilder();
+        if (processBuilder.environment().get("PORT") != null) {
+            return Integer.parseInt(processBuilder.environment().get("PORT"));
+        }
+
+        return 9000; //return default port if heroku-port isn't set (i.e. on localhost)
+    }
+
     public static void main(String[] args) {
+
         //RepositorioGuardarropas.instance().findByUsuario(new Usuario());
-        Spark.port(9000);
-        Spark.staticFileLocation("/public");
+        //Spark.port(9000);
+        Spark.port(getHerokuAssignedPort());
+        Spark.staticFileLocation("src/main/resources");
+       // Spark.staticFileLocation("/public");
         Spark.init();
 
         ControllerGuardarropas controllerGuardarropas = new ControllerGuardarropas();
