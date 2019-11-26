@@ -6,6 +6,9 @@ import exceptions.NoExisteUsuarioException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
+import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
+import javax.persistence.Persistence;
 
 public class RepositorioDeUsuarios {
     private static RepositorioDeUsuarios instanceOfRepositorioDeUsuarios;
@@ -17,6 +20,18 @@ public class RepositorioDeUsuarios {
             instanceOfRepositorioDeUsuarios = new RepositorioDeUsuarios();
         }
         return instanceOfRepositorioDeUsuarios;
+    }
+
+    public RepositorioDeUsuarios() {
+
+        EntityManagerFactory emf = Persistence.createEntityManagerFactory("quemepongo");
+        EntityManager manager = emf.createEntityManager();
+        manager.getTransaction().begin();
+        usuarios = manager.createQuery(
+                "SELECT p FROM usuarios p", Usuario.class).getResultList();
+        manager.getTransaction().commit();
+        manager.close();
+        emf.close();
     }
 
     public List<Usuario> getUsuarios() {
