@@ -5,6 +5,9 @@ import domain.SHA1;
 import domain.Usuario;
 import spark.*;
 
+import java.util.HashMap;
+import java.util.Map;
+
 public class ControllerSesion {
 
     private Usuario usuarioLogin;
@@ -23,8 +26,9 @@ public class ControllerSesion {
             usuarioLogin.validarContraseniaHash(contraseniaHasheada);
         }
         catch (Exception e) {
-            mensaje = "Usuario o contraseña inválidos";
-            return null;
+            Map<String, Object> model = new HashMap<>();
+            model.put("error", "Usuario o contraseña inválidos");
+            return new ModelAndView(model, "login.hbs");
         }
      //   System.out.println("Mensajes de error: "+mensaje);
 

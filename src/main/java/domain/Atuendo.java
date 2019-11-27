@@ -55,6 +55,8 @@ public class Atuendo {
     @Transient
     private EstadoAtuendo estado;
 
+    public Atuendo() {}
+
     public Atuendo(Set<Prenda> prendasSuperiores, Prenda prendaInferior, Prenda calzado, Prenda accesorio, Prenda accesorioCuello, Prenda accesorioManos) {
         this.validarPrenda(prendasSuperiores, prendaInferior, calzado, accesorio, accesorioCuello, accesorioManos);
         this.accesorio = accesorio;

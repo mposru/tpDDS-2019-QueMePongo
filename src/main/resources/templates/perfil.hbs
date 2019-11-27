@@ -1,15 +1,12 @@
-<!-- Latest compiled and minified CSS -->
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-
-<!-- Optional theme -->
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
-
-<!-- Latest compiled and minified JavaScript -->
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
-<!------ Include the above in your HEAD tag ---------->
-<!DOCTYPE html>
-<html lang='es' class=''>
+<html>
 <head>
+
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+    <!-- Latest compiled and minified JavaScript -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+    <!--- Include the above in your HEAD tag -->
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <style class="cp-pen-styles">
         .card {
@@ -46,7 +43,7 @@
         }
     </style>
 </head>
-
+<body>
 <form id="form1">
     <div class="card">
         <p class="title" style="color:black;">"Qué Me Pongo"</p>
@@ -56,23 +53,24 @@
         <p><button name="calendario" onclick="mostrarCalendario();" >Mi Calendario</button></p>
     </div>
 </form>
-<script>
-        function listarGuardarropa() {
-            document.getElementById("form1").action = "/guardarropas";
-            document.getElementById("form1").method = "GET";
-        }
-
-        function cerrarSesion() {
-            alert("entra en cerrar sesion");
-            document.getElementById("form1").action = "/login";
-            document.getElementById("form1").method = "GET";
-
-        }
-
-        function mostrarCalendario(){
-            document.getElementById("form1").action = "/calendario";
-            document.getElementById("form1").method = "GET";
-        }
-</script>
 </body>
+
+<script>
+function listarGuardarropa() {
+    document.getElementById("form1").action = "/guardarropas";
+    document.getElementById("form1").method = "GET";
+}
+
+function cerrarSesion() {
+    alert("entra en cerrar sesion");
+    document.getElementById("form1").action = "/login";
+    document.getElementById("form1").method = "GET";
+
+}
+
+function mostrarCalendario(){
+    document.getElementById("form1").action = "/calendario";
+    document.getElementById("form1").method = "GET";
+}
+</script>
 </html>

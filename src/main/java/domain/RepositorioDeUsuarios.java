@@ -9,6 +9,7 @@ import java.util.stream.Collectors;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
+import javax.persistence.Query;
 
 public class RepositorioDeUsuarios {
     private static RepositorioDeUsuarios instanceOfRepositorioDeUsuarios;
@@ -23,15 +24,13 @@ public class RepositorioDeUsuarios {
     }
 
     public RepositorioDeUsuarios() {
-
-        EntityManagerFactory emf = Persistence.createEntityManagerFactory("quemepongo");
+        EntityManagerFactory emf = Persistence.createEntityManagerFactory("dxffzlciern157vi");
         EntityManager manager = emf.createEntityManager();
-        manager.getTransaction().begin();
-        usuarios = manager.createQuery(
-                "SELECT p FROM usuarios p", Usuario.class).getResultList();
-        manager.getTransaction().commit();
+        Query query = manager.createQuery("select a from Usuario a"); //levantamos la lista de usuarios de la BBDD
+        usuarios = query.getResultList();
         manager.close();
         emf.close();
+
     }
 
     public List<Usuario> getUsuarios() {
