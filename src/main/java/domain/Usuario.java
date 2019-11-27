@@ -8,13 +8,9 @@ import java.util.*;
 import java.util.stream.Collectors;
 
 import domain.clima.Clima;
-import domain.guardarropa.Gratuito;
 import domain.notificacion.Notificador;
 import domain.clima.Alerta;
-import domain.prenda.Color;
-import domain.prenda.Material;
 import domain.prenda.TipoDePrenda;
-import domain.prenda.Trama;
 import domain.usuario.*;
 import domain.usuario.transiciones.*;
 import exceptions.*;
@@ -45,7 +41,7 @@ public class Usuario {
 
     @OneToMany(cascade = CascadeType.ALL)
     @JoinColumn(name = "usuario_id",columnDefinition = "int(11) NOT NULL")
-    private Set<Evento> eventos = new HashSet<>();
+    private List<Evento> eventos = new ArrayList<>();
 
     /*  @OneToMany
     @JoinColumn(name = "decision_id")*/
@@ -117,8 +113,10 @@ public class Usuario {
         this.contraseniaHash = SHA1.getInstance().convertirConHash(contrasenia);
         this.nombre = nombre;
         this.apellido = apellido;
+    }
 
-        RepositorioDeUsuarios.getInstance().agregarUsuarioTotal(this);
+    @PostLoad void onPostLoad() {
+        this.calendario = new Calendario(eventos);
     }
 
     public void validarContraseniaHash(String contrasenia){

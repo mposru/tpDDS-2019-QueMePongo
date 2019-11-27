@@ -11,6 +11,6 @@ public class Despertador implements Job {
     }
 
     public void darConsultaAUsuarios(){
-         RepositorioDeUsuarios.getInstance().usuariosTotal.forEach(usuario -> usuario.verificarSiHayEventoProximo());
+         RepositorioDeUsuarios.getInstance().usuarios.forEach(usuario -> usuario.verificarSiHayEventoProximo());
     }
 }
