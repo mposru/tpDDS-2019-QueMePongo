@@ -35,7 +35,7 @@ public class Usuario {
     @Column(name = "usuario_id",columnDefinition = "int(11) NOT NULL")
     private long id;
 
-    @ManyToMany (cascade = CascadeType.ALL)
+    @ManyToMany (cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @JoinTable(name = "usuarios_guardarropas",joinColumns = @JoinColumn(name="usuario_id"),inverseJoinColumns = @JoinColumn(name = "guardarropa_id"))
     private Set<Guardarropa> guardarropas = new HashSet<>();
 
