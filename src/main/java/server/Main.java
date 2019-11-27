@@ -21,8 +21,8 @@ public class Main {
         //RepositorioGuardarropas.instance().findByUsuario(new Usuario());
         //Spark.port(9000);
         Spark.port(getHerokuAssignedPort());
-        Spark.staticFileLocation("src/main/resources");
-       // Spark.staticFileLocation("/public");
+       // Spark.staticFileLocation("src/main/resources");
+        Spark.staticFileLocation("/public");
         Spark.init();
 
         ControllerGuardarropas controllerGuardarropas = new ControllerGuardarropas();

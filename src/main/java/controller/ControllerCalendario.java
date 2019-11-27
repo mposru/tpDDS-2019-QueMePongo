@@ -29,7 +29,7 @@ public class ControllerCalendario {
     public ModelAndView mostrarCalendarioConEventos(Request req, Response res) {
         Usuario usuario = RepositorioDeUsuarios.getInstance().buscarUsuarioPorEmail(req.session().attribute("user"));
         if(usuario == null) {
-            usuario = crearUsuario();
+        //    usuario = crearUsuario();
         }
 
         CalendarioSpark calendarioSpark = new CalendarioSpark();

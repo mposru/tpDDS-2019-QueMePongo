@@ -20,6 +20,12 @@ public class Calendario {
 
     List<Evento> eventos = new ArrayList<>();
 
+    public Calendario() {}
+
+    public Calendario(List<Evento> eventos) {
+        this.eventos = eventos;
+    }
+
     public void agregarEvento(Evento evento) {
         eventos.add(evento);
     }

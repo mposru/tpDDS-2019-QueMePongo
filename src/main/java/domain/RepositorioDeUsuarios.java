@@ -1,6 +1,7 @@
 package domain;
 
 
+import domain.usuario.Evento;
 import exceptions.NoExisteUsuarioException;
 
 import java.util.ArrayList;
@@ -14,7 +15,6 @@ import javax.persistence.Query;
 public class RepositorioDeUsuarios {
     private static RepositorioDeUsuarios instanceOfRepositorioDeUsuarios;
     List<Usuario> usuarios = new ArrayList<>();
-    List<Usuario> usuariosTotal = new ArrayList<>();
 
     public static RepositorioDeUsuarios getInstance() {
         if(instanceOfRepositorioDeUsuarios==null) {
@@ -41,7 +41,7 @@ public class RepositorioDeUsuarios {
         usuarios.add(usuario);
     }
 
-    public void agregarUsuarioTotal(Usuario usuario) { usuariosTotal.add(usuario); }
+    public void agregarUsuarioTotal(Usuario usuario) { usuarios.add(usuario); }
 
     public Usuario buscarUsuarioPorId(int id) {
         List<Usuario> usuariosEncontrados = usuarios.stream().filter(usuario -> usuario.getId() == id).collect(Collectors.toList());
@@ -64,7 +64,7 @@ public class RepositorioDeUsuarios {
     }
 
     public  Usuario buscarPorIdentificador(String identificador) {
-        Usuario usuario = usuariosTotal.stream()
+        Usuario usuario = usuarios.stream()
                 .filter(usuarioAux -> identificador.equals(usuarioAux.getNombreUsuario())||identificador.equals(usuarioAux.getEmail()))
                 .findAny()
                 .orElseThrow(()->new NoExisteUsuarioException("No existe usuario con el nombre indicado"));
