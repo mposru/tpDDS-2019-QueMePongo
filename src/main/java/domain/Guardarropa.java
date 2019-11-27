@@ -23,19 +23,19 @@ public class Guardarropa {
     private long id;
     @Column(name = "limite_prendas")
     private int limitePrendas=0;
-    @OneToMany(mappedBy = "guardarropa")
+    @OneToMany(mappedBy = "guardarropa",fetch = FetchType.EAGER)
     private Set<Prenda> prendasSuperiores = new HashSet<>();
 
-    @OneToMany(mappedBy = "guardarropa")
+    @OneToMany(mappedBy = "guardarropa",fetch = FetchType.EAGER)
     private Set<Prenda> accesorios = new HashSet<>();
 
-    @OneToMany(mappedBy = "guardarropa")
+    @OneToMany(mappedBy = "guardarropa",fetch = FetchType.EAGER)
     private Set<Prenda> prendasInferiores = new HashSet<>();
 
-    @OneToMany(mappedBy = "guardarropa")
+    @OneToMany(mappedBy = "guardarropa", fetch = FetchType.EAGER)
     private Set<Prenda> calzados = new HashSet<>();
 
-    @ManyToMany (mappedBy = "guardarropas")
+    @ManyToMany (mappedBy = "guardarropas",fetch = FetchType.EAGER)
     private Set<Usuario> usuarios = new HashSet<>();
 
     @Column(name = "nombre_guardarropa")
