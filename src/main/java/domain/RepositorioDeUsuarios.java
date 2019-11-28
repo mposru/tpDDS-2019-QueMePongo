@@ -24,7 +24,7 @@ public class RepositorioDeUsuarios {
     }
 
     public RepositorioDeUsuarios() {
-        EntityManagerFactory emf = Persistence.createEntityManagerFactory("dxffzlciern157vi");
+        EntityManagerFactory emf = Persistence.createEntityManagerFactory("quemepongo");
         EntityManager manager = emf.createEntityManager();
         Query query = manager.createQuery("select a from Usuario a"); //levantamos la lista de usuarios de la BBDD
         usuarios = query.getResultList();
