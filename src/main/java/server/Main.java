@@ -48,8 +48,8 @@ public class Main {
         Spark.post("/calendario/next", controllerCalendario::irAlMesSiguiente, engine);*/
         Spark.get("/calendario/:anio/:mes", controllerCalendario::mostrarCalendarioConEventos, engine);
         //Spark.post("/calendario", controllerCalendario::mostrarCalendarioConEventos, engine);
-        Spark.get("/evento", controllerEventos::mostrar, engine);
-        Spark.post("/evento", controllerEventos::crearEvento, engine);
+        Spark.get("/eventos/new", controllerEventos::mostrar, engine);
+        Spark.post("/eventos/new", controllerEventos::crearEvento, engine);
         Spark.get("/eventos",controllerEventos ::mostrarEventos, engine);
         Spark.get("/eventos/:id/sugerencias/:indice",controllerEventos ::mostrarSugerencia, engine);
         Spark.post("/eventos/:id/sugerencias/:idSugerencia/estado",controllerEventos ::modificarEstadoSugerencia, engine);

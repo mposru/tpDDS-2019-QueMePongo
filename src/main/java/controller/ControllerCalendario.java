@@ -21,6 +21,7 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.YearMonth;
 import java.util.*;
+import java.util.stream.Collectors;
 
 public class ControllerCalendario {
 
@@ -34,7 +35,7 @@ public class ControllerCalendario {
         calendarioSpark.setAnio(Integer.toString(anio));
         List<Dia> dias = obtenerDiasConYSinEventos(anio, numeroDeMes, usuario.getCalendario());
         calendarioSpark.setDiasDelMes(dias);
-        
+
         return new ModelAndView(calendarioSpark, "calendario.hbs");
     }
 
@@ -203,31 +204,31 @@ public class ControllerCalendario {
     public List<Dia> obtenerDiasConYSinEventos(int anio, int mes, Calendario calendario) {
         List<Dia> dias = new ArrayList<>();
         int cantidadDeDiasDelMes = YearMonth.of(anio, mes).lengthOfMonth();
+        List<Evento> eventosDelMes = calendario.obtenerEventosDelMes(anio, mes);
+
         for (int i = 1; i <= cantidadDeDiasDelMes; i++) {
-            Dia dia = new Dia();
-            dia.setNumeroDeDia(Integer.toString(i));
-            List<Evento> eventosParaEseDia = calendario.obtenerEventosPorFecha(LocalDate.of(anio, mes, i));
+            Dia dia = new Dia(Integer.toString(i));
+            List<Evento> eventosParaEseDia = new ArrayList<>();
+            for (Evento evento : eventosDelMes) {
+                if (evento.getFecha().toLocalDate().isEqual(LocalDate.of(anio, mes, i)))
+                    eventosParaEseDia.add(evento);
+            }
             dia.setEventos(eventosParaEseDia);
-            dia.setNoEsDiaDemas(true);
-            dia.setEsDiaDemas(false);
             dias.add(dia);
         }
 
+        Dia diaVacio = new Dia("");
+        diaVacio.setEventos(new ArrayList<>());
+        diaVacio.setNoEsDiaDemas(false);
+        diaVacio.setEsDiaDemas(true);
         int cantidadDeDiasHastaElPrimerDiaDelMes = LocalDate.of(anio, mes, 1).getDayOfWeek().getValue();
         if(cantidadDeDiasHastaElPrimerDiaDelMes != 7) { // no es domingo el primer dia del mes
             for (int i = 0; i < cantidadDeDiasHastaElPrimerDiaDelMes; i++) {
-                Dia diaDemas = new Dia();
-                diaDemas.setNumeroDeDia("");
-                diaDemas.setEventos(new ArrayList<>());
-                diaDemas.setNoEsDiaDemas(false);
-                diaDemas.setEsDiaDemas(true);
-                dias.add(0, diaDemas);
+                dias.add(0, diaVacio);
             }
         }
         System.out.println("dias es: "+dias);
         return dias;
-
-
     }
 
 }
@@ -276,6 +277,12 @@ class Dia {
     private List<Evento> eventos;
     private Boolean noEsDiaDemas;
     private Boolean esDiaDemas;
+
+    public Dia(String numeroDeDia) {
+        this.numeroDeDia = numeroDeDia;
+        noEsDiaDemas = true;
+        esDiaDemas = false;
+    }
 
     public String getNumeroDeDia() {
         return numeroDeDia;

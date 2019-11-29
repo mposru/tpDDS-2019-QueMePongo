@@ -50,17 +50,21 @@
                                 <div id="evento">
                                     {{nombre}} en {{ubicacion}}
                                 </div>
-
                             {{/each}}
-                        </div>
+                            </div>
+                            <script>
+                                var eventos = document.querySelectorAll("#evento");
+                                for(i = 0; i < eventos.length; i++) {
+                                    eventos[i].style.backgroundColor = "hsla(" + ~~(360 * Math.random()) + "," +"70%,"+"80%,1)";
+                                }
+                            </script>
                     </li>
                 {{/if}}
             {{/each}}
         </ul>
 
-        <form action="/evento" method="get">
-            <button id="nuevoEvento" type="submit" class="btn btn-lg btn-primary btn-circle"><i class="fa fa-plus"></i></button>
-        </form>
+        <a id="nuevoEvento" href="/eventos/new" class="btn btn-lg btn-primary btn-circle"><i class="fa fa-plus"></i></a>
+
         <script>
             function mesAnterior(){
                 var pathArray = window.location.pathname.split('/');
