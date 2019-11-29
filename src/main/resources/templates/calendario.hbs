@@ -13,20 +13,18 @@
             <a class="navbar-brand" href="eventos">Mis Eventos</a>
         </nav>
         <div class="month">
-            <form id="formMonth" method="post">
                 <ul>
                     <li class="prev">
-                        <input id="mesAnterior" type="submit" formaction="/calendario?action=mesAnterior" value="&#10094;"/>
+                        <input id="mesAnterior" type="button" onclick="mesAnterior();" value="&#10094;"/>
                     </li>
                     <li class="next">
-                        <input id="mesSiguiente" type="submit" formaction="/calendario?action=mesSiguiente" value="&#10095;"/>
+                        <input id="mesSiguiente" type="button" onclick="mesSiguiente();" value="&#10095;"/>
                     </li>
                     <li class="mes">
                         <h3>{{mes}}</h3>
                         <h4><span style="font-size:18px">{{anio}}</span></h4>
                     </li>
                 </ul>
-            </form>
         </div>
 
         <ul class="weekdays">
@@ -64,9 +62,30 @@
             <button id="nuevoEvento" type="submit" class="btn btn-lg btn-primary btn-circle"><i class="fa fa-plus"></i></button>
         </form>
         <script>
-            var eventos = document.querySelectorAll("#evento");
-            for(i = 0; i < eventos.length; i++) {
-                eventos[i].style.backgroundColor = "hsla(" + ~~(360 * Math.random()) + "," +"70%,"+"80%,1)";
+            function mesAnterior(){
+                var pathArray = window.location.pathname.split('/');
+                var mes = parseInt(pathArray.pop());
+                var anio = parseInt(pathArray.pop());
+                if(mes == 1) {
+                    mes = 12;
+                    anio = anio - 1;
+                } else {
+                    mes = mes - 1;
+                }
+                window.location.href = "/calendario/" + anio + "/" + mes;
+            }
+
+            function mesSiguiente(){
+                var pathArray = window.location.pathname.split('/');
+                var mes = parseInt(pathArray.pop());
+                var anio = parseInt(pathArray.pop());
+                if(mes == 12) {
+                    mes = 1;
+                    anio = anio + 1;
+                } else {
+                    mes = mes + 1;
+                }
+                window.location.href = "/calendario/" + anio + "/" + mes;
             }
         </script>
     </body>

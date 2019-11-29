@@ -24,63 +24,18 @@ import java.util.*;
 
 public class ControllerCalendario {
 
-    private boolean primeraCarga = true;
-
     public ModelAndView mostrarCalendarioConEventos(Request req, Response res) {
         Usuario usuario = RepositorioDeUsuarios.getInstance().buscarUsuarioPorEmail(req.session().attribute("user"));
-        if(usuario == null) {
-        //    usuario = crearUsuario();
-        }
+        int anio = Integer.valueOf(req.params("anio"));
+        int numeroDeMes = Integer.valueOf(req.params("mes"));
 
         CalendarioSpark calendarioSpark = new CalendarioSpark();
-
-        if(primeraCarga) {
-            res.cookie("mes", getMes(LocalDate.now().getMonthValue()));
-            res.cookie("anio", Integer.toString(LocalDate.now().getYear()));
-            res.cookie("numeroDeMes", Integer.toString(LocalDate.now().getMonthValue()));
-            primeraCarga = false;
-            res.redirect("/calendario");
-        }
-
-        String mes = req.cookie("mes");
-        int anio = Integer.parseInt(req.cookie("anio"));
-        int numeroDeMes =  Integer.parseInt(req.cookie("numeroDeMes"));
-
-        if(req.queryParams().isEmpty()) {
-            calendarioSpark.setMes(mes);
-            calendarioSpark.setAnio(Integer.toString(anio));
-            List<Dia> dias = obtenerDiasConYSinEventos(anio, numeroDeMes, usuario.getCalendario());
-            calendarioSpark.setDiasDelMes(dias);
-            return new ModelAndView(calendarioSpark, "calendario.hbs");
-        } else if(req.queryParams("action").equals("mesAnterior")) {
-            if(numeroDeMes == 1) {
-                res.cookie("mes", getMes(12));
-                res.cookie("numeroDeMes", "12");
-                res.cookie("anio", Integer.toString(anio-1));
-            } else {
-                res.cookie("mes", getMes(numeroDeMes - 1));
-                res.cookie("numeroDeMes", Integer.toString(numeroDeMes - 1));
-            }
-            res.redirect("/calendario");
-            return null;
-        } else if(req.queryParams("action").equals("mesSiguiente")) {
-            if(numeroDeMes == 12) {
-                res.cookie("mes", getMes(1));
-                res.cookie("numeroDeMes", "1");
-                res.cookie("anio", Integer.toString(anio + 1));
-            } else {
-                res.cookie("mes", getMes(numeroDeMes + 1));
-                res.cookie("numeroDeMes", Integer.toString(numeroDeMes + 1));
-            }
-            res.redirect("/calendario");
-            return null;
-        } else {
-            calendarioSpark.setMes(mes);
-            calendarioSpark.setAnio(Integer.toString(anio));
-            List<Dia> dias = obtenerDiasConYSinEventos(anio, numeroDeMes, usuario.getCalendario());
-            calendarioSpark.setDiasDelMes(dias);
-            return new ModelAndView(calendarioSpark, "calendario.hbs");
-        }
+        calendarioSpark.setMes(getMes(numeroDeMes));
+        calendarioSpark.setAnio(Integer.toString(anio));
+        List<Dia> dias = obtenerDiasConYSinEventos(anio, numeroDeMes, usuario.getCalendario());
+        calendarioSpark.setDiasDelMes(dias);
+        
+        return new ModelAndView(calendarioSpark, "calendario.hbs");
     }
 
     public Usuario crearUsuario() {

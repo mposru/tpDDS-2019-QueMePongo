@@ -46,8 +46,8 @@ public class Main {
         Spark.post("/login",controllerSesion::iniciarSesion, engine);
         /*Spark.post("/calendario/prev", controllerCalendario::irAlMesAnterior, engine);
         Spark.post("/calendario/next", controllerCalendario::irAlMesSiguiente, engine);*/
-        Spark.get("/calendario", controllerCalendario::mostrarCalendarioConEventos, engine);
-        Spark.post("/calendario", controllerCalendario::mostrarCalendarioConEventos, engine);
+        Spark.get("/calendario/:anio/:mes", controllerCalendario::mostrarCalendarioConEventos, engine);
+        //Spark.post("/calendario", controllerCalendario::mostrarCalendarioConEventos, engine);
         Spark.get("/evento", controllerEventos::mostrar, engine);
         Spark.post("/evento", controllerEventos::crearEvento, engine);
         Spark.get("/eventos",controllerEventos ::mostrarEventos, engine);
