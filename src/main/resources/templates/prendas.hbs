@@ -16,69 +16,31 @@
     <a class="navbar-brand" href="eventos">Mis Eventos</a>
 </nav>
     <h1>
-        {{ nombreGuardarropa }}
+        Prendas del {{ nombreGuardarropa }}
     </h1>
 
 
-    <h2>
-        Prendas Superiores
-    </h2>
     <div class="card-columns" >
         {{#each prendasSuperiores}}
-            <div class="card text-white bg-success mb-3" style="max-width: 18rem;">
+            <div id="prenda" class="card text-black"  style="max-width: 18rem;">
                 <img src="/remera.png"  class="rounded-sm" alt="left">
                 <div class="card-body">
                     <h5 class="card-title">{{nombrePrenda}}</h5>
+                    <p class="card-text">{{nombreCategoria}}</p>
                     <p class="card-text">{{nombreMaterial}}</p>
+
                 </div>
             </div>
         {{/each}}
     </div>
 
-    <h2>
-        Prendas Inferiores
-    </h2>
-    <div class="card-columns">
-        {{#each prendasInferiores}}
-        <div class="card text-white bg-danger mb-3" style="max-width: 18rem;">
-            <img src="/remera.png"  class="rounded-sm" alt="left">
-            <div class="card-body">
-                <h5 class="card-title">{{nombrePrenda}}</h5>
-                <p class="card-text">{{nombreMaterial}}</p>
-            </div>
-        </div>
-        {{/each}}
-    </div>
+    <script>
+        var prendas = document.querySelectorAll("#prenda");
+        for(i = 0; i < prendas.length; i++) {
+            prendas[i].style.backgroundColor = "hsla(" + ~~(360 * Math.random()) + "," +"70%,"+"80%,1)";
+        }
+    </script>
 
-    <h2>
-        Calzados
-    </h2>
-    <div class="card-columns">
-        {{#each calzados}}
-        <div class="card text-white bg-warning mb-3" style="max-width: 18rem;">
-            <img src="/remera.png"  class="rounded-sm" alt="left">
-            <div class="card-body">
-                <h5 class="card-title">{{nombrePrenda}}</h5>
-                <p class="card-text">{{nombreMaterial}}</p>
-            </div>
-        </div>
-        {{/each}}
-    </div>
-
-    <h2>
-        Accesorios
-    </h2>
-    <div class="card-columns">
-        {{#each accesorios}}
-        <div class="card text-white bg-info mb-3" style="max-width: 18rem;">
-            <img src="/remera.png"  class="rounded-sm" alt="left">
-            <div class="card-body">
-                <h5 class="card-title">{{nombrePrenda}}</h5>
-                <p class="card-text">{{nombreMaterial}}</p>
-            </div>
-        </div>
-        {{/each}}
-    </div>
 
 </body>
 </html>
