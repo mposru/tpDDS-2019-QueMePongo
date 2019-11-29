@@ -39,8 +39,8 @@ public class Main {
         Spark.get("/guardarropas/:id/prendas",controllerGuardarropas::mostrarPrendas, engine);
         Spark.post("/calificarAceptadas",controllerCalificarAceptadas::calificarAceptadas,engine);
         Spark.get("/calificarAceptadas",controllerCalificarAceptadas::mostrarAceptadas,engine);
-        Spark.get("/altaDePrenda",controllerAltaDePrenda::mostrarAltaDePrenda,engine);
-        Spark.post("/altaDePrenda",controllerAltaDePrenda::seleccionAltaDePrenda,engine);
+        Spark.get("/guardarropas/:id/prendas/new",controllerAltaDePrenda::mostrarAltaDePrenda,engine);
+        Spark.post("/guardarropas/:id/prendas/new",controllerAltaDePrenda::seleccionAltaDePrenda,engine);
         Spark.get("/perfil",controllerPerfil::mostrar,engine);
         Spark.get("/login",controllerSesion ::mostrarLogin, engine);
         Spark.post("/login",controllerSesion::iniciarSesion, engine);
