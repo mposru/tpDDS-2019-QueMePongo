@@ -2,6 +2,10 @@
 <head>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <link rel="stylesheet" href="/main.css">
+    <link rel="stylesheet" href="/calendario.css">
+    <script src="js/jquery-1.11.0.min.js"></script>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
     <style>
         .h2, h2 {
             font-size: 2rem;
@@ -18,7 +22,11 @@
     <h1>
         Prendas del {{ nombreGuardarropa }}
     </h1>
-
+<div> Nueva prenda
+    <form action="/altaDePrenda" method="get" name = "Alta de prenda">
+        <button id="nuevaPrenda" type="submit" class="btn btn-lg btn-primary btn-circle"><i class="fa fa-plus"></i></button>
+    </form>
+</div>
 
     <div class="card-columns" >
         {{#each prendasSuperiores}}
