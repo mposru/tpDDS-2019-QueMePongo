@@ -81,12 +81,19 @@ public class PersistenceTest {
     private Calendario calendarioDiego;
     private Calendario calendarioDaiana;
     private Calendario calendarioMarina;
-
+    private Prenda musculosa2 ;
+    private Prenda blusa2 ;
+    private Prenda zapatos2 ;
+    private Prenda shortDeJean2 ;
+    private Prenda polleraDeJean2 ;
+    private Prenda anteojos2 ;
+    private Prenda bufandaRoja2 ;
+    private Prenda guantesCuero2;
 
 
     @Before
     public void iniciarTest() throws IOException {
-        this.emf = Persistence.createEntityManagerFactory("dxffzlciern157vi");
+        this.emf = Persistence.createEntityManagerFactory("quemepongo");
         this.manager = emf.createEntityManager();
         this.fechaPartido = LocalDateTime.of(2019,10,22,21,30,0);
 
@@ -98,18 +105,6 @@ public class PersistenceTest {
         this.calendarioDaiana.setNombre("Calendario de Daiana");
         this.calendarioDiego.setNombre("Calendario de Diego");
         this.calendarioMarina.setNombre("Calendario de Marina");
-
-
-        this.partidoRiverBoca = new Evento("Partido Boca-River","La Boca",fechaPartido , Periodo.NINGUNO,2);
-        this.pizzaALaParri = new Evento("Pizzas a la parrilla", "Carapachay",LocalDateTime.of(2019,11,23,21,30,0),Periodo.MENSUAL,0);
-        this.recitalMonaJimenez = new Evento("Recital de la mona Jimenez", "Luna Park",LocalDateTime.of(2019,11,9,21,30,0),Periodo.NINGUNO,0);
-        this.asadoDominguero = new Evento ("Asado de domingo al mediodia","Los talas del Entrerriano",LocalDateTime.of(2019,11,9,12,30,0),Periodo.MENSUAL,1);
-        this.casorio = new Evento ("Casamiento","Pilar",LocalDateTime.of(2019,12,15,21,30,0),Periodo.NINGUNO,1);
-
-        this.imagen = new Imagen();
-        this.imagen.leerDeFileSystem("src/imagenes/ojotas.png");
-        this.calendarioVacaciones = new Calendario();
-        this.calendarioVacaciones.setNombre("Vacaciones norte de Argentina");
         this.alexis = new Usuario("+54911651651",calendarioAlexis,"1234","alexis.dona@gmail.com","Alexis","Dona");
         this.diego = new Usuario("+54911687895",calendarioDiego,"4321","diegoignaciopeccia@gmail.com","Diego","Peccia");
         this.marina = new Usuario("+5491131458855",calendarioMarina,"Marina123","maruposru@gmail.com","Marina","Posru");
@@ -118,6 +113,16 @@ public class PersistenceTest {
         this.usuarios.add(diego);
         this.usuarios2.add(marina);
         this.usuarios2.add(daiana);
+
+        this.partidoRiverBoca = new Evento("Partido Boca-River","La Boca",fechaPartido , Periodo.NINGUNO,2);
+        this.pizzaALaParri = new Evento("Pizzas a la parrilla", "Carapachay",LocalDateTime.of(2019,11,23,21,30,0),Periodo.MENSUAL,0);
+        this.recitalMonaJimenez = new Evento("Recital de la mona Jimenez", "Luna Park",LocalDateTime.of(2019,11,9,21,30,0),Periodo.NINGUNO,0);
+        this.asadoDominguero = new Evento ("Asado de domingo al mediodia","Los talas del Entrerriano",LocalDateTime.of(2019,11,9,12,30,0),Periodo.MENSUAL,1);
+        this.casorio = new Evento ("Casamiento","Pilar",LocalDateTime.of(2019,12,15,21,30,0),Periodo.NINGUNO,1);
+
+        this.calendarioVacaciones = new Calendario();
+        this.calendarioVacaciones.setNombre("Vacaciones norte de Argentina");
+
         this.alexis.agregarEvento(partidoRiverBoca);
         this.diego.agregarEvento(partidoRiverBoca);
         this.diego.agregarEvento(pizzaALaParri);
@@ -143,11 +148,6 @@ public class PersistenceTest {
         System.out.println(marina.getGuardarropas());
         System.out.println(daiana.getGuardarropas());
 
-
-
-        this.remeraDeportiva = new TipoDePrenda(Categoria.PARTE_SUPERIOR_ABAJO, Arrays.asList(Material.POLYESTER), 30, 20, "Remera deportiva");
-        this.crocs = new TipoDePrenda(Categoria.CALZADO, Arrays.asList(Material.GOMA), 40, 18, "Crocs");
-        this.pollera = new TipoDePrenda(Categoria.PARTE_INFERIOR, Arrays.asList(Material.JEAN), 40, 18,"Pollera");
         this.guardarropa = new Guardarropa("GuardarropaFlor",0);
 
         this.color = new Color(10,11,12);
@@ -156,8 +156,6 @@ public class PersistenceTest {
         this.color4 = new Color(88,50,25);
         this.color5 = new Color(1,20,35);
         this.color6 = new Color(10,5,0);
-
-
         this.colorSecundario = new Color (82,16,88);
 
 
@@ -165,7 +163,7 @@ public class PersistenceTest {
         this.musculosa = new Prenda("Musculosa a cuadros",TipoDePrenda.MUSCULOSA, Material.ALGODON, color, null, Trama.CUADROS, guardarropaVerano, false);
         this.remeraLisa = new Prenda("Remera lisa",TipoDePrenda.REMERA, Material.ALGODON, color6,color2, Trama.LISA, guardarropaVerano, false);
         this.alpargatas = new Prenda("Alpargatas",TipoDePrenda.ZAPATO, Material.ALGODON, color4, color5, Trama.LISA, guardarropaVerano, true);
-        this.shortDeJean = new Prenda("Short",TipoDePrenda.SHORT, Material.JEAN, color3, color, Trama.LISA, guardarropaVerano, false);
+        this.shortDeJean = new Prenda("Short de Jean",TipoDePrenda.SHORT, Material.JEAN, color3, color, Trama.LISA, guardarropaVerano, false);
         this.gorraDeSol = new Prenda("Gorra de sol",TipoDePrenda.GORRO, Material.POLYESTER, color2, null, Trama.LISA, guardarropaVerano, false);
         this.guardarropaVerano.guardarPrenda(musculosa);
         this.guardarropaVerano.guardarPrenda(remeraLisa);
@@ -174,13 +172,13 @@ public class PersistenceTest {
         this.guardarropaVerano.guardarPrenda(gorraDeSol);
 
         //Guadarropa de invierno
-        this.remeraMangaLarga = new Prenda("Remera manga larga a cuadros",TipoDePrenda.REMERA_MANGA_LARGA, Material.ALGODON, color, null, Trama.CUADROS, guardarropaVerano, false);
-        this.remeraLisa2 = new Prenda("Remera lisa",TipoDePrenda.REMERA, Material.ALGODON, color, null, Trama.LISA, guardarropaVerano, false);
-        this.zapatillas = new Prenda("zapatillas",TipoDePrenda.ZAPATO, Material.ALGODON, color, null, Trama.LISA, guardarropaVerano, true);
-        this.pantalonDeJean = new Prenda("pantalon de jean",TipoDePrenda.PANTALON_INVIERNO, Material.JEAN, color, null, Trama.LISA, guardarropaVerano, false);
-        this.gorroDeLana = new Prenda("Gorra de lana",TipoDePrenda.GORRO, Material.LANA, color, null, Trama.LISA, guardarropaVerano, false);
-        this.polera = new Prenda("Polera",TipoDePrenda.REMERA_MANGA_LARGA, Material.ALGODON, color, null, Trama.CUADROS, guardarropaVerano, false);
-        this.campera = new Prenda("Campera uniqlo",TipoDePrenda.CAMPERA, Material.POLYESTER, color, null, Trama.CUADROS, guardarropaVerano, false);
+        this.remeraMangaLarga = new Prenda("Remera manga larga a cuadros",TipoDePrenda.REMERA_MANGA_LARGA, Material.ALGODON, color, null, Trama.CUADROS, guardarropaInvierno, false);
+        this.remeraLisa2 = new Prenda("Remera lisa",TipoDePrenda.REMERA, Material.ALGODON, color, null, Trama.LISA, guardarropaInvierno, false);
+        this.zapatillas = new Prenda("zapatillas",TipoDePrenda.ZAPATO, Material.ALGODON, color, null, Trama.LISA, guardarropaInvierno, true);
+        this.pantalonDeJean = new Prenda("pantalon de jean",TipoDePrenda.PANTALON_INVIERNO, Material.JEAN, color, null, Trama.LISA, guardarropaInvierno, false);
+        this.gorroDeLana = new Prenda("Gorra de lana",TipoDePrenda.GORRO, Material.LANA, color, null, Trama.LISA, guardarropaInvierno, false);
+        this.polera = new Prenda("Polera",TipoDePrenda.REMERA_MANGA_LARGA, Material.ALGODON, color, null, Trama.CUADROS, guardarropaInvierno, false);
+        this.campera = new Prenda("Campera uniqlo",TipoDePrenda.CAMPERA, Material.POLYESTER, color, null, Trama.CUADROS, guardarropaInvierno, false);
         this.guardarropaInvierno.guardarPrenda(remeraMangaLarga);
         this.guardarropaInvierno.guardarPrenda(remeraLisa2);
         this.guardarropaInvierno.guardarPrenda(zapatillas);
@@ -203,19 +201,19 @@ public class PersistenceTest {
         this.ojotasHavaianasBorrador.definirTrama(Trama.NINGUNO);
         this.ojotasHavaianasBorrador.definirEsParaLLuvia(true);
         this.ojotasHavaianasBorrador.definirGuardarropa(guardarropa);
-        this.ojotasHavaianas =  ojotasHavaianasBorrador.crearPrenda();
+     //   this.ojotasHavaianas =  ojotasHavaianasBorrador.crearPrenda();
 
         // para el atuendo
-        this.musculosa = new Prenda("Musculosa",TipoDePrenda.MUSCULOSA, Material.ALGODON, color, null, Trama.CUADROS, guardarropa, false);
-        this.blusa = new Prenda("Blusa",TipoDePrenda.BLUSA, Material.ALGODON, color, null, Trama.CUADROS, guardarropa, false);
-        this.zapatos = new Prenda("Zapato",TipoDePrenda.ZAPATO, Material.CUERO, color, null, Trama.LISA, guardarropa, true);
-        this.shortDeJean = new Prenda("Short",TipoDePrenda.SHORT, Material.JEAN, color, null, Trama.LISA, guardarropa, false);
-        this.polleraDeJean = new Prenda("Pollera",TipoDePrenda.POLLERA, Material.JEAN, color, null, Trama.LISA, guardarropa, false);
-        this.anteojos = new Prenda("Anteojos",TipoDePrenda.ANTEOJOS, Material.PLASTICO, color, null, Trama.LISA, guardarropa, false);
-        this.bufandaRoja = new Prenda("Bufanda",TipoDePrenda.BUFANDA, Material.LANA, color, null, Trama.LISA, guardarropa, false);
-        this.guantesCuero = new Prenda("Guantes de Cuero",TipoDePrenda.GUANTES, Material.CUERO, color, null, Trama.LISA, guardarropa, false);
-        this.superiores.add(musculosa);
-        this.atuendoVerano = new Atuendo(superiores, shortDeJean, ojotasHavaianas, anteojos, bufandaRoja, guantesCuero);
+        this.musculosa2 = new Prenda("Musculosa",TipoDePrenda.MUSCULOSA, Material.ALGODON, color, null, Trama.CUADROS, guardarropa, false);
+        this.blusa2 = new Prenda("Blusa",TipoDePrenda.BLUSA, Material.ALGODON, color, null, Trama.CUADROS, guardarropa, false);
+        this.zapatos2 = new Prenda("Zapato",TipoDePrenda.ZAPATO, Material.CUERO, color, null, Trama.LISA, guardarropa, true);
+        this.shortDeJean2 = new Prenda("Short",TipoDePrenda.SHORT, Material.JEAN, color, null, Trama.LISA, guardarropa, false);
+        this.polleraDeJean2 = new Prenda("Pollera",TipoDePrenda.POLLERA, Material.JEAN, color, null, Trama.LISA, guardarropa, false);
+        this.anteojos2 = new Prenda("Anteojos",TipoDePrenda.ANTEOJOS, Material.PLASTICO, color, null, Trama.LISA, guardarropa, false);
+        this.bufandaRoja2 = new Prenda("Bufanda",TipoDePrenda.BUFANDA, Material.LANA, color, null, Trama.LISA, guardarropa, false);
+        this.guantesCuero2 = new Prenda("Guantes de Cuero",TipoDePrenda.GUANTES, Material.CUERO, color, null, Trama.LISA, guardarropa, false);
+        this.superiores.add(musculosa2);
+        this.atuendoVerano = new Atuendo(superiores, shortDeJean2, zapatos2, anteojos2, bufandaRoja2, guantesCuero2);
         this.atuendoVerano.setNombre("atuendo veraniego");
     }
 
@@ -227,10 +225,10 @@ public class PersistenceTest {
     public void persistirUsuario() {
         try {
             manager.getTransaction().begin();
-            manager.persist(alexis);
-            manager.persist(diego);
-            manager.persist(marina);
-            manager.persist(daiana);
+            manager.merge(alexis);
+            manager.merge(diego);
+            manager.merge(marina);
+            manager.merge(daiana);
             manager.getTransaction().commit();
             manager.flush();
         }
@@ -244,52 +242,6 @@ public class PersistenceTest {
     }
 
 
-    @Test
-    public void persistirPrendas() {
-        try {
-            manager.getTransaction().begin();
-            manager.persist(remeraLisa);
-            manager.persist(alpargatas);
-            manager.persist(gorraDeSol);
-            manager.persist(remeraMangaLarga);
-            manager.persist(pantalonDeJean);
-            manager.persist(gorroDeLana);
-            manager.persist(remeraLisa2);
-            manager.persist(zapatillas);
-            manager.persist(campera);
-            manager.getTransaction().commit();
-            manager.flush();
-        }
-        catch (Exception e) {
-            e.printStackTrace();
-        }
-        finally {
-            manager.close();
-        }
-
-    }
-
-    /* @Test
-    public void persistirEventos() {
-        try {
-            manager.getTransaction().begin();
-            manager.persist(partidoRiverBoca);
-            manager.persist(pizzaALaParri);
-            manager.persist(asadoDominguero);
-            manager.persist(recitalMonaJimenez);
-            manager.persist(casorio);
-            manager.getTransaction().commit();
-            manager.flush();
-        }
-        catch (Exception e) {
-            e.printStackTrace();
-        }
-        finally {
-            manager.close();
-        }
-
-    }
-*/
 
 
     @Test
@@ -335,47 +287,4 @@ public class PersistenceTest {
 
 
 
-    @Test
-    public void levantarUsuarioDeBBDDyModificarCelular() {
-        EntityManager em = emf.createEntityManager();
-        Usuario usuario = em.find(Usuario.class,38L);
-        usuario.setNumeroDeCelular("+15847777");
-        try {
-            manager.getTransaction().begin();
-            manager.merge(usuario);
-            manager.getTransaction().commit();
-        }
-        catch (Exception e) {
-            manager.getTransaction().rollback();
-            e.printStackTrace();
-        }
-        finally {
-            manager.close();
-        }
-
-
-    }
-
-    @Test
-    public void levantarUsuarioDeBBDDyModificarNombre() {
-        EntityManager em = emf.createEntityManager();
-
-        Usuario usuario = em.find(Usuario.class,38L);
-        usuario.setNombreUsuario("messi");
-        try {
-            manager.getTransaction().begin();
-            manager.merge(usuario);
-            manager.getTransaction().commit();
-         //   manager.flush();
-        }
-        catch (Exception e) {
-            manager.getTransaction().rollback();
-            e.printStackTrace();
-        }
-        finally {
-            manager.close();
-        }
-
-
-    }
 }

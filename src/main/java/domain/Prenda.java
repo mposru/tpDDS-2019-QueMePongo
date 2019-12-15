@@ -18,7 +18,7 @@ public class Prenda {
     @Column(name = "nombre")
     private String nombrePrenda;
 
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne (cascade = {CascadeType.PERSIST,CascadeType.DETACH,CascadeType.MERGE,CascadeType.REFRESH}, fetch = FetchType.EAGER)
     @JoinColumn(name = "tipo_prenda_id",columnDefinition = "int(11) NOT NULL")
     private TipoDePrenda tipoDePrenda;
 
@@ -51,7 +51,7 @@ public class Prenda {
     @Enumerated (EnumType.STRING)
     private Trama trama;
 
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne
     @JoinColumn(name = "guardarropa_id")
     private Guardarropa guardarropa;
 
@@ -210,6 +210,10 @@ public class Prenda {
 
     public String getNombreMaterial() {
         return material.toString();
+    }
+
+    public String getNombreCategoria() {
+        return tipoDePrenda.obtenerCategoria().toString();
     }
 
     public String getNombrePrenda() {

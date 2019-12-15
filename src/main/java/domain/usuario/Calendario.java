@@ -11,12 +11,9 @@ import java.util.stream.Collectors;
 
 public class Calendario {
 
-
-
     long id;
 
     String nombre;
-    
 
     List<Evento> eventos = new ArrayList<>();
 
@@ -28,6 +25,13 @@ public class Calendario {
 
     public void agregarEvento(Evento evento) {
         eventos.add(evento);
+    }
+
+    public List<Evento> obtenerEventosDelMes(int anio, int mes) {
+        return eventos.stream()
+                .filter(evento -> evento.getFecha().toLocalDate().getMonth().getValue() == mes
+                                && evento.getFecha().toLocalDate().getYear() == anio)
+                .collect(Collectors.toList());
     }
 
     public List<Evento> obtenerEventosPorFecha(LocalDate fecha) {

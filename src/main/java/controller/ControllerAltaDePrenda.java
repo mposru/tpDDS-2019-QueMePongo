@@ -2,6 +2,7 @@ package controller;
 
 import domain.Guardarropa;
 import domain.RepositorioDeUsuarios;
+import domain.RepositorioTipoDePrendas;
 import domain.Usuario;
 import domain.prenda.*;
 import net.sf.oval.internal.util.LinkedSet;
@@ -15,24 +16,18 @@ import java.util.Map;
 
 public class ControllerAltaDePrenda {
     public ModelAndView mostrarAltaDePrenda(Request req, Response res) {
-        Map<String, String> model = new HashMap<>();
-        int i=0;
-        for(Categoria c: Categoria.values()){
-            model.put("cat"+i+"",c.name());
-            i++;
-        }
-        model.put("cantCat",Integer.toString(i));
-        int j=0;
-        for(Material m: Material.values()) {
-            model.put("mat"+j+"",m.name());
-            j++;
-        }
-        int k=0;
-        for(Trama t: Trama.values()) {
-            model.put("tra"+k+"",t.name());
-            k++;
-        }
-        model.put("cantMat",Integer.toString(j));
+        Map<String,Object > model = new HashMap<>();
+        List<TipoDePrenda> tipoDePrendas = RepositorioTipoDePrendas.getInstance().getTipoDePrendas();
+        System.out.println("Cantidad de tipo de prendas"+ tipoDePrendas.size());
+        int i=1;
+        model.put("tipoDePrendas",tipoDePrendas);
+        tipoDePrendas.forEach(tipoDePrenda -> model.put("nombreTipoDePrenda"+(i+1),tipoDePrenda.getNombreTipoPrenda()));
+
+
+
+
+
+
         return new ModelAndView(model,"altaDePrenda.hbs");
     }
     public ModelAndView seleccionAltaDePrenda (Request req, Response res) {
@@ -40,10 +35,10 @@ public class ControllerAltaDePrenda {
         String idGuardarropa=req.queryParams("numC");
         Guardarropa guardarropa = usuario.verificarSiIdDeGuardarropa(idGuardarropa);
         Borrador borrador = new Borrador();
-        Color color = new Color(Integer.parseInt(req.queryParams("rojo1C")),Integer.parseInt(req.queryParams("verde1C")),Integer.parseInt("azul1C"));
-        borrador.definirColorPrimario(color);
-        color = new Color(Integer.parseInt(req.queryParams("rojo2C")),Integer.parseInt(req.queryParams("verde2C")),Integer.parseInt("azul2C"));
-        borrador.definirColorSecundario(color);
+        Color colorPrimario = new Color(Integer.parseInt(req.queryParams("rojo1C")),Integer.parseInt(req.queryParams("verde1C")),Integer.parseInt("azul1C"));
+        borrador.definirColorPrimario(colorPrimario);
+        Color colorSecundario = new Color(Integer.parseInt(req.queryParams("rojo2C")),Integer.parseInt(req.queryParams("verde2C")),Integer.parseInt("azul2C"));
+        borrador.definirColorSecundario(colorSecundario);
         borrador.definirMaterial(Material.valueOf(req.queryParams("tipoDeMaterial")));
         List<Material> materiales=new LinkedSet<>();
         materiales.add(Material.valueOf(req.queryParams("tipoDeMaterial")));

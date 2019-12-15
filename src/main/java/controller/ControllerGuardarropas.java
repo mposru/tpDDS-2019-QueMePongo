@@ -6,69 +6,32 @@ import domain.prenda.Material;
 import domain.prenda.TipoDePrenda;
 import domain.prenda.Trama;
 import domain.usuario.Calendario;
+import domain.usuario.Evento;
 import spark.ModelAndView;
 import spark.Request;
 import spark.Response;
 
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
+import javax.persistence.Persistence;
+import java.util.*;
 
 public class ControllerGuardarropas {
-    public ModelAndView guardarropas(Request req, Response res) {
 
 
+    public ModelAndView mostrarGuardarropas(Request req, Response res) {
         Usuario usuario = RepositorioDeUsuarios.getInstance().buscarUsuarioPorEmail(req.session().attribute("user"));
-//        System.out.println("En guardarropas: "+usuario.getEmail());
-//        System.out.println("En guardarropas: "+usuario.getGuardarropas().size());
-
-
-        return new ModelAndView(usuario.getGuardarropas(), "guardarropasII.hbs");
+        return new ModelAndView(usuario.getGuardarropas(), "guardarropas.hbs");
     }
 
+    public ModelAndView mostrarPrendas(Request req, Response res) {
+        Usuario usuario = RepositorioDeUsuarios.getInstance().buscarUsuarioPorEmail(req.session().attribute("user"));
 
-    public Usuario crear() {
+        EntityManagerFactory emf = Persistence.createEntityManagerFactory("quemepongo");
+        EntityManager em = emf.createEntityManager();
+        Guardarropa guardarropa = em.find(Guardarropa.class,Long.valueOf(req.params("id")));
 
-        Usuario usuario = new Usuario( "1543333322", new Calendario(),"abc123","email","nombre","apellido");
-
-        Set<Usuario> usuariosLista = new HashSet<>();
-        usuariosLista.add(usuario);
-
-        Guardarropa guardarropa1 = new Guardarropa("GuardarropaInvierno",0);
-        Guardarropa guardarropa2 = new Guardarropa("GuardarropaVerano",10);
-
-
-        Prenda zapatos = new Prenda("Zapatos",TipoDePrenda.ZAPATO, Material.CUERO, new Color(1,2,3), null, Trama.LISA, guardarropa1, true);
-        Prenda botasDeNieve = new Prenda("BotasDeNieve",TipoDePrenda.BOTAS_NIEVE, Material.ALGODON, new Color(1,2,3), null, Trama.CUADROS, guardarropa1, false);
-        Prenda buzo = new Prenda("Buzo",TipoDePrenda.BUZO, Material.ALGODON, new Color(1,2,3), null, Trama.CUADROS, guardarropa1, false);
-        Prenda pantalonPolar = new Prenda("Pantalon Polar",TipoDePrenda.PANTALON, Material.ALGODON, new Color(1,2,3), null, Trama.CUADROS, guardarropa1, false);
-        Prenda gorro = new Prenda("Gorro lana",TipoDePrenda.GORRO, Material.LANA, new Color(1,2,3), null, Trama.LISA, guardarropa1, false);
-
-
-        Prenda musculosa = new Prenda("Musculosa",TipoDePrenda.MUSCULOSA, Material.ALGODON, new Color(1,2,3), null, Trama.LISA, guardarropa2,  false);
-        Prenda shortDeJean = new Prenda("ShortDeJean", TipoDePrenda.SHORT, Material.JEAN, new Color(1,2,3), null, Trama.LISA, guardarropa2, false);
-        Prenda crocs = new Prenda("Crocs",TipoDePrenda.CROCS, Material.GOMA, new Color(1,2,3), null, Trama.CUADROS, guardarropa2, true);
-        Prenda pollera = new Prenda("Pollera", TipoDePrenda.POLLERA, Material.ALGODON, new Color(1,2,3), null, Trama.LISA, guardarropa2, false);
-        Prenda pañuelo = new Prenda("Pañuelo",TipoDePrenda.PANUELO, Material.ALGODON, new Color(1,2,3), null, Trama.LISA, guardarropa2, false);
-
-        guardarropa1.guardarPrenda(zapatos);
-        guardarropa1.guardarPrenda(botasDeNieve);
-        guardarropa1.guardarPrenda(buzo);
-        guardarropa1.guardarPrenda(pantalonPolar);
-        guardarropa1.guardarPrenda(gorro);
-
-        guardarropa2.guardarPrenda(shortDeJean);
-        guardarropa2.guardarPrenda(musculosa);
-        guardarropa2.guardarPrenda(crocs);
-        guardarropa2.guardarPrenda(pollera);
-        guardarropa2.guardarPrenda(pañuelo);
-
-        usuario.agregarGuardarropa(guardarropa2);
-        usuario.agregarGuardarropa(guardarropa1);
-
-        RepositorioDeUsuarios.getInstance().agregarUsuario(usuario);
-        return usuario;
+        return new ModelAndView(guardarropa, "prendas.hbs");
     }
 
 }

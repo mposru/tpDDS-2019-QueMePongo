@@ -12,8 +12,17 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
+/* Cacheo de consultas a la API : Libreria JEDIS para usar Java + Redis (Canche)
+   - En el pom.xml:
+        <dependency>
+            <groupId>redis.clients</groupId>
+            <artifactId>jedis</artifactId>
+            <version>2.8.1</version>
+        </dependency>
+        */
 public abstract class Meteorologo {
-    public List<Clima> climas = new ArrayList<>();
+    //public Jedis jedis;
+    public List<Clima> climas = new ArrayList<>(); // esto no iria
     public abstract Clima obtenerClima(LocalDate dia);
     public abstract List<Alerta> obtenerAlertas();
 
@@ -25,6 +34,24 @@ public abstract class Meteorologo {
     }
 
     public Clima obtenerClimaDelDiaSiLoTengo(LocalDate dia) {
+        /*
+            Clima clima;
+            for(int i=0;i< 5;i++) {
+                Map<String, String> climaDeRedis = jedis.hgetAll("climaAccuWeather#" + i);
+                if(climaDeRedis != null) {
+                    if(climaDeRedis.get("fecha").toLocalDate().isEqual(dia)) {
+                        clima = new Clima  (climaDeRedis.get("fecha"),
+                                            climaDeRedis.get("maxima"),
+                                            climaDeRedis.get("minima"),
+                                            climaDeRedis.get("probabilidadDeLluviaEnElDia"),
+                                            climaDeRedis.get("probabilidadDeLluviaEnLaNoche"));
+                    }
+                }
+            }
+            if(clima == null)
+                return null;
+            return clima;
+        */
         if(climas == null) {
             return null;
         }

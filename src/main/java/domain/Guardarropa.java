@@ -23,19 +23,19 @@ public class Guardarropa {
     private long id;
     @Column(name = "limite_prendas")
     private int limitePrendas=0;
-    @OneToMany(mappedBy = "guardarropa",fetch = FetchType.EAGER)
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "guardarropa",fetch = FetchType.EAGER)
     private Set<Prenda> prendasSuperiores = new HashSet<>();
 
-    @OneToMany(mappedBy = "guardarropa",fetch = FetchType.EAGER)
+    @OneToMany(cascade = CascadeType.ALL,mappedBy = "guardarropa",fetch = FetchType.EAGER)
     private Set<Prenda> accesorios = new HashSet<>();
 
-    @OneToMany(mappedBy = "guardarropa",fetch = FetchType.EAGER)
+    @OneToMany(cascade = CascadeType.ALL,mappedBy = "guardarropa",fetch = FetchType.EAGER)
     private Set<Prenda> prendasInferiores = new HashSet<>();
 
-    @OneToMany(mappedBy = "guardarropa", fetch = FetchType.EAGER)
+    @OneToMany(cascade = CascadeType.ALL,mappedBy = "guardarropa", fetch = FetchType.EAGER)
     private Set<Prenda> calzados = new HashSet<>();
 
-    @ManyToMany (mappedBy = "guardarropas",fetch = FetchType.EAGER)
+    @ManyToMany (cascade = CascadeType.ALL,mappedBy = "guardarropas",fetch = FetchType.EAGER)
     private Set<Usuario> usuarios = new HashSet<>();
 
     @Column(name = "nombre_guardarropa")
@@ -50,7 +50,7 @@ public class Guardarropa {
     }
 
     public void agregarUsuario(Usuario usuario) {
-        System.out.println("agrega a: "+usuario.getNombreUsuario());
+        //System.out.println("agrega a: "+usuario.getNombreUsuario());
         this.usuarios.add(usuario);
     }
 
@@ -113,6 +113,7 @@ public class Guardarropa {
 
     public void verificarLimiteDePrendas() {
         if (this.tieneLimiteDePrendas() && this.obtenerCantidadDePrendas() >= this.getlimiteDePrendas()) {
+            System.out.println("Entra en el limite de prendas");
             throw new SuperaLimiteDePrendasException("Se supera el límite de " + this.getlimiteDePrendas() + " guardarropas definido para el tipo de guardarropa");
         }
     }

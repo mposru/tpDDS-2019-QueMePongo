@@ -20,9 +20,9 @@
         <properties>
             <property name="hibernate.archive.autodetection" value="class"/>
             <property name="hibernate.connection.driver_class" value="com.mysql.jdbc.Driver" />
-            <property name="hibernate.connection.url" value="jdbc:mysql://localhost:3306/quemepongo" />
-            <property name="hibernate.connection.username" value="root" />
-            <property name="hibernate.connection.password" value="ddsUTN1*"/>
+            <property name="hibernate.connection.url" value="jdbc:mysql://nhfmwzqvu0xctsko:ojipcni0l6a6xa9f@mna97msstjnkkp7h.cbetxkdyhwsb.us-east-1.rds.amazonaws.com:3306/dxffzlciern157vi"/>
+            <property name="hibernate.connection.username" value="nhfmwzqvu0xctsko" />
+            <property name="hibernate.connection.password" value="ojipcni0l6a6xa9f*"/>
             <property name="hibernate.show_sql" value="true" />
             <property name="hibernate.format_sql" value="true" />
             <property name="use_sql_comments" value="true" />
