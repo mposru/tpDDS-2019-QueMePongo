@@ -1,48 +1,50 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
 <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-<!DOCTYPE html><html lang='es' class=''>
+<!DOCTYPE html>
+<html lang='es' class=''>
 <head>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <script type="text/javascript">
-        function Colores(){
-        ShowSelected();
-        if(document.getElementById('verde1').value == '' || document.getElementById('azul1').value == '' || document.getElementById('rojo1').value == ''||document.getElementById('temM').value==''||document.getElementById('temN').value==''){
-        window.alert("Cuidado que no lleno todos los campos");
+        var rojoPrimario;
+        var verdePrimario;
+        var azulPrimario;
+
+        var rojoSecundario;
+        var verdeSecundario;
+        var azulSecundario;
+
+        function colores() {
+
+            var colorPrimario =  document.getElementById("colorPrimario").value
+            rojoPrimario =  parseInt(colorPrimario.substr(1,2),16);
+            verdePrimario = parseInt(colorPrimario.substr(3,2),16);
+            azulPrimario = parseInt(colorPrimario.substr(5,2),16);
+
+            var colorSecundario =  document.getElementById("colorPrimario").value
+            rojoSecundario =  parseInt(colorPrimario.substr(1,2),16);
+            verdeSecundario  = parseInt(colorPrimario.substr(3,2),16);
+            azulSecundario  = parseInt(colorPrimario.substr(5,2),16);
         }
-        else if(Number(document.getElementById('temN').value)>Number(document.getElementById('temM').value)){
-        window.alert("Cuidado con las temperaturas");
-        }
-        }
-        function Guardarropa(){
-        if(document.getElementById('num').value==''){
-        window.alert("Cuidado que no coloco el id del guardarropa");
-        document
-        }
-        Colores();
-        ShowSelected();
-        }
-        function Comprobar() {
-        Guardarropa();
-        if(document.getElementById('verde1').value != '' && document.getElementById('azul1').value == '' && document.getElementById('rojo1').value != '' && document.getElementById('num').value!=''){
-        windows.alert("Se esta verificando la prenda");
+
+        function comprobar() {
+        if(document.getElementById('verde1').value != '' && document.getElementById('azul1').value != '' && document.getElementById('rojo1').value != ''){
+        windows.alert("Se está verificando la prenda para persistir");
         document.getElementById("form1").action = "/altaDePrenda";
         document.getElementById("form1").method = "POST";
         }
         }
         function ShowSelected(){
-            document.getElementById("verde1C").value = document.getElementById("verde1").value;
-            document.getElementById("azul1C").value = document.getElementById("azul1").value;
-            document.getElementById("rojo2C").value = document.getElementById("rojo2").value;
-            document.getElementById("verde2C").value = document.getElementById("verde2").value;
-            document.getElementById("azul2C").value = document.getElementById("azul2").value;
-            document.getElementById("rojo1C").value = document.getElementById("rojo1").value;
+            document.getElementById("verde1C").value = verdePrimario;
+            document.getElementById("azul1C").value = azulPrimario
+            document.getElementById("rojo1C").value = rojoPrimario;
+            document.getElementById("verde2C").value = verdeSecundario;
+            document.getElementById("azul2C").value = azulSecundario;
+            document.getElementById("rojo2C").value = rojoSecundario;
             document.getElementById("tipoDeMaterial").value = document.getElementById("tipoDeP").value;
             document.getElementById("tipoDeTrama").value = document.getElementById("tipoDeT").value;
             document.getElementById("tipoDePrenda").value = document.getElementById("catPrenda").value;
-            document.getElementById("numC").value = document.getElementById("num").value;
-            document.getElementById("temMC").value = document.getElementById("temM").value;
-            document.getElementById("temNC").value = document.getElementById("temN").value;
+
         }
     </script>
 
@@ -102,14 +104,14 @@
         <div class="stepwizard-row setup-panel">
             <div class="stepwizard-step col-xs-3">
                 <a href="#step-1" type="button" class="btn btn-success btn-circle">1</a>
-                <p><small>Seleccion de numerica</small></p>
+                <p><small>Selección de colores</small></p>
             </div>
             <div class="stepwizard-step col-xs-3">
-                <a href="#step-2" type="button" class="btn btn-default btn-circle" onclick="Colores();" disabled="disabled">2</a>
+                <a href="#step-2" type="button" class="btn btn-default btn-circle" onclick="colores();" disabled="disabled">2</a>
                 <p><small>Definicion de prenda</small></p>
             </div>
             <div class="stepwizard-step col-xs-3">
-                <a href="#step-3" type="button" class="btn btn-default btn-circle" onclick="Colores();" disabled="disabled">3</a>
+                <a href="#step-3" type="button" class="btn btn-default btn-circle" onclick="colores();" disabled="disabled">3</a>
                 <p><small>Seleccionar guardarropa</small></p>
             </div>
             <div class="stepwizard-step col-xs-3">
@@ -127,21 +129,14 @@
             <div class="panel-body">
                 <div class="form-group">
                     <label class="control-label">Color Primario</label>
-                    <p>Rojo: <input type="number" min="0" max="300" id="rojo1" required="required"> Verde: <input type="number" min="0" max="300" id="verde1" required="required"> Azul: <input type="number"  min="0" max="300" id="azul1" required="required"></p>
+                    <p><input id="colorPrimario" type="color" required="required"> </p>
                 </div>
                 <div class="form-group">
                     <label class="control-label">Color Secundario</label>
-                    <p>Rojo: <input type="number"  id="rojo2" min="0" max="300" required="required"> Verde: <input type="number" id="verde2"  min="0" max="300" required="required"> Azul: <input type="number" id="azul2" min="0" max="300" required="required"></p>
+                    <p><input id="colorSecundario" type="color" required="required"> </p>
                 </div>
-                <div class="form-group">
-                    <label class="control-label">Temperatura Maxima</label>
-                    <p>Max: <input type="number" min="0" max="100" id="temM" required="required"> </p>
-                </div>
-                <div class="form-group">
-                    <label class="control-label">Temperatura Minima</label>
-                    <p>Max: <input type="number" min="0" max="100" id="temN" required="required"> </p>
-                </div>
-                <button class="btn btn-primary nextBtn pull-right" type="button" onclick="Colores();">Proximo</button>
+
+                <button class="btn btn-primary nextBtn pull-right" type="button" onclick="colores();">Proximo</button>
             </div>
         </div>
 
@@ -153,20 +148,11 @@
             <div class="panel-body">
                 <div class="form-group">
                     <label class="control-label">Seleccionar Tipo de Prenda: </label>
-                    <select name="tipoDePrenda" id="catPrenda">
 
-                        <option selected>{{cat0}}</option>
-                        <option>{{cat1}}</option>
-                        <option>{{cat2}}</option>
-                        <option>{{cat3}}</option>
-                        <option>{{cat4}}</option>
-                        <option>{{cat5}}</option>
-                        <option>{{cat6}}</option>
-                        <option>{{cat7}}</option>
-                        <option>{{cat8}}</option>
-                        <option>{{cat9}}</option>
-                        <option>{{cat10}}</option>
-                        <option>{{cat11}}</option>
+                    <select name="tipoDePrenda" id="tipoDePrenda">
+                        {{#each tipoDePrenda }}
+                            <option class="tipoDePrendas" value={{tipoDePrenda}}> {{nombreTipoDePrenda}} </option>
+                        {{/each}}
                     </select>
                 </div>
                 <div class="form-group">
@@ -260,7 +246,7 @@
                     <label class="control-label">Temp Max</label>
                     <p>Max: <input name="numC" id="temMC" disabled> °C</p>
                 </div>
-                <button class="btn btn-success pull-right" type="submit" onclick="Comprobar();">Finalizar</button>
+                <button class="btn btn-success pull-right" type="submit" onclick="comprobar();">Finalizar</button>
             </div>
         </div>
     </form>

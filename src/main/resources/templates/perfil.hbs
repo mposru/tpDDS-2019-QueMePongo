@@ -1,8 +1,8 @@
 <html>
 <head>
 
-    <!-- Latest compiled and minified CSS -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" href="/main.css">
 
     <!-- Latest compiled and minified JavaScript -->
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
@@ -10,6 +10,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <style class="cp-pen-styles">
         .card {
+            color: #6eb6de;
             box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
             max-width: 800px;
             margin: auto;
@@ -19,10 +20,14 @@
         .title {
         color: grey;
         font-size: 100px;
+        font-variant-caps: all-petite-caps;
+        font-family: fantasy;
+        color: lightskyblue;
         }
         .usuario {
         color:black;
         font-size: 50px;
+        font-style: oblique;
         }
 
         button {
@@ -44,33 +49,29 @@
     </style>
 </head>
 <body>
-<form id="form1">
     <div class="card">
-        <p class="title" style="color:black;">"Qué Me Pongo"</p>
-        <label class="usuario" id="usuario">Bienvenido {{nombre}} {{apellido}}< !! </label>
-        <p><button name="cerrarSesion" onclick="cerrarSesion();">Cerrar Sesión</button></p>
-        <p><button name="guardarropa" onclick="listarGuardarropa();" >Mis guardarropas</button></p>
-        <p><button name="calendario" onclick="mostrarCalendario();" >Mi Calendario</button></p>
+        <p class="title" >Qué Me Pongo</p>
+        <label class="usuario" id="usuario">Bienvenido {{nombre}} {{apellido}} !! </label>
+        <p><button name="guardarropa" class="btn btn-primary btn-lg btn-block" onclick="listarGuardarropa();" >Mis guardarropas</button></p>
+        <p><button name="calendario" class="btn btn-primary btn-lg btn-block" onclick="mostrarCalendario();" >Mi Calendario</button></p>
+        <p><button name="cerrarSesion" class="btn btn-secondary btn-lg btn-block" onclick="cerrarSesion();">Cerrar Sesión</button></p>
     </div>
-</form>
 </body>
 
 <script>
 function listarGuardarropa() {
-    document.getElementById("form1").action = "/guardarropas";
-    document.getElementById("form1").method = "GET";
+    window.location.href = "/guardarropas";
 }
 
 function cerrarSesion() {
     alert("entra en cerrar sesion");
-    document.getElementById("form1").action = "/login";
-    document.getElementById("form1").method = "GET";
-
+    window.location.href = "/login";
 }
 
 function mostrarCalendario(){
-    document.getElementById("form1").action = "/calendario";
-    document.getElementById("form1").method = "GET";
+    var today = new Date();
+    var date = today.getFullYear()+'/'+(today.getMonth()+1);
+    window.location.href = "/calendario/" + date;
 }
 </script>
 </html>

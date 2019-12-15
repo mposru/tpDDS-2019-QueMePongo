@@ -18,6 +18,7 @@ public class AccuWeather extends Meteorologo {
     private static final String ALERTAS_ACCUWEATHER = "http://dataservice.accuweather.com/alarms/v1/1day/78947894?apikey=QZYTHbRTv93BEQmByL07F0ssLgYyNhYH";
 
     public AccuWeather() {
+        //jedis = new Jedis();
         this.client = Client.create();
     }
 
@@ -52,9 +53,16 @@ public class AccuWeather extends Meteorologo {
                 double valorMaximoTemperatura = maximum.getDouble("Value");
                 JSONObject minimum = temperature.getJSONObject("Minimum");
                 double valorMinimoTemperatura = minimum.getDouble("Value");
-                this.agregarClima(new Clima(epochDate, valorMaximoTemperatura, valorMinimoTemperatura, precipitationProbabilityDay, precipitationProbabilityNight));
+                this.agregarClima(
+                        new Clima(epochDate, valorMaximoTemperatura, valorMinimoTemperatura,
+                                precipitationProbabilityDay, precipitationProbabilityNight)); // esto no iria
+                /*jedis.hset("climaAccuWeather#" + i, "fecha", epochDate);
+                * jedis.hset("climaAccuWeather#" + i, "maxima", valorMaximoTemperatura);
+                * jedis.hset("climaAccuWeather#" + i, "minima", valorMinimoTemperatura);
+                * jedis.hset("climaAccuWeather#" + i, "probabilidadDeLLuviaEnElDia", precipitationProbabilityDay);
+                * jedis.hset("climaAccuWeather#" + i, "probabilidadDeLLuviaEnLaNoche", precipitationProbabilityNight);*/
             }
-            return climas.get((int) ChronoUnit.DAYS.between(this.puntoDeReferencia(), dia));
+            return climas.get((int) ChronoUnit.DAYS.between(this.puntoDeReferencia(), dia)); // esto no iria
         }
     }
 

@@ -3,11 +3,13 @@ package controller;
 import domain.*;
 import domain.usuario.Evento;
 import domain.usuario.Periodo;
+import org.springframework.cglib.core.Local;
 import spark.*;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.*;
@@ -108,21 +110,37 @@ public class ControllerEventos {
     }
 
     public ModelAndView crearEvento(Request req, Response res) {
-        Usuario usuario = RepositorioDeUsuarios.getInstance().buscarUsuarioPorId(Integer.parseInt(req.cookie("uid")));
+        Usuario usuario = RepositorioDeUsuarios.getInstance().buscarUsuarioPorEmail(req.session().attribute("user"));
         String nombre = req.queryParams("descripcion");
         String ubicacion = req.queryParams("ubicacion");
         String fechaString = req.queryParams("fecha");
 
-        if(nombre.equals("") || ubicacion.equals("") || fechaString.equals("")) {
-            res.redirect("/evento");
-            return null;
-        } else {
-            DateTimeFormatter formato = DateTimeFormatter.ofPattern("MM/dd/yyyy hh:mm a");
-            LocalDateTime fecha = LocalDateTime.parse(fechaString, formato);
+        DateTimeFormatter formato = DateTimeFormatter.ofPattern("MM/dd/yyyy hh:mm a");
+        LocalDateTime fecha = LocalDateTime.parse(fechaString, formato);
 
-            usuario.getCalendario().agregarEvento(new Evento(nombre, ubicacion, fecha, Periodo.NINGUNO, 0));
-            res.redirect("/calendario");
-            return null;
+        Evento eventoAAgregar = new Evento(nombre, ubicacion, fecha, Periodo.NINGUNO, 0);
+        usuario.getCalendario().agregarEvento(eventoAAgregar);
+        this.actualizarUsuarioYEvento(usuario);
+
+        res.redirect("/calendario/" + LocalDate.now().getYear() + "/" + LocalDate.now().getMonth().getValue());
+        return null;
+    }
+
+    private void actualizarUsuarioYEvento(Usuario usuario) {
+        EntityManagerFactory emf = Persistence.createEntityManagerFactory("quemepongo");
+        EntityManager manager = emf.createEntityManager();
+
+        try {
+            manager.getTransaction().begin();
+            manager.merge(usuario);
+            manager.getTransaction().commit();
+        }
+        catch (Exception e) {
+            manager.getTransaction().rollback();
+            e.printStackTrace();
+        }
+        finally {
+            manager.close();
         }
     }
 }
