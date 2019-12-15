@@ -10,11 +10,11 @@ import spark.Response;
 
 public class ControllerCalificarAceptadas {
     public ModelAndView mostrarAceptadas(Request req, Response res) {
-        Usuario usuario= RepositorioDeUsuarios.getInstance().buscarUsuarioPorId(Integer.parseInt(req.cookie("uid").toString()));
+        Usuario usuario = RepositorioDeUsuarios.getInstance().buscarUsuarioPorEmail(req.session().attribute("user"));
         return new ModelAndView(usuario,"calificarAceptadas.hbs");
     }
     public ModelAndView calificarAceptadas(Request req, Response res) {
-        Usuario usuario = RepositorioDeUsuarios.getInstance().buscarUsuarioPorId(Integer.parseInt(req.cookie("uid")));
+        Usuario usuario = RepositorioDeUsuarios.getInstance().buscarUsuarioPorEmail(req.session().attribute("user"));
         String calificaion;
         for(Atuendo a:usuario.obtenerAtuendosAceptados())
         {
