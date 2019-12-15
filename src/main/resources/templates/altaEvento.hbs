@@ -24,7 +24,7 @@
 <div class="content container container-table alta-evento">
     <h3>Nuevo Evento</h3>
     <h4>Complete los siguientes campos y pulse "Crear" para dar de alta un evento</h4>
-    <form action="/evento" method="post">
+    <form action="/eventos/new" method="post">
         <div class="form-group">
             <label for="descripcion">Descripcion</label>
             <input type="text" class="form-control" id="descripcion" name="descripcion" placeholder="Ingrese la descripción">
@@ -57,9 +57,9 @@
 
                 if (desc.value === '' || ubicacion.value === '' || datepicker.value === '') {
                     alert("Debe completar todos los campos");
+                    e.preventDefault();
+                    e.stopImmediatePropagation();
                 }
-                e.preventDefault();
-                e.stopImmediatePropagation();
             }
         </script>
     </form>

@@ -26,7 +26,7 @@ public class Main {
         Spark.init();
 
         ControllerGuardarropas controllerGuardarropas = new ControllerGuardarropas();
-        ControllerPrendasGuardarropa controllerPrendasGuardarropa = new ControllerPrendasGuardarropa();
+
         ControllerSesion controllerSesion = new ControllerSesion();
         ControllerCalendario controllerCalendario = new ControllerCalendario();
         ControllerEventos controllerEventos = new ControllerEventos();
@@ -35,21 +35,21 @@ public class Main {
         ControllerPerfil controllerPerfil = new ControllerPerfil();
 
         TemplateEngine engine = new HandlebarsTemplateEngine();
-        Spark.get("/guardarropas",controllerGuardarropas::guardarropas, engine);
-        Spark.get("/prendas",controllerPrendasGuardarropa::prendas, engine);
+        Spark.get("/guardarropas",controllerGuardarropas::mostrarGuardarropas, engine);
+        Spark.get("/guardarropas/:id/prendas",controllerGuardarropas::mostrarPrendas, engine);
         Spark.post("/calificarAceptadas",controllerCalificarAceptadas::calificarAceptadas,engine);
         Spark.get("/calificarAceptadas",controllerCalificarAceptadas::mostrarAceptadas,engine);
-        Spark.get("/altaDePrenda",controllerAltaDePrenda::mostrarAltaDePrenda,engine);
-        Spark.post("/altaDePrenda",controllerAltaDePrenda::seleccionAltaDePrenda,engine);
+        Spark.get("/guardarropas/:id/prendas/new",controllerAltaDePrenda::mostrarAltaDePrenda,engine);
+        Spark.post("/guardarropas/:id/prendas/new",controllerAltaDePrenda::seleccionAltaDePrenda,engine);
         Spark.get("/perfil",controllerPerfil::mostrar,engine);
         Spark.get("/login",controllerSesion ::mostrarLogin, engine);
         Spark.post("/login",controllerSesion::iniciarSesion, engine);
         /*Spark.post("/calendario/prev", controllerCalendario::irAlMesAnterior, engine);
         Spark.post("/calendario/next", controllerCalendario::irAlMesSiguiente, engine);*/
-        Spark.get("/calendario", controllerCalendario::mostrarCalendarioConEventos, engine);
-        Spark.post("/calendario", controllerCalendario::mostrarCalendarioConEventos, engine);
-        Spark.get("/evento", controllerEventos::mostrar, engine);
-        Spark.post("/evento", controllerEventos::crearEvento, engine);
+        Spark.get("/calendario/:anio/:mes", controllerCalendario::mostrarCalendarioConEventos, engine);
+        //Spark.post("/calendario", controllerCalendario::mostrarCalendarioConEventos, engine);
+        Spark.get("/eventos/new", controllerEventos::mostrar, engine);
+        Spark.post("/eventos/new", controllerEventos::crearEvento, engine);
         Spark.get("/eventos",controllerEventos ::mostrarEventos, engine);
         Spark.get("/eventos/:id/sugerencias/:indice",controllerEventos ::mostrarSugerencia, engine);
         Spark.post("/eventos/:id/sugerencias/:idSugerencia/estado",controllerEventos ::modificarEstadoSugerencia, engine);

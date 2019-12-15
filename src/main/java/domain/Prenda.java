@@ -212,6 +212,10 @@ public class Prenda {
         return material.toString();
     }
 
+    public String getNombreCategoria() {
+        return tipoDePrenda.obtenerCategoria().toString();
+    }
+
     public String getNombrePrenda() {
         return nombrePrenda;
     }

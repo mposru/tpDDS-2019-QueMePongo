@@ -72,7 +72,7 @@ DROP TABLE IF EXISTS `eventos`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `eventos` (
                            `evento_id` int(11) NOT NULL AUTO_INCREMENT,
-                           `fecha` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+                           `fecha` timestamp NOT NULL,
                            `nombre` varchar(50) NOT NULL,
                            `ubicacion` varchar(50) NOT NULL,
                            `antelacion_horas` int(11) DEFAULT NULL,
