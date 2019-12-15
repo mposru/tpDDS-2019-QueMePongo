@@ -6,6 +6,7 @@ import domain.Usuario;
 import spark.*;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public class ControllerSesion {
@@ -27,7 +28,7 @@ public class ControllerSesion {
         }
         catch (Exception e) {
             Map<String, Object> model = new HashMap<>();
-            model.put("error", "Usuario o contraseña inválidos");
+            model.put("error", e.getMessage());
             return new ModelAndView(model, "login.hbs");
         }
      //   System.out.println("Mensajes de error: "+mensaje);

@@ -84,7 +84,7 @@ public class Usuario {
    private Calendario calendario;
 
    @Column(name = "tiempo_anticipacion")
-    private int tiempoDeAnticipacion = 0; // variable que indica con cuanto tiempo antes quiere que le llegue sugerencia sobre evento (en horas)
+    private Integer tiempoDeAnticipacion = 0; // variable que indica con cuanto tiempo antes quiere que le llegue sugerencia sobre evento (en horas)
 
     @Transient
     private AtuendosSugeridosPorEvento atuendosSugeridosProximoEvento = new AtuendosSugeridosPorEvento(new ArrayList<Atuendo>(), new Evento("", "", LocalDateTime.now(), Periodo.NINGUNO, 0));
@@ -338,7 +338,7 @@ public class Usuario {
     }
 
     public void setTiempoDeAnticipacion(int tiempoDeAnticipacion) {
-        this.tiempoDeAnticipacion = tiempoDeAnticipacion;
+        this.tiempoDeAnticipacion = new Integer(tiempoDeAnticipacion);
     }
 
 

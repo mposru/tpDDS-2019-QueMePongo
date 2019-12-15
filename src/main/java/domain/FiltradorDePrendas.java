@@ -48,8 +48,8 @@ public class FiltradorDePrendas {
         double nivelDeAbrigoCuello = nivelDeAbrigoEvento + sensibilidad.getFactorSensibilidad("cuello") * nivelDeAbrigoEvento;
         double nivelDeAbrigoManos = nivelDeAbrigoEvento + sensibilidad.getFactorSensibilidad("manos") * nivelDeAbrigoEvento;
 
-        return sugerencias;
-        /*return sugerencias.stream().filter(sugerencia ->
+        //return sugerencias;
+        return sugerencias.stream().filter(sugerencia ->
                 sugerencia.obtenerPrendaInferior().obtenerUnidadDeAbrigo() >= nivelDeAbrigoGeneral
                 && sugerencia.obtenerPrendasSuperiores()
                     .stream()
@@ -58,7 +58,7 @@ public class FiltradorDePrendas {
                 && sugerencia.obtenerCalzado().obtenerUnidadDeAbrigo() >= nivelDeAbrigoGeneral
                 && sugerencia.obtenerAccesorioCuello().obtenerUnidadDeAbrigo() >= nivelDeAbrigoCuello
                 && sugerencia.obtenerAccesorioManos().obtenerUnidadDeAbrigo() >= nivelDeAbrigoManos
-        ).collect(Collectors.toList());*/
+        ).collect(Collectors.toList());
     }
 
     private boolean esConjuntoValido(Set<Prenda> conjunto) {
