@@ -11,6 +11,7 @@ import javax.persistence.*;
 import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 import static domain.prenda.Categoria.*;
 
@@ -53,7 +54,19 @@ public class Atuendo {
     private Prenda accesorioManos;
 
     @Transient
-    private EstadoAtuendo estado;
+    private EstadoAtuendo estado ;
+
+    @PostLoad
+    public void onPostLoad() {
+        // guardo las prendas donde corresponden
+        this.prendasSuperiores = this.prendasSuperiores.stream().filter(prenda -> prenda.esParteSuperior()).collect(Collectors.toSet());
+        this.prendaInferior = this.prendasSuperiores.stream().filter(prenda -> prenda.obtenerCategoria() == Categoria.PARTE_INFERIOR).collect(Collectors.toList()).get(0);
+        this.accesorioManos = this.prendasSuperiores.stream().filter(prenda -> prenda.obtenerCategoria() == ACCESORIO_MANOS).collect(Collectors.toList()).get(0);
+        this.accesorioCuello = this.prendasSuperiores.stream().filter(prenda -> prenda.obtenerCategoria() == ACCESORIO_CUELLO).collect(Collectors.toList()).get(0);
+        this.calzado = this.prendasSuperiores.stream().filter(prenda -> prenda.obtenerCategoria() == Categoria.CALZADO).collect(Collectors.toList()).get(0);
+        this.accesorio = this.prendasSuperiores.stream().filter(prenda -> prenda.obtenerCategoria() == ACCESORIO).collect(Collectors.toList()).get(0);
+        this.estado = new Nuevo(this);
+    }
 
     public Atuendo() {}
 

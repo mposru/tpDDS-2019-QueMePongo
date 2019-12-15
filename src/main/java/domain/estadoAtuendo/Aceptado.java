@@ -31,6 +31,10 @@ public class Aceptado extends EstadoAtuendo {
             throw new RangoDeCalificacionException("La calificación debe estar entre 1 y 5.");
         }
     }
+    @Override
+    public boolean estaAceptado() {
+        return true;
+    }
 
     @Override
     public boolean equals(Object o) {

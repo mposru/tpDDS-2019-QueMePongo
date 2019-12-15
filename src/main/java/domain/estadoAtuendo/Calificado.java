@@ -35,5 +35,10 @@ public class Calificado extends EstadoAtuendo {
             throw new RangoDeCalificacionException("La calificación debe estar entre 1 y 10.");
         }
     }
+
+    @Override
+    public boolean estaAceptado() {
+        return true;
+    }
 }
 

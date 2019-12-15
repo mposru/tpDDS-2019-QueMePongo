@@ -4,13 +4,7 @@ import domain.Atuendo;
 
 import javax.persistence.*;
 
-
 public abstract class EstadoAtuendo {
-    @GeneratedValue
-    @Id
-    @Column(name = "id",columnDefinition = "int(11) NOT NULL")
-    long id;
-
     @ManyToOne
     @JoinTable(name = "atuendo_estado",joinColumns = @JoinColumn(name="estado_id"),inverseJoinColumns = @JoinColumn(name = "atuendo_id"))
     public Atuendo atuendo;
@@ -19,4 +13,7 @@ public abstract class EstadoAtuendo {
     public abstract void calificar(int calificacion);
     public abstract int obtenerCalificacionAnterior();
     public abstract int obtenerCalificacionActual();
+    public boolean estaAceptado() {
+        return false;
+    }
 }

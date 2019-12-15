@@ -2,6 +2,10 @@ package domain;
 
 import domain.usuario.Evento;
 
+import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
+import javax.persistence.Persistence;
+
 public class RepositorioAtuendos {
     private static RepositorioAtuendos instanceOfRepositorioAtuendos;
 
@@ -12,14 +16,22 @@ public class RepositorioAtuendos {
         return instanceOfRepositorioAtuendos;
     }
 
-    public Atuendo findById(String id) {
-        // hack temporario
-        // todo: hacerlo bien
-        //return new Evento("UPD", "UTN", LocalDateTime.now(), Periodo.ANUAL, 456);
-        Evento evento = RepositorioEventos.getInstance().findById("");
+    public void actualizarAtuendo(Atuendo atuendo) {
+        EntityManagerFactory emf = Persistence.createEntityManagerFactory("dxffzlciern157vi");
+        EntityManager manager = emf.createEntityManager();
 
-        Usuario usuario = RepositorioDeUsuarios.getInstance().buscarUsuarioPorId(4);
-
-        return usuario.obtenerSugerenciasDeEvento(evento).get(0);
+        try {
+            manager.getTransaction().begin();
+            manager.merge(atuendo);
+            manager.getTransaction().commit();
+        }
+        catch (Exception e) {
+            manager.getTransaction().rollback();
+            e.printStackTrace();
+        }
+        finally {
+            manager.close();
+        }
     }
+
 }

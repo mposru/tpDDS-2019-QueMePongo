@@ -10,7 +10,10 @@ import java.util.stream.Collectors;
 import domain.clima.Clima;
 import domain.notificacion.Notificador;
 import domain.clima.Alerta;
+import domain.prenda.Color;
+import domain.prenda.Material;
 import domain.prenda.TipoDePrenda;
+import domain.prenda.Trama;
 import domain.usuario.*;
 import domain.usuario.transiciones.*;
 import exceptions.*;
@@ -174,6 +177,7 @@ public class Usuario {
             }
         }
         this.atuendosSugeridosProximoEvento = new AtuendosSugeridosPorEvento(atuendosSugeridos, proximoEvento);
+        proximoEvento.guardarSugerencias(atuendosSugeridos);
     }
 
     public List<Decision> obtenerDecisiones() {
@@ -314,13 +318,11 @@ public class Usuario {
     }
 
     public void sugerenciaParaEvento(Evento evento) {
-        this.guardarropas.forEach(guardarropa -> guardarropa.generarSugerencia(evento, sensibilidad));
-    }
-
-    public List<Atuendo> obtenerSugerenciasDeEvento(Evento evento) {
-        List<Atuendo> sugerencias = new ArrayList<>();
-        this.guardarropas.forEach(guardarropa -> guardarropa.generarSugerencia(evento, sensibilidad).forEach(sugerencia -> sugerencias.add(sugerencia)));
-        return sugerencias;
+        this.guardarropas.forEach(guardarropa -> {
+            List <Atuendo> sugerencias = guardarropa.generarSugerencia(evento, sensibilidad);
+         //   sugerencias.forEach(atuendo -> RepositorioAtuendos.getInstance().actualizarAtuendo(atuendo));
+            evento.guardarSugerencias(sugerencias);
+        });
     }
 
     public void agregarGuardarropa(Guardarropa guardarropa) {
@@ -340,8 +342,26 @@ public class Usuario {
     }
 
 
-    public List<Evento> obtenerEventos() {
-        return calendario.obtenerEventos().stream().sorted(Comparator.comparing(Evento::getFecha)).collect(Collectors.toList());
+    public List<Evento> obtenerEventosConSugerenciaAceptada() {
+        // si alguno no tiene las sugerencias, las genero
+        return calendario.obtenerEventos().stream().filter(ev -> ev.tieneAtuendoAceptado()).map(evento -> {
+            if (evento.obtenerSugerencias().size() <= 0) {
+                this.sugerenciaParaEvento(evento);
+                RepositorioEventos.getInstance().actualizarEvento(evento);
+            }
+            return evento;
+        }).sorted(Comparator.comparing(Evento::getFecha)).collect(Collectors.toList());
+    }
+
+    public List<Evento> obtenerEventosSinSugerenciaAceptada() {
+        // si alguno no tiene las sugerencias, las genero
+        return calendario.obtenerEventos().stream().filter(ev -> !ev.tieneAtuendoAceptado()).map(evento -> {
+            if (evento.obtenerSugerencias().size() <= 0) {
+                this.sugerenciaParaEvento(evento);
+                RepositorioEventos.getInstance().actualizarEvento(evento);
+            }
+            return evento;
+        }).sorted(Comparator.comparing(Evento::getFecha)).collect(Collectors.toList());
     }
 
     public Guardarropa buscarGuardarropaPorNombre(String nombre){

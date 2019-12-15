@@ -1,5 +1,6 @@
 package domain.usuario;
 
+import domain.Atuendo;
 import domain.LocalDateTimeConverter;
 import domain.clima.AccuWeather;
 import domain.clima.Clima;
@@ -15,6 +16,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import java.time.Duration;
 import java.time.LocalDateTime;
+import java.util.List;
 
 import static java.util.Objects.requireNonNull;
 
@@ -47,6 +49,10 @@ public class Evento {
     @Column(name = "tiene_sugerencia")
     private Boolean tieneSugerencia = false;
 
+    @OneToMany(fetch = FetchType.EAGER, cascade=CascadeType.ALL)
+    @JoinColumn(name = "evento_id")
+    List<Atuendo> sugerencias;
+
     @Transient
     //TODO sacar de acá al meteorologo, no va en evento
     private Meteorologo meteorologo = new AccuWeather();
@@ -59,6 +65,10 @@ public class Evento {
         this.ubicacion = requireNonNull(ubicacion, "Debe ingresar una ubicación para el evento");
         this.antelacionEnHoras = requireNonNull(antelacionEnHoras,"Debe ingresar la antelacion del evento");
         this.tipoDeActualizacion=requireNonNull(tipoDeActualizacion,"Debe ingresar el tipo de periodicidad");
+    }
+
+    public boolean tieneAtuendoAceptado() {
+        return this.sugerencias.stream().anyMatch(atuendo -> atuendo.obtenerEstadoAtuendo().estaAceptado());
     }
 
     public void setearMeteorologo(Meteorologo meteorologo) {
@@ -163,6 +173,14 @@ public class Evento {
 
     public void setTipoDeActualizacion(Periodo tipoDeActualizacion) {
         this.tipoDeActualizacion = tipoDeActualizacion;
+    }
+
+    public void guardarSugerencias(List<Atuendo> sugerencias) {
+        this.sugerencias = sugerencias;
+    }
+
+    public List<Atuendo> obtenerSugerencias() {
+        return this.sugerencias;
     }
 
 }

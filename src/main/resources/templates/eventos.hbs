@@ -2,6 +2,7 @@
     <head>
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
         <link rel="stylesheet" href="/main.css">
+        <script src="jquery-3.4.1.min.js"></script>
     </head>
     <body>
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
@@ -18,15 +19,40 @@
                 Se aceptó la sugerencia con éxito
             </div>
             {{/if}}
+            <div>
+                Eventos sin sugerencia aceptada:
+            </div>
             <ul>
-                {{#each eventos}}
+                {{#each eventosSinAceptar}}
                 <li class="evento">
                     <a href="/eventos/{{id}}/sugerencias/0">
-                    Nombre: {{nombre}} - Fecha: {{fecha}} - Ubicación: {{ubicacion}}
+                        Nombre: {{nombre}} - Fecha: {{fecha}} - Ubicación: {{ubicacion}}
                     </a>
                 </li>
                 {{/each}}
             </ul>
+            <div>
+                Eventos con sugerencia aceptada:
+            </div>
+            <ul>
+                {{#each eventosAceptados}}
+                <li class="evento">
+                    <a href="/eventos/{{id}}/sugerencias/0">
+                        Nombre: {{nombre}} - Fecha: {{fecha}} - Ubicación: {{ubicacion}}
+                    </a>
+                </li>
+                {{/each}}
+            </ul>
+            {{#if error}}
+            <div class="alert alert-danger err" role="alert">
+                {{error}}
+            </div>
+            {{/if}}
         </div>
     </body>
+    {{#if error}}
+    <script>
+        window.alert("Un error ha ocurrido")
+    </script>
+    {{/if}}
 </html>
