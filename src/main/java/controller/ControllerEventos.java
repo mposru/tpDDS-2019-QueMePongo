@@ -19,7 +19,7 @@ public class ControllerEventos {
     public ModelAndView mostrarSugerencia(Request req, Response res) {
         Map<String, Object> model = new HashMap<>();
 
-        EntityManagerFactory emf = Persistence.createEntityManagerFactory("dxffzlciern157vi");
+        EntityManagerFactory emf = Persistence.createEntityManagerFactory("quemepongo");
         EntityManager em = emf.createEntityManager();
         Evento evento = em.find(Evento.class,Long.valueOf(req.params("id")));
 
@@ -39,7 +39,7 @@ public class ControllerEventos {
 
     public ModelAndView mostrarEventos(Request req, Response res) {
         Map<String, Object> model = new HashMap<>();
-        EntityManagerFactory emf = Persistence.createEntityManagerFactory("dxffzlciern157vi");
+        EntityManagerFactory emf = Persistence.createEntityManagerFactory("quemepongo");
         EntityManager em = emf.createEntityManager();
         Usuario usuario = em.find(Usuario.class,Long.valueOf(req.cookie("uid")));
         model.put("redirectSugerencias", Boolean.valueOf(req.queryParams("redirectSugerencias")));
@@ -52,7 +52,7 @@ public class ControllerEventos {
         // obtener con el id el atuendo y hacer aceptar o rechazar
         Evento evento = RepositorioEventos.getInstance().findById(req.params(":id"));
 
-        EntityManagerFactory emf = Persistence.createEntityManagerFactory("dxffzlciern157vi");
+        EntityManagerFactory emf = Persistence.createEntityManagerFactory("quemepongo");
         EntityManager em = emf.createEntityManager();
 
         Usuario usuario = em.find(Usuario.class,Long.valueOf(req.cookie("uid")));
@@ -87,7 +87,7 @@ public class ControllerEventos {
     }
 
     private void actualizarUsuarioYAtuendo(Usuario usuario, Atuendo atuendo) {
-        EntityManagerFactory emf = Persistence.createEntityManagerFactory("dxffzlciern157vi");
+        EntityManagerFactory emf = Persistence.createEntityManagerFactory("quemepongo");
         EntityManager manager = emf.createEntityManager();
 
         try {

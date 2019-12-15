@@ -86,7 +86,7 @@ public class PersistenceTest {
 
     @Before
     public void iniciarTest() throws IOException {
-        this.emf = Persistence.createEntityManagerFactory("dxffzlciern157vi");
+        this.emf = Persistence.createEntityManagerFactory("quemepongo");
         this.manager = emf.createEntityManager();
         this.fechaPartido = LocalDateTime.of(2019,10,22,21,30,0);
 
