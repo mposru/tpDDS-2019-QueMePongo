@@ -27,7 +27,7 @@ public class ControllerGuardarropas {
     public ModelAndView mostrarPrendas(Request req, Response res) {
         Usuario usuario = RepositorioDeUsuarios.getInstance().buscarUsuarioPorEmail(req.session().attribute("user"));
 
-        EntityManagerFactory emf = Persistence.createEntityManagerFactory("quemepongo");
+        EntityManagerFactory emf = Persistence.createEntityManagerFactory("dxffzlciern157vi");
         EntityManager em = emf.createEntityManager();
         Guardarropa guardarropa = em.find(Guardarropa.class,Long.valueOf(req.params("id")));
 

@@ -53,8 +53,8 @@ public class ControllerEventos {
         // obtener con el id el atuendo y hacer aceptar o rechazar
         Evento evento = RepositorioEventos.getInstance().findById(Long.valueOf(req.params(":id")));
 
-   //     EntityManagerFactory emf = Persistence.createEntityManagerFactory("dxffzlciern157vi");
-   //     EntityManager em = emf.createEntityManager();
+        EntityManagerFactory emf = Persistence.createEntityManagerFactory("dxffzlciern157vi");
+        EntityManager em = emf.createEntityManager();
 
         Usuario usuario = RepositorioDeUsuarios.getInstance().buscarUsuarioPorEmail(req.session().attribute("user"));
 
@@ -90,7 +90,7 @@ public class ControllerEventos {
     }
 
     private void actualizarUsuarioYAtuendo(Usuario usuario, Atuendo atuendo) {
-        EntityManagerFactory emf = Persistence.createEntityManagerFactory("quemepongo");
+        EntityManagerFactory emf = Persistence.createEntityManagerFactory("dxffzlciern157vi");
         EntityManager manager = emf.createEntityManager();
 
         try {
@@ -130,7 +130,7 @@ public class ControllerEventos {
     }
 
     private void actualizarUsuarioYEvento(Usuario usuario) {
-        EntityManagerFactory emf = Persistence.createEntityManagerFactory("quemepongo");
+        EntityManagerFactory emf = Persistence.createEntityManagerFactory("dxffzlciern157vi");
         EntityManager manager = emf.createEntityManager();
 
         try {

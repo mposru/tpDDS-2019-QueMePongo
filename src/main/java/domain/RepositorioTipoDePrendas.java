@@ -20,7 +20,7 @@ public class RepositorioTipoDePrendas {
         return instanceOfRepositorioTipoDePrendas;
     }
     public List<TipoDePrenda> getTipoDePrendas () {
-        EntityManagerFactory emf = Persistence.createEntityManagerFactory("quemepongo");
+        EntityManagerFactory emf = Persistence.createEntityManagerFactory("dxffzlciern157vi");
         EntityManager manager = emf.createEntityManager();
         Query query = manager.createQuery("select tp from TipoDePrenda tp"); //levantamos la lista de tipo de prendas de la base de datos
         tipoDePrendas = query.getResultList();
