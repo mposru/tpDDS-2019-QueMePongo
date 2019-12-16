@@ -26,31 +26,29 @@ public class Atuendo {
 
    private String nombre;
 
-    @OneToMany (cascade = CascadeType.ALL)
-   // @JoinTable(name = "prendas_atuendos")
-    @JoinColumn(name = "atuendo_id", columnDefinition = "int(11) NOT NULL")
+    @ManyToMany (cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @JoinTable(name = "prendas_atuendos",joinColumns = @JoinColumn(name="atuendo_id"),inverseJoinColumns = @JoinColumn(name = "prenda_id"))
     private Set<Prenda> prendasSuperiores = new HashSet<>();
 
 
-    @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "atuendo_id", columnDefinition = "int(11) NOT NULL")
+    @ManyToOne (cascade = {CascadeType.ALL,CascadeType.DETACH,CascadeType.MERGE,CascadeType.REFRESH}, fetch = FetchType.EAGER)
+    @JoinColumn(name = "accesorio_id", columnDefinition = "int(11) NOT NULL")
     private Prenda accesorio;
 
-
-    @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "atuendo_id",columnDefinition = "int(11) NOT NULL")
+    @ManyToOne (cascade = {CascadeType.ALL,CascadeType.DETACH,CascadeType.MERGE,CascadeType.REFRESH}, fetch = FetchType.EAGER)
+    @JoinColumn(name = "prenda_inferior_id",columnDefinition = "int(11) NOT NULL")
     private Prenda prendaInferior;
 
-    @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "atuendo_id", columnDefinition = "int(11) NOT NULL")
+    @ManyToOne (cascade = {CascadeType.ALL,CascadeType.DETACH,CascadeType.MERGE,CascadeType.REFRESH}, fetch = FetchType.EAGER)
+    @JoinColumn(name = "calzado_id", columnDefinition = "int(11) NOT NULL")
     private Prenda calzado;
 
-    @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "atuendo_id", columnDefinition = "int(11) NOT NULL")
+    @ManyToOne (cascade = {CascadeType.ALL,CascadeType.DETACH,CascadeType.MERGE,CascadeType.REFRESH}, fetch = FetchType.EAGER)
+    @JoinColumn(name = "cuello_id", columnDefinition = "int(11) NOT NULL")
     private Prenda accesorioCuello;
 
-    @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "atuendo_id", columnDefinition = "int(11) NOT NULL")
+    @ManyToOne (cascade = {CascadeType.ALL,CascadeType.DETACH,CascadeType.MERGE,CascadeType.REFRESH}, fetch = FetchType.EAGER)
+    @JoinColumn(name = "manos_id", columnDefinition = "int(11) NOT NULL")
     private Prenda accesorioManos;
 
     @Transient
@@ -58,13 +56,6 @@ public class Atuendo {
 
     @PostLoad
     public void onPostLoad() {
-        // guardo las prendas donde corresponden
-        this.prendasSuperiores = this.prendasSuperiores.stream().filter(prenda -> prenda.esParteSuperior()).collect(Collectors.toSet());
-        this.prendaInferior = this.prendasSuperiores.stream().filter(prenda -> prenda.obtenerCategoria() == Categoria.PARTE_INFERIOR).collect(Collectors.toList()).get(0);
-        this.accesorioManos = this.prendasSuperiores.stream().filter(prenda -> prenda.obtenerCategoria() == ACCESORIO_MANOS).collect(Collectors.toList()).get(0);
-        this.accesorioCuello = this.prendasSuperiores.stream().filter(prenda -> prenda.obtenerCategoria() == ACCESORIO_CUELLO).collect(Collectors.toList()).get(0);
-        this.calzado = this.prendasSuperiores.stream().filter(prenda -> prenda.obtenerCategoria() == Categoria.CALZADO).collect(Collectors.toList()).get(0);
-        this.accesorio = this.prendasSuperiores.stream().filter(prenda -> prenda.obtenerCategoria() == ACCESORIO).collect(Collectors.toList()).get(0);
         this.estado = new Nuevo(this);
     }
 
