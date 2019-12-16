@@ -44,11 +44,11 @@ public class Atuendo {
     private Prenda calzado;
 
     @ManyToOne (cascade = {CascadeType.ALL,CascadeType.DETACH,CascadeType.MERGE,CascadeType.REFRESH}, fetch = FetchType.EAGER)
-    @JoinColumn(name = "cuello_id", columnDefinition = "int(11) NOT NULL")
+    @JoinColumn(name = "accesorio_cuello_id", columnDefinition = "int(11) NOT NULL")
     private Prenda accesorioCuello;
 
     @ManyToOne (cascade = {CascadeType.ALL,CascadeType.DETACH,CascadeType.MERGE,CascadeType.REFRESH}, fetch = FetchType.EAGER)
-    @JoinColumn(name = "manos_id", columnDefinition = "int(11) NOT NULL")
+    @JoinColumn(name = "accesorio_manos_id", columnDefinition = "int(11) NOT NULL")
     private Prenda accesorioManos;
 
     @Transient
