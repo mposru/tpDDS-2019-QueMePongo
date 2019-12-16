@@ -19,13 +19,15 @@ public class RepositorioEventos {
     }
 
     public Evento findById(long id) {
-        EntityManagerFactory emf = Persistence.createEntityManagerFactory("quemepongo");
+       // EntityManagerFactory emf = Persistence.createEntityManagerFactory("quemepongo");
+        EntityManagerFactory emf = Persistence.createEntityManagerFactory("dxffzlciern157vi");
         EntityManager em = emf.createEntityManager();
         return em.find(Evento.class,Long.valueOf(id));
     }
 
     public void actualizarEvento(Evento evento) {
-        EntityManagerFactory emf = Persistence.createEntityManagerFactory("quemepongo");
+        // EntityManagerFactory emf = Persistence.createEntityManagerFactory("quemepongo");
+        EntityManagerFactory emf = Persistence.createEntityManagerFactory("dxffzlciern157vi");
         EntityManager manager = emf.createEntityManager();
 
         try {

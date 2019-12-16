@@ -1,17 +1,20 @@
 package db;
 
 import domain.*;
+import domain.clima.AccuWeather;
 import domain.guardarropa.Gratuito;
 import domain.guardarropa.Premium;
 import domain.prenda.*;
 import domain.usuario.Calendario;
 import domain.usuario.Evento;
 import domain.usuario.Periodo;
+import domain.usuario.Sensibilidad;
 import org.apache.commons.codec.digest.DigestUtils;
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
+import org.mockito.Mockito;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
@@ -21,7 +24,10 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.Arrays;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
+
+import static org.mockito.Mockito.doReturn;
 
 public class PersistenceTest {
     private EntityManager manager;
@@ -89,14 +95,23 @@ public class PersistenceTest {
     private Prenda anteojos2 ;
     private Prenda bufandaRoja2 ;
     private Prenda guantesCuero2;
-
+    private Sensibilidad sensibilidad;
+    private Prenda sinAccesorioCuello;
+    private Prenda sinAccesorioManos;
+    private String jsonClimaAbrigoBasico = GeneraJson.getInstance().dameJSONClimaAbrigoBasico();
+    private String jsonClimaAbrigoMediano = GeneraJson.getInstance().dameJSONClimaAbrigoMediano();
+    private String jsonClimaAbrigoAlto = GeneraJson.getInstance().dameJSONClimaAbrigoAlto();
+    private LocalDate dia;
+    private AccuWeather accuWeather;
 
     @Before
     public void iniciarTest() throws IOException {
-        this.emf = Persistence.createEntityManagerFactory("quemepongo");
+        this.emf = Persistence.createEntityManagerFactory("dxffzlciern157vi");
         this.manager = emf.createEntityManager();
-        this.fechaPartido = LocalDateTime.of(2019,10,22,21,30,0);
+        dia = LocalDate.now();//Instant.ofEpochMilli(1559188800).atZone(ZoneId.systemDefault()).toLocalDate();
 
+        this.fechaPartido = LocalDateTime.of(2019,10,22,21,30,0);
+        this.sensibilidad = new Sensibilidad();
         this.calendarioAlexis = new Calendario();
         this.calendarioDaiana = new Calendario();
         this.calendarioDiego = new Calendario();
@@ -113,9 +128,14 @@ public class PersistenceTest {
         this.usuarios.add(diego);
         this.usuarios2.add(marina);
         this.usuarios2.add(daiana);
+        // mockeo clima
+        this.accuWeather = Mockito.spy(new AccuWeather());
+        doReturn(jsonClimaAbrigoBasico).when(this.accuWeather).getJsonClima();
 
+        doReturn(dia).when(accuWeather).puntoDeReferencia();
         this.partidoRiverBoca = new Evento("Partido Boca-River","La Boca",fechaPartido , Periodo.NINGUNO,2);
-        this.pizzaALaParri = new Evento("Pizzas a la parrilla", "Carapachay",LocalDateTime.of(2019,11,23,21,30,0),Periodo.MENSUAL,0);
+        this.pizzaALaParri = new Evento("Pizzas a la parrilla", "Carapachay",LocalDateTime.now(),Periodo.MENSUAL,0);
+        this.pizzaALaParri.setearMeteorologo(accuWeather);
         this.recitalMonaJimenez = new Evento("Recital de la mona Jimenez", "Luna Park",LocalDateTime.of(2019,11,9,21,30,0),Periodo.NINGUNO,0);
         this.asadoDominguero = new Evento ("Asado de domingo al mediodia","Los talas del Entrerriano",LocalDateTime.of(2019,11,9,12,30,0),Periodo.MENSUAL,1);
         this.casorio = new Evento ("Casamiento","Pilar",LocalDateTime.of(2019,12,15,21,30,0),Periodo.NINGUNO,1);
@@ -170,6 +190,9 @@ public class PersistenceTest {
         this.guardarropaVerano.guardarPrenda(alpargatas);
         this.guardarropaVerano.guardarPrenda(shortDeJean);
         this.guardarropaVerano.guardarPrenda(gorraDeSol);
+        this.sinAccesorioManos = new Prenda("nombre",TipoDePrenda.ACCESORIO_VACIO_MANOS, Material.NINGUNO, color, null, Trama.LISA, guardarropa, false);
+        this.sinAccesorioCuello = new Prenda("nombre",TipoDePrenda.ACCESORIO_VACIO_CUELLO, Material.NINGUNO, color, null, Trama.LISA, guardarropa, false);
+
 
         //Guadarropa de invierno
         this.remeraMangaLarga = new Prenda("Remera manga larga a cuadros",TipoDePrenda.REMERA_MANGA_LARGA, Material.ALGODON, color, null, Trama.CUADROS, guardarropaInvierno, false);
@@ -260,19 +283,27 @@ public class PersistenceTest {
         }
 
     }
-/*
+
     @Test
-    public void persistirGuardarropa() {
+    public void persistirEventoConSugerencias() {
+        this.guardarropaVerano.guardarPrenda(sinAccesorioCuello);
+        this.guardarropaVerano.guardarPrenda(sinAccesorioManos);
+        this.guardarropaVerano.guardarPrenda(zapatillas);
+        this.guardarropaVerano.guardarPrenda(remeraLisa);
+
+
+        System.out.println("Cantidad de prendas: "+this.guardarropaVerano.obtenerCantidadDePrendas());
+        List<Atuendo> sugerencias = this.guardarropaVerano.generarSugerencia(pizzaALaParri,sensibilidad);
+        System.out.println("sugerencias: "+sugerencias.size());
+
         try {
             manager.getTransaction().begin();
-            guardarropaInvierno.obtenerUsuarios().forEach(usuario -> System.out.println(usuario.getEmail()));
-            guardarropa.obtenerUsuarios().forEach(usuario -> System.out.println(usuario.getEmail()));
-            guardarropaVerano.obtenerUsuarios().forEach(usuario -> System.out.println(usuario.getEmail()));
-            manager.persist(guardarropa);
-            manager.persist(guardarropaInvierno);
-            manager.persist(guardarropaVerano);
+         //   manager.persist(guardarropaVerano);
+            pizzaALaParri.guardarSugerencias(sugerencias);
+            RepositorioEventos.getInstance().actualizarEvento(pizzaALaParri);
+            sugerencias.forEach(sugerencia -> manager.persist(sugerencia));
+
             manager.getTransaction().commit();
-            manager.flush();
         }
         catch (Exception e) {
             e.printStackTrace();
@@ -282,9 +313,12 @@ public class PersistenceTest {
         }
 
     }
-*/
+
+
+    }
 
 
 
 
-}
+
+

@@ -51,6 +51,7 @@ public class Evento {
     private Boolean tieneSugerencia = false;
 
     @OneToMany(fetch = FetchType.EAGER, cascade=CascadeType.ALL)
+  //  @JoinTable(name = "atuendos")
     @JoinColumn(name = "evento_id")
     List<Atuendo> sugerencias;
 
@@ -177,6 +178,7 @@ public class Evento {
     }
 
     public void guardarSugerencias(List<Atuendo> sugerencias) {
+
         this.sugerencias = sugerencias;
     }
 

@@ -51,7 +51,7 @@ public class Prenda {
     @Enumerated (EnumType.STRING)
     private Trama trama;
 
-    @ManyToOne
+    @ManyToOne (cascade = {CascadeType.PERSIST,CascadeType.DETACH,CascadeType.MERGE,CascadeType.REFRESH}, fetch = FetchType.EAGER)
     @JoinColumn(name = "guardarropa_id")
     private Guardarropa guardarropa;
 
