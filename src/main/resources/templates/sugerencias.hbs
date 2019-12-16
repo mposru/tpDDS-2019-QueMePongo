@@ -21,6 +21,7 @@
     <dl class="row">
         <dt class="col-sm-3">Accesorio</dt>
         <dd class="col-sm-9">
+            {{accesorio.nombre}}
             {{accesorio.categoria}}
             {{accesorio.material}}
             {{accesorio.trama}}
@@ -31,7 +32,9 @@
         <dd class="col-sm-9">
             <dl class="row">
                 {{#each prendasSuperiores}}
-                    <dd class="col-sm-12">{{categoria}}
+                    <dd class="col-sm-12">
+                        {{nombre}}
+                        {{categoria}}
                         {{material}}
                         {{trama}}
                         <img src="/remera.png" class="img-thumbnail"/>
@@ -42,6 +45,7 @@
 
         <dt class="col-sm-3">Prenda Inferior</dt>
         <dd class="col-sm-9">
+            {{prendaInferior.nombre}}
             {{prendaInferior.categoria}}
             {{prendaInferior.material}}
             {{prendaInferior.trama}}
@@ -49,6 +53,7 @@
         </dd>
         <dt class="col-sm-3">Calzado</dt>
         <dd class="col-sm-9">
+            {{calzado.nombre}}
             {{calzado.categoria}}
             {{calzado.material}}
             {{calzado.trama}}
@@ -56,6 +61,7 @@
         </dd>
         <dt class="col-sm-3">Accesorio Cuello</dt>
         <dd class="col-sm-9">
+            {{accesorioCuello.nombre}}
             {{accesorioCuello.categoria}}
             {{accesorioCuello.material}}
             {{accesorioCuello.trama}}
@@ -63,6 +69,7 @@
         </dd>
         <dt class="col-sm-3">Accesorio Manos</dt>
         <dd class="col-sm-9">
+            {{accesorioManos.nombre}}
             {{accesorioManos.categoria}}
             {{accesorioManos.material}}
             {{accesorioManos.trama}}

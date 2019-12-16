@@ -3,6 +3,7 @@ package domain.prenda;
 import exceptions.MaterialInvalidoException;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -28,8 +29,12 @@ public class TipoDePrenda {
     @Column(name="nombre_tipo_prenda")
     private String nombreTipoPrenda;
 
-    @Transient
-    private List<Material> materialesValidos;
+    @ElementCollection(targetClass = Material.class, fetch = FetchType.EAGER)
+    @JoinTable(name = "materiales_tipos_prendas", joinColumns = @JoinColumn(name = "tipo_prenda_id"))
+    @Column(name = "material", nullable = false)
+    @Enumerated(EnumType.STRING)
+
+    private List<Material> materialesValidos = new ArrayList<>();
 
     public static final TipoDePrenda ZAPATO = new TipoDePrenda(Categoria.CALZADO, Arrays.asList(Material.CUERO), 35, -5,"Zapato");
     public static final TipoDePrenda REMERA = new TipoDePrenda(Categoria.PARTE_SUPERIOR_ABAJO, Arrays.asList(Material.SEDA, Material.ALGODON), 35, 20,"Remera");

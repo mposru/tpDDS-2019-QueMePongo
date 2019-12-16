@@ -17,7 +17,7 @@ public class RepositorioAtuendos {
     }
 
     public void actualizarAtuendo(Atuendo atuendo) {
-        EntityManagerFactory emf = Persistence.createEntityManagerFactory("dxffzlciern157vi");
+        EntityManagerFactory emf = Persistence.createEntityManagerFactory("quemepongo");
         EntityManager manager = emf.createEntityManager();
 
         try {

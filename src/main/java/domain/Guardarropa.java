@@ -1,6 +1,7 @@
 package domain;
 
-import domain.prenda.Categoria;
+import domain.estadoAtuendo.Nuevo;
+import domain.prenda.*;
 import domain.usuario.Evento;
 import domain.usuario.Sensibilidad;
 import exceptions.*;
@@ -11,6 +12,7 @@ import java.util.stream.Collectors;
 import domain.guardarropa.TipoDeGuardarropa;
 
 
+import static domain.prenda.Categoria.*;
 import static java.util.Objects.requireNonNull;
 @Entity
 @Table(name = "guardarropas")
@@ -47,6 +49,16 @@ public class Guardarropa {
     public Guardarropa(String nombreGuardarropa,  int limitePrendas) {
         this.nombreGuardarropa = requireNonNull(nombreGuardarropa, "Debe ingresar un nombre para el guardarropa");
         this.limitePrendas = limitePrendas;
+    }
+
+
+    @PostLoad
+    public void onPostLoad() {
+        // guardo las prendas donde corresponden
+        this.prendasInferiores = this.prendasSuperiores.stream().filter(prenda -> prenda.obtenerCategoria() == Categoria.PARTE_INFERIOR).collect(Collectors.toSet());
+        this.accesorios = this.prendasSuperiores.stream().filter(prenda -> prenda.esAccesorioGeneral() || prenda.obtenerCategoria() == ACCESORIO_MANOS || prenda.obtenerCategoria() == ACCESORIO_CUELLO).collect(Collectors.toSet());
+        this.calzados = this.prendasSuperiores.stream().filter(prenda -> prenda.obtenerCategoria() == Categoria.CALZADO).collect(Collectors.toSet());
+        this.prendasSuperiores = this.prendasSuperiores.stream().filter(prenda -> prenda.esParteSuperior()).collect(Collectors.toSet());
     }
 
     public void agregarUsuario(Usuario usuario) {
@@ -96,11 +108,11 @@ public class Guardarropa {
     }
 
     public Set<Prenda> obtenerPrendasInferioresDisponibles() {
-        return prendasInferiores.stream().filter(prenda -> prenda.getDisponibilidad() && prenda.obtenerCategoria() == Categoria.PARTE_INFERIOR).collect(Collectors.toSet());
+        return prendasInferiores.stream().filter(prenda -> prenda.getDisponibilidad()).collect(Collectors.toSet());
     }
 
     public Set<Prenda> obtenerCalzadosDisponibles() {
-        return calzados.stream().filter(prenda -> prenda.getDisponibilidad() && prenda.obtenerCategoria() == Categoria.CALZADO).collect(Collectors.toSet());
+        return calzados.stream().filter(prenda -> prenda.getDisponibilidad()).collect(Collectors.toSet());
     }
 
     public Set<Prenda> obtenerAccesoriosDisponibles() {
@@ -146,10 +158,10 @@ public class Guardarropa {
         //todo: mandar en el mensaje de error el clima. se concatena en la misma linea que se tira error
         String mensajeDeError = "";
         if (this.obtenerPrendasSuperioresDisponibles().size() <= 0) {
-            mensajeDeError = mensajeDeError.concat("Faltan guardarropas superiores. ");
+            mensajeDeError = mensajeDeError.concat("Faltan prendas superiores. ");
         }
         if (this.obtenerPrendasInferioresDisponibles().size() <= 0) {
-            mensajeDeError = mensajeDeError.concat("Faltan guardarropas inferiores. ");
+            mensajeDeError = mensajeDeError.concat("Faltan prendas inferiores. ");
         }
         if (this.obtenerCalzadosDisponibles().size() <= 0) {
             mensajeDeError = mensajeDeError.concat("Faltan zapatos. ");

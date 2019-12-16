@@ -24,7 +24,7 @@ public class RepositorioDeUsuarios {
     }
 
     private RepositorioDeUsuarios() {
-        EntityManagerFactory emf = Persistence.createEntityManagerFactory("dxffzlciern157vi");
+        EntityManagerFactory emf = Persistence.createEntityManagerFactory("quemepongo");
         EntityManager manager = emf.createEntityManager();
         Query query = manager.createQuery("select a from Usuario a"); //levantamos la lista de usuarios de la BBDD
         usuarios = query.getResultList();
@@ -44,6 +44,9 @@ public class RepositorioDeUsuarios {
     public void agregarUsuarioTotal(Usuario usuario) { usuarios.add(usuario); }
 
     public Usuario buscarUsuarioPorId(int id) {
+        if (usuarios.size() == 0) {
+            return null;
+        }
         List<Usuario> usuariosEncontrados = usuarios.stream().filter(usuario -> usuario.getId() == id).collect(Collectors.toList());
         if(usuariosEncontrados.isEmpty()) {
             return null;

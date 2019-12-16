@@ -35,8 +35,7 @@ public class FiltradorDePrendas {
                 .filter(conjuntoSuperior -> this.esConjuntoValido(conjuntoSuperior))
                 .collect(Collectors.toSet());
 
-        List<Atuendo> sugerencias =  Sets.cartesianProduct(prendasSuperioresArmadas, prendasInferiores,
-                calzados, accesorios, accesoriosCuello, accesoriosManos)
+        List<Atuendo> sugerencias = Sets.cartesianProduct(prendasSuperioresArmadas, prendasInferiores, calzados, accesorios, accesoriosCuello, accesoriosManos)
                 .stream()
                 .map(atuendo -> new Atuendo((Set<Prenda>) atuendo.get(0), (Prenda) atuendo.get(1), (Prenda) atuendo.get(2),
                         (Prenda) atuendo.get(3), (Prenda) atuendo.get(4), (Prenda) atuendo.get(5)))
@@ -48,7 +47,6 @@ public class FiltradorDePrendas {
         double nivelDeAbrigoCuello = nivelDeAbrigoEvento + sensibilidad.getFactorSensibilidad("cuello") * nivelDeAbrigoEvento;
         double nivelDeAbrigoManos = nivelDeAbrigoEvento + sensibilidad.getFactorSensibilidad("manos") * nivelDeAbrigoEvento;
 
-        //return sugerencias;
         return sugerencias.stream().filter(sugerencia ->
                 sugerencia.obtenerPrendaInferior().obtenerUnidadDeAbrigo() >= nivelDeAbrigoGeneral
                 && sugerencia.obtenerPrendasSuperiores()

@@ -298,7 +298,7 @@ public class GuardarropaTest {
         this.guardarropa.guardarPrenda(this.sinAccesorioCuello);
         this.guardarropa.guardarPrenda(this.sinAccesorioManos);
         exception.expect(FaltaPrendaException.class);
-        exception.expectMessage("Faltan guardarropas superiores. ");
+        exception.expectMessage("Faltan prendas superiores. ");
 
         this.guardarropa.generarSugerencia(this.eventoX, this.sensibilidad);
     }
@@ -362,7 +362,7 @@ public class GuardarropaTest {
         this.guardarropa.guardarPrenda(this.sinAccesorioCuello);
         this.guardarropa.guardarPrenda(this.sinAccesorioManos);
         exception.expect(FaltaPrendaException.class);
-        exception.expectMessage("Faltan guardarropas inferiores. ");
+        exception.expectMessage("Faltan prendas inferiores. ");
 
         this.guardarropa.generarSugerencia(this.eventoX, this.sensibilidad);
     }

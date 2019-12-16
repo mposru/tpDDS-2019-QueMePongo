@@ -6,7 +6,6 @@ import domain.Usuario;
 import spark.*;
 
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 public class ControllerSesion {
@@ -31,20 +30,11 @@ public class ControllerSesion {
             model.put("error", e.getMessage());
             return new ModelAndView(model, "login.hbs");
         }
-     //   System.out.println("Mensajes de error: "+mensaje);
-
-      //  System.out.println(req.queryParams("user"));
 
         req.session().attribute("user",usuarioLogin.getEmail());
         req.session().attribute("uid", usuarioLogin.getId());
         req.session().attribute("nombre",usuarioLogin.getNombreUsuario());
         req.session().attribute("apellido",usuarioLogin.getApellido());
-
-//        System.out.println(req.session().attribute("user").toString());
-//        System.out.println(req.session().attribute("uid").toString());
-//        System.out.println(req.session().attribute("nombre").toString());
-//        System.out.println(req.session().attribute("apellido").toString());
-
 
         res.redirect("/perfil");
         return null;
