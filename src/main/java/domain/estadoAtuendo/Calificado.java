@@ -40,5 +40,9 @@ public class Calificado extends EstadoAtuendo {
     public boolean estaAceptado() {
         return true;
     }
+    @Override
+    public boolean estaCalificado() {
+        return true;
+    }
 }
 

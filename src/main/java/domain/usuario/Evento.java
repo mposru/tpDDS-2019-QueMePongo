@@ -17,6 +17,7 @@ import javax.persistence.Id;
 import java.time.Duration;
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import static java.util.Objects.requireNonNull;
 
@@ -181,6 +182,10 @@ public class Evento {
 
     public List<Atuendo> obtenerSugerencias() {
         return this.sugerencias;
+    }
+
+    public Atuendo obtenerSugerenciaAceptada() {
+        return this.sugerencias.stream().filter( sugerencia -> sugerencia.obtenerEstadoAtuendo().estaAceptado()).collect(Collectors.toList()).get(0);
     }
 
 }

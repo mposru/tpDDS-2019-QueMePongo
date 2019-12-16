@@ -89,6 +89,14 @@ public class Atuendo {
         }
     }
 
+    public boolean getFueCalificado() {
+        return this.estaCalificado();
+    }
+
+    public int getPuntuacion() {
+        return this.estado.obtenerCalificacionActual();
+    }
+
     private void validarPrenda(Set<Prenda> prendasSuperiores, Prenda prendaInferior,
                                Prenda calzado, Prenda accesorio, Prenda accesorioCuello, Prenda accesorioManos) {
         String mensajeDeError = "";
@@ -246,7 +254,7 @@ public class Atuendo {
     }
 
     public boolean estaCalificado() {
-        return this.obtenerCalificacionActual()>0;
+        return this.estado.estaCalificado();
     }
 
     public boolean esAptoParaLluvia() {

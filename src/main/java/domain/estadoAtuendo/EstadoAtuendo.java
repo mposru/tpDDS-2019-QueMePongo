@@ -16,4 +16,7 @@ public abstract class EstadoAtuendo {
     public boolean estaAceptado() {
         return false;
     }
+    public boolean estaCalificado() {
+        return false;
+    }
 }

@@ -96,6 +96,12 @@ public class Usuario {
         return contraseniaHash;
     }
 
+    public List<Atuendo> obtenerSugerenciasCalificadas() {
+        return calendario.obtenerEventos().stream().filter(e -> e.tieneAtuendoAceptado()).map(
+                e -> e.obtenerSugerenciaAceptada()
+        ).collect(Collectors.toList());
+    }
+
     public void setContrasenia(String contrasenia) {
         this.contraseniaHash = contrasenia;
     }

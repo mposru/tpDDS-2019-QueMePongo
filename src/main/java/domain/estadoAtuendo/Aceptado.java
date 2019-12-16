@@ -24,7 +24,7 @@ public class Aceptado extends EstadoAtuendo {
         this.atuendo.cambiarEstado(new Calificado(this.atuendo,nuevaCalificacion));
     }
     public int obtenerCalificacionAnterior() {return 0;}
-    public int obtenerCalificacionActual() {return 0;}
+    public int obtenerCalificacionActual() {return -1;}
 
     public void validarRangoCalificacion(int calificacion) {
         if (calificacion < 1 || calificacion > 5) {

@@ -33,6 +33,7 @@ public class Main {
         ControllerAltaDePrenda controllerAltaDePrenda = new ControllerAltaDePrenda();
         ControllerCalificarAceptadas controllerCalificarAceptadas = new ControllerCalificarAceptadas();
         ControllerPerfil controllerPerfil = new ControllerPerfil();
+        ControllerSugerencias controllerSugerencias = new ControllerSugerencias();
 
         TemplateEngine engine = new HandlebarsTemplateEngine();
         Spark.get("/guardarropas",controllerGuardarropas::mostrarGuardarropas, engine);
@@ -52,6 +53,9 @@ public class Main {
         Spark.post("/eventos/new", controllerEventos::crearEvento, engine);
         Spark.get("/eventos",controllerEventos ::mostrarEventos, engine);
         Spark.get("/eventos/:id/sugerencias/:indice",controllerEventos ::mostrarSugerencia, engine);
+        Spark.get("/sugerencias",controllerSugerencias::mostrar, engine);
+        Spark.get("/sugerencias/:id/calificacion",controllerSugerencias::mostrarCalificacion, engine);
+        Spark.post("/sugerencias/:id/calificacion",controllerSugerencias::calificar, engine);
         Spark.post("/eventos/:id/sugerencias/:idSugerencia/estado",controllerEventos ::modificarEstadoSugerencia, engine);
 
         DebugScreen.enableDebugScreen();
